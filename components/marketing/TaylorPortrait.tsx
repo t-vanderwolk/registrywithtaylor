@@ -1,18 +1,55 @@
 import Image from 'next/image';
 
 /**
- * The framed portrait of Taylor, used on the About and Contact pages so both
- * stay identical. A tidy, capped-width editorial portrait: white mat frame, a
- * soft offset blush accent, a fixed 4:5 crop, gentle hover, and a centered
- * credential chip.
+ * The portrait of Taylor.
+ *
+ * - `framed` (default): a capped-width editorial portrait with a white mat
+ *   frame, soft offset blush accent, fixed 4:5 crop, and a centered credential
+ *   chip. Used on the Contact page.
+ * - `cutout`: the background-removed cutout floating on a soft blush halo with a
+ *   silhouette drop-shadow, so she reads as an intentional, page-flowing figure.
+ *   Used on the About page.
  */
 export default function TaylorPortrait({
   priority = false,
   className = '',
+  variant = 'framed',
 }: {
   priority?: boolean;
   className?: string;
+  variant?: 'framed' | 'cutout';
 }) {
+  if (variant === 'cutout') {
+    return (
+      <figure className={`group relative mx-auto w-full max-w-[25rem] ${className}`}>
+        {/* Soft blush halo behind the cutout */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 -top-3 bottom-10 -z-10 rounded-[2.75rem] bg-[radial-gradient(115%_92%_at_50%_16%,rgba(216,137,160,0.26),rgba(198,167,94,0.10)_52%,transparent_74%)]"
+        />
+        {/* Grounding shadow so she doesn't float */}
+        <div
+          aria-hidden
+          className="absolute inset-x-12 bottom-5 -z-10 h-5 rounded-[50%] bg-[rgba(72,49,56,0.18)] blur-lg"
+        />
+        <Image
+          src="/assets/taylor-cutout.webp"
+          alt="Taylor Vanderwolk, baby registry consultant and Gugu Guru certified baby gear specialist"
+          width={800}
+          height={1074}
+          sizes="(max-width: 768px) 80vw, 400px"
+          className="w-full origin-bottom drop-shadow-[0_20px_28px_rgba(72,49,56,0.20)] transition-transform duration-[600ms] ease-out group-hover:-translate-y-1.5"
+          priority={priority}
+        />
+        {/* Credential chip — overlay caption pinned to the lower edge */}
+        <figcaption className="absolute bottom-2 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-[rgba(216,137,160,0.42)] bg-white/95 px-3.5 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[var(--color-accent-dark)] shadow-[0_10px_24px_rgba(72,49,56,0.18)] backdrop-blur">
+          <span aria-hidden>✦</span>
+          Gugu Guru Certified Specialist
+        </figcaption>
+      </figure>
+    );
+  }
+
   return (
     <div className={`group relative mx-auto w-full max-w-[19rem] ${className}`}>
       {/* Offset blush accent panel behind the portrait */}

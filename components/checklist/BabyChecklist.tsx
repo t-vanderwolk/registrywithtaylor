@@ -667,7 +667,9 @@ function Recommendation({
   const otherLabel = rec.secondaryRetailer?.trim() || 'Shop';
   return (
     <div className="tmbc-rec">
-      <span className="tmbc-rec__pill">{rec.badge?.trim() || 'Taylor’s Pick'}</span>
+      {rec.badge?.trim() ? (
+        <span className="tmbc-rec__pill">{rec.badge.trim()}</span>
+      ) : null}
       <div className="tmbc-rec__media">
         {rec.imageUrl ? (
           <Image

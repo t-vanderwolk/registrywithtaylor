@@ -158,8 +158,8 @@ export default function AboutPage() {
                 </div>
               </div>
               {/* Image column */}
-              <div className="md:sticky md:top-28">
-                <TaylorPortrait priority className="md:mx-0" />
+              <div className="flex justify-center md:sticky md:top-24 md:justify-end">
+                <TaylorPortrait priority variant="cutout" className="md:mx-0" />
               </div>
             </div>
           </RevealOnScroll>
