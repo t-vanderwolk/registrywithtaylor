@@ -484,6 +484,46 @@ export const checklistItems: ChecklistItem[] = [
     taylorsTake: 'Genuinely optional. Your wrist is a perfectly good thermometer — skip it if you want to skip something.',
     twins: { title: 'Optional bath thermometer' },
   },
+  {
+    id: 'warm-water-dispenser',
+    category: 'bath',
+    title: 'Warm-water dispenser',
+    note: 'A rinse cup that keeps the water warm so baby stays calm.',
+    badge: 'NICE TO HAVE',
+    taylorsTake:
+      'A contoured rinse cup keeps water off the face and out of the eyes — often the difference between a screaming rinse and a calm one. A plain cup does the job too.',
+    twins: { title: 'Warm-water dispenser' },
+  },
+  {
+    id: 'spout-cover',
+    category: 'bath',
+    title: 'Spout cover',
+    note: 'Cushions the hard tub faucet once baby moves to the big tub.',
+    badge: 'WAIT UNTIL LATER',
+    taylorsTake:
+      'Not needed while baby is in the infant tub — but once they graduate to the big tub and start scooting, a padded spout cover saves a few bumped heads.',
+    twins: { title: 'Spout cover', note: 'One covers the shared tub faucet.' },
+  },
+  {
+    id: 'bath-toys',
+    category: 'bath',
+    title: 'Bath toys',
+    note: 'A few simple toys make the tub a happy place — later on.',
+    badge: 'WAIT UNTIL LATER',
+    taylorsTake:
+      'Newborns do not play in the bath, so there is no rush. Once baby can sit, a small set of easy-to-clean toys earns its keep — bonus points if they do not squirt and trap water.',
+    twins: { title: 'Bath toys to share' },
+  },
+  {
+    id: 'bath-toy-bin',
+    category: 'bath',
+    title: 'Bath toy bin',
+    note: 'A draining bin or net keeps toys tidy and mildew-free.',
+    badge: 'NICE TO HAVE',
+    taylorsTake:
+      'The unsung hero of bath toys: a bin or net that drains and lets air in is what keeps them from turning slimy. Choose draining over cute.',
+    twins: { title: 'Bath toy bin' },
+  },
 
   // ── GETTING AROUND ──────────────────────────────────────────────────────────
   {
