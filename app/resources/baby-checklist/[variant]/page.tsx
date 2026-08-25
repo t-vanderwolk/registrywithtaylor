@@ -9,6 +9,7 @@ import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import BabyChecklist from '@/components/checklist/BabyChecklist';
 import { getChecklistProducts } from '@/lib/checklist/getChecklistProducts';
+import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
@@ -55,8 +56,9 @@ export default async function BabyChecklistVariantPage({ params }: VariantParams
   if (!isVariantSlug(variant)) notFound();
   const meta = VARIANTS[variant];
 
-  const [products, relatedReading, retailerLogos] = await Promise.all([
+  const [products, structure, relatedReading, retailerLogos] = await Promise.all([
     getChecklistProducts(),
+    getChecklistStructure(),
     getChecklistRelatedReading(),
     getPartnerLogos(),
   ]);
@@ -125,6 +127,8 @@ export default async function BabyChecklistVariantPage({ params }: VariantParams
         <BabyChecklist
           initialType={meta.type}
           products={products}
+          categories={structure.categories}
+          items={structure.items}
           relatedReading={relatedReading}
           retailerLogos={retailerLogos}
           goodBuyGearOffers={goodBuyGearOffers}

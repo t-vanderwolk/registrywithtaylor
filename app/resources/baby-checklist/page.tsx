@@ -5,6 +5,7 @@ import { H1, Body } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata } from '@/lib/marketing/metadata';
 import BabyChecklist from '@/components/checklist/BabyChecklist';
 import { getChecklistProducts } from '@/lib/checklist/getChecklistProducts';
+import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
@@ -37,8 +38,9 @@ export const metadata = buildMarketingMetadata({
  * the near-identical variants never create duplicate-indexing problems.
  */
 export default async function BabyChecklistPage() {
-  const [products, relatedReading, retailerLogos] = await Promise.all([
+  const [products, structure, relatedReading, retailerLogos] = await Promise.all([
     getChecklistProducts(),
+    getChecklistStructure(),
     getChecklistRelatedReading(),
     getPartnerLogos(),
   ]);
@@ -70,6 +72,8 @@ export default async function BabyChecklistPage() {
       <MarketingSection tone="white" spacing="spacious" container="wide">
         <BabyChecklist
           products={products}
+          categories={structure.categories}
+          items={structure.items}
           relatedReading={relatedReading}
           retailerLogos={retailerLogos}
           goodBuyGearOffers={goodBuyGearOffers}

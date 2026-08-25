@@ -1002,3 +1002,36 @@ model GbgBadgeOverride {
   updatedAt DateTime @updatedAt
   updatedBy String?
 }
+
+// ─── Checklist structure — admin-created categories + line items ──────────────
+// Additive to the static lib/checklist/data.ts baseline: the public tool renders
+// the static categories/items PLUS these rows (merged + ordered). Lets Taylor add
+// brand-new categories and line items from the admin, not just assign products.
+model ChecklistCategory {
+  id        String   @id // slug, e.g. "keepsakes"
+  title     String
+  sortOrder Int      @default(100) // static categories occupy 0..70
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model ChecklistItem {
+  id          String   @id // slug, e.g. "keepsake-frame"
+  // A static CategoryId ('sleep'…'support') or a ChecklistCategory.id. Not a FK
+  // because it may reference a static (non-row) category.
+  categoryId  String
+  title       String
+  note        String?
+  badge       String?
+  taylorsTake String?
+  // Empty = all versions; otherwise a subset of girl/boy/neutral/twins.
+  includeVersions String[] @default([])
+  sortOrder   Int      @default(100)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([sortOrder])
+}

@@ -11,6 +11,7 @@ import {
   groupedItemsForType,
   itemsForType,
   type ChecklistType,
+  type ChecklistItem as ChecklistItemDef,
   type ResolvedItem,
   type RelatedReadingCard,
 } from '@/lib/checklist/data';
@@ -136,8 +137,14 @@ export default function BabyChecklist({
   retailerLogos = {},
   goodBuyGearOffers = {},
   linkSelector = false,
+  categories,
+  items,
 }: {
   initialType?: ChecklistType;
+  /** Merged categories (static + admin-created). Omitted = static only. */
+  categories?: { id: string; title: string }[];
+  /** Merged raw item defs (static + admin-created). Omitted = static only. */
+  items?: ChecklistItemDef[];
   /**
    * When true, the version selector renders as real links to each version's
    * path-based URL (/resources/baby-checklist/<girl|boy|twins>, neutral → base)
@@ -241,8 +248,8 @@ export default function BabyChecklist({
     };
   }, []);
 
-  const groups = useMemo(() => groupedItemsForType(type), [type]);
-  const allItems = useMemo(() => itemsForType(type), [type]);
+  const groups = useMemo(() => groupedItemsForType(type, items, categories), [type, items, categories]);
+  const allItems = useMemo(() => itemsForType(type, items), [type, items]);
   const total = allItems.length;
   const done = allItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
   const pct = total ? Math.round((done / total) * 100) : 0;

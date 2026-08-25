@@ -125,7 +125,8 @@ export type StyleCollection = { girl: string[]; boy: string[]; neutral: string[]
 
 export type ChecklistItem = {
   id: string;
-  category: CategoryId;
+  /** A static CategoryId or an admin-created category's id. */
+  category: string;
   title: string;
   note?: string;
   /** Understated editorial pill. Freeform so twins quantity labels fit too. */
@@ -369,6 +370,19 @@ export const checklistItems: ChecklistItem[] = [
     },
   },
   {
+    id: 'warm-water-dispenser',
+    category: 'feeding',
+    title: 'Warm-water dispenser',
+    note: 'Instant warm water for mixing bottles at 3am.',
+    badge: 'NICE TO HAVE',
+    taylorsTake:
+      'If you are formula-feeding or topping up, a dispenser that holds water at the right temperature spares you the middle-of-the-night wait for a bottle to warm. Not essential — a kettle and patience work — but a real comfort in the newborn fog.',
+    twins: {
+      title: 'Warm-water dispenser',
+      note: 'Two night-feeds make instant warm water even more worth it.',
+    },
+  },
+  {
     id: 'burp-cloths',
     category: 'feeding',
     title: 'Burp cloths',
@@ -483,16 +497,6 @@ export const checklistItems: ChecklistItem[] = [
     badge: 'NICE TO HAVE',
     taylorsTake: 'Genuinely optional. Your wrist is a perfectly good thermometer — skip it if you want to skip something.',
     twins: { title: 'Optional bath thermometer' },
-  },
-  {
-    id: 'warm-water-dispenser',
-    category: 'bath',
-    title: 'Warm-water dispenser',
-    note: 'A rinse cup that keeps the water warm so baby stays calm.',
-    badge: 'NICE TO HAVE',
-    taylorsTake:
-      'A contoured rinse cup keeps water off the face and out of the eyes — often the difference between a screaming rinse and a calm one. A plain cup does the job too.',
-    twins: { title: 'Warm-water dispenser' },
   },
   {
     id: 'spout-cover',
@@ -896,7 +900,8 @@ export const checklistItems: ChecklistItem[] = [
 
 export type ResolvedItem = {
   id: string;
-  category: CategoryId;
+  /** Category id — a static CategoryId or an admin-created category's id. */
+  category: string;
   title: string;
   note?: string;
   badge?: string;
@@ -929,17 +934,29 @@ export function resolveItem(item: ChecklistItem, type: ChecklistType): ResolvedI
   };
 }
 
-/** All items that belong to a given version, in file order. */
-export function itemsForType(type: ChecklistType): ChecklistItem[] {
-  return checklistItems.filter((i) => !i.include || i.include.includes(type));
+/**
+ * All items that belong to a given version, in order. `source` defaults to the
+ * static items; the public tool passes the merged (static + admin-created) list.
+ */
+export function itemsForType(
+  type: ChecklistType,
+  source: ChecklistItem[] = checklistItems,
+): ChecklistItem[] {
+  return source.filter((i) => !i.include || i.include.includes(type));
 }
 
-/** Resolved items grouped by category, in category order, for a version. */
+/**
+ * Resolved items grouped by category, in category order, for a version. `source`
+ * and `cats` default to the static content; the public tool passes the merged
+ * (static + admin-created) items and categories.
+ */
 export function groupedItemsForType(
   type: ChecklistType,
-): { category: { id: CategoryId; title: string }; items: ResolvedItem[] }[] {
-  const items = itemsForType(type).map((i) => resolveItem(i, type));
-  return categories
+  source: ChecklistItem[] = checklistItems,
+  cats: { id: string; title: string }[] = categories,
+): { category: { id: string; title: string }; items: ResolvedItem[] }[] {
+  const items = itemsForType(type, source).map((i) => resolveItem(i, type));
+  return cats
     .map((category) => ({
       category,
       items: items.filter((i) => i.category === category.id),
