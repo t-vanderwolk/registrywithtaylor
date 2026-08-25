@@ -657,10 +657,6 @@ function Recommendation({
   retailerLogos: Record<string, string>;
   goodBuyGearOffer?: GoodBuyGearOffer;
 }) {
-  // Mobile-only expand: image + brand/product + price stay visible; the editorial
-  // copy and shop buttons collapse behind a toggle. On desktop everything shows
-  // (the toggle is hidden and the detail is always displayed via CSS).
-  const [open, setOpen] = useState(false);
   const babylistUrl = hasLiveLink(rec) ? rec.affiliateUrl : undefined;
   // Only show the Amazon CTA when a real Amazon link is entered for this pick —
   // no auto-generated Amazon search fallback.
@@ -671,6 +667,7 @@ function Recommendation({
   const otherLabel = rec.secondaryRetailer?.trim() || 'Shop';
   return (
     <div className="tmbc-rec">
+      <span className="tmbc-rec__pill">{rec.badge?.trim() || 'Taylor’s Pick'}</span>
       <div className="tmbc-rec__media">
         {rec.imageUrl ? (
           <Image
@@ -690,7 +687,6 @@ function Recommendation({
         )}
       </div>
       <div className="tmbc-rec__body">
-        <p className="tmbc-rec__eyebrow">{rec.badge?.trim() || 'Taylor’s Pick'}</p>
         <p className="tmbc-rec__brand">{rec.brand}</p>
         <p className="tmbc-rec__product">{rec.product}</p>
         {typeof rec.price === 'number' ? (
@@ -706,24 +702,6 @@ function Recommendation({
             <GoodBuyGearBadge offer={goodBuyGearOffer} />
           </div>
         ) : null}
-        <button
-          type="button"
-          className="tmbc-rec__toggle"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? 'Hide Taylor’s take' : 'See Taylor’s take'}
-          <span className="tmbc-rec__toggle-icon" aria-hidden="true">▾</span>
-        </button>
-        <div className={`tmbc-rec__details${open ? ' tmbc-rec__details--open' : ''}`}>
-        <p className="tmbc-rec__review">{rec.review}</p>
-        <p className="tmbc-rec__meta">
-          <strong>Best for:</strong> {rec.bestFor}
-        </p>
-        <p className="tmbc-rec__meta">
-          <strong>Standout:</strong> {rec.standout}
-        </p>
-        </div>
         <div className="tmbc-rec__actions">
           {babylistUrl ? (
             <a

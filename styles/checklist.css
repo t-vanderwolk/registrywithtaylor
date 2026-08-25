@@ -437,6 +437,7 @@
   }
 }
 .tmbc-rec {
+  position: relative;
   border: 1px solid var(--ck-border);
   border-radius: 0.9rem;
   background: #fff;
@@ -446,6 +447,30 @@
 /* In the two-up grid the grid gap handles spacing (no stacked top margin). */
 .tmbc-recs .tmbc-rec {
   margin-top: 0;
+}
+/* Corner badge pill — mirrors the Compare pill on the stroller finder cards
+   (white pill, rose hairline border, accent text), pinned top-right. */
+.tmbc-rec__pill {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(215, 161, 175, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-accent-dark, var(--ck-blush-dusty));
+  box-shadow: 0 4px 12px rgba(72, 49, 56, 0.1);
+  backdrop-filter: blur(2px);
 }
 .tmbc-rec__media {
   position: relative;
