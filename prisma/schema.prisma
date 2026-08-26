@@ -25,6 +25,7 @@ model User {
   authoredPosts  PostAuthor[]
   moduleNotes    ModuleNote[]
   registries     Registry[]
+  matchmakerProfiles MatchmakerProfile[]
 }
 
 model Post {
@@ -118,6 +119,7 @@ model Media {
   createdAt       DateTime @default(now())
   featuredInPosts Post[]   @relation("FeaturedPostMedia")
   posts           Post[]   @relation("PostMedia")
+  matchmakerProfilePhotos MatchmakerProfile[] @relation("MatchmakerProfilePhoto")
 }
 
 model PrintableResource {
@@ -692,6 +694,7 @@ model Registry {
 
   @@index([userId])
   @@index([platform])
+  matchmakerProfile MatchmakerProfile?
 }
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
@@ -943,6 +946,7 @@ model GiftCertificate {
   @@index([purchaserEmail])
   @@index([recipientEmail])
   @@index([createdAt])
+  matchmakerGiftEvent MatchmakerGiftEvent?
 }
 
 enum GiftStatus {
@@ -1034,4 +1038,343 @@ model ChecklistItem {
 
   @@index([categoryId])
   @@index([sortOrder])
+}
+
+// ─── #BabylistItForward Matchmaker ────────────────────────────────────────────
+// Contract: docs/BABYLIST-IT-FORWARD-MATCHMAKER.md (v1.3). Additive only.
+//
+// FK POLICY
+//  • No Cascade anywhere inside Matchmaker.
+//  • Hard FKs where integrity is load-bearing (profile→registry Restrict,
+//    event→profile Restrict, report/action→profile Restrict).
+//  • Actor references (reviewedById, giverUserId, nominatedById, usedByUserId,
+//    resolvedById, actorUserId, photoApprovedById) are intentionally SOFT
+//    indexed columns — ledger/audit rows must survive account deletion.
+//  • MatchmakerModerationAction.giftEventId is likewise soft, so audit history
+//    survives even if a gift event were ever removed (it should never be).
+
+enum MatchmakerProfileStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  NEEDS_INFO
+  APPROVED
+  LIVE
+  PAUSED
+  REJECTED
+  REMOVED
+  ARCHIVED
+}
+
+enum MatchmakerEntryMethod {
+  TMBC_NOMINATED
+  GIFTED_FIRST
+  RECEIVED_THROUGH_MATCHMAKER
+  ADMIN_OVERRIDE
+}
+
+enum MatchmakerGiftType {
+  BABYLIST_PURCHASE
+  TMBC_CONSULT
+  EXTERNAL_SERVICE_GIFT
+  /// Internal/admin escape hatch for a manually-arranged qualifying gift that
+  /// does not fit the three public lanes. Never offered in the public UI.
+  OTHER_APPROVED
+}
+
+enum MatchmakerGiftStatus {
+  STARTED
+  REPORTED_SENT
+  AWAITING_RECIPIENT_CONFIRMATION
+  CONFIRMED
+  DISPUTED
+  CANCELED
+  /// A previously confirmed gift later refunded, charged back, invalidated, or
+  /// administratively reversed. Stops counting as eligibility evidence; never
+  /// triggers destructive account/profile changes (admin review instead).
+  REVERSED
+}
+
+/// Which path produced a CONFIRMED gift. Audit + analytics only — eligibility
+/// remains exactly `status === CONFIRMED`, regardless of source.
+enum MatchmakerConfirmationSource {
+  RECIPIENT
+  ADMIN
+  FIRST_PARTY_WEBHOOK
+}
+
+/// The thank-you entitlement attached to a CONFIRMED TMBC consultation gift.
+/// Not a giving lane and not a qualifying gift — the original TMBC_CONSULT gift
+/// is what satisfies eligibility (contract decision 28).
+enum MatchmakerGiverBenefitType {
+  COMPLIMENTARY_TMBC_CONSULT
+}
+
+enum MatchmakerGiverBenefitStatus {
+  AVAILABLE
+  REDEEMED
+  REVOKED
+}
+
+/// How the giver chooses to spend their complimentary consultation.
+enum MatchmakerGiverConsultUse {
+  OWN_REGISTRY
+  GIFTER_CONCIERGE
+}
+
+enum MatchmakerProofStatus {
+  NOT_PROVIDED
+  SUBMITTED
+  ADMIN_REVIEWED
+}
+
+enum MatchmakerInviteReason {
+  GIFTED_FIRST
+  RECEIVED_GIFT
+  TMBC_NOMINATION
+  ADMIN_INVITE
+}
+
+enum MatchmakerReportReason {
+  REGISTRY_INCORRECT
+  MISLEADING
+  PRIVACY_CONCERN
+  INAPPROPRIATE
+  OTHER
+}
+
+enum MatchmakerReportStatus {
+  OPEN
+  REVIEWED
+  DISMISSED
+  ACTIONED
+}
+
+model MatchmakerProfile {
+  id                 String                  @id @default(cuid())
+  userId             String?
+  user               User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  registryId         String                  @unique
+  registry           Registry                @relation(fields: [registryId], references: [id], onDelete: Restrict)
+  /// Server-derived normalized form of the reviewed Babylist URL. Prevents two
+  /// profiles enrolling the same registry via duplicate Registry rows, which
+  /// `registryId @unique` alone cannot catch. Never user-supplied.
+  registryCanonicalKey String                @unique
+  /// Server-generated; never user-supplied.
+  publicSlug         String                  @unique
+  status             MatchmakerProfileStatus @default(DRAFT)
+  entryMethod        MatchmakerEntryMethod
+
+  /// The invite this profile was admitted through. Makes the admission chain
+  /// CONFIRMED GIFT → INVITE → PROFILE deterministically traceable, so a later
+  /// reversal can identify the exact profile to flag. Null for TMBC_NOMINATED
+  /// and ADMIN_OVERRIDE admissions.
+  admissionInviteId  String?                 @unique
+  admissionInvite    MatchmakerInvite?       @relation("MatchmakerAdmission", fields: [admissionInviteId], references: [id], onDelete: SetNull)
+
+  // ── Profile content ──
+  displayFirstName   String
+  displayLastInitial String?
+  city               String?
+  state              String?
+  dueMonth           Int?
+  dueYear            Int?
+  familyStage        String?
+  /// Mandatory public content for any LIVE profile — publication of the
+  /// approved story is inherent to listing (contract Part B #20). No
+  /// `showStory` flag exists by design.
+  shortStory         String
+  priorityNeeds      String[]                @default([])
+
+  // ── Per-field publication consent (server allowlist reads these) ──
+  showLastInitial    Boolean                 @default(false)
+  showLocation       Boolean                 @default(false)
+  showDueMonth       Boolean                 @default(false)
+  showFamilyStage    Boolean                 @default(false)
+  showPhoto          Boolean                 @default(false)
+
+  // ── Photo: an approved Media asset, not a bare URL ──
+  photoMediaId       String?
+  photoMedia         Media?                  @relation("MatchmakerProfilePhoto", fields: [photoMediaId], references: [id], onDelete: SetNull)
+  /// Media carries no approval state of its own, so photo approval is recorded
+  /// here. A photo is publishable only when showPhoto AND photoApprovedAt.
+  photoApprovedAt    DateTime?
+  photoApprovedById  String?
+
+  // ── Consent evidence (durable; answers "what did they agree to, when") ──
+  termsAcceptedAt        DateTime?
+  termsVersion           String?
+  publicProfileConsentAt DateTime?
+  /// Structured snapshot of the exact checkbox/version state at submission.
+  consentSnapshot        Json?
+
+  // ── Review + lifecycle ──
+  registryReviewed      Boolean   @default(false)
+  ownershipReviewed     Boolean   @default(false)
+  reviewedAt            DateTime?
+  reviewedById          String?
+  moderationNotes       String?
+  /// Set by non-destructive workflows needing Taylor's eyes (e.g. a gift
+  /// reversal after the originating invite was already redeemed).
+  needsAdminReview      Boolean   @default(false)
+  publishedAt           DateTime?
+  pausedAt              DateTime?
+  archivedAt            DateTime?
+  lastConfirmedActiveAt DateTime?
+  nextReviewAt          DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  giftEvents        MatchmakerGiftEvent[]
+  reports           MatchmakerReport[]
+  moderationActions MatchmakerModerationAction[]
+
+  @@index([status])
+  @@index([userId])
+  @@index([nextReviewAt])
+  @@index([needsAdminReview])
+}
+
+model MatchmakerGiftEvent {
+  id                   String                        @id @default(cuid())
+  recipientProfileId   String
+  recipientProfile     MatchmakerProfile             @relation(fields: [recipientProfileId], references: [id], onDelete: Restrict)
+  giverUserId          String?
+  giverEmail           String?
+  giverName            String?
+  anonymousToPublic    Boolean                       @default(false)
+  anonymousToRecipient Boolean                       @default(false)
+  type                 MatchmakerGiftType
+  status               MatchmakerGiftStatus          @default(STARTED)
+  externalItemLabel    String?
+  /// Informational only. No minimum-amount rule exists anywhere: a genuine
+  /// confirmed act of giving qualifies regardless of value (contract 6d).
+  amountCents          Int?
+  noteToFamily         String?
+  giftCertificateId    String?                       @unique
+  giftCertificate      GiftCertificate?              @relation(fields: [giftCertificateId], references: [id], onDelete: SetNull)
+
+  /// Stable config keys only (e.g. 'tot-squad' / 'motherfund') — validated
+  /// against lib/matchmaker/config.ts, never display labels, never free-form.
+  externalProvider     String?
+  externalGiftKind     String?
+  externalOrderRef     String?
+  proofPurchaseDate    DateTime?
+  /// Private explanation from the giver. Moderation material — never public,
+  /// never a file upload (contract Part G).
+  proofNote            String?
+  proofStatus          MatchmakerProofStatus         @default(NOT_PROVIDED)
+
+  reportedAt           DateTime?
+  recipientConfirmedAt DateTime?
+  adminConfirmedAt     DateTime?
+  /// Canonical stamp set whenever status reaches CONFIRMED, from any source.
+  confirmedAt          DateTime?
+  confirmationSource   MatchmakerConfirmationSource?
+  reversedAt           DateTime?
+  reversalReason       String?
+  createdAt            DateTime                      @default(now())
+  updatedAt            DateTime                      @updatedAt
+  invite               MatchmakerInvite?
+  giverBenefit         MatchmakerGiverBenefit?
+
+  @@index([recipientProfileId, status])
+  @@index([giverUserId, status])
+  @@index([giverEmail])
+  @@index([status])
+  @@index([externalProvider])
+  @@index([confirmationSource])
+}
+
+model MatchmakerInvite {
+  id                String                 @id @default(cuid())
+  /// Hash only — the raw token is never stored.
+  tokenHash         String                 @unique
+  email             String
+  reason            MatchmakerInviteReason
+  originGiftEventId String?                @unique
+  originGiftEvent   MatchmakerGiftEvent?   @relation(fields: [originGiftEventId], references: [id], onDelete: SetNull)
+  nominatedById     String?
+  intendedAction    String                 @default("apply")
+  expiresAt         DateTime
+  usedAt            DateTime?
+  usedByUserId      String?
+  /// Set when the originating gift is REVERSED before the invite is used.
+  revokedAt         DateTime?
+  createdAt         DateTime               @default(now())
+  /// The profile this invite admitted, if it was redeemed into one.
+  admittedProfile   MatchmakerProfile?     @relation("MatchmakerAdmission")
+
+  @@index([email])
+  @@index([expiresAt])
+}
+
+model MatchmakerReport {
+  id             String                 @id @default(cuid())
+  profileId      String
+  profile        MatchmakerProfile      @relation(fields: [profileId], references: [id], onDelete: Restrict)
+  reason         MatchmakerReportReason
+  details        String?
+  reporterEmail  String?
+  status         MatchmakerReportStatus @default(OPEN)
+  resolutionNote String?
+  resolvedById   String?
+  resolvedAt     DateTime?
+  createdAt      DateTime               @default(now())
+
+  @@index([profileId, status])
+  @@index([status])
+}
+
+model MatchmakerModerationAction {
+  id          String            @id @default(cuid())
+  profileId   String
+  profile     MatchmakerProfile @relation(fields: [profileId], references: [id], onDelete: Restrict)
+  /// Soft reference. Null = profile-level moderation; set = gift-event
+  /// moderation (Confirm / Request info / Dispute / Cancel / reversal review)
+  /// from the /admin/matchmaker/gifts queue. One audit system, two targets.
+  giftEventId String?
+  actorUserId String
+  action      String
+  /// Snapshot of the §33 review checklist at decision time.
+  checklist   Json?
+  note        String?
+  createdAt   DateTime          @default(now())
+
+  @@index([profileId, createdAt])
+  @@index([giftEventId])
+  @@index([actorUserId])
+}
+
+/// One complimentary TMBC consultation earned by a giver whose TMBC_CONSULT gift
+/// reached CONFIRMED via the trusted Stripe webhook. Single-use and auditable.
+///
+/// INVARIANTS (service-enforced, contract decisions 28–30):
+///  • Created ONLY from a CONFIRMED gift whose type is TMBC_CONSULT and whose
+///    confirmationSource is FIRST_PARTY_WEBHOOK.
+///  • `giftEventId @unique` makes creation idempotent — a redelivered Stripe
+///    webhook can never mint a second free consultation.
+///  • Not transferable in V1.
+///  • On reversal of the originating gift: AVAILABLE → REVOKED; an already
+///    REDEEMED benefit is never destructively undone — it is flagged for admin
+///    review alongside the existing reversal workflow.
+model MatchmakerGiverBenefit {
+  id          String                       @id @default(cuid())
+  giftEventId String                       @unique
+  giftEvent   MatchmakerGiftEvent          @relation(fields: [giftEventId], references: [id], onDelete: Restrict)
+  giverUserId String?
+  giverEmail  String
+  type        MatchmakerGiverBenefitType   @default(COMPLIMENTARY_TMBC_CONSULT)
+  status      MatchmakerGiverBenefitStatus @default(AVAILABLE)
+  selectedUse MatchmakerGiverConsultUse?
+  issuedAt    DateTime                     @default(now())
+  redeemedAt  DateTime?
+  bookingRef  String?
+  revokedAt   DateTime?
+  createdAt   DateTime                     @default(now())
+  updatedAt   DateTime                     @updatedAt
+
+  @@index([giverEmail, status])
+  @@index([giverUserId, status])
+  @@index([status])
 }
