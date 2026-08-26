@@ -7,7 +7,7 @@
 **v1.2 (2026-08-25, approved):** four hardening rules — stable provider keys, workflow-describing partner config, private structured proof (no media reuse), `REVERSED` gift status with non-destructive reversal handling — plus the equal-value principle.
 **v1.3 (2026-08-25):** schema-review corrections — three new frozen policies (story publication, account deletion, Stripe metadata naming) added below as decisions 20–22.
 **v1.4 (2026-08-25):** schema applied; five service-layer behaviors frozen as decisions 23–27.
-**v1.5 (2026-08-25) — THREE LANES. SCHEMA REVISION 3 APPLIED.** TMBC Service Credit is **removed from V1 entirely**; the giving menu is three lanes. The TMBC consultation lane now carries the **Giver Consultation Benefit** (decisions 28–30). Old decision 27 (SERVICE_CREDIT denominations) is **withdrawn**. `GiftKind` was dropped rather than reduced to a single value, so **no existing table is altered by this migration at all**. Schema re-validated; no migration has been generated yet.
+**v1.5 (2026-08-25) — THREE LANES. SCHEMA REVISION 3 APPLIED.** TMBC Service Credit is **removed from V1 entirely**; the giving menu is three lanes. The TMBC consultation lane now carries the **Giver Consultation Benefit** (decisions 28–30). Old decision 27 (SERVICE_CREDIT denominations) is **withdrawn**. `GiftKind` was dropped rather than reduced to a single value, so **no existing table is altered by this migration at all**. Schema re-validated. **Migration `prisma/migrations/20260825_matchmaker_core/migration.sql` was generated and deployed to production in commit `dca2057`; `MATCHMAKER_MODE=off`.** The schema is closed for the MVP.
 **Rule for this document:** Part A states only what was verified in the code this pass, with file paths. Parts B–H are the normative contract from Taylor's implementation brief (2026-08-25), adjusted only where the audit found the repo differs from the brief's assumptions — every such adjustment is marked **DELTA**.
 
 ---
@@ -18,7 +18,7 @@
 
 > Real families. Reviewed registries. More intentional giving.
 
-**Give — the four-lane menu:** browse approved family profiles, then help whichever way fits:
+**Give — the three-lane menu:** browse approved family profiles, then help whichever way fits:
 
 1. **Shop Their Babylist** — buy something directly from their reviewed registry.
 2. **Gift a TMBC Consultation** — *"Give this family a private consultation with Taylor — and I'll gift you one too. Use yours for your own registry, or let me help you navigate their Babylist and understand the products before you choose what to send."*
@@ -71,7 +71,7 @@ Verified end-to-end in `app/api/gift/checkout/route.ts` (115 ln), `app/api/gift/
 - **Redeem:** rate-limited; `mode: 'check' | 'redeem'`; `ISSUED → REDEEMED`; returns `CALENDLY_PREPAID_URL`.
 - **Schema:** `GiftCertificate` already has `amountCents Int @default(7500)`, `currency`, `deliveryMode ('now'|'self')`, nullable `recipientEmail`, `stripeSessionId @unique`, `redeemedBookingRef`. `GiftStatus = PENDING_PAYMENT | ISSUED | REDEEMED | REFUNDED`.
 - **DELTA:** `amountCents` already exists per-certificate, so a future variable-amount or multi-product gift needs only a discriminator column — not a re-architecture. `docs/GIFT-CERTIFICATES.md` Phase 2/3 already lists "Multiple giftable consultation types / flexible amounts" as intended future work. **V1 ships neither** (v1.5): the Matchmaker gift is the fixed $75 consultation, exactly as `/gift` works today.
-- **Metadata extension point:** `kind: 'gift'` is already in Stripe metadata, so `kind: 'matchmaker_consult'` + `matchmakerProfileId` is a natural, additive extension.
+- **Metadata extension point:** `kind: 'gift'` is already in Stripe metadata, and additional keys extend it cleanly. Per **decision 22**, Matchmaker adds `flow: 'matchmaker'` + `matchmakerProfileId` as new keys — `kind` is never overloaded, and the value `'matchmaker_consult'` is never used.
 
 ## A5. Consultations & Calendly
 - `ConsultationRequest` (keyed by email — how the dashboard counts them), `ConsultationResponse`, `BookingEvent` (generic: `type, sourcePage, service, utm*, ipHash`) for booking analytics.
@@ -101,9 +101,13 @@ Verified end-to-end in `app/api/gift/checkout/route.ts` (115 ln), `app/api/gift/
 - **DELTA/decision:** a tri-state build-time public flag would make PRIVATE_BETA↔PUBLIC transitions a deploy. Design: `MATCHMAKER_MODE` (server-read: `off | private_beta | public`) drives all server rendering and APIs; a `NEXT_PUBLIC_MATCHMAKER_ENABLED` mirror is used **only** for nav visibility. In `private_beta`, access = admin session **or** valid invite/approved-profile session — checked server-side per request, so individual invitees can be admitted without rebuilds.
 
 ## A11. Tooling / environment constraints (affects how phases execute)
-1. **Git writes from the sandboxed VM will fail.** The mounted repo forbids file deletion, and git's commit path unlinks `.git/index.lock` (a stale lock warning already appears on `git status`). → Either Taylor runs the commits, or deletion permission is granted for the repo folder when implementation starts. Reads are unaffected; tree is clean at `131c4aa`.
-2. **`prisma migrate dev` cannot run from the VM** — the VM's `localhost:5432` is not the Mac's Postgres. Migration files will be authored in-repo; **Taylor runs** `npx prisma migrate dev` locally (and Heroku's `release` phase runs `migrate deploy` in prod).
-3. **vitest is still not installed** (agreed earlier for the travel-system work; still pending). §36's suite is written as vitest specs; `npm i -D vitest` is a prerequisite to running them.
+1. **Git writes from the sandboxed VM will fail.** The mounted repo forbids file deletion, and git's commit path unlinks `.git/index.lock` (a stale lock warning already appears on `git status`). → Taylor runs all commits; reads from the VM are unaffected. **Current baseline: the Matchmaker foundation landed in commit `dca2057`** (schema, migration `20260825_matchmaker_core`, rollout controls, three-lane config), deployed to production with `MATCHMAKER_MODE=off`.
+2. **MIGRATION POLICY — `prisma migrate dev` is NOT used on this project.** Taylor's local shadow database is unreliable, so that command is intentionally avoided. The policy is:
+   - **Never run `prisma migrate dev`.**
+   - **`npx prisma generate` is safe to run locally** — it only regenerates the Prisma client from the schema and touches no database.
+   - **Committed migrations deploy via Heroku's `release` phase, which runs `prisma migrate deploy`.**
+   - The schema is closed for the MVP; do not author another Matchmaker migration without first raising a blocking issue.
+3. **vitest `4.1.11` is installed** (`devDependencies`) and **verified on Taylor's Mac** — `npx vitest run --passWithNoTests` exited successfully with code 0. §36's suite is written as vitest specs. Note: vitest 4 uses rolldown, whose native binding is platform-specific; only the `darwin-arm64` binding is installed, so the suite runs on Taylor's Mac but cannot execute inside the `linux-arm64` sandbox. Typechecking is unaffected.
 4. **Sequencing with the travel-system refactor:** both projects touch `prisma/schema.prisma`. Matchmaker migrations and travel-system migrations must be separate migration directories, landed independently (either order), never combined — same principle as brief §38's Academy-cleanup rule.
 
 ---
@@ -199,12 +203,15 @@ Per brief §38, amended by A11:
 ```
 P1 ✅ this document
 P2 flag (MATCHMAKER_MODE)                 — code only
-P3 schema + additive migration            — authored in repo; TAYLOR runs `prisma migrate dev`;
-                                            separate migration dir from any travel-system work
+P3 schema + additive migration            — ✅ DONE (20260825_matchmaker_core, commit dca2057).
+                                            Migrations are authored in-repo and deployed by Heroku's
+                                            release phase (`prisma migrate deploy`). `prisma migrate dev`
+                                            is never used; `npx prisma generate` refreshes the local
+                                            client. Separate migration dir from travel-system work.
 P4 services + serializer + APIs           — with unit tests (vitest, once installed)
 P5 admin UI → P6 participant UI → seed test data → validate
 P7 public read routes → PRIVATE_BETA on
-P8 gift/Stripe integration + credit + concierge (§42: after profiles/privacy proven)
+P8 gift/Stripe integration + giver benefit + concierge (§42: after profiles/privacy proven)
 P9 emails, analytics, safety, full §36–37 suite
 P10 TMBC_NOMINATED beta seed → gifter beta → §43 checklist → PUBLIC recommendation
 ```

@@ -1,6 +1,6 @@
-# Matchmaker Phase 3 — Schema Proposal, Revision 3 (APPLIED TO schema.prisma; NOT MIGRATED)
+# Matchmaker Phase 3 — Schema Proposal, Revision 3 (DEPLOYED)
 **Contract:** docs/BABYLIST-IT-FORWARD-MATCHMAKER.md **v1.5** · **Date:** 2026-08-25
-**State:** `prisma/schema.prisma` carries Revision 3, rebuilt from the pristine pre-apply backup and re-validated. **No migration generated yet.** Supersedes revisions 1–2.
+**State:** **DEPLOYED.** `prisma/schema.prisma` carries Revision 3; migration `20260825_matchmaker_core` was generated and applied to production in commit `dca2057`. The schema is closed for the MVP. Supersedes revisions 1–2.
 
 ## Revision 3 — the three-lane correction
 
@@ -39,7 +39,7 @@ TMBC Service Credit is removed from V1. Giving lanes: `BABYLIST_PURCHASE`, `TMBC
 | 7 | Photo threw away asset identity | `photoMediaId → Media` `SetNull` + `Media.matchmakerProfilePhotos` back-relation. **`photoUrl` removed entirely.** |
 | 8 | Confirmation source unrecoverable | `MatchmakerConfirmationSource` enum + nullable `confirmationSource`, indexed. Eligibility still exactly `status === CONFIRMED`. |
 
-Plus, no schema change required: **Stripe metadata naming reserved now** as contract decision 22 — `kind:'gift'` (legacy) + `giftKind` + `flow:'matchmaker'` + `matchmakerProfileId`; the string `'matchmaker_consult'` is never used.
+Plus, no schema change required: **Stripe metadata naming reserved now** as contract decision 22 — `kind:'gift'` (legacy) + `flow:'matchmaker'` + `matchmakerProfileId`. No `giftKind` key ships in V1 (one Matchmaker product), and the string `'matchmaker_consult'` is never used.
 
 ## Two additions I made beyond the eight — flagging explicitly
 
@@ -53,7 +53,7 @@ Plus, no schema change required: **Stripe metadata naming reserved now** as cont
 - **Zero `ALTER TABLE` against any existing table. Zero destructive operations.** `/gift` and `GiftCertificate` are entirely untouched.
 
 ## Validation performed
-The **on-disk** `prisma/schema.prisma` parses clean through Prisma's own engine (`@prisma/internals` `getDMMF`, v5.17.0 — matching the repo's pin). Asserted: 6 Matchmaker models, 12 enums, `GiftKind` absent, `GiftCertificate` scalar count **18 — identical to the pristine base**, `MatchmakerGiverBenefit.giftEventId` unique, benefit→event `Restrict`, back-relation present, and **no `Cascade` anywhere inside Matchmaker**. Native `prisma migrate diff` still cannot run here (Prisma's engine CDN is blocked from both sandboxes), so `matchmaker-migration-preview.sql` is hand-written to Prisma 5 codegen conventions — treat it as the expected shape and flag any divergence from what `migrate dev` produces.
+The **on-disk** `prisma/schema.prisma` parses clean through Prisma's own engine (`@prisma/internals` `getDMMF`, v5.17.0 — matching the repo's pin). Asserted: 6 Matchmaker models, 12 enums, `GiftKind` absent, `GiftCertificate` scalar count **18 — identical to the pristine base**, `MatchmakerGiverBenefit.giftEventId` unique, benefit→event `Restrict`, back-relation present, and **no `Cascade` anywhere inside Matchmaker**. Native `prisma migrate diff` could not run in the sandbox (Prisma's engine CDN is blocked), so `matchmaker-migration-preview.sql` was hand-written to Prisma 5 codegen conventions. **Resolved:** the generated `20260825_matchmaker_core/migration.sql` was verified against it — 12 `CREATE TYPE`, 6 `CREATE TABLE`, 28 `CREATE INDEX`, 10 FK constraints, zero destructive statements, zero `ALTER TABLE` against any pre-existing table. No divergence.
 
 ## Schema invariants (the reviewable contract)
 1. **No `Cascade` anywhere inside Matchmaker.** Hard FKs only where integrity is load-bearing: profile→registry `Restrict`, profile→user `SetNull`, profile→media `SetNull`, profile→admissionInvite `SetNull`, event→profile `Restrict`, event→certificate `SetNull`, invite→originGiftEvent `SetNull`, report/action→profile `Restrict`.
@@ -71,8 +71,10 @@ The **on-disk** `prisma/schema.prisma` parses clean through Prisma's own engine 
 - **`registryCanonicalKey @unique` is global across all statuses.** A family whose profile is REMOVED/ARCHIVED still holds their key, so a re-application cannot insert a second row. Intended behavior: re-application **revives the existing profile record** rather than creating a duplicate — which is also the better product answer, since it preserves their gift history. Flagged so it's a decision, not a surprise.
 - **Changing a registry URL recomputes the key**, which can collide with another profile. The service must reject that update with a clear duplicate error rather than throwing a raw Prisma unique violation.
 
-## How this gets applied (on your approval)
-1. ✅ Done — `prisma/schema.prisma` rebuilt from the pristine pre-apply backup with 3 back-relation lines + the Revision 3 models block, then re-validated.
-2. **You run locally:** `npx prisma migrate dev --name matchmaker_core`, then `npx prisma generate`.
-3. Nothing deploys until you push (Heroku `release:` runs `migrate deploy`).
-4. Own migration directory, separate from any travel-system migration.
+## How this was applied (complete)
+1. ✅ `prisma/schema.prisma` rebuilt from the pristine pre-apply backup with 3 back-relation lines + the Revision 3 models block, then re-validated.
+2. ✅ Migration `20260825_matchmaker_core` generated and committed (`dca2057`).
+3. ✅ Deployed — Heroku's `release` phase ran `prisma migrate deploy` successfully; production is live with `MATCHMAKER_MODE=off`.
+4. ✅ Own migration directory, separate from any travel-system migration.
+
+**The schema is closed for the MVP.** Do not create another Matchmaker migration without first raising a blocking issue. Per standing instruction, `prisma migrate dev` is not used on this project (unreliable local shadow DB); local client refresh is `npx prisma generate`.
