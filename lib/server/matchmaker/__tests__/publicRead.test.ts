@@ -5,6 +5,7 @@ import { canPublish, PROFILE_STATUSES } from '@/lib/matchmaker/profileStatus';
 
 import { getPublicMatchmakerProfile, isPubliclyVisible } from '../publicRead';
 import { recordConsent, saveApplicationDraft } from '../applicationService';
+import { setNeedsAdminReview } from '../review';
 import {
   createInMemoryRepo,
   createTestContext,
@@ -206,11 +207,13 @@ describe('public read — LIVE alone is not permission to publish', () => {
     const base = {
       status: 'LIVE' as const,
       registryReviewed: true, ownershipReviewed: true, needsAdminReview: false,
+      publicProfileConsentAt: new Date('2026-08-26T12:00:00.000Z'),
     };
     expect(isPubliclyVisible(base)).toBe(true);
     expect(isPubliclyVisible({ ...base, registryReviewed: false })).toBe(false);
     expect(isPubliclyVisible({ ...base, ownershipReviewed: false })).toBe(false);
     expect(isPubliclyVisible({ ...base, needsAdminReview: true })).toBe(false);
+    expect(isPubliclyVisible({ ...base, publicProfileConsentAt: null })).toBe(false);
     for (const status of PROFILE_STATUSES) {
       expect(isPubliclyVisible({ ...base, status })).toBe(status === 'LIVE');
     }
@@ -224,5 +227,95 @@ describe('public read — LIVE alone is not permission to publish', () => {
     const result = await getPublicMatchmakerProfile(repo, slug);
     expect(result).toBeNull();
     expect(JSON.stringify(result)).not.toContain('secret');
+  });
+});
+
+/* ================================================================== *
+ * Final hardening 1 — public reads require CURRENT consent
+ * ================================================================== */
+
+describe('public read — current public-profile consent is required', () => {
+  it('LIVE + both reviews + no admin hold + consent => public payload', async () => {
+    const state = emptyState();
+    const { repo, slug } = await seedLive(state);
+    const row = state.profiles[0];
+    expect(row?.status).toBe('LIVE');
+    expect(row?.registryReviewed).toBe(true);
+    expect(row?.ownershipReviewed).toBe(true);
+    expect(row?.needsAdminReview).toBe(false);
+    expect(row?.publicProfileConsentAt).not.toBeNull();
+    expect(await getPublicMatchmakerProfile(repo, slug)).not.toBeNull();
+  });
+
+  it('LIVE + both reviews + no admin hold + null consent => null', async () => {
+    const state = emptyState();
+    const { repo, slug } = await seedLive(state);
+    Object.assign(state.profiles[0] as object, { publicProfileConsentAt: null });
+    expect(state.profiles[0]?.status).toBe('LIVE');
+    expect(await getPublicMatchmakerProfile(repo, slug)).toBeNull();
+  });
+
+  it('a LIVE material edit invalidates consent and is immediately not public', async () => {
+    const state = emptyState();
+    const { repo, slug } = await seedLive(state);
+    expect(await getPublicMatchmakerProfile(repo, slug)).not.toBeNull();
+
+    const ctx = createTestContext(state);
+    await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_MY,
+      draft: { ...DRAFT, shortStory: 'A story nobody has reviewed.' },
+    });
+
+    expect(state.profiles[0]?.publicProfileConsentAt).toBeNull();
+    expect(state.profiles[0]?.status).toBe('LIVE');
+    const after = await getPublicMatchmakerProfile(repo, slug);
+    expect(after).toBeNull();
+    expect(JSON.stringify(after)).not.toContain('nobody has reviewed');
+  });
+
+  it('re-consent alone does not override an admin-review hold', async () => {
+    const state = emptyState();
+    const { repo, slug } = await seedLive(state);
+    const ctx = createTestContext(state);
+
+    await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_MY,
+      draft: { ...DRAFT, shortStory: 'Edited after going live.' },
+    });
+    expect(state.profiles[0]?.needsAdminReview).toBe(true);
+
+    await recordConsent(ctx, {
+      userId: USER, profileId: state.profiles[0]?.id ?? '',
+      consent: { acceptTerms: true, termsVersion: TERMS_V1, consentToPublicProfile: true },
+    });
+    expect(state.profiles[0]?.publicProfileConsentAt).not.toBeNull();
+
+    // Consent is back, but Taylor has not reviewed the new content.
+    expect(await getPublicMatchmakerProfile(repo, slug)).toBeNull();
+  });
+
+  it('clearing the hold with consent present restores public eligibility', async () => {
+    const state = emptyState();
+    const { repo, slug } = await seedLive(state);
+    const ctx = createTestContext(state);
+    const profileId = state.profiles[0]?.id ?? '';
+
+    await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_MY,
+      draft: { ...DRAFT, shortStory: 'Edited after going live.' },
+    });
+    await recordConsent(ctx, {
+      userId: USER, profileId,
+      consent: { acceptTerms: true, termsVersion: TERMS_V1, consentToPublicProfile: true },
+    });
+    expect(await getPublicMatchmakerProfile(repo, slug)).toBeNull();
+
+    await setNeedsAdminReview(ctx, {
+      actor: { userId: 'admin_1', role: 'ADMIN' }, profileId, flagged: false,
+    });
+
+    const restored = await getPublicMatchmakerProfile(repo, slug);
+    expect(restored).not.toBeNull();
+    expect(restored?.shortStory).toBe('Edited after going live.');
   });
 });

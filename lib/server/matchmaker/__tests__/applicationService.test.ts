@@ -9,10 +9,14 @@ import {
   canRevive,
   consentIsComplete,
   ENTRY_METHODS,
+  MATERIAL_PUBLIC_FIELDS,
+  materialEditRequiresAdminReview,
   materialPublicChange,
   normaliseApplicationDraft,
   recordConsent,
   saveApplicationDraft,
+  snapshotMaterialPublicFields,
+  STATUSES_REPUBLISHABLE_WITHOUT_REVIEW,
   submitApplication,
 } from '../applicationService';
 import { isMatchmakerServiceError, type MatchmakerServiceError } from '../errors';
@@ -591,5 +595,236 @@ describe('entry method — stated, never guessed', () => {
     );
     expect(source).not.toContain("entryMethod ?? ");
     expect(source).not.toContain("entryMethod || ");
+  });
+});
+
+/* ================================================================== *
+ * Final hardening 2 — the consent snapshot records what was approved
+ * ================================================================== */
+
+describe('consent snapshot — the exact approved public-profile state', () => {
+  const FULL = {
+    displayFirstName: 'Ana',
+    displayLastInitial: 'Rivera',
+    city: 'Scottsdale',
+    state: 'AZ',
+    dueMonth: 11,
+    dueYear: 2026,
+    familyStage: 'First baby',
+    shortStory: 'We are getting ready for our first baby.',
+    priorityNeeds: ['Car seat', 'Bottles'],
+    showLastInitial: true,
+    showLocation: true,
+    showDueMonth: false,
+    showFamilyStage: true,
+    showPhoto: true,
+    photoMediaId: 'media_1',
+  };
+
+  async function consentedWith(state: InMemoryState, draft = FULL) {
+    state.media.push('media_1', 'media_2');
+    const ctx = createTestContext(state);
+    const p = await saveApplicationDraft(ctx, {
+      userId: USER, entryMethod: 'GIFTED_FIRST', submittedRegistryUrl: URL_MY, draft,
+    });
+    await recordConsent(ctx, { userId: USER, profileId: p.id, consent: CONSENT });
+    return { ctx, profileId: p.id };
+  }
+
+  const snapshotOf = (state: InMemoryState) =>
+    (state.profiles[0]?.consentSnapshot as Record<string, unknown>)
+      ?.publicProfileAtConsent as Record<string, unknown>;
+
+  it('contains all 15 material fields, and only those', () => {
+    expect(MATERIAL_PUBLIC_FIELDS).toHaveLength(15);
+    const snap = snapshotMaterialPublicFields({
+      ...normaliseApplicationDraft(FULL),
+    } as never);
+    expect(Object.keys(snap).sort()).toEqual([...MATERIAL_PUBLIC_FIELDS].sort());
+  });
+
+  it('records the exact values persisted at consent time', async () => {
+    const state = emptyState();
+    await consentedWith(state);
+    const snap = snapshotOf(state);
+
+    expect(snap.displayFirstName).toBe('Ana');
+    expect(snap.displayLastInitial).toBe('R');
+    expect(snap.city).toBe('Scottsdale');
+    expect(snap.state).toBe('AZ');
+    expect(snap.dueMonth).toBe(11);
+    expect(snap.dueYear).toBe(2026);
+    expect(snap.familyStage).toBe('First baby');
+    expect(snap.shortStory).toBe('We are getting ready for our first baby.');
+    expect(snap.photoMediaId).toBe('media_1');
+
+    // Every snapshot value equals what is actually stored on the row.
+    const row = state.profiles[0] as Record<string, unknown>;
+    for (const field of MATERIAL_PUBLIC_FIELDS) {
+      expect(snap[field]).toEqual(row[field]);
+    }
+  });
+
+  it('preserves visibility flags exactly, false as well as true', async () => {
+    const state = emptyState();
+    await consentedWith(state);
+    const snap = snapshotOf(state);
+    expect(snap.showLastInitial).toBe(true);
+    expect(snap.showLocation).toBe(true);
+    expect(snap.showDueMonth).toBe(false);
+    expect(snap.showFamilyStage).toBe(true);
+    expect(snap.showPhoto).toBe(true);
+  });
+
+  it('snapshots array values by value, not by reference', async () => {
+    const state = emptyState();
+    await consentedWith(state);
+    const snap = snapshotOf(state);
+    expect(snap.priorityNeeds).toEqual(['Car seat', 'Bottles']);
+
+    // Mutating the live row must not rewrite the recorded history.
+    (state.profiles[0] as unknown as { priorityNeeds: string[] }).priorityNeeds.push('Diapers');
+    expect(snapshotOf(state).priorityNeeds).toEqual(['Car seat', 'Bottles']);
+  });
+
+  it('preserves the existing consent metadata alongside the content', async () => {
+    const state = emptyState();
+    await consentedWith(state);
+    const snapshot = state.profiles[0]?.consentSnapshot as Record<string, unknown>;
+    expect(snapshot.termsVersion).toBe(TERMS_V1);
+    expect(snapshot.acceptedTermsAt).toBe('2026-08-26T12:00:00.000Z');
+    expect(snapshot.consentedToPublicProfileAt).toBe('2026-08-26T12:00:00.000Z');
+    expect(snapshot.registryCanonicalKey).toBe('babylist:list:rivera');
+    expect(snapshot.storyIsPublicWhenListed).toBe(true);
+  });
+
+  it('a subsequent material edit clears the old snapshot', async () => {
+    const state = emptyState();
+    const { ctx } = await consentedWith(state);
+    expect(snapshotOf(state)).toBeDefined();
+
+    await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_LIST,
+      draft: { ...FULL, shortStory: 'Rewritten.' },
+    });
+    expect(state.profiles[0]?.consentSnapshot).toBeNull();
+    expect(state.profiles[0]?.publicProfileConsentAt).toBeNull();
+  });
+
+  it('re-consent writes a fresh snapshot reflecting the new values', async () => {
+    const state = emptyState();
+    const { ctx, profileId } = await consentedWith(state);
+    await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_LIST,
+      draft: { ...FULL, shortStory: 'Rewritten.', showDueMonth: true, priorityNeeds: ['Diapers'] },
+    });
+    await recordConsent(ctx, { userId: USER, profileId, consent: CONSENT });
+
+    const snap = snapshotOf(state);
+    expect(snap.shortStory).toBe('Rewritten.');
+    expect(snap.showDueMonth).toBe(true);
+    expect(snap.priorityNeeds).toEqual(['Diapers']);
+  });
+
+  it('records no field beyond the authorised profile surface', async () => {
+    const state = emptyState();
+    await consentedWith(state);
+    const snap = snapshotOf(state);
+    for (const banned of [
+      'userId', 'registryId', 'email', 'phone', 'address', 'income',
+      'moderationNotes', 'reviewedById', 'needsAdminReview', 'status',
+    ]) {
+      expect(banned in snap).toBe(false);
+    }
+  });
+});
+
+/* ================================================================== *
+ * Final hardening 3 — material edits after review re-open review
+ * ================================================================== */
+
+describe('editorial re-review — a reviewed profile cannot self-republish', () => {
+  async function atStatus(state: InMemoryState, status: Parameters<typeof forceStatus>[2]) {
+    const ctx = createTestContext(state);
+    const p = await saveApplicationDraft(ctx, {
+      userId: USER, entryMethod: 'GIFTED_FIRST', submittedRegistryUrl: URL_MY, draft: DRAFT,
+    });
+    await recordConsent(ctx, { userId: USER, profileId: p.id, consent: CONSENT });
+    const row = state.profiles[0];
+    if (row) { row.registryReviewed = true; row.ownershipReviewed = true; }
+    forceStatus(state, p.id, status);
+    return { ctx, profileId: p.id };
+  }
+
+  const edit = (ctx: ReturnType<typeof createTestContext>) =>
+    saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_LIST,
+      draft: { ...DRAFT, shortStory: 'Changed after review.' },
+    });
+
+  it('the rule is derived from the Step 1 transition table', () => {
+    expect([...STATUSES_REPUBLISHABLE_WITHOUT_REVIEW].sort()).toEqual(['APPROVED', 'LIVE', 'PAUSED']);
+    for (const status of ['APPROVED', 'LIVE', 'PAUSED'] as const) {
+      expect(materialEditRequiresAdminReview(status)).toBe(true);
+    }
+    for (const status of PROFILE_STATUSES) {
+      if (!['APPROVED', 'LIVE', 'PAUSED'].includes(status)) {
+        expect(materialEditRequiresAdminReview(status)).toBe(false);
+      }
+    }
+  });
+
+  it('LIVE material edit clears consent and snapshot and raises the hold', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'LIVE');
+    const after = await edit(ctx);
+    expect(after.publicProfileConsentAt).toBeNull();
+    expect(state.profiles[0]?.consentSnapshot).toBeNull();
+    expect(after.needsAdminReview).toBe(true);
+  });
+
+  it('APPROVED material edit requires admin review again', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'APPROVED');
+    expect((await edit(ctx)).needsAdminReview).toBe(true);
+  });
+
+  it('PAUSED previously-public profile material edit requires admin review', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'PAUSED');
+    expect((await edit(ctx)).needsAdminReview).toBe(true);
+  });
+
+  it('registry and ownership review are NOT reset by an editorial edit', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'LIVE');
+    const after = await edit(ctx);
+    expect(after.registryReviewed).toBe(true);
+    expect(after.ownershipReviewed).toBe(true);
+    expect(after.status).toBe('LIVE');
+  });
+
+  it('ordinary DRAFT editing creates no admin-review hold', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'DRAFT');
+    expect((await edit(ctx)).needsAdminReview).toBe(false);
+  });
+
+  it('NEEDS_INFO, REJECTED and ARCHIVED rework create no hold', async () => {
+    for (const status of ['NEEDS_INFO', 'REJECTED', 'ARCHIVED'] as const) {
+      const state = emptyState();
+      const { ctx } = await atStatus(state, status);
+      expect((await edit(ctx)).needsAdminReview).toBe(false);
+    }
+  });
+
+  it('an identical save raises no hold on a LIVE profile', async () => {
+    const state = emptyState();
+    const { ctx } = await atStatus(state, 'LIVE');
+    const after = await saveApplicationDraft(ctx, {
+      userId: USER, submittedRegistryUrl: URL_LIST, draft: DRAFT,
+    });
+    expect(after.needsAdminReview).toBe(false);
+    expect(after.publicProfileConsentAt).not.toBeNull();
   });
 });

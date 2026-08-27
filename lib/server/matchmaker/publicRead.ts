@@ -18,18 +18,34 @@ import { canPublish, isPublishedStatus } from '@/lib/matchmaker/profileStatus';
 import type { MatchmakerRepo, StoredProfile, StoredPublicProfile } from './ports';
 
 /**
- * The FULL publication gate, not merely `status === LIVE`.
+ * The FULL publication gate.
  *
  * A row can be LIVE and still be ineligible — a review flag cleared by a later
- * moderation action, a reversal that set `needsAdminReview`, or a partially
- * written record. Status alone is not permission to publish, so this reuses the
- * Step 1 gates (`canPublish`) rather than restating them, and the two can never
- * diverge.
+ * moderation action, a reversal that set `needsAdminReview`, or a material edit
+ * that revoked the family's consent. Status alone is never permission to
+ * publish.
+ *
+ * The first four conditions reuse the Step 1 gates (`isPublishedStatus` +
+ * `canPublish`) rather than restating them, so they can never diverge. The
+ * fifth — current public-profile consent — is added HERE at the Step 2
+ * boundary, because consent is a service-layer concern: Step 1's pure layer
+ * never sees a consent timestamp.
+ *
+ * Publication requires ALL of:
+ *   status === 'LIVE'
+ *   registryReviewed === true
+ *   ownershipReviewed === true
+ *   needsAdminReview === false
+ *   publicProfileConsentAt !== null
  */
 export function isPubliclyVisible(
   profile: Pick<
     StoredProfile,
-    'status' | 'registryReviewed' | 'ownershipReviewed' | 'needsAdminReview'
+    | 'status'
+    | 'registryReviewed'
+    | 'ownershipReviewed'
+    | 'needsAdminReview'
+    | 'publicProfileConsentAt'
   >,
 ): boolean {
   return (
@@ -38,7 +54,8 @@ export function isPubliclyVisible(
       registryReviewed: profile.registryReviewed,
       ownershipReviewed: profile.ownershipReviewed,
       needsAdminReview: profile.needsAdminReview,
-    })
+    }) &&
+    profile.publicProfileConsentAt !== null
   );
 }
 

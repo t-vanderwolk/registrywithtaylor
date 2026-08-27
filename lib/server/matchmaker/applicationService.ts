@@ -16,6 +16,8 @@
 
 import {
   canTransitionProfile,
+  PROFILE_TRANSITIONS,
+  PUBLISHED_PROFILE_STATUS,
   type ProfileReviewGates,
 } from '@/lib/matchmaker/profileStatus';
 import type { MatchmakerEntryMethod, MatchmakerProfileStatus } from '@/lib/matchmaker/types';
@@ -208,6 +210,8 @@ export const MATERIAL_PUBLIC_FIELDS = [
   'photoMediaId',
 ] as const;
 
+export type MaterialPublicField = (typeof MATERIAL_PUBLIC_FIELDS)[number];
+
 function sameValue(a: unknown, b: unknown): boolean {
   if (Array.isArray(a) || Array.isArray(b)) {
     const left = Array.isArray(a) ? a : [];
@@ -217,18 +221,82 @@ function sameValue(a: unknown, b: unknown): boolean {
   return a === b;
 }
 
+/** The exact public-profile state a family approved, keyed by the same list. */
+export type MaterialPublicSnapshot = {
+  readonly [K in MaterialPublicField]: StoredProfile[K];
+};
+
+/**
+ * Captures the approved public-profile state at consent time.
+ *
+ * This walks `MATERIAL_PUBLIC_FIELDS` — the SAME list `materialPublicChange`
+ * walks — so the set of fields that invalidates consent and the set of fields
+ * recorded at consent cannot drift apart. Adding a field to the list updates
+ * both behaviours at once.
+ */
+export function snapshotMaterialPublicFields(
+  profile: Pick<StoredProfile, MaterialPublicField>,
+): MaterialPublicSnapshot {
+  const snapshot: Record<string, unknown> = {};
+  for (const field of MATERIAL_PUBLIC_FIELDS) {
+    const value = profile[field];
+    // Arrays are copied by value so a later mutation cannot rewrite history.
+    snapshot[field] = Array.isArray(value) ? [...value] : value;
+  }
+  return snapshot as MaterialPublicSnapshot;
+}
+
 /**
  * True when the incoming draft changes anything the public would see.
  * Writing values identical to the stored ones is NOT a material change, so an
  * idempotent save never costs a family their consent.
  */
 export function materialPublicChange(
-  stored: Pick<StoredProfile, (typeof MATERIAL_PUBLIC_FIELDS)[number]>,
+  stored: Pick<StoredProfile, MaterialPublicField>,
   draft: NormalisedDraft,
 ): boolean {
   return MATERIAL_PUBLIC_FIELDS.some(
     (field) => !sameValue(stored[field], draft[field]),
   );
+}
+
+/* ------------------------------------------------------------------ *
+ * Editorial re-review after a material edit
+ * ------------------------------------------------------------------ */
+
+/**
+ * Statuses from which a profile can become public again WITHOUT passing back
+ * through editorial review.
+ *
+ * Derived from the Step 1 transition table rather than hand-listed: any status
+ * with a direct edge to LIVE can be republished by a single admin action, plus
+ * LIVE itself, which is public already. Currently {APPROVED, PAUSED, LIVE}. If
+ * Step 1 ever gains or loses an edge into LIVE, this set follows automatically.
+ *
+ * Every other status (DRAFT, NEEDS_INFO, REJECTED, ARCHIVED, SUBMITTED,
+ * UNDER_REVIEW, REMOVED) must travel SUBMITTED -> UNDER_REVIEW -> APPROVED
+ * before it can be published, so Taylor necessarily sees the changed content
+ * and no hold is needed. Raising one there would put an admin task on every
+ * ordinary keystroke of a first-time draft.
+ */
+export const STATUSES_REPUBLISHABLE_WITHOUT_REVIEW: readonly MatchmakerProfileStatus[] = [
+  ...new Set<MatchmakerProfileStatus>([
+    ...PROFILE_TRANSITIONS.filter((t) => t.to === PUBLISHED_PROFILE_STATUS).map((t) => t.from),
+    PUBLISHED_PROFILE_STATUS,
+  ]),
+];
+
+/**
+ * Taylor's ruling: a family must never change public-facing content and
+ * republish it merely by re-consenting. If the profile has already reached a
+ * reviewed/publishable state, a material edit re-opens editorial review.
+ *
+ * `registryReviewed` and `ownershipReviewed` are deliberately NOT reset — they
+ * attest that the registry exists and belongs to this family, which a reworded
+ * story does not call into question.
+ */
+export function materialEditRequiresAdminReview(status: MatchmakerProfileStatus): boolean {
+  return STATUSES_REPUBLISHABLE_WITHOUT_REVIEW.includes(status);
 }
 
 /* ------------------------------------------------------------------ *
@@ -317,12 +385,19 @@ export async function saveApplicationDraft(
       const existing = identity.existingProfile;
       const patch: UpdateProfileInput = { ...draft };
 
-      // Consent is to a SPECIFIC public profile. If what the public would see
-      // changes, that consent no longer describes reality and must be given
-      // again. Terms acceptance is a separate act and is left untouched.
-      if (existing.publicProfileConsentAt !== null && materialPublicChange(existing, draft)) {
-        patch.publicProfileConsentAt = null;
-        patch.consentSnapshot = null;
+      if (materialPublicChange(existing, draft)) {
+        // Consent is to a SPECIFIC public profile. If what the public would see
+        // changes, that consent no longer describes reality and must be given
+        // again. Terms acceptance is a separate act and is left untouched.
+        if (existing.publicProfileConsentAt !== null) {
+          patch.publicProfileConsentAt = null;
+          patch.consentSnapshot = null;
+        }
+
+        // ...and re-consent alone must not republish unreviewed content.
+        if (materialEditRequiresAdminReview(existing.status)) {
+          patch.needsAdminReview = true;
+        }
       }
 
       return repo.updateProfile(existing.id, patch);
@@ -390,13 +465,10 @@ export async function recordConsent(
         consentedToPublicProfileAt: at.toISOString(),
         registryCanonicalKey: profile.registryCanonicalKey,
         storyIsPublicWhenListed: true,
-        optionalFieldsAtConsent: {
-          showLastInitial: profile.showLastInitial,
-          showLocation: profile.showLocation,
-          showDueMonth: profile.showDueMonth,
-          showFamilyStage: profile.showFamilyStage,
-          showPhoto: profile.showPhoto,
-        },
+        // The exact public-profile state being approved — all 15 material
+        // fields, from the same list that detects material change. No extra
+        // fields are recorded: this is the authorised profile surface only.
+        publicProfileAtConsent: snapshotMaterialPublicFields(profile),
       },
     });
   });
