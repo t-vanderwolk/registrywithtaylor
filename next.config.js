@@ -250,6 +250,23 @@ const nextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      // Retired path-based checklist variants — the version is now an in-page
+      // toggle on the single checklist page (only the downloaded PDF changes).
+      {
+        source: '/resources/baby-checklist/girl',
+        destination: '/resources/baby-checklist?type=girl',
+        permanent: true,
+      },
+      {
+        source: '/resources/baby-checklist/boy',
+        destination: '/resources/baby-checklist?type=boy',
+        permanent: true,
+      },
+      {
+        source: '/resources/baby-checklist/twins',
+        destination: '/resources/baby-checklist?type=twins',
+        permanent: true,
+      },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────
       // Old invite-only / membership / mentor-led positioning is retired. These
       // 301 to the current live equivalent so no legacy URL 404s or lingers.
