@@ -152,6 +152,26 @@ const nextConfig = {
       },
     ];
   },
+  // Legacy path-based checklist variants are served BY the canonical page, not
+  // redirected to it. A rewrite keeps the URL in the address bar (so a browser
+  // holding a cached 308 from the retired architecture cannot ping-pong) and
+  // returns 200 with no Location header.
+  async rewrites() {
+    return [
+      {
+        source: '/resources/baby-checklist/girl',
+        destination: '/resources/baby-checklist?type=girl',
+      },
+      {
+        source: '/resources/baby-checklist/boy',
+        destination: '/resources/baby-checklist?type=boy',
+      },
+      {
+        source: '/resources/baby-checklist/twins',
+        destination: '/resources/baby-checklist?type=twins',
+      },
+    ];
+  },
   // Use the classic compiler (Webpack/SWC) instead of Turbopack
   async redirects() {
     return [
@@ -163,28 +183,6 @@ const nextConfig = {
         source: '/:path*',
         has: [{ type: 'host', value: 'taylormadebabyco.com' }],
         destination: 'https://www.taylormadebabyco.com/:path*',
-        permanent: true,
-      },
-      // ─── Legacy ?type= checklist deep links → path-based variant URLs ────────
-      // The Girl/Boy/Twins checklists now live at their own indexable paths.
-      // 308-redirect the old query-param deep links so links/indexing consolidate
-      // onto the path URLs. (?type=neutral stays on the base page.)
-      {
-        source: '/resources/baby-checklist',
-        has: [{ type: 'query', key: 'type', value: 'girl' }],
-        destination: '/resources/baby-checklist/girl',
-        permanent: true,
-      },
-      {
-        source: '/resources/baby-checklist',
-        has: [{ type: 'query', key: 'type', value: 'boy' }],
-        destination: '/resources/baby-checklist/boy',
-        permanent: true,
-      },
-      {
-        source: '/resources/baby-checklist',
-        has: [{ type: 'query', key: 'type', value: 'twins' }],
-        destination: '/resources/baby-checklist/twins',
         permanent: true,
       },
       // While Academy is hidden, collapse every /academy + /guides URL to a
@@ -248,23 +246,6 @@ const nextConfig = {
       {
         source: '/blog/nursery-lighting-guide',
         destination: '/blog',
-        permanent: true,
-      },
-      // Retired path-based checklist variants — the version is now an in-page
-      // toggle on the single checklist page (only the downloaded PDF changes).
-      {
-        source: '/resources/baby-checklist/girl',
-        destination: '/resources/baby-checklist?type=girl',
-        permanent: true,
-      },
-      {
-        source: '/resources/baby-checklist/boy',
-        destination: '/resources/baby-checklist?type=boy',
-        permanent: true,
-      },
-      {
-        source: '/resources/baby-checklist/twins',
-        destination: '/resources/baby-checklist?type=twins',
         permanent: true,
       },
       // ─── Legacy pages no longer at these URLs ────────────────────────────────

@@ -85,6 +85,38 @@ const CHECKLIST_PDFS: Partial<Record<ChecklistType, string>> = {
 const isChecklistType = (value: string | null | undefined): value is ChecklistType =>
   Boolean(value) && CHECKLIST_TYPES.some((t) => t.id === value);
 
+
+/**
+ * Legacy path-based variant URLs. Those routes are retired, but
+ * `/resources/baby-checklist/<girl|boy|twins>` still resolves via an internal
+ * rewrite in next.config.js. A rewrite leaves the address bar on the legacy
+ * path, so there is no `?type=` for the query branch below to read — the
+ * version has to come from the pathname instead.
+ *
+ * Exactly these three segments are honoured, and only under the checklist path.
+ * No other pathname segment is ever treated as a version, and there is
+ * deliberately no `/neutral` route.
+ */
+const LEGACY_VARIANT_SEGMENTS = ['girl', 'boy', 'twins'] as const;
+const LEGACY_VARIANT_BASE = '/resources/baby-checklist/';
+
+/**
+ * Resolves the version to select on mount. A valid `?type=` always wins; the
+ * legacy pathname is only consulted when the query gives nothing usable.
+ */
+function typeFromLocation(): ChecklistType | null {
+  const param = new URLSearchParams(window.location.search).get('type');
+  if (isChecklistType(param)) return param;
+
+  const { pathname } = window.location;
+  if (!pathname.startsWith(LEGACY_VARIANT_BASE)) return null;
+
+  const segment = pathname.slice(LEGACY_VARIANT_BASE.length).replace(/\/+$/, '');
+  return (LEGACY_VARIANT_SEGMENTS as readonly string[]).includes(segment)
+    ? (segment as ChecklistType)
+    : null;
+}
+
 const labelFor = (type: ChecklistType) =>
   CHECKLIST_TYPES.find((t) => t.id === type)?.label ?? 'Neutral';
 
@@ -189,15 +221,16 @@ export default function BabyChecklist({
     }
   }, [checked, type, hydrated]);
 
-  // Honor a ?type= deep link on mount. The page is statically rendered with the
-  // default version (best for performance + a clean canonical); if the visitor
-  // arrived on e.g. ?type=twins, switch to it client-side.
+  // Honor a ?type= deep link — or a rewritten legacy /girl|/boy|/twins path — on
+  // mount. The page is statically rendered with the default version (best for
+  // performance + a clean canonical); if the visitor arrived on e.g. ?type=twins
+  // or /resources/baby-checklist/twins, switch to it client-side.
   useEffect(() => {
     try {
-      const param = new URLSearchParams(window.location.search).get('type');
-      if (isChecklistType(param) && param !== initialType) {
+      const resolved = typeFromLocation();
+      if (resolved && resolved !== initialType) {
         setHydrated(false);
-        setType(param);
+        setType(resolved);
       }
     } catch {
       /* no-op */

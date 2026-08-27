@@ -36,10 +36,9 @@ const slugify = (s: string): string =>
 
 function revalidate() {
   revalidatePath('/admin/checklist');
+  // The girl/boy/twins variants are no longer separate routes — the version is
+  // an in-page toggle on this single page, so revalidating it covers all four.
   revalidatePath('/resources/baby-checklist');
-  revalidatePath('/resources/baby-checklist/girl');
-  revalidatePath('/resources/baby-checklist/boy');
-  revalidatePath('/resources/baby-checklist/twins');
 }
 
 /** Create a new checklist product pick. */
