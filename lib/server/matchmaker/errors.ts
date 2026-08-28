@@ -26,6 +26,27 @@ export type MatchmakerServiceErrorCode =
   // provenance
   | 'ENTRY_METHOD_REQUIRED'
   | 'ENTRY_METHOD_INVALID'
+  // gifts (Step 3)
+  | 'GIFT_NOT_FOUND'
+  | 'GIFT_TRANSITION_NOT_ALLOWED'
+  | 'GIFT_CONFIRMATION_NOT_PERMITTED'
+  | 'GIFT_CONFIRMATION_CONFLICT'
+  | 'GIFT_NOT_ELIGIBLE_FOR_INVITE'
+  | 'GIFT_REVERSAL_NOT_PERMITTED'
+  | 'GIVER_EMAIL_REQUIRED'
+  // invitations (Step 3)
+  | 'INVITE_NOT_FOUND'
+  | 'INVITE_INVALID'
+  | 'INVITE_EXPIRED'
+  | 'INVITE_REVOKED'
+  | 'INVITE_ALREADY_USED'
+  | 'INVITE_EMAIL_MISMATCH'
+  | 'INVITE_ALREADY_ISSUED'
+  | 'INVITE_TTL_REQUIRED'
+  | 'INVITE_TTL_INVALID'
+  // giver benefit (Step 3)
+  | 'BENEFIT_NOT_FOUND'
+  | 'BENEFIT_NOT_AVAILABLE'
   // lifecycle
   | 'PROFILE_NOT_FOUND'
   | 'PROFILE_NOT_REVIVABLE'
@@ -101,6 +122,25 @@ const MESSAGES: Readonly<Record<MatchmakerServiceErrorCode, string>> = {
     'Consent to publish a public profile is required before submitting.',
   ENTRY_METHOD_REQUIRED: 'How this family joined the Matchmaker must be recorded before a listing is created.',
   ENTRY_METHOD_INVALID: 'That is not a recognised Matchmaker entry method.',
+  GIFT_NOT_FOUND: 'That gift could not be found.',
+  GIFT_TRANSITION_NOT_ALLOWED: 'That change is not allowed from the gift’s current state.',
+  GIFT_CONFIRMATION_NOT_PERMITTED: 'That gift cannot be confirmed this way.',
+  GIFT_CONFIRMATION_CONFLICT:
+    'This gift has already been confirmed through a different route. An administrator will review it.',
+  GIFT_NOT_ELIGIBLE_FOR_INVITE: 'That gift does not yet qualify to unlock an invitation.',
+  GIFT_REVERSAL_NOT_PERMITTED: 'That gift cannot be reversed from its current state.',
+  GIVER_EMAIL_REQUIRED: 'A giver email address is required before this step can complete.',
+  INVITE_NOT_FOUND: 'That invitation could not be found.',
+  INVITE_INVALID: 'That invitation link is not valid.',
+  INVITE_EXPIRED: 'That invitation has expired.',
+  INVITE_REVOKED: 'That invitation has been revoked.',
+  INVITE_ALREADY_USED: 'That invitation has already been used.',
+  INVITE_EMAIL_MISMATCH: 'That invitation was issued to a different email address.',
+  INVITE_ALREADY_ISSUED: 'An invitation has already been issued for this gift.',
+  INVITE_TTL_REQUIRED: 'An invitation expiry period is required.',
+  INVITE_TTL_INVALID: 'That invitation expiry period is not valid.',
+  BENEFIT_NOT_FOUND: 'That benefit could not be found.',
+  BENEFIT_NOT_AVAILABLE: 'That benefit is not available.',
   PROFILE_NOT_FOUND: 'That Matchmaker profile could not be found.',
   PROFILE_NOT_REVIVABLE: 'That Matchmaker listing cannot be re-submitted from its current state.',
   TRANSITION_NOT_ALLOWED: 'That change is not allowed from the listing’s current state.',
@@ -137,6 +177,19 @@ function asKnownRequestError(error: unknown): KnownRequestErrorShape | null {
   if (typeof candidate.code !== 'string') return null;
   if (candidate.name !== 'PrismaClientKnownRequestError') return null;
   return candidate;
+}
+
+/**
+ * Non-throwing probe: is this a unique-constraint violation?
+ *
+ * Used where a duplicate is an EXPECTED, benign outcome — a deterministic
+ * primary key colliding under concurrency — so the caller can convert it into
+ * an idempotent success instead of an error. Nothing about the underlying
+ * Prisma error escapes; only a boolean.
+ */
+export function isUniqueConstraintViolation(error: unknown): boolean {
+  const known = asKnownRequestError(error);
+  return known?.code === 'P2002';
 }
 
 /**

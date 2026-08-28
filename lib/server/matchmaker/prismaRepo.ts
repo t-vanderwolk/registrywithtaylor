@@ -14,20 +14,32 @@
  * left untouched; retiring it is out of Step 2's scope.
  */
 
+import { randomBytes } from 'node:crypto';
+
 import type { Prisma, PrismaClient } from '@prisma/client';
 
 import prisma from '@/lib/server/prisma';
 
-import { translatePrismaError } from './errors';
+import { isUniqueConstraintViolation, translatePrismaError } from './errors';
 import type {
+  CreateGiftInput,
+  CreateGiverBenefitInput,
+  CreateInviteInput,
+  CreateModerationActionInput,
   CreateProfileInput,
   CreateRegistryInput,
   MatchmakerRepo,
   MatchmakerUnitOfWork,
   ServiceContext,
+  StoredGift,
+  StoredGiverBenefit,
+  StoredInvite,
   StoredProfile,
   StoredPublicProfile,
   StoredRegistry,
+  UpdateGiftInput,
+  UpdateGiverBenefitInput,
+  UpdateInviteInput,
   UpdateProfileInput,
 } from './ports';
 
@@ -100,6 +112,72 @@ function toStoredRegistry(row: {
     platform: row.platform,
     url: row.url,
     name: row.name,
+  };
+}
+
+type GiftRow = Prisma.MatchmakerGiftEventGetPayload<Record<string, never>>;
+type InviteRow = Prisma.MatchmakerInviteGetPayload<Record<string, never>>;
+type BenefitRow = Prisma.MatchmakerGiverBenefitGetPayload<Record<string, never>>;
+
+function toStoredGift(row: GiftRow): StoredGift {
+  return {
+    id: row.id,
+    recipientProfileId: row.recipientProfileId,
+    giverUserId: row.giverUserId,
+    giverEmail: row.giverEmail,
+    giverName: row.giverName,
+    anonymousToPublic: row.anonymousToPublic,
+    anonymousToRecipient: row.anonymousToRecipient,
+    type: row.type,
+    status: row.status,
+    externalItemLabel: row.externalItemLabel,
+    amountCents: row.amountCents,
+    noteToFamily: row.noteToFamily,
+    externalProvider: row.externalProvider,
+    externalGiftKind: row.externalGiftKind,
+    externalOrderRef: row.externalOrderRef,
+    proofPurchaseDate: row.proofPurchaseDate,
+    proofNote: row.proofNote,
+    proofStatus: row.proofStatus,
+    reportedAt: row.reportedAt,
+    recipientConfirmedAt: row.recipientConfirmedAt,
+    adminConfirmedAt: row.adminConfirmedAt,
+    confirmedAt: row.confirmedAt,
+    confirmationSource: row.confirmationSource,
+    reversedAt: row.reversedAt,
+    reversalReason: row.reversalReason,
+  };
+}
+
+function toStoredInvite(row: InviteRow): StoredInvite {
+  return {
+    id: row.id,
+    tokenHash: row.tokenHash,
+    email: row.email,
+    reason: row.reason,
+    originGiftEventId: row.originGiftEventId,
+    nominatedById: row.nominatedById,
+    intendedAction: row.intendedAction,
+    expiresAt: row.expiresAt,
+    usedAt: row.usedAt,
+    usedByUserId: row.usedByUserId,
+    revokedAt: row.revokedAt,
+  };
+}
+
+function toStoredBenefit(row: BenefitRow): StoredGiverBenefit {
+  return {
+    id: row.id,
+    giftEventId: row.giftEventId,
+    giverUserId: row.giverUserId,
+    giverEmail: row.giverEmail,
+    type: row.type,
+    status: row.status,
+    selectedUse: row.selectedUse,
+    issuedAt: row.issuedAt,
+    redeemedAt: row.redeemedAt,
+    bookingRef: row.bookingRef,
+    revokedAt: row.revokedAt,
   };
 }
 
@@ -268,6 +346,156 @@ export function createPrismaMatchmakerRepo(tx: Tx): MatchmakerRepo {
         registryUrl: row.registry.url,
       };
     },
+
+    /* ---------------- Step 3: gifts ---------------- */
+
+    async findGiftById(id) {
+      const row = await tx.matchmakerGiftEvent.findUnique({ where: { id } });
+      return row ? toStoredGift(row) : null;
+    },
+
+    async createGift(input: CreateGiftInput) {
+      try {
+        return toStoredGift(await tx.matchmakerGiftEvent.create({ data: { ...input } }));
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    async updateGift(id, patch: UpdateGiftInput) {
+      try {
+        return toStoredGift(
+          await tx.matchmakerGiftEvent.update({ where: { id }, data: { ...patch } }),
+        );
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    /* ---------------- Step 3: invitations ---------------- */
+
+    async findInviteById(id) {
+      const row = await tx.matchmakerInvite.findUnique({ where: { id } });
+      return row ? toStoredInvite(row) : null;
+    },
+
+    async findInviteByTokenHash(tokenHash) {
+      const row = await tx.matchmakerInvite.findUnique({ where: { tokenHash } });
+      return row ? toStoredInvite(row) : null;
+    },
+
+    async findInviteByOriginGiftId(giftEventId) {
+      const row = await tx.matchmakerInvite.findUnique({
+        where: { originGiftEventId: giftEventId },
+      });
+      return row ? toStoredInvite(row) : null;
+    },
+
+    async createInvite(input: CreateInviteInput) {
+      try {
+        return toStoredInvite(
+          await tx.matchmakerInvite.create({
+            data: {
+              tokenHash: input.tokenHash,
+              email: input.email,
+              reason: input.reason,
+              originGiftEventId: input.originGiftEventId,
+              nominatedById: input.nominatedById,
+              expiresAt: input.expiresAt,
+            },
+          }),
+        );
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    async updateInvite(id, patch: UpdateInviteInput) {
+      try {
+        return toStoredInvite(
+          await tx.matchmakerInvite.update({ where: { id }, data: { ...patch } }),
+        );
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    async findProfileByAdmissionInviteId(inviteId) {
+      const row = await tx.matchmakerProfile.findUnique({
+        where: { admissionInviteId: inviteId },
+        include: PROFILE_WITH_REGISTRY,
+      });
+      return row ? toStoredProfile(row) : null;
+    },
+
+    /* ---------------- Step 3: giver benefits ---------------- */
+
+    async findGiverBenefitByGiftId(giftEventId) {
+      const row = await tx.matchmakerGiverBenefit.findUnique({ where: { giftEventId } });
+      return row ? toStoredBenefit(row) : null;
+    },
+
+    async createGiverBenefit(input: CreateGiverBenefitInput) {
+      try {
+        return toStoredBenefit(
+          await tx.matchmakerGiverBenefit.create({
+            data: {
+              giftEventId: input.giftEventId,
+              giverUserId: input.giverUserId,
+              giverEmail: input.giverEmail,
+            },
+          }),
+        );
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    async updateGiverBenefit(id, patch: UpdateGiverBenefitInput) {
+      try {
+        return toStoredBenefit(
+          await tx.matchmakerGiverBenefit.update({ where: { id }, data: { ...patch } }),
+        );
+      } catch (error) {
+        return translatePrismaError(error);
+      }
+    },
+
+    /* ---------------- Step 3: moderation audit trail ---------------- */
+
+    async hasModerationAction(query) {
+      const found = await tx.matchmakerModerationAction.findFirst({
+        where: {
+          profileId: query.profileId,
+          giftEventId: query.giftEventId,
+          action: query.action,
+        },
+        select: { id: true },
+      });
+      return found !== null;
+    },
+
+    async createModerationAction(input: CreateModerationActionInput) {
+      try {
+        await tx.matchmakerModerationAction.create({
+          data: {
+            // Deterministic PK — the concurrency boundary for system actions.
+            id: input.id,
+            profileId: input.profileId,
+            giftEventId: input.giftEventId,
+            actorUserId: input.actorUserId,
+            action: input.action,
+            note: input.note,
+          },
+        });
+        return true;
+      } catch (error) {
+        // A simultaneous cascade already wrote this exact action. That is the
+        // desired end state, so report "not created" rather than failing.
+        if (isUniqueConstraintViolation(error)) return false;
+        return translatePrismaError(error);
+      }
+    },
   };
 }
 
@@ -285,9 +513,15 @@ function defaultSlugSuffix(): string {
     .padStart(6, '0');
 }
 
+/** 256 bits of entropy, URL-safe. Only its hash is ever persisted. */
+function defaultInviteToken(): string {
+  return randomBytes(32).toString('base64url');
+}
+
 /** The production service context. Tests build their own. */
 export const matchmakerServiceContext: ServiceContext = {
   uow: prismaUnitOfWork,
   now: () => new Date(),
   slugSuffix: defaultSlugSuffix,
+  inviteToken: defaultInviteToken,
 };
