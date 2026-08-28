@@ -10,9 +10,12 @@ import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
 
-// ISR: the product picks are admin-editable (DB); regenerate hourly so edits go
-// live without a deploy, while the page stays cached/fast.
-export const revalidate = 3600;
+// Rendered per request. The product picks are admin-editable (DB), and an ISR
+// snapshot cannot be trusted here: on a self-hosted deploy the Next server cache
+// is instance-local, and Heroku dyno filesystems are ephemeral — so a
+// regenerated page is discarded on the next dyno cycle and the build-time
+// snapshot returns. Correctness of Taylor's Picks outweighs caching one page.
+export const dynamic = 'force-dynamic';
 
 export const metadata = buildMarketingMetadata({
   title: 'Baby Registry Checklist | Taylor-Made Baby Co.',
