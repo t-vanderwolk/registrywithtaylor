@@ -1,0 +1,213 @@
+stroller_brand,stroller_model,stroller_id,public_picker,total_rows,direct_rows,adapter_rows,limited_rows,incompatible_rows,distinct_car_seat_brands,distinct_car_seat_models
+Bombi,Bēbee V3,cmr4c3kvd0003n624f7jarr1e,yes,35,0,35,0,0,11,35
+BOB,Revolution Flex 3.0,bob-revolution-flex-3,yes,32,0,32,0,0,9,32
+Baby Jogger,City Select 2,baby-jogger-city-select-2,yes,30,0,30,0,0,8,30
+Cybex,e-Gazelle S,cmqzur4x60001eqf6vwexlatz,yes,30,0,30,0,0,8,30
+Cybex,Gazelle S,cybex-gazelle-s,yes,30,0,30,0,0,8,30
+Mockingbird,Single-to-Double,cmqpqr0rg001r7qllv13t2jq2,yes,30,0,30,0,0,10,30
+Mockingbird,Single,cmqpqr0p5001q7qllhayemg9s,yes,27,0,27,0,0,10,27
+Mockingbird,Single 3.0,mockingbird-single-3,no,27,0,27,0,0,10,27
+Zoe,Tourᵛ³ Single,cmrcjace500074oz1dejl3tdr,yes,27,0,27,0,0,7,27
+Bumbleride,Era,bumbleride-era,yes,25,0,25,0,0,6,25
+Bumbleride,Indie,bumbleride-indie,yes,25,0,25,0,0,6,25
+Bumbleride,Speed,bumbleride-speed,yes,25,0,25,0,0,6,25
+UPPAbaby,Cruz V2,uppababy-cruz-v2,no,22,1,19,2,0,7,22
+UPPAbaby,Cruz V3,uppababy-cruz-v3,yes,22,0,22,0,0,6,22
+UPPAbaby,Vista V3,uppababy-vista-v3,yes,22,0,22,0,0,6,22
+Zoe,Tour,cmr3zkwod0003977ime4xp5lt,no,21,0,21,0,0,5,21
+Bombi,Bēbee Twin V2,cmrdx44lf00001sxj80plzl5e,yes,20,0,20,0,0,5,20
+Thule,Shine,cmr1etqjy000f13fej5cpcpyj,yes,20,0,20,0,0,5,20
+Thule,Spring 2,cmqpqr2bw002f7qll0aapcmwl,yes,20,0,20,0,0,5,20
+Thule,Urban Glide 4-wheel,cmqx8m2rf000110nux9vv7skl,yes,20,0,20,0,0,5,20
+UPPAbaby,Vista V2,uppababy-vista-v2,no,20,1,17,2,0,6,20
+Baby Jogger,City Mini GT2 Double,cmqpqqwou00017qllo1wcl8jj,yes,19,0,19,0,0,5,19
+BOB,Revolution Flex 3.0 Duallie,bob-revolution-flex-duallie-3,yes,19,0,19,0,0,5,19
+Mompush,Wiz,cmqpqr19z001z7qllvwvfvx5w,yes,19,0,19,0,0,5,19
+Baby Jogger,City Mini Double,baby-jogger-city-mini-double,no,18,0,18,0,0,5,18
+Veer,All-Terrain Cruiser,cmqpqr2q1002l7qllrfy61aca,no,18,0,18,0,0,5,18
+Veer,Cruiser,cmqx8m2to000210nuqbjpz9i5,yes,18,0,18,0,0,5,18
+Veer,Cruiser City,cmqpqr2sf002m7qllr9yz4qzg,yes,18,0,18,0,0,5,18
+Veer,Cruiser City XL Essentials,cmqpqr2uv002n7qlla8wick7v,no,18,0,18,0,0,5,18
+Veer,Cruiser Wagon Comfort Seat for Toddlers,cmqpqr2xa002o7qll2zq1jk9u,no,18,0,18,0,0,5,18
+Veer,Cruiser Wagon XL Comfort Seat for Toddlers,cmqpqr2zl002p7qll072jlg89,no,18,0,18,0,0,5,18
+Veer,Cruiser XL Nap System,cmqpqr31z002q7qllv0snz6ag,no,18,0,18,0,0,5,18
+Baby Jogger,City Mini 2,baby-jogger-city-mini-2,no,17,0,17,0,0,5,17
+BOB,Wayfinder,bob-wayfinder,yes,17,0,17,0,0,5,17
+UPPAbaby,Minu V3,uppababy-minu-v3,yes,17,0,17,0,0,5,17
+UPPAbaby,Ridge V2,cmqpqr2nm002k7qllj1fowt14,yes,17,0,17,0,0,5,17
+WonderFold,L2 Double,cmqpqr39a002t7qllgm23scrc,yes,17,0,17,0,0,4,17
+WonderFold,L2 Double 2-Seater,cmqx8d7oy002413kpusrmz1ec,no,17,0,17,0,0,4,17
+WonderFold,L4 Quad,cmqpqr3bn002u7qlld5uxymyd,yes,17,0,17,0,0,4,17
+WonderFold,Volkswagon Special Edition Double,cmqx8d7rb002513kpqd05x0iu,yes,17,0,17,0,0,4,17
+WonderFold,VW Edition Quad,cmqpqr3dz002v7qllt1am62qv,yes,17,0,17,0,0,4,17
+WonderFold,W2 Elite Pro,cmqpqr3ga002w7qllvthvehzp,yes,17,0,17,0,0,4,17
+WonderFold,W2 Luxe Double,cmqx8d7tx002613kpml2b3weg,yes,17,0,17,0,0,4,17
+WonderFold,W2 Luxe Pro Double Seater,cmqpqr3im002x7qll506zzahr,yes,17,0,17,0,0,4,17
+WonderFold,W4 Elite Pro,cmqpqr3l1002y7qll8v1j66mn,yes,17,0,17,0,0,4,17
+WonderFold,W4 Luxe Pro,cmqpqr3nc002z7qllbrxqaram,yes,17,0,17,0,0,4,17
+WonderFold,W4 Luxe Pro Quad,cmqx8d7w8002713kp1d671s1a,yes,17,0,17,0,0,4,17
+WonderFold,W6 Luxe Pro,cmqpqr3pr00307qllcaal9ibq,yes,17,0,17,0,0,4,17
+Zoe,Twin,cmr3zkwzx0007977ikgtihvzf,no,17,0,17,0,0,4,17
+Zoe,Twinᵛ³ Double,cmrcjacgh00084oz1ca6s074p,yes,17,0,17,0,0,4,17
+Bugaboo,Butterfly 2,bugaboo-butterfly-2,yes,16,0,16,0,0,5,16
+Baby Jogger,City Mini GT3,cmqx8d2vr000313kps957hgge,yes,15,0,15,0,0,4,15
+Britax,Juniper On-The-Go,cmqx8d330000613kpkfkfo7ak,yes,15,0,15,0,0,4,15
+Bugaboo,Fox 5,bugaboo-fox-5,yes,15,0,15,0,0,4,15
+Bugaboo,Kangaroo,bugaboo-kangaroo,yes,15,0,15,0,0,4,15
+Bumbleride,Indie Twin,cms532db50002fa3stwd6931e,yes,15,0,15,0,0,4,15
+Cybex,Balios S Lux,cybex-balios-s-lux,yes,15,0,15,0,0,5,15
+Orbit Baby,G5,orbit-baby-g5,yes,15,1,14,0,0,5,15
+Orbit Baby,M+,cmqx8d65j001g13kpv68ufmt4,yes,15,1,14,0,0,5,15
+Silver Cross,Breez,cmqx8d6v1001r13kpy9w26i27,no,15,0,15,0,0,4,15
+Silver Cross,Cove 2,cmqx8d6sq001q13kphzobb0wi,no,15,0,15,0,0,4,15
+Silver Cross,Jet Double,silver-cross-jet-double,yes,15,0,15,0,0,4,15
+Silver Cross,Nia Travel,cmqx8d6xc001s13kp99wk94m6,no,15,0,15,0,0,4,15
+Silver Cross,Reef 2,silver-cross-reef-2,yes,15,0,15,0,0,4,15
+Silver Cross,Wave,silver-cross-wave,no,15,0,15,0,0,4,15
+Silver Cross,Wave 3,silver-cross-wave-3,yes,15,0,15,0,0,4,15
+Thule,Urban Glide 3,cmqpqr2gf002h7qlla8ckbqvv,yes,15,0,15,0,0,4,15
+Thule,Urban Glide 3 Double,cmqpqr2e6002g7qllsjri49z6,yes,15,0,15,0,0,4,15
+UPPAbaby,Minu V2,uppababy-minu-v2,no,15,0,13,2,0,5,15
+Veer,Switch&Jog,cmqx8d7fm002013kpwgdokqb5,yes,15,0,15,0,0,4,15
+Veer,Switch&Jog Jogging,cmqpqr34e002r7qll3fzqhzdz,no,15,0,15,0,0,4,15
+Veer,Switch&Roll,cmqpqr36t002s7qllftxs8rjs,yes,15,0,15,0,0,4,15
+Baby Jogger,City Mini Air,cmqpqqwk300007qlluagi0835,yes,14,0,14,0,0,4,14
+Bugaboo,Donkey 6,bugaboo-donkey-6,yes,14,0,14,0,0,4,14
+Bugaboo,Dragonfly,bugaboo-dragonfly,no,14,0,12,2,0,4,14
+Bugaboo,Dragonfly Plus,cmr2vgyqo0006ea9ukrzht5sg,yes,14,0,14,0,0,4,14
+Cybex,AVI,cmrcjac4h00044oz1n1r54ywi,yes,14,0,14,0,0,4,14
+Cybex,Coya,cybex-coya,yes,14,0,14,0,0,4,14
+Cybex,e-Priam,cmrcjabwd00014oz1n5pe6vrv,yes,14,0,14,0,0,4,14
+Cybex,LIBELLE Ultra Travel,cmqzur4sq0000eqf6f27jpm8y,yes,14,0,14,0,0,4,14
+Cybex,Priam,cmrcjac2400034oz1saq5gbos,yes,14,0,14,0,0,4,14
+Ergobaby,Metro 3,cmqx8d45a000m13kp1zi0195v,no,14,0,14,0,0,4,14
+Joolz,Hub2,cmr11h2gp00025u5o8yyyjpsy,yes,14,0,14,0,0,4,14
+Mercedes,Amg Gt² Single,cmqx8d4zv000z13kphx33yzvr,yes,14,0,14,0,0,4,14
+Mercedes,Performance Single,cmqx8d527001013kpg5wgthx0,yes,14,0,14,0,0,4,14
+Mima,Creo,mima-creo,yes,14,0,14,0,0,4,14
+Mima,Xari,mima-xari,yes,14,0,14,0,0,4,14
+Momcozy,ChangeGo Baby,cmqzur5230003eqf6od8gh7ti,yes,14,0,14,0,0,5,14
+Baby Jogger,City Mini GT2,baby-jogger-city-mini-gt2,no,13,0,13,0,0,4,13
+Cybex,Mios,cybex-mios,no,13,0,13,0,0,4,13
+Joolz,Aer2,cmqpqr063001i7qllm67qnr96,yes,13,0,13,0,0,4,13
+UPPAbaby,Ridge,uppababy-ridge,no,13,0,13,0,0,4,13
+Baby Jogger,City Sights,baby-jogger-city-sights,no,12,0,12,0,0,3,12
+Mima,Miro,cmqx8d54j001113kpk34atiq8,yes,12,0,12,0,0,3,12
+Zoe,The Journey,cmqpqr3ug00327qllcokcd299,yes,12,0,12,0,0,3,12
+Guava Family,Roam,cmqx8d4o5000u13kpbtkfe121,yes,11,0,11,0,0,3,11
+Thule,Sleek,thule-sleek,no,11,0,11,0,0,3,11
+Bugaboo,Butterfly,bugaboo-butterfly,no,10,0,10,0,0,4,10
+Thule,Urban Glide 2,thule-urban-glide-2,no,10,0,10,0,0,3,10
+Thule,Urban Glide 2 Double,thule-urban-glide-2-double,no,10,0,10,0,0,3,10
+BOB,Alterrain Pro,bob-alterrain-pro,no,9,0,9,0,0,3,9
+Bugaboo,Ant,bugaboo-ant,no,9,0,9,0,0,3,9
+Joovy,Caboose Ultralight Graphite,joovy-caboose-ultralight-graphite,no,9,0,9,0,0,3,9
+Larktale,Caravan Coupe Quad,cmqpqr0au001k7qll71z91bkj,yes,9,0,9,0,0,2,9
+Larktale,Caravan Coupe V2,cmqpqr0d4001l7qll72k5gj7h,yes,9,0,9,0,0,2,9
+Larktale,Caravan Quad,cmqpqr0fr001m7qllwzvj6bnn,yes,9,0,9,0,0,2,9
+Romer,Tura,romer-tura,yes,9,9,0,0,0,4,9
+Silver Cross,Dune,silver-cross-dune,no,9,0,9,0,0,3,9
+Silver Cross,Jet 5,silver-cross-jet-5,no,9,0,9,0,0,4,9
+Silver Cross,Reef,silver-cross-reef,no,9,0,9,0,0,3,9
+Thule,Glide 2,thule-glide-2,no,9,0,9,0,0,3,9
+Inglesina,Quid³,cmqpqqzmv001a7qllu2cdnmm6,yes,8,0,8,0,0,4,8
+Silver Cross,Comet,silver-cross-comet,no,8,0,8,0,0,3,8
+Silver Cross,Dune 2,silver-cross-dune-2,no,8,0,8,0,0,3,8
+Silver Cross,Wave 3 Single to Double,cmqpqr1zv002a7qlltuhbvanr,no,8,0,8,0,0,3,8
+Stokke,Yoyo 3,stokke-yoyo3,yes,8,0,8,0,0,3,8
+Baby Jogger,City Tour 2,baby-jogger-city-tour-2,yes,7,0,7,0,0,3,7
+Baby Jogger,City Tour 2 Double,cmqpqqwyc00057qllcxfjsi2l,yes,7,0,7,0,0,3,7
+Baby Jogger,Summit X3 Single Jogging,cmqpqqx5f00087qll6393izdt,no,7,0,7,0,0,3,7
+Britax,Prism Modular,cmqpqqxey000c7qll5fop3oe7,yes,7,0,7,0,0,4,7
+Cybex,Beezy,cybex-beezy,no,7,1,6,0,0,3,7
+Cybex,Eezy S Twist,cybex-eezy-s-twist,no,7,1,6,0,0,3,7
+Cybex,Eezy S Twist 2,cmr1etpr3000a13feaabfd815,no,7,1,6,0,0,3,7
+Cybex,Eos,cybex-eos,no,7,0,7,0,0,3,7
+Cybex,Melio,cybex-melio,no,7,1,6,0,0,3,7
+Evenflo,Pivot Xplore,cmqx8d4jd000s13kpqrw1npfd,yes,7,2,5,0,0,2,7
+Joolz,Aer+,joolz-aer-plus,yes,7,0,7,0,0,4,7
+Joovy,Caboose S,joovy-caboose-s,no,7,0,7,0,0,2,7
+Joovy,Qool,joovy-qool,no,7,0,7,0,0,2,7
+Stokke,YOYO+,babyzen-yoyo-plus,no,7,0,7,0,0,2,7
+UPPAbaby,Minu Duo,cmqpqr2l2002j7qll3btqww1f,yes,7,0,7,0,0,2,7
+Zoe,Traveler,cmqpqr3z500347qlllog8zixz,yes,7,0,7,0,0,2,7
+DFY,R1,cmqpqqye3000r7qll9geq88wn,yes,6,0,6,0,0,4,6
+Joolz,Geo,joolz-geo,no,6,0,6,0,0,2,6
+Mima,Xari Sport,mima-xari-sport,no,6,0,6,0,0,2,6
+Mima,Zigi,mima-zigi,no,6,0,2,4,0,2,6
+Peg Perego,YPSI,peg-perego-ypsi,yes,6,3,3,0,0,2,6
+Peg Perego,Z4,peg-perego-z4,no,6,3,3,0,0,2,6
+Silver Cross,Clic,silver-cross-clic,yes,6,6,0,0,0,2,6
+Silver Cross,Clic Compact,cmqpqr1xi00297qlld8p7uw3b,no,6,6,0,0,0,2,6
+Baby Jogger,Summit X3 Double,cmqx8d2qs000113kpyh2zxwjx,yes,5,0,5,0,0,1,5
+BOB,Rambler,bob-rambler,no,5,0,5,0,0,2,5
+BOB,Renegade Wagon,bob-renegade-wagon,no,5,0,5,0,0,2,5
+Chicco,BravoFor2 Standing/Sitting Double,cmqx8d3hx000c13kp688wv2ch,yes,5,5,0,0,0,1,5
+Chicco,Bravo LE ClearTex Quick-Fold,cmqpqqxqf000h7qll9ocuir9z,yes,5,5,0,0,0,1,5
+Chicco,Bravo Quick-Fold,cmqpqqxss000i7qll83vvip4a,yes,5,5,0,0,0,1,5
+Chicco,Corso Flex Convertible,cmqpqqxv4000j7qllen33z5zg,yes,5,5,0,0,0,1,5
+Chicco,Corso Primo Modular,cmqpqqxxj000k7qllu7tqglok,yes,5,5,0,0,0,1,5
+Chicco,Cortina Together Double,cmqx8d3ke000d13kpn6e6sfi5,yes,5,5,0,0,0,1,5
+Chicco,Presto Self-Folding,cmqx8d3fk000b13kppay9p7j9,no,5,5,0,0,0,1,5
+Chicco,TRE,cmqx8d3mp000e13kpe38oel0w,yes,5,5,0,0,0,1,5
+Chicco,TRE Jogging,cmqpqqxzu000l7qllpiifamvz,no,5,5,0,0,0,1,5
+Egg,Egg,egg-stroller,no,5,0,5,0,0,2,5
+Joolz,Day,joolz-day,yes,5,0,5,0,0,2,5
+Joovy,Twin Roo+,joovy-twin-roo-plus,no,5,0,5,0,0,2,5
+Bugaboo,Donkey 5 Mono Single-to-Double,cmqx8d37p000813kp2s8z32r8,no,4,0,4,0,0,1,4
+Ergobaby,Metro 3 Compact,cmqpqqyix000t7qll3hkoln8m,no,4,0,4,0,0,1,4
+Ergobaby,Metro 3 Deluxe Baby,cmqx8d47k000n13kpupmxgatb,yes,4,0,4,0,0,1,4
+Ergobaby,Metro 3 Travel,cmqx8d49v000o13kp3v8chfjp,yes,4,0,4,0,0,1,4
+Ergobaby,Metro+ Deluxe,cmqx8d4ek000q13kp25vm8o1q,no,4,0,4,0,0,1,4
+Ergobaby,Metro+ Deluxe Baby,cmqx8d4c9000p13kp1a0v0vkk,yes,4,0,4,0,0,1,4
+Graco,FastAction Jogger LX,cmqpqqyx1000z7qllrfqtanqt,yes,4,4,0,0,0,1,4
+Graco,Merge,cmqpqqyzg00107qll6evhebby,yes,4,4,0,0,0,1,4
+Graco,Modes Nest,cmqpqqz4600127qll8v8c0pgj,yes,4,4,0,0,0,1,4
+Graco,Modes Nest2Grow,cmqpqqz1t00117qllit3afjt4,yes,4,4,0,0,0,1,4
+Graco,Modes Pramette,cmqpqqz6e00137qllmm7ab21k,yes,4,4,0,0,0,1,4
+Graco,Outpace LX,cmqpqqz8n00147qll7u8ik6vf,yes,4,4,0,0,0,1,4
+Graco,Ready2Grow 2.0 Double,cmqpqqzaw00157qllq4qua86s,yes,4,4,0,0,0,1,4
+Graco,Ready2Grow LX 2.0 Double,cmqpqqzd900167qlludyh5ta6,yes,4,4,0,0,0,1,4
+Graco,Ready2Jet,cmqx8d4ls000t13kpnjml7roe,yes,4,4,0,0,0,1,4
+Graco,Ready2Jet Compact,cmqpqqzfn00177qll3ou9gfkg,no,4,4,0,0,0,1,4
+Guava Family,Roam Jogging,cmqpqqzhz00187qllpp2cly4t,no,4,0,4,0,0,1,4
+Joolz,Dot Ultra Travel,cmqx8d4v9000x13kp4ryugipd,yes,4,0,4,0,0,1,4
+Mima,Xari Max,cmr11h31s00055u5ox2jhaz79,no,4,0,4,0,0,1,4
+Mompush,Meteor 2,cmqpqr12x001w7qll5v4zoqet,yes,4,0,4,0,0,1,4
+Mompush,Ultimate 2 Seat,cmqpqr157001x7qllwic3dr6g,yes,4,0,4,0,0,1,4
+Mompush,Velo Travel,cmqpqr17i001y7qllzy4rhcm4,yes,4,0,4,0,0,1,4
+Nuna,DEMI next,nuna-demi-next,yes,4,4,0,0,0,1,4
+Nuna,MIXX next,nuna-mixx-next,yes,4,4,0,0,0,1,4
+Nuna,Mixx Next Bmw,cmqx8d5bv001413kpjri9r4s9,no,4,4,0,0,0,1,4
+Nuna,Mixx Next With Magnetic Buckle,cmqx8d5e9001513kpvy66jrkf,no,4,4,0,0,0,1,4
+Nuna,TAVO next,nuna-tavo-next,yes,4,4,0,0,0,1,4
+Nuna,Tavo Next Granite,cmqx8d5gq001613kp6pkqi29a,no,4,4,0,0,0,1,4
+Nuna,TRIV LX,cmqscejzb0000ltzkwuczhvv1,yes,4,4,0,0,0,1,4
+Nuna,TRIV next,nuna-triv-next,yes,4,4,0,0,0,1,4
+Nuna,Triv Next Bmw,cmqx8d5mh001813kpj7dt2y6v,no,4,4,0,0,0,1,4
+Nuna,Triv Next With Magnetic Buckle Caviar/Chocolate,cmqx8d5w0001c13kp4aatwr59,no,4,4,0,0,0,1,4
+Nuna,Triv Next W Magnetic Buckle,cmqx8d5ox001913kpewofgj0y,no,4,4,0,0,0,1,4
+Nuna,TRVL,cmr49d9kl000fo2uo8bit0bst,yes,4,4,0,0,0,1,4
+Nuna,TRVL DUBL,cmr49dac4000ro2uo6vl42vul,yes,4,4,0,0,0,1,4
+Nuna,TRVL LX,cmr49d8m40003o2uox4u071ll,yes,4,4,0,0,0,1,4
+Nuna,VIAA Cabn,cmqscek420001ltzkm4tqtb5v,yes,4,4,0,0,0,1,4
+Nuna,x BMW MIXX next,cmqpqr1jj00237qllzjnymes5,no,4,4,0,0,0,1,4
+Nuna,x BMW TRIV next,cmqpqr1lv00247qllwhlhf7mr,no,4,4,0,0,0,1,4
+Peg Perego,City Loop,cmr03hxw20003y6k2unrgw6d4,yes,4,0,4,0,0,1,4
+Thule,Urban Glide 4-Wheel Single Child,cmqx8d76m001w13kpohpwn912,no,4,0,4,0,0,1,4
+Britax,Brook+ Modular Baby,cmqx8d30k000513kpwtvwppgv,yes,3,3,0,0,0,2,3
+Britax,Grove Modular,cmqpqqxci000b7qllamksybtj,yes,3,3,0,0,0,2,3
+Maxi-Cosi,Fame Modular,cmqx8d4xj000y13kp8g65kbr1,yes,3,3,0,0,0,1,3
+Maxi-Cosi,Lila,maxi-cosi-lila,no,3,0,3,0,0,1,3
+Maxi-Cosi,Oxford Cabin Travel,cmqpqr0kg001o7qll8qrtlpwj,yes,3,3,0,0,0,1,3
+Maxi-Cosi,Tayla,maxi-cosi-tayla,no,3,0,3,0,0,1,3
+Maxi-Cosi,Tayla Max Modular,cmqpqr0mr001p7qll44id4ncr,yes,3,0,3,0,0,1,3
+Peg Perego,Selfie,peg-perego-selfie,no,3,0,3,0,0,1,3
+Peg Perego,Vivace,cmqx8d67u001h13kpx46xmh0o,yes,3,3,0,0,0,1,3
+Peg Perego,Vivace Single,cmqx8d6cn001j13kpn0ratclf,no,3,3,0,0,0,1,3
+Baby Trend,Expedition 2-in-1,cmqpqqx7s00097qllgw33pm0i,yes,2,2,0,0,0,1,2
+Baby Trend,Expedition Zero Flat Jogger with LED Lights,cmqx8m2mu000010nue3nlua93,yes,2,2,0,0,0,1,2
+Evenflo,Pivot Xpand Modular,cmqpqqynm000v7qll5rryi9y4,yes,2,2,0,0,0,1,2
+Evenflo,Pivot Xpand NXT,cmqpqqypz000w7qllyukuzwt3,yes,2,2,0,0,0,1,2
+Evenflo,Pivot Xplore All-Terrain,cmqpqqysc000x7qlln9lo56v7,no,2,2,0,0,0,1,2
+Evenflo,Shyft Intuiti+,cmqpqqyun000y7qllrfo62x6s,yes,2,2,0,0,0,1,2

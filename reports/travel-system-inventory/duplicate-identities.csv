@@ -1,0 +1,3 @@
+kind,group,id,brand,model,likely_duplicate_of,recommended_action
+stroller,DUP001,joolz-day,Joolz,Day,,NEEDS_HUMAN_REVIEW
+stroller,DUP001,cms532ddz0003fa3s5rdd7y8m,Joolz,Day+,joolz-day,NEEDS_HUMAN_REVIEW

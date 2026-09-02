@@ -1,0 +1,3 @@
+car_seat,validation_result,rejection_reason
+Maxi-Cosi Mico Pro,VALID_CANDIDATE_SOURCE_NOT_FOUND,"Mico Pro is a real current Maxi-Cosi seat (IC418) — NOT a nonexistent/mislabel. But no first-party stroller adapter/document names Mico Pro as sharing the stroller-side attachment with the KEEP anchor Mico Luxe (the Zelia adapter lists Mico XP/XP Max/Mico Luxe, not Mico Pro). Shared vehicle base (IC385) is rejected as stroller-attachment proof. Source-pending."
+(policy),EVIDENCE_RULES,"Shared vehicle base, baseless vehicle install, brand/family-name only, 'Maxi-Cosi-style' terminology, and retailer claims are NOT accepted as stroller-side attachment proof."

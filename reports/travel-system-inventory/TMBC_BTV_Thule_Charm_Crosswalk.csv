@@ -1,0 +1,30 @@
+chart_brand,chart_model,classification,us_catalogue_match,note
+BeSafe,iZi GO X1,NON_US_OR_I_SIZE_IDENTITY,,European BeSafe
+BeSafe,iZi Go Modular X1,NON_US_OR_I_SIZE_IDENTITY,,European BeSafe
+BeSafe,Go Beyond,NON_US_OR_I_SIZE_IDENTITY,,European BeSafe
+Britax,B-Safe 5Z,US_CATALOGUE_GAP,,Real US Britax seat; not in CarSeat catalogue
+Britax,Baby-Safe 3,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Britax,Willow,IDENTITY_REVIEW_REQUIRED,,Do NOT map to Willow S / Willow SC; no plain 'Willow' US retail infant seat
+Cybex,Cloud T i-size,IDENTITY_REVIEW_REQUIRED,,i-Size identity; do NOT auto-map to US 'Cloud T' without independent identity proof
+Cybex,Aton-2,US_CATALOGUE_GAP,,Older US Cybex seat; not in catalogue
+Cybex,Cloud G i-size,IDENTITY_REVIEW_REQUIRED,,Do NOT map to 'Cloud G Pro Comfort Extend'
+Cybex,Aton-G,US_CATALOGUE_GAP,,Real US legacy/archived Cybex seat; not in catalogue — REINFORCES the Aton G catalogue-gap finding
+Cybex,Z i-size,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Cybex,Z2 i-size,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Joie,Gemm/i-Gemm,NON_US_OR_I_SIZE_IDENTITY,,European; do NOT map to Mint Latch / Rue
+Maxi-Cosi,Pebble 360,NON_US_OR_I_SIZE_IDENTITY,,European Pebble line
+Maxi-Cosi,Pebble 360 PRO,NON_US_OR_I_SIZE_IDENTITY,,European Pebble line
+Maxi-Cosi,Pebble plus i-size,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Maxi-Cosi,Pebble pro i-size,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Maxi-Cosi,Peri 180,EXACT_CANONICAL_US_MATCH,Maxi-Cosi Peri 180,
+Maxi-Cosi,Coral,IDENTITY_REVIEW_REQUIRED,,US Maxi-Cosi 'Coral'/'Coral XP' family; exact 'Coral' not in catalogue
+Maxi-Cosi,Coral 360,NON_US_OR_I_SIZE_IDENTITY,,European i-Size
+Maxi-Cosi,Mico 30,US_CATALOGUE_GAP,,Older US Maxi-Cosi seat; not in catalogue
+Maxi-Cosi,Mico 12,NON_US_OR_I_SIZE_IDENTITY,,European
+Nuna,Pipa Aire RX,EXACT_CANONICAL_US_MATCH,Nuna Pipa Aire RX,
+Nuna,Pipa ARRA RX,NON_US_OR_I_SIZE_IDENTITY,,Non-US identity (not a US Nuna model name)
+Nuna,Pipa,US_CATALOGUE_GAP,,Plain 'PIPA' not in US catalogue (catalogue has PIPA RX / Aire / Aire rx / urbn)
+Nuna,Pipa RX,EXACT_CANONICAL_US_MATCH,Nuna Pipa RX,
+Nuna,Pipa Lite R,US_CATALOGUE_GAP,,PIPA Lite R not in catalogue
+Nuna,Pipa Lite RX,US_CATALOGUE_GAP,,PIPA Lite RX not in catalogue
+Thule,Maple,NON_US_OR_I_SIZE_IDENTITY,,Select markets only (not US)

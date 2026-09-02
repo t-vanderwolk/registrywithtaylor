@@ -1,0 +1,63 @@
+canonical_brand,canonical_model,stroller_id,compatibility_count,direct_count,adapter_count,limited_count,incompatible_count,distinct_car_seat_brands,flag
+Baby Jogger,City Select 2,baby-jogger-city-select-2,30,0,30,0,0,8,LARGE_SEAT_COUNT
+BOB,Revolution Flex 3.0,bob-revolution-flex-3,32,0,32,0,0,9,LARGE_SEAT_COUNT
+Bombi,Bēbee V3,cmr4c3kvd0003n624f7jarr1e,35,0,35,0,0,11,LARGE_SEAT_COUNT
+Chicco,BravoFor2 Standing/Sitting Double,cmqx8d3hx000c13kp688wv2ch,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Bravo LE ClearTex Quick-Fold,cmqpqqxqf000h7qll9ocuir9z,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Bravo Quick-Fold,cmqpqqxss000i7qll83vvip4a,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Corso Flex Convertible,cmqpqqxv4000j7qllen33z5zg,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Corso Primo Modular,cmqpqqxxj000k7qllu7tqglok,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Cortina Together Double,cmqx8d3ke000d13kpn6e6sfi5,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,Presto Self-Folding,cmqx8d3fk000b13kppay9p7j9,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,TRE,cmqx8d3mp000e13kpe38oel0w,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Chicco,TRE Jogging,cmqpqqxzu000l7qllpiifamvz,5,5,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Cybex,e-Gazelle S,cmqzur4x60001eqf6vwexlatz,30,0,30,0,0,8,LARGE_SEAT_COUNT
+Cybex,Gazelle S,cybex-gazelle-s,30,0,30,0,0,8,LARGE_SEAT_COUNT
+Graco,FastAction Jogger LX,cmqpqqyx1000z7qllrfqtanqt,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Merge,cmqpqqyzg00107qll6evhebby,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Modes Nest,cmqpqqz4600127qll8v8c0pgj,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Modes Nest2Grow,cmqpqqz1t00117qllit3afjt4,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Modes Pramette,cmqpqqz6e00137qllmm7ab21k,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Outpace LX,cmqpqqz8n00147qll7u8ik6vf,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Ready2Grow 2.0 Double,cmqpqqzaw00157qllq4qua86s,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Ready2Grow LX 2.0 Double,cmqpqqzd900167qlludyh5ta6,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Ready2Jet,cmqx8d4ls000t13kpnjml7roe,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Graco,Ready2Jet Compact,cmqpqqzfn00177qll3ou9gfkg,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Larktale,Caravan Coupe Quad,cmqpqr0au001k7qll71z91bkj,9,0,9,0,0,2,UNIFORM_BRAND_SEAT_COUNT
+Larktale,Caravan Coupe V2,cmqpqr0d4001l7qll72k5gj7h,9,0,9,0,0,2,UNIFORM_BRAND_SEAT_COUNT
+Larktale,Caravan Quad,cmqpqr0fr001m7qllwzvj6bnn,9,0,9,0,0,2,UNIFORM_BRAND_SEAT_COUNT
+Maxi-Cosi,Fame Modular,cmqx8d4xj000y13kp8g65kbr1,3,3,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Maxi-Cosi,Lila,maxi-cosi-lila,3,0,3,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Maxi-Cosi,Oxford Cabin Travel,cmqpqr0kg001o7qll8qrtlpwj,3,3,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Maxi-Cosi,Tayla,maxi-cosi-tayla,3,0,3,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Maxi-Cosi,Tayla Max Modular,cmqpqr0mr001p7qll44id4ncr,3,0,3,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Mockingbird,Single-to-Double,cmqpqr0rg001r7qllv13t2jq2,30,0,30,0,0,10,LARGE_SEAT_COUNT
+Nuna,DEMI next,nuna-demi-next,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,MIXX next,nuna-mixx-next,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Mixx Next Bmw,cmqx8d5bv001413kpjri9r4s9,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Mixx Next With Magnetic Buckle,cmqx8d5e9001513kpvy66jrkf,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TAVO next,nuna-tavo-next,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Tavo Next Granite,cmqx8d5gq001613kp6pkqi29a,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TRIV LX,cmqscejzb0000ltzkwuczhvv1,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TRIV next,nuna-triv-next,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Triv Next Bmw,cmqx8d5mh001813kpj7dt2y6v,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Triv Next With Magnetic Buckle Caviar/Chocolate,cmqx8d5w0001c13kp4aatwr59,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,Triv Next W Magnetic Buckle,cmqx8d5ox001913kpewofgj0y,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TRVL,cmr49d9kl000fo2uo8bit0bst,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TRVL DUBL,cmr49dac4000ro2uo6vl42vul,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,TRVL LX,cmr49d8m40003o2uox4u071ll,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,VIAA Cabn,cmqscek420001ltzkm4tqtb5v,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,x BMW MIXX next,cmqpqr1jj00237qllzjnymes5,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+Nuna,x BMW TRIV next,cmqpqr1lv00247qllwhlhf7mr,4,4,0,0,0,1,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,L2 Double,cmqpqr39a002t7qllgm23scrc,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,L2 Double 2-Seater,cmqx8d7oy002413kpusrmz1ec,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,L4 Quad,cmqpqr3bn002u7qlld5uxymyd,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,Volkswagon Special Edition Double,cmqx8d7rb002513kpqd05x0iu,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,VW Edition Quad,cmqpqr3dz002v7qllt1am62qv,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W2 Elite Pro,cmqpqr3ga002w7qllvthvehzp,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W2 Luxe Double,cmqx8d7tx002613kpml2b3weg,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W2 Luxe Pro Double Seater,cmqpqr3im002x7qll506zzahr,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W4 Elite Pro,cmqpqr3l1002y7qll8v1j66mn,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W4 Luxe Pro,cmqpqr3nc002z7qllbrxqaram,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W4 Luxe Pro Quad,cmqx8d7w8002713kp1d671s1a,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT
+WonderFold,W6 Luxe Pro,cmqpqr3pr00307qllcaal9ibq,17,0,17,0,0,4,UNIFORM_BRAND_SEAT_COUNT

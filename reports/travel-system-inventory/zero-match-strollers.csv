@@ -1,0 +1,52 @@
+canonical_brand,canonical_model,stroller_id,product_type,in_public_picker,duplicate_group,classification
+Baby Jogger,City Prix Jogger,cms532d8l0001fa3swiip1z36,Jogging / All-Terrain,yes,,SHOULD_HAVE_MATCHES
+Baby Jogger,Summit X3,baby-jogger-summit-x3,,no,,LEGACY_NEEDS_RESEARCH
+Baby Jogger,Summit X3 Single,cms532d390000fa3sxcfko9z9,Jogging / All-Terrain,yes,,SHOULD_HAVE_MATCHES
+Bellini,Juno Auto-Folding,cmqx8d2y6000413kpljiz2u0c,Travel,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Britax,B-Clever,britax-b-clever,,no,,LEGACY_NEEDS_RESEARCH
+Britax,B-Lively,britax-b-lively,,no,,LEGACY_NEEDS_RESEARCH
+Delta,Children - Baby Gap 2-In-1 Carriage,cmqx8d3tu000h13kp26xfy08m,,no,,LEGACY_NEEDS_RESEARCH
+Delta,Children - BabyGap Classic,cmqx8d3w4000i13kp1oasuckg,,no,,LEGACY_NEEDS_RESEARCH
+Delta,Children - BabyGap Classic Side-by-Side Double,cmqx8d3yh000j13kpa32mwzvz,,no,,LEGACY_NEEDS_RESEARCH
+Delta,Gap Classic Umbrella,cmqx8d3p1000f13kpf0wm1btn,,no,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Delta,Jeep Adventureglyde,cmqx8d3rc000g13kpah1z5xvr,,no,,LEGACY_NEEDS_RESEARCH
+Delta Children,BabyGap 2-in-1 Carriage,cmrcjac6u00054oz1hrcyv105,Compact / Mid-Size,yes,,SHOULD_HAVE_MATCHES
+Delta Children,Icon Ultra Everyday & Travel,cmqx8d40r000k13kpnsk722x3,Travel,yes,,SHOULD_HAVE_MATCHES
+Delta Children,Jeep Aries,cmqpqqy70000o7qllnfye7xrc,Wagon,yes,,SHOULD_HAVE_MATCHES
+Delta Children,Jeep Sport,cmqx8d431000l13kp93f6chbi,Wagon,yes,,SHOULD_HAVE_MATCHES
+Delta Children,Jeep Sport All-Terrain,cmqpqqy9e000p7qlljwy5ov4t,,no,,LEGACY_NEEDS_RESEARCH
+Delta Children,Jeep Wrangler Deluxe 4 Seater,cmqpqqybq000q7qll8vj2648r,Wagon,yes,,SHOULD_HAVE_MATCHES
+Doona,Liki Trike S3,cmqpqqygi000s7qllluuleev1,,no,,LEGACY_NEEDS_RESEARCH
+Evenflo,Hummingbird Carbon Fiber,cmqx8d4gz000r13kpem7fqdk9,Travel,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Evenflo,Hummingbird Carbon Fiber Lightweight,cmqpqqyl9000u7qllhgs1j0y9,,no,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Ingenuity,3DSuite Modular,cmqpqqzkh00197qllrgn27fpl,Full-Size,yes,,SHOULD_HAVE_MATCHES
+Joie,Caraway Whirl,cmqpqqzue001d7qlle1lf876r,Travel,yes,,SHOULD_HAVE_MATCHES
+Joie,Chive,cmqzur4zj0002eqf6kprqqkxh,Single-to-Double,yes,,SHOULD_HAVE_MATCHES
+Joie,Chive Single to Double,cmqpqqzwq001e7qlllftz668x,,no,,LEGACY_NEEDS_RESEARCH
+Joie,Ginger,joie-ginger,Full-Size,yes,,SHOULD_HAVE_MATCHES
+Joie,Ginger DLX,cmqpqqzz2001f7qll782dxn8x,Full-Size,yes,,SHOULD_HAVE_MATCHES
+Joie,Hazel,joie-hazel,,no,,LEGACY_NEEDS_RESEARCH
+Joie,Kava,joie-kava,Full-Size,yes,,SHOULD_HAVE_MATCHES
+Joie,Nutmeg,joie-nutmeg,Travel,yes,,SHOULD_HAVE_MATCHES
+Joie,Poppy Whirl,cmqpqr01g001g7qllq1h0gki6,Compact / Mid-Size,yes,,SHOULD_HAVE_MATCHES
+Joie,Rosemary,joie-rosemary,,no,,LEGACY_NEEDS_RESEARCH
+Joie,Rosemary Double,cmqpqr03q001h7qllcisvxenc,Double,yes,,SHOULD_HAVE_MATCHES
+Joie,Tansy,joie-tansy,Umbrella,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Joolz,Day+,cms532ddz0003fa3s5rdd7y8m,Full-Size,yes,DUP001,SHOULD_HAVE_MATCHES
+Momcozy,Clickgo,cmqx8d56v001213kp7kawkrby,Travel,yes,,SHOULD_HAVE_MATCHES
+Momcozy,ClickGo Lightweight,cmqpqr0vw001t7qll1dvnyq8b,,no,,LEGACY_NEEDS_RESEARCH
+Mompush,Lithe Double,cmqpqr0y5001u7qllrgz2wn4z,Double,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Mompush,Lithe V2,cmqpqr10h001v7qlltgc6ujeg,Travel,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Nuna,BMW x SWIV,cmqpqr1cb00207qllmlj0l2w2,,no,,LEGACY_NEEDS_RESEARCH
+Nuna,DEMI icon,cmqpqr1et00217qlluhtd1kgv,Full-Size,yes,,SHOULD_HAVE_MATCHES
+Nuna,FLEX,cmrh1zd2600009qn3tkl0u19d,Compact / Mid-Size,yes,,SHOULD_HAVE_MATCHES
+Nuna,SWIV,nuna-swiv,Compact / Mid-Size,yes,,SHOULD_HAVE_MATCHES
+Peg Perego,Volo,cmqx8d6h6001l13kpc6k17hny,Travel,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Peg Perego,Volo Ultra Carry On Compliant Travel,cmqx8d6jh001m13kpkkzcdjnv,Travel,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Peg Perego,Volo Ultra Carry On Compliant Travel Strolle,cmqx8d6ey001k13kpwhpzefav,,no,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Radio Flyer,Voya XT Baby,cmqx8d6lu001n13kpy1np1jfw,Wagon,yes,,SHOULD_HAVE_MATCHES
+Safety 1st,Disney Baby Character Umbrella,cmqx8d6qc001p13kpwpaqrlhn,Umbrella,yes,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE
+Safety 1st,Easy-Fold,cmqx8d6o2001o13kpyzgrfmfg,Travel,yes,,SHOULD_HAVE_MATCHES
+Safety 1st,Easy-Fold Compact,cmqpqr1sw00277qll6soktcpa,,no,,LEGACY_NEEDS_RESEARCH
+Safety 1st,Summit Quad Wagon,cmqpqr1v700287qll8vh9n4zr,Wagon,yes,,SHOULD_HAVE_MATCHES
+UPPAbaby,G-LUXE,cmqpqr2io002i7qll55aao8zt,,no,,CONFIRMED_NOT_TRAVEL_SYSTEM_COMPATIBLE

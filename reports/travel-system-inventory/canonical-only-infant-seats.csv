@@ -1,0 +1,10 @@
+canonical_brand,canonical_model,car_seat_id,compatibility_row_count,reason,recommended_action
+Britax,Cypress S,britax-cypress-s,25,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Chicco,KeyFit 30,chicco-keyfit-30,52,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Clek,Liingo,clek-liingo,68,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Aton G2 Swivel,cmrdwvbsy000u7tmavhnk64ww,69,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Doona,X,cmrdwvbwc000v7tmajufgdt7k,0,canonical INFANT seat absent from picker,RETAIN_LEGACY
+Maxi-Cosi,Mico XP,cmry6pa5o001ovblfjcngmv5n,23,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,PIPA urbn,nuna-pipa-urbn,173,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Peg Perego,Primo Viaggio 4-35,peg-perego-primo-viaggio-4-35,10,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW
+Peg Perego,Primo Viaggio Lounge,cmqx4qqg6000m3835m0yyofjb,10,canonical INFANT seat absent from picker (has compat rows),NEEDS_HUMAN_REVIEW

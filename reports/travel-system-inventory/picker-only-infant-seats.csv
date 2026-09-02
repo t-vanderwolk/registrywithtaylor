@@ -1,0 +1,13 @@
+picker_brand,picker_name,picker_model,canonical_candidate,reason,recommended_action
+AXKID,AXKID ONE 3 Extended Rear Facing Car Seat in Arctic Mist Grey,ONE 3 Extended Rear Facing,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Cybex,Cybex Cloud T Comfort Extend Infant Car Seat with SensorSafe in City Grey,Cloud T Comfort Extend,Cybex Cloud T [cybex-cloud-t],picker name is a colorway/variant of an existing canonical record (normalization mismatch),ADD_ALIAS
+Evenflo,Evenflo Gold Shyft DualRide Infant Car Seat Stroller Combo w Carryall Storage & Extended Canopy in Champagne/Green/Gentle Fabric,Gold Shyft Dual Ride,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Evenflo,Evenflo Shyft DualRide Infant Car Seat Stroller Combo with Carryall Storage in Boone,Shyft Dual Ride,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Joie,Joie Mint Latch And Base AR in Dove,Mint Latch And Base AR,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Maxi-Cosi,Maxi-Cosi The Kindred Collection Peri 180 Rotating Infant Car Seat in Natural Heritage,The Kindred Collection Peri 180,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Nuna,Nuna PIPA aire rx in Biscotti,Nuna PIPA aire rx in Biscotti,Nuna PIPA Aire rx [nuna-pipa-aire-rx],picker name is a colorway/variant of an existing canonical record (normalization mismatch),ADD_ALIAS
+Nuna,Nuna PIPA rx in Caviar/Cognac,Nuna PIPA rx in Caviar/Cognac,Nuna PIPA RX [nuna-pipa-rx],picker name is a colorway/variant of an existing canonical record (normalization mismatch),ADD_ALIAS
+Peg Perego,Peg Perego PEG Primo Viaggio Lounge in Mon Amour,Peg Perego PEG Primo Viaggio Lounge in Mon Amour,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+Peg Perego,Peg Perego PEG Primo Viaggio Nido in Mon Amour,Peg Perego PEG Primo Viaggio Nido in Mon Amour,,in public picker; no canonical record and no close base-model match,ADD_CANONICAL_RECORD
+UPPAbaby,UPPAbaby Aria V2 in Ada,UPPAbaby Aria V2 in Ada,UPPAbaby Aria V2 [uppababy-aria-v2],picker name is a colorway/variant of an existing canonical record (normalization mismatch),ADD_ALIAS
+UPPAbaby,UPPAbaby Mesa V3 in Ada,UPPAbaby Mesa V3 in Ada,UPPAbaby Mesa V3 [uppababy-mesa-v3],picker name is a colorway/variant of an existing canonical record (normalization mismatch),ADD_ALIAS

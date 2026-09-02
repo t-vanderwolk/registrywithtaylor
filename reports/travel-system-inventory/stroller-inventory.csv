@@ -1,0 +1,264 @@
+canonical_brand,canonical_model,display_name,stroller_id,product_type,lifecycle_status,source_table,in_stroller_table,in_affiliate_catalog,in_public_picker,picker_display_name,compatibility_row_count,compatible_car_seat_count,retailer_babylist,retailer_amazon,retailer_macrobaby,retailer_bombi,retailer_brand_direct,image_available,duplicate_group,likely_duplicate_of,accessory_not_stroller,travel_system_status,notes
+Baby Jogger,City Mini 2,Baby Jogger City Mini 2,baby-jogger-city-mini-2,,,Stroller,yes,no,no,,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+Baby Jogger,City Mini Air,Baby Jogger City Mini Air,cmqpqqwk300007qlluagi0835,Compact / Mid-Size,,Stroller,yes,no,yes,Baby Jogger City Mini Air Stroller in Rich Black,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Baby Jogger,City Mini Double,Baby Jogger City Mini Double,baby-jogger-city-mini-double,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Baby Jogger,City Mini GT2,Baby Jogger City Mini GT2,baby-jogger-city-mini-gt2,,,Stroller,yes,no,no,,13,13,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:13
+Baby Jogger,City Mini GT2 Double,Baby Jogger City Mini GT2 Double,cmqpqqwou00017qllo1wcl8jj,Double,,Stroller,yes,no,yes,Baby Jogger City Mini GT2 Double Stroller in Jet,19,19,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:19
+Baby Jogger,City Mini GT3,Baby Jogger City Mini GT3,cmqx8d2vr000313kps957hgge,Jogging / All-Terrain,,Stroller,yes,yes,yes,"Baby Jogger City Mini GT3 All Terrain Stroller, Sierra Sand",15,15,yes,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Baby Jogger,City Prix Jogger,Baby Jogger City Prix Jogger,cms532d8l0001fa3swiip1z36,Jogging / All-Terrain,,Stroller,yes,no,yes,Baby Jogger City Prix Jogger Stroller in Ambition Black,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Baby Jogger,City Select 2,Baby Jogger City Select 2,baby-jogger-city-select-2,Single-to-Double,,Stroller,yes,yes,yes,"""Baby Jogger City Select 2 Stroller, Eco Collection in Lunar Black Size 35"""" x 23.8"""" x 41.1""""""",30,30,yes,yes,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:30
+Baby Jogger,City Sights,Baby Jogger City Sights,baby-jogger-city-sights,,,Stroller,yes,no,no,,12,12,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:12
+Baby Jogger,City Tour 2,Baby Jogger City Tour 2,baby-jogger-city-tour-2,Travel,,Stroller,yes,no,yes,"""Baby Jogger City Tour 2 Stroller, Eco Collection in Eco Black Size 37.75"""" x 19.6"""" x 39.5""""""",7,7,yes,yes,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Baby Jogger,City Tour 2 Double,Baby Jogger City Tour 2 Double,cmqpqqwyc00057qllcxfjsi2l,Double,,Stroller,yes,no,yes,Baby Jogger City Tour 2 Double Stroller in Jet,7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Baby Jogger,Summit X3,Baby Jogger Summit X3,baby-jogger-summit-x3,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Baby Jogger,Summit X3 Double,Baby Jogger Summit X3 Double,cmqx8d2qs000113kpyh2zxwjx,Double,,Stroller,yes,no,yes,"""Baby Jogger Summit X3 Double Jogging Stroller in Midnight Black Size 53.15"""" x 32.48"""" x 40.55""""""",5,5,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+Baby Jogger,Summit X3 Single,Baby Jogger Summit X3 Single,cms532d390000fa3sxcfko9z9,Jogging / All-Terrain,,Stroller,yes,yes,yes,"Baby Jogger - Summit X3 Jogging Single Stroller, Midnight Black",0,0,no,no,yes,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Baby Jogger,Summit X3 Single Jogging,Baby Jogger Summit X3 Single Jogging,cmqpqqx5f00087qll6393izdt,,,Stroller,yes,no,no,,7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Baby Trend,Expedition 2-in-1,Baby Trend Expedition 2-in-1,cmqpqqx7s00097qllgw33pm0i,Wagon,,Stroller,yes,yes,yes,Baby Trend Expedition 2-in-1 Stroller Wagon PLUS in Ultra Gray,2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Baby Trend,Expedition Zero Flat Jogger with LED Lights,Baby Trend Expedition Zero Flat Jogger with LED Lights,cmqx8m2mu000010nue3nlua93,Jogging / All-Terrain,,Stroller,yes,no,yes,Baby Trend Expedition Zero Flat Jogger with LED Lights in Dash Grey,2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Bellini,Juno Auto-Folding,Bellini Juno Auto-Folding,cmqx8d2y6000413kpljiz2u0c,Travel,,Stroller,yes,no,yes,Bellini Juno Compact Auto-Folding Stroller in Black,0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+BOB,Alterrain Pro,BOB Alterrain Pro,bob-alterrain-pro,,,Stroller,yes,no,no,,9,9,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+BOB,Rambler,BOB Rambler,bob-rambler,,,Stroller,yes,no,no,,5,5,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+BOB,Renegade Wagon,BOB Renegade Wagon,bob-renegade-wagon,,,Stroller,yes,no,no,,5,5,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+BOB,Revolution Flex 3.0,BOB Revolution Flex 3.0,bob-revolution-flex-3,Jogging / All-Terrain,,Stroller,yes,yes,yes,BOB Gear Revolution Flex 3.0 Single Jogging Stroller,32,32,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:32
+BOB,Revolution Flex 3.0 Duallie,BOB Revolution Flex 3.0 Duallie,bob-revolution-flex-duallie-3,Double,,Stroller,yes,yes,yes,BOB Gear Revolution Flex 3.0 Duallie Double Jogging Stroller,19,19,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:19
+BOB,Wayfinder,BOB Wayfinder,bob-wayfinder,Jogging / All-Terrain,,Stroller,yes,yes,yes,"BOB - Wayfinder Jogging Stroller, Nightfall",17,17,no,yes,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+Bombi,Bēbee Twin V2,Bombi Bēbee Twin V2,cmrdx44lf00001sxj80plzl5e,Double,,Stroller,yes,yes,yes,Bombi Bēbee Twin V2,20,20,no,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:20
+Bombi,Bēbee V3,Bombi Bēbee V3,cmr4c3kvd0003n624f7jarr1e,Travel,,Stroller,yes,yes,yes,Bombi Bēbee V3 Lightweight Stroller,35,35,no,yes,no,yes,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:35
+Britax,B-Clever,Britax B-Clever,britax-b-clever,,,Stroller,yes,no,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Britax,B-Lively,Britax B-Lively,britax-b-lively,,,Stroller,yes,no,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Britax,Brook+ Modular Baby,Britax Brook+ Modular Baby,cmqx8d30k000513kpwtvwppgv,Full-Size,,Stroller,yes,yes,yes,Britax - Brook+ Modular Baby Stroller,3,3,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Britax,Grove Modular,Britax Grove Modular,cmqpqqxci000b7qllamksybtj,Full-Size,,Stroller,yes,no,yes,Britax Grove Modular Stroller in Pindot Stone,3,3,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Britax,Juniper On-The-Go,Britax Juniper On-The-Go,cmqx8d330000613kpkfkfo7ak,Travel,,Stroller,yes,yes,yes,"Britax - Juniper Compact On-The-Go Stroller, Raven Black",15,15,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Britax,Prism Modular,Britax Prism Modular,cmqpqqxey000c7qll5fop3oe7,Full-Size,,Stroller,yes,no,yes,Britax Prism Modular Stroller in Teak,7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Bugaboo,Ant,Bugaboo Ant,bugaboo-ant,,,Stroller,yes,yes,no,,9,9,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Bugaboo,Butterfly,Bugaboo Butterfly,bugaboo-butterfly,,,Stroller,yes,no,no,,10,10,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:10
+Bugaboo,Butterfly 2,Bugaboo Butterfly 2,bugaboo-butterfly-2,Travel,,Stroller,yes,yes,yes,Bugaboo Butterfly 2 Complete Stroller,16,16,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:16
+Bugaboo,Donkey 5 Mono Single-to-Double,Bugaboo Donkey 5 Mono Single-to-Double,cmqx8d37p000813kp2s8z32r8,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Bugaboo,Donkey 6,Bugaboo Donkey 6,bugaboo-donkey-6,Single-to-Double,,Stroller,yes,yes,yes,Bugaboo Donkey 6 Complete Stroller Black/Fern Green,14,14,yes,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Bugaboo,Dragonfly,Bugaboo Dragonfly,bugaboo-dragonfly,,,Stroller,yes,yes,no,,14,14,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:12; LIMITED:2
+Bugaboo,Dragonfly Plus,Bugaboo Dragonfly Plus,cmr2vgyqo0006ea9ukrzht5sg,Compact / Mid-Size,,Stroller,yes,yes,yes,Bugaboo Dragonfly Plus Seat Stroller,14,14,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Bugaboo,Fox 5,Bugaboo Fox 5,bugaboo-fox-5,Full-Size,,Stroller,yes,yes,yes,Bugaboo Fox 5 Renew Complete Stroller,15,15,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Bugaboo,Kangaroo,Bugaboo Kangaroo,bugaboo-kangaroo,Single-to-Double,,Stroller,yes,no,yes,Bugaboo Kangaroo Stroller in Moon Grey,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Bumbleride,Era,Bumbleride Era,bumbleride-era,Full-Size,,Stroller,yes,no,yes,Bumbleride Era Stroller in Dusk | 100% Recycled,25,25,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:25
+Bumbleride,Indie,Bumbleride Indie,bumbleride-indie,Jogging / All-Terrain,,Stroller,yes,yes,yes,Bumbleride Indie in Black | 100% Recycled,25,25,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:25
+Bumbleride,Indie Twin,Bumbleride Indie Twin,cms532db50002fa3stwd6931e,Double,,Stroller,yes,yes,yes,Bumbleride Indie Twin Double Jogging Stroller,15,15,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Bumbleride,Speed,Bumbleride Speed,bumbleride-speed,Jogging / All-Terrain,,Stroller,yes,no,yes,Bumbleride Speed Stroller in Black | 100% Recycled,25,25,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:25
+Chicco,BravoFor2 Standing/Sitting Double,Chicco BravoFor2 Standing/Sitting Double,cmqx8d3hx000c13kp688wv2ch,Double,,Stroller,yes,yes,yes,"Chicco BravoFor2 Standing/Sitting Double Stroller, Iron",5,5,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Bravo LE ClearTex Quick-Fold,Chicco Bravo LE ClearTex Quick-Fold,cmqpqqxqf000h7qll9ocuir9z,Full-Size,,Stroller,yes,no,yes,"""Chicco Bravo LE ClearTex Quick-Fold Stroller in Pewter Size 35.2"""" x 22.8"""" x 22.8""""""",5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Bravo Quick-Fold,Chicco Bravo Quick-Fold,cmqpqqxss000i7qll83vvip4a,Full-Size,,Stroller,yes,yes,yes,"""Chicco Bravo Quick-Fold Stroller in Black Size 35.2"""" x 22.8"""" x 22.8""""""",5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Corso Flex Convertible,Chicco Corso Flex Convertible,cmqpqqxv4000j7qllen33z5zg,Single-to-Double,,Stroller,yes,yes,yes,"""Chicco Corso Flex Convertible Stroller in Legend Size 45.5"""" x 26.3"""" x 43""""""",5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Corso Primo Modular,Chicco Corso Primo Modular,cmqpqqxxj000k7qllu7tqglok,Full-Size,,Stroller,yes,no,yes,Chicco Corso Primo Modular Stroller in Summit,5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Cortina Together Double,Chicco Cortina Together Double,cmqx8d3ke000d13kpn6e6sfi5,Double,,Stroller,yes,yes,yes,"Chicco Cortina Together Double Stroller, Minerale",5,5,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,Presto Self-Folding,Chicco Presto Self-Folding,cmqx8d3fk000b13kppay9p7j9,,,Stroller,yes,no,no,,5,5,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,TRE,Chicco TRE,cmqx8d3mp000e13kpe38oel0w,Jogging / All-Terrain,,Stroller,yes,no,yes,"""Chicco TRE Jogging Stroller in Galaxy Size 47.5"""" x 25.5"""" x 42""""""",5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Chicco,TRE Jogging,Chicco TRE Jogging,cmqpqqxzu000l7qllpiifamvz,,,Stroller,yes,no,no,,5,5,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:5
+Cybex,AVI,Cybex AVI,cmrcjac4h00044oz1n1r54ywi,Jogging / All-Terrain,,Stroller,yes,no,yes,Cybex AVI,14,14,no,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Cybex,Balios S Lux,CYBEX Balios S Lux,cybex-balios-s-lux,Full-Size,,Stroller,yes,no,yes,Cybex Balios S Lux Stroller in Moon Black,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Cybex,Beezy,CYBEX Beezy,cybex-beezy,,,Stroller,yes,no,no,,7,7,no,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6; DIRECT:1
+Cybex,Coya,CYBEX Coya,cybex-coya,Travel,,Stroller,yes,no,yes,Cybex Coya Stroller in Matte Black/Mirage Grey,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Cybex,Eezy S Twist,CYBEX Eezy S Twist,cybex-eezy-s-twist,,,Stroller,yes,no,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6; DIRECT:1
+Cybex,Eezy S Twist 2,Cybex Eezy S Twist 2,cmr1etpr3000a13feaabfd815,,,Stroller,yes,yes,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6; DIRECT:1
+Cybex,e-Gazelle S,Cybex e-Gazelle S,cmqzur4x60001eqf6vwexlatz,Single-to-Double,,Stroller,yes,yes,yes,Cybex eGazelle S Electronic Assist Stroller in Black Frame/Moon Black Seat,30,30,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:30
+Cybex,Eos,CYBEX Eos,cybex-eos,,,Stroller,yes,yes,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Cybex,e-Priam,Cybex e-Priam,cmrcjabwd00014oz1n5pe6vrv,Full-Size,,Stroller,yes,no,yes,Cybex e-PRIAM Stroller in Matte Black Frame/Cozy Beige Lux Seat,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Cybex,Gazelle S,CYBEX Gazelle S,cybex-gazelle-s,Single-to-Double,,Stroller,yes,yes,yes,Cybex Gazelle S Stroller in Almond Beige Seat/Taupe Frame,30,30,yes,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:30
+Cybex,LIBELLE Ultra Travel,Cybex Libelle,cmqzur4sq0000eqf6f27jpm8y,Travel,,Stroller,yes,no,yes,Cybex LIBELLE Ultra Lightweight Travel Stroller in Magic Black,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Cybex,Melio,CYBEX Melio,cybex-melio,,,Stroller,yes,no,no,,7,7,no,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6; DIRECT:1
+Cybex,Mios,CYBEX Mios,cybex-mios,,,Stroller,yes,yes,no,,13,13,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:13
+Cybex,Priam,Cybex Priam Comfort,cmrcjac2400034oz1saq5gbos,Full-Size,,Stroller,yes,yes,yes,Cybex Priam 4 Stroller in Rose Gold/Mirage Grey,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Delta,Children - Baby Gap 2-In-1 Carriage,Delta Children - Baby Gap 2-In-1 Carriage,cmqx8d3tu000h13kp26xfy08m,,,Stroller,yes,no,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta,Children - BabyGap Classic,Delta Children - BabyGap Classic,cmqx8d3w4000i13kp1oasuckg,,,Stroller,yes,yes,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta,Children - BabyGap Classic Side-by-Side Double,Delta Children - BabyGap Classic Side-by-Side Double,cmqx8d3yh000j13kpa32mwzvz,,,Stroller,yes,yes,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta,Gap Classic Umbrella,Delta Gap Classic Umbrella,cmqx8d3p1000f13kpf0wm1btn,,,Stroller,yes,yes,no,,0,0,no,no,no,no,no,no,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Delta,Jeep Adventureglyde,Delta Jeep Adventureglyde,cmqx8d3rc000g13kpah1z5xvr,,,Stroller,yes,yes,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,BabyGap 2-in-1 Carriage,Delta Children BabyGap 2-in-1 Carriage,cmrcjac6u00054oz1hrcyv105,Compact / Mid-Size,,Stroller,yes,no,yes,"Delta Children - Baby Gap 2-In-1 Carriage Stroller, Camo Blue",0,0,no,no,yes,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,Icon Ultra Everyday & Travel,Delta Children Icon Ultra Everyday & Travel,cmqx8d40r000k13kpnsk722x3,Travel,,Stroller,yes,no,yes,Delta Children Icon Ultra Compact Lightweight Everyday & Travel Stroller in Navy,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,Jeep Aries,Delta Children Jeep Aries,cmqpqqy70000o7qllnfye7xrc,Wagon,,Stroller,yes,no,yes,Delta Children Jeep Aries Stroller Wagon in Black/Green,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,Jeep Sport,Delta Children Jeep Sport,cmqx8d431000l13kp93f6chbi,Wagon,,Stroller,yes,yes,yes,Delta Children Jeep Sport All-Terrain Stroller Wagon in Grey/Blue Moon,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,Jeep Sport All-Terrain,Delta Children Jeep Sport All-Terrain,cmqpqqy9e000p7qlljwy5ov4t,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Delta Children,Jeep Wrangler Deluxe 4 Seater,Delta Children Jeep Wrangler Deluxe 4 Seater,cmqpqqybq000q7qll8vj2648r,Wagon,,Stroller,yes,no,yes,Delta Children Jeep Wrangler Deluxe 4 Seater Stroller Wagon in Grey,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+DFY,R1,DFY R1,cmqpqqye3000r7qll9geq88wn,Full-Size,,Stroller,yes,no,yes,DFY R1 Stroller in Grey/Gunmetal,6,6,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6
+Doona,Liki Trike S3,Doona Liki Trike S3,cmqpqqygi000s7qllluuleev1,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Egg,Egg,Egg Stroller,egg-stroller,,,Stroller,yes,no,no,,5,5,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+Ergobaby,Metro 3,Ergobaby Metro 3,cmqx8d45a000m13kp1zi0195v,,,Stroller,yes,no,no,,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Ergobaby,Metro 3 Compact,Ergobaby Metro 3 Compact,cmqpqqyix000t7qll3hkoln8m,,,Stroller,yes,no,no,,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Ergobaby,Metro 3 Deluxe Baby,Ergobaby Metro 3 Deluxe Baby,cmqx8d47k000n13kpupmxgatb,Travel,,Stroller,yes,yes,yes,"Ergobaby Metro 3 Deluxe Baby Stroller, Willow Green",4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Ergobaby,Metro 3 Travel,Ergobaby Metro 3 Travel,cmqx8d49v000o13kp3v8chfjp,Travel,,Stroller,yes,yes,yes,"Ergobaby Metro 3 Travel Stroller, Onyx Black",4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Ergobaby,Metro+ Deluxe,Ergobaby Metro+ Deluxe,cmqx8d4ek000q13kp25vm8o1q,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Ergobaby,Metro+ Deluxe Baby,Ergobaby Metro+ Deluxe Baby,cmqx8d4c9000p13kp1a0v0vkk,Travel,,Stroller,yes,yes,yes,"Ergobaby Metro+ Deluxe Compact Baby Stroller, London Grey",4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Evenflo,Hummingbird Carbon Fiber,Evenflo Hummingbird Carbon Fiber,cmqx8d4gz000r13kpem7fqdk9,Travel,,Stroller,yes,no,yes,Evenflo Hummingbird Carbon Fiber Lightweight Stroller in Crest Grey,0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Evenflo,Hummingbird Carbon Fiber Lightweight,Evenflo Hummingbird Carbon Fiber Lightweight,cmqpqqyl9000u7qllhgs1j0y9,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Evenflo,Pivot Xpand Modular,Evenflo Pivot Xpand Modular,cmqpqqynm000v7qll5rryi9y4,Single-to-Double,,Stroller,yes,yes,yes,"""Evenflo Pivot Xpand Modular Stroller in Sabino Gray Size 26.5"""" x 39.25"""" x 39""""""",2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Evenflo,Pivot Xpand NXT,Evenflo Pivot Xpand NXT,cmqpqqypz000w7qllyukuzwt3,Single-to-Double,,Stroller,yes,no,yes,Evenflo Pivot Xpand NXT Stroller in Coal Black,2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Evenflo,Pivot Xplore,Evenflo Pivot Xplore,cmqx8d4jd000s13kpqrw1npfd,Wagon,,Stroller,yes,no,yes,Evenflo Pivot Xplore All-Terrain Stroller Wagon in Adventurer,7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5; DIRECT:2
+Evenflo,Pivot Xplore All-Terrain,Evenflo Pivot Xplore All-Terrain,cmqpqqysc000x7qlln9lo56v7,,,Stroller,yes,no,no,,2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Evenflo,Shyft Intuiti+,Evenflo Shyft Intuiti+,cmqpqqyun000y7qllrfo62x6s,Full-Size,,Stroller,yes,no,yes,Evenflo Shyft Intuiti+ Stroller in Dubhan Black,2,2,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:2
+Graco,FastAction Jogger LX,Graco FastAction Jogger LX,cmqpqqyx1000z7qllrfqtanqt,Jogging / All-Terrain,,Stroller,yes,no,yes,Graco FastAction Jogger LX Stroller in Redmond,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Merge,Graco Merge,cmqpqqyzg00107qll6evhebby,Compact / Mid-Size,,Stroller,yes,no,yes,Graco Merge Stroller in Sable,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Modes Nest,Graco Modes Nest,cmqpqqz4600127qll8v8c0pgj,Full-Size,,Stroller,yes,no,yes,Graco Modes Nest Stroller in Nico,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Modes Nest2Grow,Graco Modes Nest2Grow,cmqpqqz1t00117qllit3afjt4,Full-Size,,Stroller,yes,no,yes,Graco Modes Nest2Grow Stroller in Maison,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Modes Pramette,Graco Modes Pramette,cmqpqqz6e00137qllmm7ab21k,Full-Size,,Stroller,yes,no,yes,Graco Modes Pramette Stroller in Pierce,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Outpace LX,Graco Outpace LX,cmqpqqz8n00147qll7u8ik6vf,Jogging / All-Terrain,,Stroller,yes,no,yes,Graco Outpace LX Stroller in Cohen,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Ready2Grow 2.0 Double,Graco Ready2Grow 2.0 Double,cmqpqqzaw00157qllq4qua86s,Double,,Stroller,yes,no,yes,"""Graco Ready2Grow 2.0 Double Stroller in Rafa Size 42.75"""" x 25.625"""" x 14.50""""""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Ready2Grow LX 2.0 Double,Graco Ready2Grow LX 2.0 Double,cmqpqqzd900167qlludyh5ta6,Double,,Stroller,yes,no,yes,"""Graco Ready2Grow LX 2.0 Double Stroller in Clark Size 42.75"""" x 25.625"""" x 14.50""""""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Ready2Jet,Graco Ready2Jet,cmqx8d4ls000t13kpnjml7roe,Travel,,Stroller,yes,no,yes,Graco Ready2Jet Compact Stroller,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Graco,Ready2Jet Compact,Graco Ready2Jet Compact,cmqpqqzfn00177qll3ou9gfkg,,,Stroller,yes,no,no,,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Guava Family,Roam,Guava Family Roam,cmqx8d4o5000u13kpbtkfe121,Jogging / All-Terrain,,Stroller,yes,no,yes,Guava Family Roam Jogging Stroller,11,11,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:11
+Guava Family,Roam Jogging,Guava Family Roam Jogging,cmqpqqzhz00187qllpp2cly4t,,,Stroller,yes,no,no,,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Ingenuity,3DSuite Modular,Ingenuity 3DSuite Modular,cmqpqqzkh00197qllrgn27fpl,Full-Size,,Stroller,yes,no,yes,Ingenuity 3DSuite Modular Stroller with Reversible Seat in Cashew,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Inglesina,Quid³,Inglesina Quid³,cmqpqqzmv001a7qllu2cdnmm6,Travel,,Stroller,yes,no,yes,Inglesina Quid³ Stroller in Lunar Beige,8,8,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:8
+Joie,Caraway Whirl,Joie Caraway Whirl,cmqpqqzue001d7qlle1lf876r,Travel,,Stroller,yes,no,yes,Joie Caraway Whirl Stroller in Blush,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Chive,Joie Chive,cmqzur4zj0002eqf6kprqqkxh,Single-to-Double,,Stroller,yes,no,yes,Joie Chive Single to Double Stroller in Dove,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Chive Single to Double,Joie Chive Single to Double,cmqpqqzwq001e7qlllftz668x,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Ginger,Joie Ginger,joie-ginger,Full-Size,,Stroller,yes,no,yes,Joie Ginger Stroller in Mocha,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Ginger DLX,Joie Ginger DLX,cmqpqqzz2001f7qll782dxn8x,Full-Size,,Stroller,yes,no,yes,Joie Ginger DLX Stroller in Dove,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Hazel,Joie Hazel,joie-hazel,,,Stroller,yes,no,no,,0,0,no,no,no,no,no,no,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Kava,Joie Kava,joie-kava,Full-Size,,Stroller,yes,no,yes,Joie Kava Stroller in Dove,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Nutmeg,Joie Nutmeg,joie-nutmeg,Travel,,Stroller,yes,no,yes,Joie Nutmeg Stroller in Shale,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Poppy Whirl,Joie Poppy Whirl,cmqpqr01g001g7qllq1h0gki6,Compact / Mid-Size,,Stroller,yes,yes,yes,Joie Poppy Whirl in Shale,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Rosemary,Joie Rosemary,joie-rosemary,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Rosemary Double,Joie Rosemary Double,cmqpqr03q001h7qllcisvxenc,Double,,Stroller,yes,no,yes,Joie Rosemary Double Stroller in Shale/Thunder,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Joie,Tansy,Joie Tansy,joie-tansy,Umbrella,,Stroller,yes,no,yes,Joie Tansy Stroller in Shale,0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Joolz,Aer+,Joolz Aer+,joolz-aer-plus,Travel,,Stroller,yes,yes,yes,Joolz - Aer+ Lightweight Compact Stroller Sage Green,7,7,yes,yes,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Joolz,Aer2,Joolz Aer2,cmqpqr063001i7qllm67qnr96,Travel,,Stroller,yes,no,yes,Joolz Aer2 Stroller in Dark Navy,13,13,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:13
+Joolz,Day,Joolz Day,joolz-day,Full-Size,,Stroller,yes,no,yes,"""Joolz Day+ Complete Stroller in Navy Blue Size 37"""" x 23.4"""" x 13.8""""""",5,5,yes,no,no,no,no,yes,DUP001,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+Joolz,Day+,Joolz Day+,cms532ddz0003fa3s5rdd7y8m,Full-Size,,Stroller,yes,no,yes,"""Joolz Day+ Complete Stroller in Navy Blue Size 37"""" x 23.4"""" x 13.8""""""",0,0,yes,no,no,no,no,yes,DUP001,joolz-day,no,IDENTITY_NEEDS_RECONCILIATION,
+Joolz,Dot Ultra Travel,Joolz Dot Ultra Travel,cmqx8d4v9000x13kp4ryugipd,Travel,,Stroller,yes,yes,yes,"Joolz Dot Ultra Lightweight Travel Stroller, Lagoon Blue",4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Joolz,Geo,Joolz Geo,joolz-geo,,,Stroller,yes,no,no,,6,6,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6
+Joolz,Hub2,Joolz Hub2,cmr11h2gp00025u5o8yyyjpsy,Compact / Mid-Size,,Stroller,yes,yes,yes,Joolz Hub² Stroller in Sandy Taupe,14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Joovy,Caboose S,Joovy Caboose S,joovy-caboose-s,,,Stroller,yes,no,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Joovy,Caboose Ultralight Graphite,Joovy Caboose Ultralight Graphite,joovy-caboose-ultralight-graphite,,,Stroller,yes,no,no,,9,9,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Joovy,Qool,Joovy Qool,joovy-qool,,,Stroller,yes,yes,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Joovy,Twin Roo+,Joovy Twin Roo+,joovy-twin-roo-plus,,,Stroller,yes,no,no,,5,5,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:5
+Larktale,Caravan Coupe Quad,Larktale Caravan Coupe Quad,cmqpqr0au001k7qll71z91bkj,Wagon,,Stroller,yes,no,yes,"""Larktale Caravan Coupe Quad Stroller Wagon in Gray/Green Size 49.5"""" x 30"""" x 42.5""""""",9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Larktale,Caravan Coupe V2,Larktale Caravan Coupe V2,cmqpqr0d4001l7qll72k5gj7h,Wagon,,Stroller,yes,no,yes,"""Larktale Caravan Coupe V2 Stroller Wagon in Gray/Blue Size 49.5"""" x 25"""" x 42.5""""""",9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Larktale,Caravan Quad,Larktale Caravan Quad,cmqpqr0fr001m7qllwzvj6bnn,Wagon,,Stroller,yes,no,yes,"""Larktale Caravan Quad Stroller Wagon in Byron Black Size 54.5"""" x 29.5"""" x 45""""""",9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Maxi-Cosi,Fame Modular,Maxi-Cosi Fame Modular,cmqx8d4xj000y13kp8g65kbr1,Full-Size,,Stroller,yes,yes,yes,"Maxi-Cosi - Fame Modular Stroller, Twillic Black",3,3,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Maxi-Cosi,Lila,Maxi-Cosi Lila,maxi-cosi-lila,,,Stroller,yes,no,no,,3,3,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3
+Maxi-Cosi,Oxford Cabin Travel,Maxi-Cosi Oxford Cabin Travel,cmqpqr0kg001o7qll8qrtlpwj,Travel,,Stroller,yes,no,yes,Maxi-Cosi Oxford Cabin Travel Stroller in Sea Shadow,3,3,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Maxi-Cosi,Tayla,Maxi-Cosi Tayla,maxi-cosi-tayla,,,Stroller,yes,yes,no,,3,3,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3
+Maxi-Cosi,Tayla Max Modular,Maxi-Cosi Tayla Max Modular,cmqpqr0mr001p7qll44id4ncr,Full-Size,,Stroller,yes,no,yes,"""Maxi-Cosi Tayla Max Modular Stroller in Desert Wonder Size 41"""" x 26.2"""" x 17.5""""""",3,3,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3
+Mercedes,Amg Gt² Single,Mercedes Amg Gt² Single,cmqx8d4zv000z13kphx33yzvr,Full-Size,,Stroller,yes,yes,yes,"Mercedes Amg Gt² Single Stroller, 622 Sienabraun",14,14,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Mercedes,Performance Single,Mercedes Performance Single,cmqx8d527001013kpg5wgthx0,Full-Size,,Stroller,yes,yes,yes,"Mercedes Performance Single Stroller, 616 Truffle",14,14,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Mima,Creo,Mima Creo,mima-creo,Compact / Mid-Size,,Stroller,yes,no,yes,Mima Creo Stroller,14,14,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Mima,Miro,Mima Miro,cmqx8d54j001113kpk34atiq8,Travel,,Stroller,yes,no,yes,Mima Miro Stroller,12,12,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:12
+Mima,Xari,Mima Xari,mima-xari,Full-Size,,Stroller,yes,no,yes,Mima Xari Stroller,14,14,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Mima,Xari Max,Mima Xari Max,cmr11h31s00055u5ox2jhaz79,,,Stroller,yes,yes,no,,4,4,no,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Mima,Xari Sport,Mima Xari Sport,mima-xari-sport,,,Stroller,yes,no,no,,6,6,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:6
+Mima,Zigi,Mima Zigi,mima-zigi,,,Stroller,yes,no,no,,6,6,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:2; LIMITED:4
+Mockingbird,Single,Mockingbird Single,cmqpqr0p5001q7qllhayemg9s,Full-Size,,Stroller,yes,no,yes,Mockingbird Single Stroller 3.0,27,27,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:27
+Mockingbird,Single 3.0,Mockingbird Single 3.0,mockingbird-single-3,,,Stroller,yes,yes,no,,27,27,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:27
+Mockingbird,Single-to-Double,Mockingbird Single-to-Double,cmqpqr0rg001r7qllv13t2jq2,Single-to-Double,,Stroller,yes,yes,yes,Mockingbird Single Stroller 3.0 in Black,30,30,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:30
+Momcozy,ChangeGo Baby,Momcozy ChangeGo Baby,cmqzur5230003eqf6od8gh7ti,Single-to-Double,,Stroller,yes,yes,yes,"""Momcozy ChangeGo Baby Stroller in Black Size 43"""" x 35.4"""" x 19.2""""""",14,14,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14
+Momcozy,Clickgo,Momcozy Clickgo,cmqx8d56v001213kp7kawkrby,Travel,,Stroller,yes,yes,yes,"""Momcozy ClickGo Lightweight Stroller in Black Size 40.55"""" x 20"""" x 33.66""""""",0,0,yes,no,yes,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Momcozy,ClickGo Lightweight,Momcozy ClickGo Lightweight,cmqpqr0vw001t7qll1dvnyq8b,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Mompush,Lithe Double,Mompush Lithe Double,cmqpqr0y5001u7qllrgz2wn4z,Double,,Stroller,yes,yes,yes,"""Mompush Lithe Double Stroller in Gray Size 30.3"""" x 23.6"""" x 10.6"""" | 100% Polyester""",0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Mompush,Lithe V2,Mompush Lithe V2,cmqpqr10h001v7qlltgc6ujeg,Travel,,Stroller,yes,yes,yes,"""Mompush Lithe V2 Stroller in Gray Size 11.02"""" x 21.26"""" x 26.97""""""",0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Mompush,Meteor 2,Mompush Meteor 2,cmqpqr12x001w7qll5v4zoqet,Compact / Mid-Size,,Stroller,yes,no,yes,"""Mompush Meteor 2 Stroller in Navy Size 33.9"""" x 25.2"""" x 16.7""""""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Mompush,Ultimate 2 Seat,Mompush Ultimate 2 Seat,cmqpqr157001x7qllwic3dr6g,Full-Size,,Stroller,yes,no,yes,"""Mompush Ultimate 2 Seat Stroller in Gray Size 15.4"""" x 25.6"""" x 35.4""""""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Mompush,Velo Travel,Mompush Velo Travel,cmqpqr17i001y7qllzy4rhcm4,Travel,,Stroller,yes,yes,yes,"""Mompush Velo Travel Stroller in Gray Size 17.13"""" x 8.27"""" x 20.08"""" | 100% Polyester""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Mompush,Wiz,Mompush Wiz,cmqpqr19z001z7qllvwvfvx5w,Full-Size,,Stroller,yes,yes,yes,"""Mompush Wiz Stroller in Gray Size 43.3"""" x 24.4"""" x 14.2""""""",19,19,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:19
+Nuna,BMW x SWIV,Nuna BMW x SWIV,cmqpqr1cb00207qllmlj0l2w2,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Nuna,DEMI icon,Nuna DEMI icon,cmqpqr1et00217qlluhtd1kgv,Full-Size,,Stroller,yes,yes,yes,Nuna DEMI icon in Caviar,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Nuna,DEMI next,Nuna DEMI next,nuna-demi-next,Single-to-Double,,Stroller,yes,no,yes,Nuna DEMI next Stroller in Granite,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,FLEX,Nuna FLEX,cmrh1zd2600009qn3tkl0u19d,Compact / Mid-Size,,Stroller,yes,no,yes,Nuna FLEX Stroller,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Nuna,MIXX next,Nuna MIXX next,nuna-mixx-next,Full-Size,,Stroller,yes,no,yes,"""Nuna MIXX next in Biscotti Size 32.7"""" x 23.6"""" x 45.3""""""",4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Mixx Next Bmw,Nuna Mixx Next Bmw,cmqx8d5bv001413kpjri9r4s9,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Mixx Next With Magnetic Buckle,Nuna Mixx Next With Magnetic Buckle,cmqx8d5e9001513kpvy66jrkf,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,SWIV,Nuna SWIV,nuna-swiv,Compact / Mid-Size,,Stroller,yes,no,yes,Nuna SWIV in Cedar,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Nuna,TAVO next,Nuna TAVO next,nuna-tavo-next,Full-Size,,Stroller,yes,yes,yes,Nuna - Tavo Next Granite Stroller,4,4,yes,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Tavo Next Granite,Nuna Tavo Next Granite,cmqx8d5gq001613kp6pkqi29a,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,TRIV LX,Nuna TRIV LX,cmqscejzb0000ltzkwuczhvv1,Compact / Mid-Size,,Stroller,yes,no,yes,Nuna TRIV LX Stroller,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,TRIV next,Nuna TRIV next,nuna-triv-next,Compact / Mid-Size,,Stroller,yes,no,yes,Nuna TRIV next in Thistle,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Triv Next Bmw,Nuna Triv Next Bmw,cmqx8d5mh001813kpj7dt2y6v,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Triv Next With Magnetic Buckle Caviar/Chocolate,Nuna Triv Next With Magnetic Buckle Caviar/Chocolate,cmqx8d5w0001c13kp4aatwr59,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,Triv Next W Magnetic Buckle,Nuna Triv Next W Magnetic Buckle,cmqx8d5ox001913kpewofgj0y,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,TRVL,Nuna TRVL,cmr49d9kl000fo2uo8bit0bst,Travel,,Stroller,yes,yes,yes,Nuna TRVL,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,TRVL DUBL,Nuna TRVL DUBL,cmr49dac4000ro2uo6vl42vul,Double,,Stroller,yes,yes,yes,Nuna TRVL DUBL,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,TRVL LX,Nuna TRVL LX,cmr49d8m40003o2uox4u071ll,Travel,,Stroller,yes,yes,yes,Nuna TRVL LX,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,VIAA Cabn,Nuna VIAA Cabn,cmqscek420001ltzkm4tqtb5v,Travel,,Stroller,yes,yes,yes,Nuna VIAA CABN Ultra-Compact Stroller,4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,x BMW MIXX next,Nuna x BMW MIXX next,cmqpqr1jj00237qllzjnymes5,,,Stroller,yes,no,no,,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Nuna,x BMW TRIV next,Nuna x BMW TRIV next,cmqpqr1lv00247qllwhlhf7mr,,,Stroller,yes,no,no,,4,4,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:4
+Orbit Baby,G5,Orbit Baby G5,orbit-baby-g5,Full-Size,,Stroller,yes,yes,yes,Orbit Baby G5 Stroller,15,15,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14; DIRECT:1
+Orbit Baby,M+,Orbit Baby M+,cmqx8d65j001g13kpv68ufmt4,Travel,,Stroller,yes,yes,yes,"Orbit Baby M+ Compact Stroller, Black/Black",15,15,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:14; DIRECT:1
+Peg Perego,City Loop,Peg Perego City Loop,cmr03hxw20003y6k2unrgw6d4,Compact / Mid-Size,,Stroller,yes,no,yes,Peg-Perego - City Loop Full-Size Reversible Stroller,4,4,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+Peg Perego,Selfie,Peg Perego Selfie,peg-perego-selfie,,,Stroller,yes,no,no,,3,3,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3
+Peg Perego,Vivace,Peg Perego Vivace,cmqx8d67u001h13kpx46xmh0o,Full-Size,,Stroller,yes,yes,yes,Peg Perego Vivace Stroller - Astral (Beige),3,3,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Peg Perego,Vivace Single,Peg Perego Vivace Single,cmqx8d6cn001j13kpn0ratclf,,,Stroller,yes,no,no,,3,3,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,DIRECT:3
+Peg Perego,Volo,Peg Perego Volo,cmqx8d6h6001l13kpc6k17hny,Travel,,Stroller,yes,yes,yes,"Peg Perego - Volo, Ultra Lightweight Carry On Compliant Travel Stroller, Blue Shine (Blue & Copper)",0,0,no,no,yes,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Peg Perego,Volo Ultra Carry On Compliant Travel,Peg Perego Volo Ultra Carry On Compliant Travel,cmqx8d6jh001m13kpkkzcdjnv,Travel,,Stroller,yes,yes,yes,"Peg Perego Volo Ultra Lightweight Carry On Compliant Travel Stroller, True Black",0,0,no,no,yes,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Peg Perego,Volo Ultra Carry On Compliant Travel Strolle,Peg Perego Volo Ultra Carry On Compliant Travel Strolle,cmqx8d6ey001k13kpwhpzefav,,,Stroller,yes,no,no,,0,0,no,no,no,no,no,no,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Peg Perego,YPSI,Peg Perego YPSI,peg-perego-ypsi,Single-to-Double,,Stroller,yes,yes,yes,"Peg-Perego Ypsi Single to Double Stroller, True Black",6,6,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3; DIRECT:3
+Peg Perego,Z4,Peg Perego Z4,peg-perego-z4,,,Stroller,yes,no,no,,6,6,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:3; DIRECT:3
+Radio Flyer,Voya XT Baby,Radio Flyer Voya XT Baby,cmqx8d6lu001n13kpy1np1jfw,Wagon,,Stroller,yes,yes,yes,"Radio Flyer - Voya XT Baby Stroller Wagon, Gray",0,0,no,no,yes,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Romer,Tura,Romer Tura,romer-tura,Full-Size,,Stroller,yes,no,yes,Romer Tura Stroller in Pearl,9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:9
+Safety 1st,Disney Baby Character Umbrella,Safety 1st Disney Baby Character Umbrella,cmqx8d6qc001p13kpwpaqrlhn,Umbrella,,Stroller,yes,yes,yes,"Safety 1St - Disney Baby Character Umbrella Stroller, Eye-catching, Hide & Seek Mickey",0,0,no,no,yes,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+Safety 1st,Easy-Fold,Safety 1st Easy-Fold,cmqx8d6o2001o13kpyzgrfmfg,Travel,,Stroller,yes,no,yes,Safety 1st Easy-Fold Compact Stroller in Dorsal,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Safety 1st,Easy-Fold Compact,Safety 1st Easy-Fold Compact,cmqpqr1sw00277qll6soktcpa,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Safety 1st,Summit Quad Wagon,Safety 1st Summit Quad Wagon,cmqpqr1v700287qll8vh9n4zr,Wagon,,Stroller,yes,no,yes,Safety 1st Summit Quad Wagon Stroller in Navy Ink,0,0,yes,no,no,no,no,yes,,,no,ZERO_MATCHES_NEEDS_AUDIT,
+Silver Cross,Breez,Silver Cross Breez,cmqx8d6v1001r13kpy9w26i27,,,Stroller,yes,yes,no,,15,15,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Clic,Silver Cross Clic,silver-cross-clic,Travel,,Stroller,yes,no,yes,Silver Cross Clic Compact Stroller in Latte,6,6,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:6
+Silver Cross,Clic Compact,Silver Cross Clic Compact,cmqpqr1xi00297qlld8p7uw3b,,,Stroller,yes,no,no,,6,6,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,DIRECT:6
+Silver Cross,Comet,Silver Cross Comet,silver-cross-comet,,,Stroller,yes,no,no,,8,8,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:8
+Silver Cross,Cove 2,Silver Cross Cove 2,cmqx8d6sq001q13kphzobb0wi,,,Stroller,yes,yes,no,,15,15,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Dune,Silver Cross Dune,silver-cross-dune,,,Stroller,yes,no,no,,9,9,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Silver Cross,Dune 2,Silver Cross Dune 2,silver-cross-dune-2,,,Stroller,yes,no,no,,8,8,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:8
+Silver Cross,Jet 5,Silver Cross Jet 5,silver-cross-jet-5,,,Stroller,yes,no,no,,9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Silver Cross,Jet Double,Silver Cross Jet Double,silver-cross-jet-double,Double,,Stroller,yes,no,yes,Silver Cross Jet Double Stroller,15,15,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Nia Travel,Silver Cross Nia,cmqx8d6xc001s13kp99wk94m6,,,Stroller,yes,yes,no,,15,15,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Reef,Silver Cross Reef,silver-cross-reef,,,Stroller,yes,no,no,,9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Silver Cross,Reef 2,Silver Cross Reef 2,silver-cross-reef-2,Full-Size,,Stroller,yes,no,yes,Silver Cross Reef 2 Stroller in Espresso,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Wave,Silver Cross Wave,silver-cross-wave,,,Stroller,yes,yes,no,,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Wave 3,Silver Cross Wave 3,silver-cross-wave-3,Single-to-Double,,Stroller,yes,yes,yes,Silver Cross Wave 3 Single to Double Stroller in Caramel,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Silver Cross,Wave 3 Single to Double,Silver Cross Wave 3 Single to Double,cmqpqr1zv002a7qlltuhbvanr,,,Stroller,yes,no,no,,8,8,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:8
+Stokke,YOYO+,Babyzen YOYO+,babyzen-yoyo-plus,,,Stroller,yes,no,no,,7,7,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Stokke,Yoyo 3,Stokke Yoyo 3,stokke-yoyo3,Travel,,Stroller,yes,no,yes,Stokke YOYO 3 Stroller,8,8,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:8
+Thule,Glide 2,Thule Glide 2,thule-glide-2,,,Stroller,yes,no,no,,9,9,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:9
+Thule,Shine,Thule Shine,cmr1etqjy000f13fej5cpcpyj,Compact / Mid-Size,,Stroller,yes,yes,yes,Thule Shine,20,20,no,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:20
+Thule,Sleek,Thule Sleek,thule-sleek,,,Stroller,yes,no,no,,11,11,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:11
+Thule,Spring 2,Thule Spring 2,cmqpqr2bw002f7qll0aapcmwl,Jogging / All-Terrain,,Stroller,yes,no,yes,"""Thule Spring 2 Stroller in Black Size 19.5"""" x 17.7"""" x 15.3""""""",20,20,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:20
+Thule,Urban Glide 2,Thule Urban Glide 2,thule-urban-glide-2,,,Stroller,yes,no,no,,10,10,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:10
+Thule,Urban Glide 2 Double,Thule Urban Glide 2 Double,thule-urban-glide-2-double,,,Stroller,yes,no,no,,10,10,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:10
+Thule,Urban Glide 3,Thule Urban Glide 3,cmqpqr2gf002h7qlla8ckbqvv,Jogging / All-Terrain,,Stroller,yes,no,yes,"""Thule Urban Glide 3 in Black Size 34.6"""" x 22.8"""" x 12.2""""""",15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Thule,Urban Glide 3 Double,Thule Urban Glide 3 Double,cmqpqr2e6002g7qllsjri49z6,Double,,Stroller,yes,yes,yes,Thule Urban Glide 3 Double,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Thule,Urban Glide 4-wheel,Thule Urban Glide 4-wheel,cmqx8m2rf000110nux9vv7skl,Full-Size,,Stroller,yes,no,yes,"""Thule Urban Glide 4-wheel in Black Size 34.6"""" x 22.8"""" x 11""""""",20,20,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:20
+Thule,Urban Glide 4-Wheel Single Child,Thule Urban Glide 4-Wheel Single Child,cmqx8d76m001w13kpohpwn912,,,Stroller,yes,no,no,,4,4,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:4
+UPPAbaby,Cruz V2,UPPAbaby Cruz V2,uppababy-cruz-v2,,,Stroller,yes,yes,no,,22,22,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:19; DIRECT:1; LIMITED:2
+UPPAbaby,Cruz V3,UPPAbaby Cruz V3,uppababy-cruz-v3,Full-Size,,Stroller,yes,no,yes,UPPAbaby Cruz V3 Stroller in Ada,22,22,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:22
+UPPAbaby,G-LUXE,UPPAbaby G-LUXE,cmqpqr2io002i7qll55aao8zt,,,Stroller,yes,no,no,,0,0,yes,no,no,no,no,yes,,,no,NOT_TRAVEL_SYSTEM_COMPATIBLE,
+UPPAbaby,Minu Duo,UPPAbaby Minu Duo,cmqpqr2l2002j7qll3btqww1f,Double,,Stroller,yes,yes,yes,UPPAbaby Minu Duo Stroller,7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+UPPAbaby,Minu V2,UPPAbaby Minu V2,uppababy-minu-v2,,,Stroller,yes,no,no,,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:13; LIMITED:2
+UPPAbaby,Minu V3,UPPAbaby Minu V3,uppababy-minu-v3,Travel,,Stroller,yes,no,yes,UPPAbaby Minu V3 Stroller in Ada,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+UPPAbaby,Ridge,UPPAbaby Ridge,uppababy-ridge,,,Stroller,yes,no,no,,13,13,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:13
+UPPAbaby,Ridge V2,UPPAbaby Ridge V2,cmqpqr2nm002k7qllj1fowt14,Jogging / All-Terrain,,Stroller,yes,no,yes,UPPAbaby Ridge V2 Stroller in Evelyn,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+UPPAbaby,Vista V2,UPPAbaby Vista V2,uppababy-vista-v2,,,Stroller,yes,yes,no,,20,20,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17; DIRECT:1; LIMITED:2
+UPPAbaby,Vista V3,UPPAbaby Vista V3,uppababy-vista-v3,Single-to-Double,,Stroller,yes,yes,yes,"""UPPAbaby Vista V3 Stroller in Ada Size 16.3"""" x 25.7"""" x 33.8""""""",22,22,yes,yes,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:22
+Veer,All-Terrain Cruiser,Veer All-Terrain Cruiser,cmqpqr2q1002l7qllrfy61aca,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser,Veer Cruiser,cmqx8m2to000210nuqbjpz9i5,Wagon,,Stroller,yes,no,yes,Veer All-Terrain Cruiser,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser City,Veer Cruiser City,cmqpqr2sf002m7qllr9yz4qzg,Wagon,,Stroller,yes,no,yes,Veer Cruiser City,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser City XL Essentials,Veer Cruiser City XL Essentials,cmqpqr2uv002n7qlla8wick7v,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser Wagon Comfort Seat for Toddlers,Veer Cruiser Wagon Comfort Seat for Toddlers,cmqpqr2xa002o7qll2zq1jk9u,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser Wagon XL Comfort Seat for Toddlers,Veer Cruiser Wagon XL Comfort Seat for Toddlers,cmqpqr2zl002p7qll072jlg89,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Cruiser XL Nap System,Veer Cruiser XL Nap System,cmqpqr31z002q7qllv0snz6ag,,,Stroller,yes,no,no,,18,18,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:18
+Veer,Switch&Jog,Veer Switch&Jog,cmqx8d7fm002013kpwgdokqb5,Jogging / All-Terrain,,Stroller,yes,no,yes,Veer Switch&Jog Jogging Stroller in Natural,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Veer,Switch&Jog Jogging,Veer Switch&Jog Jogging,cmqpqr34e002r7qll3fzqhzdz,,,Stroller,yes,no,no,,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+Veer,Switch&Roll,Veer Switch&Roll,cmqpqr36t002s7qllftxs8rjs,Single-to-Double,,Stroller,yes,no,yes,Veer Switch&Roll Stroller in Natural,15,15,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:15
+WonderFold,L2 Double,WonderFold Wagon L2 Double,cmqpqr39a002t7qllgm23scrc,Wagon,,Stroller,yes,no,yes,WonderFold Wagon L2 Double Stroller Wagon in Black,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,L2 Double 2-Seater,WonderFold L2 Double 2-Seater,cmqx8d7oy002413kpusrmz1ec,,,Stroller,yes,yes,no,,17,17,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,L4 Quad,WonderFold Wagon L4 Quad,cmqpqr3bn002u7qlld5uxymyd,Wagon,,Stroller,yes,yes,yes,WonderFold Wagon L4 Quad Stroller Wagon in Gray,17,17,yes,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,Volkswagon Special Edition Double,WonderFold Volkswagon Special Edition Double,cmqx8d7rb002513kpqd05x0iu,Wagon,,Stroller,yes,yes,yes,"WonderFold - Volkswagon Special Edition Double Stroller Wagon (4 Seater), Bondi Blue",17,17,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,VW Edition Quad,WonderFold Wagon VW Edition Quad,cmqpqr3dz002v7qllt1am62qv,Wagon,,Stroller,yes,no,yes,WonderFold Wagon VW Edition Quad Stroller Wagon (2 Seater) in Bondi Blue,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W2 Elite Pro,WonderFold Wagon W2 Elite Pro,cmqpqr3ga002w7qllvthvehzp,Wagon,,Stroller,yes,yes,yes,WonderFold Wagon W2 Elite Pro Stroller Wagon in Jet Black | 100% Polyester,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W2 Luxe Double,WonderFold W2 Luxe Double,cmqx8d7tx002613kpml2b3weg,Wagon,,Stroller,yes,yes,yes,"WonderFold - W2 Luxe Double Stroller Wagon, Black",17,17,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W2 Luxe Pro Double Seater,WonderFold Wagon W2 Luxe Pro Double Seater,cmqpqr3im002x7qll506zzahr,Wagon,,Stroller,yes,no,yes,WonderFold Wagon W2 Luxe Pro Double Seater Stroller Wagon in Jet Black | 100% Polyester,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W4 Elite Pro,WonderFold Wagon W4 Elite Pro,cmqpqr3l1002y7qll8v1j66mn,Wagon,,Stroller,yes,no,yes,WonderFold Wagon W4 Elite Pro Stroller Wagon in Charcoal Gray | 100% Polyester,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W4 Luxe Pro,WonderFold Wagon W4 Luxe Pro,cmqpqr3nc002z7qllbrxqaram,Wagon,,Stroller,yes,yes,yes,WonderFold Wagon W4 Luxe Pro Stroller Wagon in Charcoal Gray | 100% Polyester,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W4 Luxe Pro Quad,WonderFold W4 Luxe Pro Quad,cmqx8d7w8002713kp1d671s1a,Wagon,,Stroller,yes,yes,yes,"Wonderfold - W4 Luxe Pro Quad Stroller For 4 Kids, Charcoal Gray",17,17,no,no,yes,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+WonderFold,W6 Luxe Pro,WonderFold Wagon W6 Luxe Pro,cmqpqr3pr00307qllcaal9ibq,Wagon,,Stroller,yes,no,yes,WonderFold Wagon W6 Luxe Pro Stroller Wagon in Jet Black | 100% Polyester,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+Zoe,The Journey,Zoe The Journey,cmqpqr3ug00327qllcokcd299,Full-Size,,Stroller,yes,no,yes,Zoe The Journey Stroller in Oat,12,12,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:12
+Zoe,Tour,Zoe Tour,cmr3zkwod0003977ime4xp5lt,,,Stroller,yes,yes,no,,21,21,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:21
+Zoe,Tourᵛ³ Single,Zoe Tourᵛ³ Single,cmrcjace500074oz1dejl3tdr,Travel,,Stroller,yes,no,yes,Zoe Tourᵛ³ Single Stroller in Fern,27,27,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:27
+Zoe,Traveler,Zoe Traveler,cmqpqr3z500347qlllog8zixz,Travel,,Stroller,yes,no,yes,"""Zoe Traveler in Sand Size 18.5"""" x 21.5"""" x 9.5""""""",7,7,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:7
+Zoe,Twin,Zoe Twin,cmr3zkwzx0007977ikgtihvzf,,,Stroller,yes,yes,no,,17,17,no,no,no,no,no,no,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17
+Zoe,Twinᵛ³ Double,Zoe Twinᵛ³ Double,cmrcjacgh00084oz1ca6s074p,Double,,Stroller,yes,no,yes,Zoe Twinᵛ³ Double Stroller in Sand,17,17,yes,no,no,no,no,yes,,,no,HAS_VERIFIED_MATCHES,ADAPTER:17

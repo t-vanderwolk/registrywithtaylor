@@ -1,0 +1,73 @@
+stroller_brand,stroller_model,audit_action,row_count
+BOB,Alterrain Pro,KEEP_UPDATE,2
+BOB,Alterrain Pro,REMOVE,7
+BOB,Rambler,KEEP_UPDATE,2
+BOB,Rambler,REMOVE,3
+BOB,Renegade Wagon,KEEP_UPDATE,2
+BOB,Renegade Wagon,REMOVE,3
+BOB,Revolution Flex 3.0,KEEP_UPDATE,11
+BOB,Revolution Flex 3.0,REMOVE,21
+BOB,Revolution Flex 3.0 Duallie,KEEP_UPDATE,6
+BOB,Revolution Flex 3.0 Duallie,REMOVE,13
+BOB,Wayfinder,KEEP_UPDATE,3
+BOB,Wayfinder,REMOVE,14
+Thule,Glide 2,REMOVE,9
+Thule,Shine,KEEP_UPDATE,5
+Thule,Shine,REMOVE,15
+Thule,Sleek,REMOVE,11
+Thule,Spring 2,KEEP_UPDATE,3
+Thule,Spring 2,REMOVE,17
+Thule,Urban Glide 2,REMOVE,10
+Thule,Urban Glide 2 Double,REMOVE,10
+Thule,Urban Glide 3,KEEP_UPDATE,9
+Thule,Urban Glide 3,REMOVE,4
+Thule,Urban Glide 3,VERIFY,2
+Thule,Urban Glide 3 Double,KEEP_UPDATE,9
+Thule,Urban Glide 3 Double,REMOVE,4
+Thule,Urban Glide 3 Double,VERIFY,2
+Thule,Urban Glide 4-Wheel Single Child,REMOVE,4
+Thule,Urban Glide 4-wheel,KEEP_UPDATE,11
+Thule,Urban Glide 4-wheel,REMOVE,7
+Thule,Urban Glide 4-wheel,VERIFY,2
+Veer,All-Terrain Cruiser,KEEP_UPDATE,3
+Veer,All-Terrain Cruiser,REMOVE,15
+Veer,Cruiser,KEEP_UPDATE,3
+Veer,Cruiser,REMOVE,15
+Veer,Cruiser City,KEEP_UPDATE,3
+Veer,Cruiser City,REMOVE,15
+Veer,Cruiser City XL Essentials,KEEP_UPDATE,3
+Veer,Cruiser City XL Essentials,REMOVE,15
+Veer,Cruiser Wagon Comfort Seat for Toddlers,EXCLUDE_PRODUCT,18
+Veer,Cruiser Wagon XL Comfort Seat for Toddlers,EXCLUDE_PRODUCT,18
+Veer,Cruiser XL Nap System,EXCLUDE_PRODUCT,18
+Veer,Switch&Jog,KEEP_UPDATE,6
+Veer,Switch&Jog,REMOVE,9
+Veer,Switch&Jog Jogging,REMOVE,15
+Veer,Switch&Roll,KEEP_UPDATE,6
+Veer,Switch&Roll,REMOVE,9
+
+--- BRAND TOTALS (audit_action) ---,,,
+BOB,(all),KEEP_UPDATE,26
+BOB,(all),REMOVE,61
+Thule,(all),KEEP_UPDATE,37
+Thule,(all),REMOVE,91
+Thule,(all),VERIFY,6
+Veer,(all),EXCLUDE_PRODUCT,54
+Veer,(all),KEEP_UPDATE,24
+Veer,(all),REMOVE,93
+
+--- ALL BTV (audit_action) ---,,,
+ALL_BTV,(all),EXCLUDE_PRODUCT,54
+ALL_BTV,(all),KEEP_UPDATE,87
+ALL_BTV,(all),REMOVE,245
+ALL_BTV,(all),VERIFY,6
+
+--- CONSUMER_COMPATIBILITY_STATUS ---,,,
+ALL_BTV,(all),DIRECTLY_COMPATIBLE,0
+ALL_BTV,(all),COMPATIBLE_WITH_ADAPTER,87
+ALL_BTV,(all),SHOULD_WORK_UNVERIFIED,30
+ALL_BTV,(all),NOT_COMPATIBLE,0
+ALL_BTV,(all),UNKNOWN,202
+ALL_BTV,(all),IDENTITY_DEDUP,19
+ALL_BTV,(all),EXCLUDED_PRODUCT,54
+ALL_BTV,consumer-visible,KEEP+SHOULD_WORK,117

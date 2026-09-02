@@ -1,0 +1,31 @@
+{
+  "Q1_rows_with_manufacturer_source_url": 0,
+  "Q2_rows_with_exact_model_manufacturer_source": 0,
+  "Q3_rows_inferred": 2306,
+  "Q3_rows_explicit_hardcoded": 6,
+  "Q4_generating_scripts": [
+    "scripts/scanAdapterCompatibility.ts (adapter-title inference)",
+    "scripts/applySameBrandCompatibility.ts (same-brand default)",
+    "scripts/applyUniversalAdapterCompatibility.ts (universal)",
+    "scripts/applyBabyJoggerCompatibility.ts / applyBritaxCompatibility.ts / wireCybexPriamMiosCompat.ts / addDonkeyRidgeMinuDuo.ts / addGt3AdapterUnhideMixx.ts (brand rules)",
+    "scripts/pruneBritaxCompatibility.ts / pruneBabyJoggerCompatibility.ts (pruning)"
+  ],
+  "Q5_duplicate_exact_pairs_gt1": 0,
+  "Q5_extra_duplicate_rows": 0,
+  "Q6_ADAPTER_rows_no_matching_affiliate_adapter_product": 1783,
+  "Q6_of_total_ADAPTER_rows": 2080,
+  "Q7_rows_on_non_chassis_accessory_records": 54,
+  "Q7_distinct_accessory_records": 3,
+  "Q8_veer_comfortseat_napsystem_rows": 54,
+  "Q9_zoe_traveler_rows": 7,
+  "provenance": {
+    "adapter_title_inference": 281,
+    "other_rule_with_note": 310,
+    "retailer_source": 903,
+    "universal_adapter_expansion": 34,
+    "euro_shared_adapter_expansion": 629,
+    "same_brand_rule": 121,
+    "legacy_unknown": 28,
+    "hard_coded_exact_rule": 6
+  }
+}

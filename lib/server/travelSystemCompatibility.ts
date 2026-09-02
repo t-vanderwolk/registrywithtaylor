@@ -522,6 +522,16 @@ const SHARED_ADAPTER_TRIGGER_BRAND = 'nuna';
 // whose manufacturer specifically lists it (handled via explicit compatibility
 // rows), never through the universal Nuna / Maxi-Cosi / CYBEX / Clek inference.
 const SHARED_ADAPTER_EXPANSION_BRANDS = ['cybex', 'clek', 'maxi-cosi'];
+const FROZEN_BTV_AUDIT_NOTE_PREFIX = '[BTV_FROZEN_V1]';
+const ROW_LEVEL_AUDITED_STROLLER_BRANDS = new Set(['bob', 'thule', 'veer']);
+
+function isRowLevelAuditedStrollerBrand(brand: string) {
+  return ROW_LEVEL_AUDITED_STROLLER_BRANDS.has(normalizeBrand(brand));
+}
+
+function hasFrozenBtvAuditMarker(row: { notes: string | null }) {
+  return row.notes?.startsWith(FROZEN_BTV_AUDIT_NOTE_PREFIX) ?? false;
+}
 
 /**
  * ── Nuna asymmetry rule ──────────────────────────────────────────────────────
@@ -789,6 +799,12 @@ async function getSharedAdapterInferredSeats(
   explicitRows: CarSeatCompatibilityRow[],
   retailerMap: Map<string, PublicRetailerFields>,
 ): Promise<CarSeatRow[]> {
+  // BOB / Thule / Veer have a frozen row-level audit. Do not rebuild that block
+  // from the old shared-adapter rule; only explicit audited rows may surface.
+  if (isRowLevelAuditedStrollerBrand(stroller.brand)) {
+    return [];
+  }
+
   // Closed-ecosystem strollers (Nuna) never expand cross-brand — they only ever
   // accept their own same-brand infant seats.
   if (isClosedEcosystemStroller(stroller.brand)) {
@@ -877,6 +893,9 @@ async function getSharedAdapterInferredStrollers(
   const out: StrollerRow[] = [];
   for (const row of enrichWithPublicRetailers(rows, retailerMap)) {
     if (seen.has(row.id) || !hasPublicTravelSystemRetailer(row)) continue;
+    // Same guard as stroller-first: BOB / Thule / Veer are governed only by the
+    // frozen row-level audit and must not be added back by shared-adapter spread.
+    if (isRowLevelAuditedStrollerBrand(row.brand)) continue;
     // Direct-fit-only frames (Silver Cross Clic) don't accept the shared adapter.
     if (isDirectFitOnlyStroller(row.brand, row.model)) continue;
     seen.add(row.id);
@@ -1182,10 +1201,13 @@ export async function getTravelSystemCompatibility(
   // drop any cross-brand explicit row before enrichment.
   const isClosedStroller = isClosedEcosystemStroller(stroller.brand);
   const carSeatRetailerMap = await loadPublicRetailerMap('CarSeat');
+  const auditedExplicitRows = isRowLevelAuditedStrollerBrand(stroller.brand)
+    ? explicitRows.filter(hasFrozenBtvAuditMarker)
+    : explicitRows;
   const filteredExplicitRows = enrichWithPublicRetailers(
     isClosedStroller
-    ? explicitRows.filter((row) => normalizeBrand(row.brand) === normalizeBrand(stroller.brand))
-    : explicitRows,
+    ? auditedExplicitRows.filter((row) => normalizeBrand(row.brand) === normalizeBrand(stroller.brand))
+    : auditedExplicitRows,
     carSeatRetailerMap,
   );
   const publicExplicitRows = filteredExplicitRows.filter(hasPublicTravelSystemRetailer);
@@ -1448,7 +1470,10 @@ export async function getTravelSystemCompatibilityByCarSeat(
   }
 
   const strollerRetailerMap = await loadPublicRetailerMap('Stroller');
-  const publicExplicitRows = enrichWithPublicRetailers(explicitRows, strollerRetailerMap)
+  const auditedExplicitRows = explicitRows.filter(
+    (row) => !isRowLevelAuditedStrollerBrand(row.brand) || hasFrozenBtvAuditMarker(row),
+  );
+  const publicExplicitRows = enrichWithPublicRetailers(auditedExplicitRows, strollerRetailerMap)
     .filter(hasPublicTravelSystemRetailer);
   const explicitStrollerIds = new Set(publicExplicitRows.map((row) => row.strollerId));
   const sameBrandDefaults = await getSameBrandDefaultStrollers(carSeat, explicitStrollerIds, strollerRetailerMap);

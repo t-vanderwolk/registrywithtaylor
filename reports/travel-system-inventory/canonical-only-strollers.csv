@@ -1,0 +1,99 @@
+canonical_brand,canonical_model,stroller_id,compatibility_row_count,reason,recommended_action
+Baby Jogger,City Mini 2,baby-jogger-city-mini-2,17,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Baby Jogger,City Mini Double,baby-jogger-city-mini-double,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Baby Jogger,City Mini GT2,baby-jogger-city-mini-gt2,13,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Baby Jogger,City Sights,baby-jogger-city-sights,12,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Baby Jogger,Summit X3,baby-jogger-summit-x3,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Baby Jogger,Summit X3 Single Jogging,cmqpqqx5f00087qll6393izdt,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+BOB,Alterrain Pro,bob-alterrain-pro,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+BOB,Rambler,bob-rambler,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+BOB,Renegade Wagon,bob-renegade-wagon,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Britax,B-Clever,britax-b-clever,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Britax,B-Lively,britax-b-lively,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Bugaboo,Ant,bugaboo-ant,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Bugaboo,Butterfly,bugaboo-butterfly,10,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Bugaboo,Donkey 5 Mono Single-to-Double,cmqx8d37p000813kp2s8z32r8,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Bugaboo,Dragonfly,bugaboo-dragonfly,14,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Chicco,Presto Self-Folding,cmqx8d3fk000b13kppay9p7j9,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Chicco,TRE Jogging,cmqpqqxzu000l7qllpiifamvz,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Beezy,cybex-beezy,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Eezy S Twist,cybex-eezy-s-twist,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Eezy S Twist 2,cmr1etpr3000a13feaabfd815,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Eos,cybex-eos,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Melio,cybex-melio,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Cybex,Mios,cybex-mios,13,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Delta,Children - Baby Gap 2-In-1 Carriage,cmqx8d3tu000h13kp26xfy08m,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Delta,Children - BabyGap Classic,cmqx8d3w4000i13kp1oasuckg,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Delta,Children - BabyGap Classic Side-by-Side Double,cmqx8d3yh000j13kpa32mwzvz,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Delta,Gap Classic Umbrella,cmqx8d3p1000f13kpf0wm1btn,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Delta,Jeep Adventureglyde,cmqx8d3rc000g13kpah1z5xvr,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Delta Children,Jeep Sport All-Terrain,cmqpqqy9e000p7qlljwy5ov4t,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Doona,Liki Trike S3,cmqpqqygi000s7qllluuleev1,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Egg,Egg,egg-stroller,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Ergobaby,Metro 3,cmqx8d45a000m13kp1zi0195v,14,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Ergobaby,Metro 3 Compact,cmqpqqyix000t7qll3hkoln8m,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Ergobaby,Metro+ Deluxe,cmqx8d4ek000q13kp25vm8o1q,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Evenflo,Hummingbird Carbon Fiber Lightweight,cmqpqqyl9000u7qllhgs1j0y9,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Evenflo,Pivot Xplore All-Terrain,cmqpqqysc000x7qlln9lo56v7,2,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Graco,Ready2Jet Compact,cmqpqqzfn00177qll3ou9gfkg,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Guava Family,Roam Jogging,cmqpqqzhz00187qllpp2cly4t,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Joie,Chive Single to Double,cmqpqqzwq001e7qlllftz668x,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Joie,Hazel,joie-hazel,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Joie,Rosemary,joie-rosemary,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Joolz,Geo,joolz-geo,6,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Joovy,Caboose S,joovy-caboose-s,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Joovy,Caboose Ultralight Graphite,joovy-caboose-ultralight-graphite,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Joovy,Qool,joovy-qool,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Joovy,Twin Roo+,joovy-twin-roo-plus,5,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Maxi-Cosi,Lila,maxi-cosi-lila,3,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Maxi-Cosi,Tayla,maxi-cosi-tayla,3,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Mima,Xari Max,cmr11h31s00055u5ox2jhaz79,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Mima,Xari Sport,mima-xari-sport,6,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Mima,Zigi,mima-zigi,6,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Mockingbird,Single 3.0,mockingbird-single-3,27,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Momcozy,ClickGo Lightweight,cmqpqr0vw001t7qll1dvnyq8b,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Nuna,BMW x SWIV,cmqpqr1cb00207qllmlj0l2w2,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Nuna,Mixx Next Bmw,cmqx8d5bv001413kpjri9r4s9,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,Mixx Next With Magnetic Buckle,cmqx8d5e9001513kpvy66jrkf,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,Tavo Next Granite,cmqx8d5gq001613kp6pkqi29a,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,Triv Next Bmw,cmqx8d5mh001813kpj7dt2y6v,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,Triv Next With Magnetic Buckle Caviar/Chocolate,cmqx8d5w0001c13kp4aatwr59,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,Triv Next W Magnetic Buckle,cmqx8d5ox001913kpewofgj0y,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,x BMW MIXX next,cmqpqr1jj00237qllzjnymes5,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Nuna,x BMW TRIV next,cmqpqr1lv00247qllwhlhf7mr,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Peg Perego,Selfie,peg-perego-selfie,3,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Peg Perego,Vivace Single,cmqx8d6cn001j13kpn0ratclf,3,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Peg Perego,Volo Ultra Carry On Compliant Travel Strolle,cmqx8d6ey001k13kpwhpzefav,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Peg Perego,Z4,peg-perego-z4,6,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Safety 1st,Easy-Fold Compact,cmqpqr1sw00277qll6soktcpa,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+Silver Cross,Breez,cmqx8d6v1001r13kpy9w26i27,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Clic Compact,cmqpqr1xi00297qlld8p7uw3b,6,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Comet,silver-cross-comet,8,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Cove 2,cmqx8d6sq001q13kphzobb0wi,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Dune,silver-cross-dune,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Dune 2,silver-cross-dune-2,8,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Jet 5,silver-cross-jet-5,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Nia Travel,cmqx8d6xc001s13kp99wk94m6,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Reef,silver-cross-reef,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Wave,silver-cross-wave,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Silver Cross,Wave 3 Single to Double,cmqpqr1zv002a7qlltuhbvanr,8,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Stokke,YOYO+,babyzen-yoyo-plus,7,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Thule,Glide 2,thule-glide-2,9,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Thule,Sleek,thule-sleek,11,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Thule,Urban Glide 2,thule-urban-glide-2,10,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Thule,Urban Glide 2 Double,thule-urban-glide-2-double,10,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Thule,Urban Glide 4-Wheel Single Child,cmqx8d76m001w13kpohpwn912,4,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+UPPAbaby,Cruz V2,uppababy-cruz-v2,22,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+UPPAbaby,G-LUXE,cmqpqr2io002i7qll55aao8zt,0,canonical Stroller not in public picker (no compat rows),RETAIN_LEGACY
+UPPAbaby,Minu V2,uppababy-minu-v2,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+UPPAbaby,Ridge,uppababy-ridge,13,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+UPPAbaby,Vista V2,uppababy-vista-v2,20,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,All-Terrain Cruiser,cmqpqr2q1002l7qllrfy61aca,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,Cruiser City XL Essentials,cmqpqr2uv002n7qlla8wick7v,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,Cruiser Wagon Comfort Seat for Toddlers,cmqpqr2xa002o7qll2zq1jk9u,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,Cruiser Wagon XL Comfort Seat for Toddlers,cmqpqr2zl002p7qll072jlg89,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,Cruiser XL Nap System,cmqpqr31z002q7qllv0snz6ag,18,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Veer,Switch&Jog Jogging,cmqpqr34e002r7qll3fzqhzdz,15,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+WonderFold,L2 Double 2-Seater,cmqx8d7oy002413kpusrmz1ec,17,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Zoe,Tour,cmr3zkwod0003977ime4xp5lt,21,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW
+Zoe,Twin,cmr3zkwzx0007977ikgtihvzf,17,canonical Stroller not in public picker (has compat rows),NEEDS_HUMAN_REVIEW

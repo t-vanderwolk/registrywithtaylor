@@ -1,0 +1,10 @@
+provenance_bucket,row_count,pct_of_2312
+retailer_source,903,39.1
+euro_shared_adapter_expansion,629,27.2
+other_rule_with_note,310,13.4
+adapter_title_inference,281,12.2
+same_brand_rule,121,5.2
+universal_adapter_expansion,34,1.5
+legacy_unknown,28,1.2
+hard_coded_exact_rule,6,0.3
+exact_manufacturer_source,0,0.0

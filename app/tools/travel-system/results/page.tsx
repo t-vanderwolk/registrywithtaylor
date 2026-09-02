@@ -66,8 +66,8 @@ const TYPE_ORDER: Array<{
   },
   {
     id: 'other',
-    title: 'Limited Fit',
-    description: 'These pairings have a compatibility note worth reading before you buy.',
+    title: 'Double-Check Before You Buy',
+    description: 'These pairings have supporting context, but they are not the cleanest exact-match rows.',
   },
 ];
 
@@ -77,6 +77,7 @@ function firstParam(value: string | string[] | undefined) {
 
 function resultBucket(item: { compatibilityType: CompatibilityType; adapterRequired: boolean }) {
   if (item.compatibilityType === 'DIRECT' && !item.adapterRequired) return 'direct';
+  if (item.compatibilityType === 'LIMITED') return 'other';
   if (item.adapterRequired || item.compatibilityType === 'ADAPTER') return 'adapter';
   return 'other';
 }
@@ -95,6 +96,10 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
   const escapedBrand = normalizedBrand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const brandPrefix = new RegExp(`^(?:${escapedBrand}\\s+)+`, 'i');
   return displayName.replace(brandPrefix, '').trim() || displayName;
+}
+
+function displayCompatibilityNote(notes: string | null) {
+  return notes?.replace(/^\[BTV_FROZEN_V1\]\s*/, '').trim() ?? '';
 }
 
 function countMatches<T extends { compatibilityType: CompatibilityType; adapterRequired: boolean }>(items: T[]) {
@@ -583,6 +588,7 @@ function ResultCard({
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
+  const compatibilityNote = displayCompatibilityNote(item.notes);
 
   return (
     <article
@@ -638,6 +644,8 @@ function ResultCard({
                 strollerAdapterNotSoldSeparately(item.brand)
           }
         />
+
+        {compatibilityNote ? <p className="tool-product-card__note">{compatibilityNote}</p> : null}
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
           {productKind === 'carSeat' && (item as CompatibleCarSeatResult).travelSystemOnly ? (

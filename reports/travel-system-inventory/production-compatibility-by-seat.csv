@@ -1,0 +1,45 @@
+car_seat_brand,car_seat_model,car_seat_id,public_picker,total_rows,direct_rows,adapter_rows,limited_rows,incompatible_rows,distinct_stroller_brands,distinct_stroller_models
+Nuna,PIPA urbn,nuna-pipa-urbn,no,173,20,153,0,0,31,173
+Nuna,PIPA Aire rx,nuna-pipa-aire-rx,yes,172,20,151,1,0,31,172
+Nuna,PIPA RX,nuna-pipa-rx,yes,171,20,150,1,0,30,171
+Nuna,PIPA Aire,nuna-pipa-lite-rx,yes,159,22,137,0,0,29,159
+Maxi-Cosi,Mico Luxe,maxi-cosi-mico-luxe,yes,111,2,108,1,0,26,111
+Maxi-Cosi,Mico Pro,maxi-cosi-mico-pro,yes,109,2,106,1,0,24,109
+Maxi-Cosi,Peri 180,maxi-cosi-peri,yes,106,2,104,0,0,24,106
+Cybex,Cloud T,cybex-cloud-t,yes,91,5,86,0,0,25,91
+Maxi-Cosi,Ambra,cmqx4qqbg000k3835k8b3mf6l,yes,72,0,72,0,0,19,72
+Clek,Liing,clek-liing,yes,71,0,67,4,0,21,71
+Cybex,Aton G2,cmqx4qpgs00073835wm1de2we,yes,71,0,71,0,0,21,71
+Cybex,Cloud G Pro Comfort Extend,cmqx4qpj400083835htva49ii,yes,70,0,70,0,0,21,70
+Cybex,Aton G2 Swivel,cmrdwvbsy000u7tmavhnk64ww,no,69,0,69,0,0,20,69
+Clek,Liingo,clek-liingo,no,68,0,64,4,0,20,68
+Chicco,KeyFit 30,chicco-keyfit-30,no,52,9,43,0,0,14,52
+Chicco,KeyFit 30 ClearTex,cmqx4qp6y00033835pgtlizxk,yes,52,9,43,0,0,14,52
+Chicco,KeyFit Max ClearTex,cmqx4qp9s00043835h85g6sl0,yes,52,9,43,0,0,14,52
+Chicco,KeyFit Max Zip ClearLux,cmqx4qpc50005383512d994gn,yes,52,9,43,0,0,14,52
+Chicco,KeyFit Max Zip ClearTex,cmqx4qpeg00063835eten1p5s,yes,52,9,43,0,0,14,52
+UPPAbaby,Mesa V3,uppababy-mesa-v3,yes,48,0,48,0,0,11,48
+Graco,SnugRide Lite LX,cmqx4qpzp000f3835i6cp9pth,yes,47,10,37,0,0,10,47
+Graco,SnugRide SnugFit,cmqx4qq4h000h3835n8ni2r9m,yes,47,10,37,0,0,10,47
+Graco,SnugRide SnugFit DLX,cmqx4qq26000g3835g3mh924j,yes,47,10,37,0,0,10,47
+Graco,SnugRide SnugFit LX,cmqx4qq6u000i3835j7t2euy8,yes,47,10,37,0,0,10,47
+UPPAbaby,Aria V2,uppababy-aria-v2,yes,47,0,47,0,0,11,47
+UPPAbaby,Aria,uppababy-aria,yes,44,2,42,0,0,9,44
+Graco,GoMax,cmqx4qpx8000e3835nvrnxr0i,yes,37,0,37,0,0,9,37
+Britax,Willow S,britax-willow-s,yes,31,3,28,0,0,9,31
+Britax,Cypress S,britax-cypress-s,no,25,1,24,0,0,7,25
+Britax,Willow SC,cmqt1dq4e00043u44vihpznhm,yes,24,3,21,0,0,7,24
+Maxi-Cosi,Mico XP,cmry6pa5o001ovblfjcngmv5n,no,23,0,23,0,0,6,23
+Peg Perego,Primo Viaggio 4-35,peg-perego-primo-viaggio-4-35,no,10,4,6,0,0,5,10
+Peg Perego,Primo Viaggio Lounge,cmqx4qqg6000m3835m0yyofjb,no,10,4,6,0,0,5,10
+Peg Perego,Primo Viaggio Nido,cmqx4qqif000n3835uubq8mpy,yes,10,4,6,0,0,5,10
+Joie,Mint Latch,cmqx4qq94000j3835te5r5f6g,yes,7,2,5,0,0,4,7
+Evenflo,LiteMax NXT,cmqx4qpsh000c3835q2cpm0f5,yes,6,5,1,0,0,2,6
+Evenflo,Revolve180 LiteMax NXT Rotational,cmqx4qpuv000d3835u7w79rhg,yes,6,5,1,0,0,2,6
+Joie,Rue,joie-rue,yes,6,2,4,0,0,3,6
+Baby Jogger,City GO 2,baby-jogger-city-go-2,yes,5,0,5,0,0,2,5
+Baby Trend,EZ-Lift Pro,cmqx4qowc000038356zwhetli,yes,4,2,2,0,0,2,4
+Bugaboo,Turtle Air Shield by Nuna,cmqx4qp4e00023835j1p6ghf9,yes,3,0,3,0,0,3,3
+Baby Trend,Secure-Lift 35,cmqx4qp1700013835r8xduy8t,yes,2,2,0,0,0,1,2
+Orbit Baby,G5,cmqx4qqdv000l3835x5pi9onc,yes,2,2,0,0,0,1,2
+Romer,Juni,cmqx4qqkp000o38351izn0hlv,yes,1,1,0,0,0,1,1
