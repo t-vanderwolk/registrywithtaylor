@@ -98,8 +98,28 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
   return displayName.replace(brandPrefix, '').trim() || displayName;
 }
 
-function displayCompatibilityNote(notes: string | null) {
-  return notes?.replace(/^\[BTV_FROZEN_V1\]\s*/, '').trim() ?? '';
+/**
+ * Parent-facing compatibility note. The frozen-audit prefix ("[BTV_FROZEN_*]") is
+ * internal bookkeeping, so we STRIP it rather than hide the whole note — a note is
+ * not provenance merely because it carries that tag. After stripping the prefix:
+ *   • the manufacturer/source evidence paragraph ("Manufacturer-listed adapter
+ *     fit. Adapter: … Source: …") is internal-only and is suppressed entirely;
+ *   • an internal audit "Basis: … anchored to …" rationale sentence is dropped;
+ *   • everything else — genuine buyer guidance, including the SHOULD_WORK hedge
+ *     "Should work, but this exact pair is not named…" — is rendered.
+ * The underlying `notes` data is untouched; this only governs the public card.
+ */
+function publicCompatibilityNote(notes: string | null): string | null {
+  const raw = notes?.trim();
+  if (!raw) return null;
+  // The frozen-audit tag alone is not a reason to hide the note — strip it first.
+  const text = raw.replace(/^\[BTV_FROZEN[^\]]*\]\s*/, '').trim();
+  // Manufacturer-listing boilerplate and any Source: citation are evidence/audit
+  // provenance — never shown publicly.
+  if (/^Manufacturer-listed adapter fit\b/i.test(text) || /\bSource:/i.test(text)) return null;
+  // Drop an internal "Basis: … ." audit-rationale sentence if present; keep the rest.
+  const cleaned = text.replace(/\s*\bBasis:\s*[^.]*\.\s*/gi, ' ').replace(/\s{2,}/g, ' ').trim();
+  return cleaned.length > 0 ? cleaned : null;
 }
 
 function countMatches<T extends { compatibilityType: CompatibilityType; adapterRequired: boolean }>(items: T[]) {
@@ -588,7 +608,7 @@ function ResultCard({
   const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
   const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
-  const compatibilityNote = displayCompatibilityNote(item.notes);
+  const compatibilityNote = publicCompatibilityNote(item.notes);
 
   return (
     <article
