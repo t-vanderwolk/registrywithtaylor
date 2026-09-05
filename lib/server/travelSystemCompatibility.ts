@@ -220,10 +220,10 @@ async function loadBabylistMap(table: 'Stroller' | 'CarSeat'): Promise<Map<strin
     const rows =
       table === 'Stroller'
         ? await prisma.$queryRaw<BabylistLookupRow[]>`
-            SELECT "brand", "model", "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "Stroller"
+            SELECT "brand", "model", COALESCE(NULLIF("manualBabylistUrl", ''), "babylistUrl") AS "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "Stroller"
           `
         : await prisma.$queryRaw<BabylistLookupRow[]>`
-            SELECT "brand", "model", "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "CarSeat"
+            SELECT "brand", "model", COALESCE(NULLIF("manualBabylistUrl", ''), "babylistUrl") AS "babylistUrl", "babylistPrice", COALESCE("imageUrl", "babylistImage") AS "babylistImage" FROM "CarSeat"
           `;
 
     const map = new Map<string, BabylistFields>();
