@@ -28,19 +28,19 @@ import { adapterTitleMatchesStrollerModel, isCarSeatAdapter } from '@/lib/catalo
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 
 // Brand-own "car seat adapter" products that name NO seat brand in the title are
-// the universal Maxi-Cosi / Nuna / Cybex adapter for these European frames. Used
+// the universal Maxi-Cosi / Nuna / Cybex / Clek adapter for these European frames. Used
 // only under --universal, so the default scan stays conservative. This also
 // covers the two-piece UPPER + LOWER car-seat adapters that single-to-double and
 // double frames ship (each piece maps to the same universal seat set).
 const BRAND_UNIVERSAL_SEATS: Record<string, string[]> = {
-  bugaboo: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  uppababy: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  'silver cross': ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  joolz: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  mima: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  inglesina: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  stokke: ['Maxi-Cosi', 'Nuna', 'Cybex'],
-  'mountain buggy': ['Maxi-Cosi', 'Nuna', 'Cybex'],
+  bugaboo: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  uppababy: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  'silver cross': ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  joolz: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  mima: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  inglesina: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  stokke: ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
+  'mountain buggy': ['Maxi-Cosi', 'Nuna', 'Cybex', 'Clek'],
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,9 +62,10 @@ const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
   { brand: 'Graco', res: [/\bgraco\b/i, /snugride/i] },
   { brand: 'Peg Perego', res: [/peg[\s-]?perego/i, /primo\s?viaggio/i] },
   { brand: 'Joie', res: [/\bjoie\b/i] },
-  // Only "Mesa" (the seat) — not the "UPPAbaby" brand word, which appears in every
-  // UPPAbaby adapter title and would otherwise be a false positive.
-  { brand: 'UPPAbaby', res: [/\bmesa\b/i] },
+  // Mesa / Aria are one UPPAbaby infant-seat adapter family. Matching either
+  // model name maps to every UPPAbaby infant seat row, so Mesa V3, Aria and
+  // Aria V2 stay together unless a manufacturer exclusion says otherwise.
+  { brand: 'UPPAbaby', res: [/\bmesa\b/i, /\baria\b/i] },
   { brand: 'BeSafe', res: [/\bbe-?safe\b/i] },
   { brand: 'Bugaboo', res: [/\bturtle\b/i] },
   { brand: 'Doona', res: [/\bdoona\b/i] },
@@ -350,7 +351,7 @@ async function main() {
         .filter((match): match is SeatMatch => Boolean(match));
 
     // Universal fallback (opt-in): a brand-own car-seat adapter that names no
-    // seat brand maps to that brand's universal Maxi-Cosi / Nuna / Cybex set.
+    // seat brand maps to that brand's universal Maxi-Cosi / Nuna / Cybex / Clek set.
     // Covers the two-piece UPPER + LOWER adapters on double / single-to-double
     // frames. Only runs under --universal and only when a stroller matched.
     if (universal && seatMatches.length === 0 && strollerMatches.length) {

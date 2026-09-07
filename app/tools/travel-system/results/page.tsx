@@ -30,6 +30,7 @@ import {
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
+import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
 import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
@@ -62,7 +63,7 @@ const TYPE_ORDER: Array<{
   {
     id: 'adapter',
     title: 'Adapter Required',
-    description: 'These work with an adapter. The adapter details shown are the existing stored details.',
+    description: 'These include manufacturer-named matches and logical matches that use the same adapter family.',
   },
   {
     id: 'other',
@@ -76,10 +77,7 @@ function firstParam(value: string | string[] | undefined) {
 }
 
 function resultBucket(item: { compatibilityType: CompatibilityType; adapterRequired: boolean }) {
-  if (item.compatibilityType === 'DIRECT' && !item.adapterRequired) return 'direct';
-  if (item.compatibilityType === 'LIMITED') return 'other';
-  if (item.adapterRequired || item.compatibilityType === 'ADAPTER') return 'adapter';
-  return 'other';
+  return compatibilityResultBucket(item);
 }
 
 /**
@@ -113,8 +111,8 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
  *   • the manufacturer/source evidence paragraph ("Manufacturer-listed adapter
  *     fit. Adapter: … Source: …") is internal-only and is suppressed entirely;
  *   • an internal audit "Basis: … anchored to …" rationale sentence is dropped;
- *   • everything else — genuine buyer guidance, including the SHOULD_WORK hedge
- *     "Should work, but this exact pair is not named…" — is rendered.
+ *   • everything else — genuine buyer guidance for logical shared-adapter matches
+ *     and model-year caveats — is rendered.
  * The underlying `notes` data is untouched; this only governs the public card.
  */
 function publicCompatibilityNote(notes: string | null): string | null {

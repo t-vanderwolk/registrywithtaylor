@@ -58,10 +58,11 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   { brand: 'Mompush', model: /\b(ultimate|meteor|velo)\b/i, family: 'Ultimate / Meteor / Velo' },
   { brand: 'Mompush', model: /\bwiz\b/i, family: 'Wiz', extraSeatBrands: ['Chicco'] },
   { brand: 'Mercedes', model: null, family: 'Mercedes-Benz (Hartan)' },
-  // Peg Perego City Loop takes Peg Perego seats directly (same-brand default) AND
-  // other-brand infant seats via its Foldable Car Seat Adapter — so it also earns
-  // the shared Nuna / Maxi-Cosi / CYBEX / Clek expansion on top of its own seats.
-  { brand: 'Peg Perego', model: /\bcity loop\b/i, family: 'City Loop' },
+  // Peg Perego Ypsi / Vivace / Switch use IKCS0018 and City Loop / City Loop Pro
+  // use IKCS0030. PEG's June 2026 charts name Nuna plus the shared
+  // Maxi-Cosi / CYBEX / Clek adapter family, with explicit exclusions handled by
+  // INCOMPATIBLE rows.
+  { brand: 'Peg Perego', model: /\b(ypsi|vivace|switch|city loop)\b/i, family: 'Ypsi / Vivace / Switch / City Loop' },
   // Orbit Baby strollers take the Orbit Baby seat (same-brand default) AND other
   // brands via the universal Orbit Baby car seat adapter — same expansion.
   { brand: 'Orbit Baby', model: null, family: 'all Orbit Baby strollers' },

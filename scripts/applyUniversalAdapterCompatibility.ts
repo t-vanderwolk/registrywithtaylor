@@ -8,7 +8,7 @@
  * for each matched stroller. That single Nuna trigger lets the travel-system
  * engine do the rest automatically —
  *   • getSharedAdapterInferredSeats() expands the stroller to every CYBEX /
- *     Clek / Maxi-Cosi / Britax infant seat (by-stroller view), and
+ *     Clek / Maxi-Cosi infant seat (by-stroller view), and
  *   • getSharedAdapterInferredStrollers() surfaces the stroller whenever a
  *     shared-adapter seat is selected (by-car-seat view).
  *
@@ -163,7 +163,7 @@ async function main() {
   console.log(`  existing rows: ${existing}`);
   console.log(`  reports: ${REPORT_JSON}, ${REPORT_CSV}`);
   console.log('\n  Each matched stroller now carries an explicit Nuna ADAPTER row, so the');
-  console.log('  travel-system engine auto-expands it to CYBEX / Clek / Maxi-Cosi / Britax');
+  console.log('  travel-system engine auto-expands it to CYBEX / Clek / Maxi-Cosi');
   console.log('  seats (by-stroller) and surfaces it for those seats (by-car-seat).');
   if (!apply) console.log('\n  (dry run — no database writes.)');
 }

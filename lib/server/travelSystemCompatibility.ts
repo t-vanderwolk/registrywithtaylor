@@ -1361,7 +1361,7 @@ export async function getTravelSystemCompatibility(
         adapterRequired: true,
         adapterType: getAdapterType(stroller.brand, row.brand, true, null, null),
         notes:
-          'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi adapter standard. Verify the specific adapter for your stroller model before purchase.',
+          'Compatible through the shared Maxi-Cosi / Nuna / CYBEX / Clek adapter family. Use the adapter specified for this stroller model.',
         confidence: 'MEDIUM',
         babylistUrl: row.babylistUrl,
         babylistPrice: row.babylistPrice,
@@ -1642,7 +1642,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
         adapterUrl: null,
         adapterPrice: null,
         notes:
-          'Compatible via the shared Nuna / CYBEX / Clek / Maxi-Cosi adapter standard. Verify the specific adapter for your stroller model before purchase.',
+          'Compatible through the shared Maxi-Cosi / Nuna / CYBEX / Clek adapter family. Use the adapter specified for this stroller model.',
         confidence: 'MEDIUM',
         babylistUrl: row.babylistUrl,
         babylistPrice: row.babylistPrice,
