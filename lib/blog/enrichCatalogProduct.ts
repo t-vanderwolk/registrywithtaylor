@@ -12,7 +12,7 @@ export function enrichProductBlockWithCatalog(
 ): ParsedStyledBlock {
   if (block.type === 'catalog-product') {
     const match = catalogMap[blogProductKey(block.brand, block.productName)];
-    if (!match || !match.affiliateUrl) return block;
+    if (!match || (!match.affiliateUrl && !match.amazonUrl)) return block;
 
     // Decide by the actual buy-link domain, not the price-derived retailer label:
     // a Babylist link whose PRICE happened to come from a MacroBaby row must still
@@ -22,26 +22,30 @@ export function enrichProductBlockWithCatalog(
       ...block,
       babylistUrl: block.babylistUrl ?? (affiliateIsMacro ? null : match.affiliateUrl),
       macrobabyUrl: block.macrobabyUrl ?? (affiliateIsMacro ? match.affiliateUrl : null),
+      amazonUrl: block.amazonUrl ?? match.amazonUrl ?? null,
       // The card uses the SAME image the Resource tools use — the catalog
       // (Babylist/MacroBaby) image — and only falls back to a manually-authored
       // image when the product isn't in the catalog (e.g. Thule, coming-soon).
-      imageUrl: match.imageUrl ?? block.imageUrl,
-      price: block.price ?? match.price,
-      priceSource: block.price != null ? block.priceSource : match.retailer,
+      imageUrl: match.imageUrl ?? match.amazonImageUrl ?? block.imageUrl,
+      price: block.price ?? match.price ?? match.amazonPrice ?? null,
+      priceSource: block.price != null ? block.priceSource : match.price != null ? match.retailer : match.amazonPrice != null ? 'Amazon' : match.retailer,
     };
   }
 
   if (block.type !== 'product') return block;
   const match = catalogMap[blogProductKey(block.brand, block.productName)];
-  if (!match || !match.affiliateUrl) return block;
+  if (!match || (!match.affiliateUrl && !match.amazonUrl)) return block;
 
-  const priceLabel = match.price != null ? ` — $${Math.round(match.price)}` : '';
-  const catalogLink = { label: `Shop ${match.retailer ?? 'now'}${priceLabel}`, url: match.affiliateUrl };
-  const authored = block.affiliateLinks.filter((link) => link.url !== match.affiliateUrl);
+  const primaryUrl = match.affiliateUrl ?? match.amazonUrl!;
+  const primaryRetailer = match.affiliateUrl ? match.retailer ?? 'now' : 'Amazon';
+  const primaryPrice = match.affiliateUrl ? match.price : match.amazonPrice;
+  const priceLabel = primaryPrice != null ? ` — $${Math.round(primaryPrice)}` : '';
+  const catalogLink = { label: `Shop ${primaryRetailer}${priceLabel}`, url: primaryUrl };
+  const authored = block.affiliateLinks.filter((link) => link.url !== primaryUrl);
 
   return {
     ...block,
-    imageUrl: match.imageUrl ?? block.imageUrl,
+    imageUrl: match.imageUrl ?? match.amazonImageUrl ?? block.imageUrl,
     affiliateLinks: [catalogLink, ...authored],
   };
 }

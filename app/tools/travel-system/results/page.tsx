@@ -82,10 +82,18 @@ function resultBucket(item: { compatibilityType: CompatibilityType; adapterRequi
   return 'other';
 }
 
+/**
+ * Group results under the app's CANONICAL brand name rather than the raw string.
+ * `canonicalBrand()` lowercases before alias lookup, so casing/spelling variants
+ * that can arrive from a feed (e.g. "CYBEX" vs "Cybex") collapse into a single
+ * public brand group instead of rendering as two. Unknown brands pass through
+ * unchanged, so this cannot rename or regroup any existing brand.
+ */
 function groupByBrand<T extends { brand: string }>(items: T[]) {
   return items.reduce<Record<string, T[]>>((groups, item) => {
-    if (!groups[item.brand]) groups[item.brand] = [];
-    groups[item.brand].push(item);
+    const brand = canonicalBrand(item.brand);
+    if (!groups[brand]) groups[brand] = [];
+    groups[brand].push(item);
     return groups;
   }, {});
 }
@@ -358,8 +366,8 @@ function SelectedSummaryCard({
     kind === 'stroller'
       ? resolveProductCardImage({ brand: option.brand, productName: option.displayName })
       : resolveCompatibilityCarSeatImage({ brand: option.brand, productName: option.displayName });
-  const imageSrc = option.babylistImage ?? option.macroBabyImage ?? resolvedImage?.src ?? null;
-  const imageAlt = option.babylistImage || option.macroBabyImage ? option.displayName : resolvedImage?.alt;
+  const imageSrc = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? resolvedImage?.src ?? null;
+  const imageAlt = option.babylistImage || option.macroBabyImage || option.bombiImage || option.amazonImage ? option.displayName : resolvedImage?.alt;
   const displayTitle = displayNameWithoutBrand(option.displayName, option.brand);
 
   // The selected product keeps its own affiliate CTA right next to its summary,
@@ -605,8 +613,17 @@ function ResultCard({
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist drops to a secondary button.
   const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);
-  const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? null;
-  const priceSource = item.babylistPrice != null ? 'Babylist' : item.macroBabyPrice != null ? 'MacroBaby' : null;
+  const displayPrice = item.babylistPrice ?? item.macroBabyPrice ?? item.bombiPrice ?? item.amazonPrice ?? null;
+  const priceSource =
+    item.babylistPrice != null
+      ? 'Babylist'
+      : item.macroBabyPrice != null
+        ? 'MacroBaby'
+        : item.bombiPrice != null
+          ? 'Bombi'
+          : item.amazonPrice != null
+            ? 'Amazon'
+            : null;
   const displayTitle = displayNameWithoutBrand(item.displayName, item.brand);
   const compatibilityNote = publicCompatibilityNote(item.notes);
 

@@ -8,7 +8,12 @@ export type BlogCatalogMatch = {
   affiliateUrl: string | null;
   imageUrl: string | null;
   price: number | null;
-  retailer: string | null; // 'Babylist' | 'MacroBaby'
+  retailer: string | null; // 'Babylist' | 'MacroBaby' | 'Amazon'
+  amazonUrl?: string | null;
+  amazonImageUrl?: string | null;
+  amazonPrice?: number | null;
+  amazonPriceDisplay?: string | null;
+  amazonAvailability?: string | null;
 };
 
 /** Stable key shared by the server resolver and the client renderer. */

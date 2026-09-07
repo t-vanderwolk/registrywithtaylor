@@ -26,6 +26,7 @@ export type StrollerCompareItem = {
   macroBabyUrl: string | null;
   macroBabyPrice: number | null;
   amazonUrl: string | null;
+  amazonPrice: number | null;
   ownWeightLbs: number | null;
   maxWeightLbs: number | null;
   foldType: string | null;
@@ -121,7 +122,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
 
     const key = specKey(option.brand, option.model);
     const spec = specMap.get(key) ?? null;
-    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? null;
+    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? null;
     const attrs = resolveCompareAttributes(option.brand, option.model, option.strollerCategory ?? null);
 
     items.push({
@@ -136,6 +137,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       macroBabyUrl: option.macroBabyUrl ?? null,
       macroBabyPrice: option.macroBabyPrice ?? null,
       amazonUrl: option.amazonUrl ?? null,
+      amazonPrice: option.amazonPrice ?? null,
       ownWeightLbs: spec?.ownWeightLbs ?? null,
       maxWeightLbs: spec?.maxWeightLbs ?? null,
       foldType: spec?.foldType ?? null,

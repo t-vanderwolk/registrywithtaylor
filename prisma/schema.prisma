@@ -909,6 +909,51 @@ model ProductEnrichment {
   @@index([isPublic])
 }
 
+// Server-side cache of Amazon Creators API product data. Public pages read this
+// table only; live Amazon API calls happen in explicit sync jobs.
+model AmazonProductCache {
+  asin                  String                  @id
+  sourceUrls            String[]                @default([])
+  marketplace           String                  @default("www.amazon.com")
+  partnerTag            String                  @default("taylormadebab-20")
+  credentialVersion     String?
+  detailPageUrl         String?
+  title                 String?
+  byLineInfo            Json?
+  features              String[]                @default([])
+  productInfo           Json?
+  primaryImageMediumUrl String?
+  primaryImageLargeUrl  String?
+  priceAmount           Float?
+  priceDisplay          String?
+  currency              String?
+  availability          String?
+  dealDetails           Json?
+  parentAsin            String?
+  requestedResources    String[]                @default([])
+  rawItem               Json?
+  lastFetchedAt         DateTime?
+  offerFetchedAt        DateTime?
+  offerExpiresAt        DateTime?
+  productDataExpiresAt  DateTime?
+  syncStatus            AmazonProductSyncStatus @default(PENDING)
+  syncError             String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+
+  @@index([syncStatus])
+  @@index([offerExpiresAt])
+  @@index([productDataExpiresAt])
+}
+
+enum AmazonProductSyncStatus {
+  PENDING
+  SYNCED
+  ERROR
+  ASSOCIATE_NOT_ELIGIBLE
+  RATE_LIMITED
+}
+
 enum CatalogReviewStatus {
   AUTO_CATEGORIZED
   NEEDS_REVIEW

@@ -13,10 +13,17 @@ import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
 import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
+import {
+  bestAmazonImage,
+  bestAmazonPrice,
+  bestAmazonUrl,
+  getAmazonCacheMapForUrls,
+} from '@/lib/server/amazonCreators/cache';
+import { isAmazonUrl } from '@/lib/server/amazonCreators/url';
 import prisma from '@/lib/server/prisma';
 
-const PROVIDERS = ['babylist_impact', 'shopify_macrobaby'];
-const PROVIDER_RANK: Record<string, number> = { babylist_impact: 0, shopify_macrobaby: 1 };
+const PROVIDERS = ['babylist_impact', 'shopify_macrobaby', 'manual_tmbc'];
+const PROVIDER_RANK: Record<string, number> = { babylist_impact: 0, shopify_macrobaby: 1, manual_tmbc: 2 };
 
 type ProductRef = { brand: string; productName: string };
 
@@ -26,6 +33,7 @@ type CatalogRow = {
   price: number | null;
   imageUrl: string | null;
   affiliateUrl: string | null;
+  manualAmazonUrl: string | null;
   provider: string;
   enrichment: { canonicalBrand: string | null; canonicalName: string | null } | null;
 };
@@ -79,6 +87,7 @@ export async function resolveBlogProductCatalogLinks(
         price: true,
         imageUrl: true,
         affiliateUrl: true,
+        manualAmazonUrl: true,
         provider: true,
         enrichment: { select: { canonicalBrand: true, canonicalName: true } },
       },
@@ -86,6 +95,10 @@ export async function resolveBlogProductCatalogLinks(
   } catch {
     return {};
   }
+
+  const amazonCacheMap = await getAmazonCacheMapForUrls(
+    rows.flatMap((row) => [row.manualAmazonUrl, isAmazonUrl(row.affiliateUrl) ? row.affiliateUrl : null]),
+  );
 
   const out: Record<string, BlogCatalogMatch> = {};
   for (const p of pairs) {
@@ -100,7 +113,6 @@ export async function resolveBlogProductCatalogLinks(
         const haystack = norm(`${r.enrichment?.canonicalName ?? ''} ${r.title ?? ''}`);
         return nameMatches(haystack, wantName);
       })
-      .filter((r) => r.affiliateUrl && !isGoodBuyGearUrl(r.affiliateUrl))
       // Never let an accessory (adapter, bassinet, carry bag, footmuff, second
       // seat, etc.) stand in for the stroller's image/price — the same guard the
       // finder/quiz tools use. Without it, "Butterfly 2" matched a $17 adapter and
@@ -109,25 +121,50 @@ export async function resolveBlogProductCatalogLinks(
 
     if (candidates.length === 0) continue;
 
-    candidates.sort(
-      (a, b) =>
-        (PROVIDER_RANK[a.provider] ?? 9) - (PROVIDER_RANK[b.provider] ?? 9) ||
-        (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER) ||
-        norm(a.title).length - norm(b.title).length,
-    );
+    const primaryCandidates = candidates
+      .filter((r) => r.affiliateUrl && !isGoodBuyGearUrl(r.affiliateUrl) && !isAmazonUrl(r.affiliateUrl))
+      .sort(
+        (a, b) =>
+          (PROVIDER_RANK[a.provider] ?? 9) - (PROVIDER_RANK[b.provider] ?? 9) ||
+          (a.price ?? Number.MAX_SAFE_INTEGER) - (b.price ?? Number.MAX_SAFE_INTEGER) ||
+          norm(a.title).length - norm(b.title).length,
+      );
+    const amazonCandidate = candidates.find((r) => r.manualAmazonUrl || isAmazonUrl(r.affiliateUrl));
+    const amazonSourceUrl = amazonCandidate?.manualAmazonUrl ?? (isAmazonUrl(amazonCandidate?.affiliateUrl) ? amazonCandidate?.affiliateUrl : null);
+    const amazonProduct = amazonSourceUrl ? amazonCacheMap.get(amazonSourceUrl) : null;
+    const amazonUrl = bestAmazonUrl(amazonSourceUrl, amazonProduct);
+    const amazonPrice = bestAmazonPrice(null, amazonProduct);
+    const amazonImageUrl = bestAmazonImage(null, amazonProduct);
 
-    const best = candidates[0];
+    const best = primaryCandidates[0] ?? null;
     // The preferred provider (Babylist) supplies the buy link + image, but its
     // feed row doesn't always carry a price. Fall back to the first matched
     // candidate that DOES have a price (e.g. the MacroBaby offer) so the card can
     // still show one, labelled with whichever retailer the price came from.
-    const priced = candidates.find((candidate) => candidate.price != null) ?? best;
-    const priceRetailer = priced.provider === 'shopify_macrobaby' ? 'MacroBaby' : 'Babylist';
+    const priced = primaryCandidates.find((candidate) => candidate.price != null) ?? best;
+    const priceRetailer =
+      priced?.provider === 'shopify_macrobaby'
+        ? 'MacroBaby'
+        : priced?.provider === 'manual_tmbc'
+          ? 'Amazon'
+          : 'Babylist';
     out[blogProductKey(p.brand, p.productName)] = {
-      affiliateUrl: best.affiliateUrl,
-      imageUrl: best.imageUrl ?? null,
-      price: priced.price ?? null,
-      retailer: priced.price != null ? priceRetailer : (best.provider === 'shopify_macrobaby' ? 'MacroBaby' : 'Babylist'),
+      affiliateUrl: best?.affiliateUrl ?? null,
+      imageUrl: best?.imageUrl ?? amazonImageUrl ?? null,
+      price: priced?.price ?? amazonPrice ?? null,
+      retailer:
+        priced?.price != null
+          ? priceRetailer
+          : amazonPrice != null || (!best && amazonUrl)
+            ? 'Amazon'
+            : best?.provider === 'shopify_macrobaby'
+              ? 'MacroBaby'
+              : 'Babylist',
+      amazonUrl,
+      amazonImageUrl,
+      amazonPrice,
+      amazonPriceDisplay: amazonProduct?.priceDisplay ?? null,
+      amazonAvailability: amazonProduct?.availability ?? null,
     };
   }
 

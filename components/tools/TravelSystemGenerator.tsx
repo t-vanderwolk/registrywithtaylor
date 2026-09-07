@@ -93,7 +93,7 @@ function BrowseCard({
   option: { brand: string; model: string };
   image: string | null;
   price: number | null;
-  priceSource: 'Babylist' | 'MacroBaby' | null;
+  priceSource: 'Babylist' | 'MacroBaby' | 'Bombi' | 'Amazon' | null;
   cta: string;
   onSelect: () => void;
   /** When set (strollers only), shows a Compare pill that deep-links the compare tool. */
@@ -410,14 +410,18 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   ) => {
     const value = buildOptionValue(option);
     const babylist = browseLookup[`${option.brand}:::${option.model}`];
-    const image = option.babylistImage ?? option.macroBabyImage ?? babylist?.babylistImage ?? null;
-    const price = option.babylistPrice ?? option.macroBabyPrice ?? babylist?.babylistPrice ?? null;
+    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? babylist?.babylistImage ?? null;
+    const price = option.babylistPrice ?? option.macroBabyPrice ?? option.bombiPrice ?? option.amazonPrice ?? babylist?.babylistPrice ?? null;
     const priceSource =
       option.babylistPrice != null || babylist?.babylistPrice != null
         ? 'Babylist'
         : option.macroBabyPrice != null
           ? 'MacroBaby'
-          : null;
+          : option.bombiPrice != null
+            ? 'Bombi'
+            : option.amazonPrice != null
+              ? 'Amazon'
+              : null;
 
     // Affiliate CTAs, matching the finder/results cards: a primary (direct →
     // Babylist → MacroBaby → Bombi → Babylist brand-store fallback) plus Amazon.

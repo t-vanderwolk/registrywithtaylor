@@ -296,6 +296,7 @@ function ProductCard({
     retailers?.babylist?.price ??
     retailers?.macrobaby?.price ??
     retailers?.bombi?.price ??
+    retailers?.amazon?.price ??
     product.price;
   const priceSource =
     retailers?.babylist?.price != null
@@ -304,7 +305,9 @@ function ProductCard({
         ? 'MacroBaby'
         : retailers?.bombi?.price != null
           ? 'Bombi'
-          : null;
+          : retailers?.amazon?.price != null
+            ? 'Amazon'
+            : null;
   const displayTitle = displayNameWithoutBrand(product.model || product.name, brand);
 
   return (

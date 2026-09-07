@@ -23,6 +23,7 @@ import { getGuideDisplayDate, isGuidePubliclyVisible } from '@/lib/guides/status
 import { getGuidePillar, getRelatedGuidePillars } from '@/lib/marketing/siteContent';
 import { buildMarketingMetadata, SITE_LOGO_URL, SITE_URL } from '@/lib/marketing/metadata';
 import { guideArticleSelect, toGuideArticleRecord, type GuideArticleRecord } from '@/lib/server/guideArticleRecord';
+import { enrichGuideAffiliateModulesWithAmazonCache } from '@/lib/server/amazonCreators/guideModules';
 import prisma from '@/lib/server/prisma';
 import { isGuideStorageUnavailableError } from '@/lib/server/guideStorage';
 import '../../styles/blog.css';
@@ -195,7 +196,11 @@ export async function renderGuideRoute({
     }
 
     const fallbackPillar = getGuidePillar(resolvedParentSlug ?? guide.slug);
-    const articleGuide = toGuideArticleRecord(guide);
+    const articleGuideRaw = toGuideArticleRecord(guide);
+    const articleGuide = {
+      ...articleGuideRaw,
+      affiliateModules: await enrichGuideAffiliateModulesWithAmazonCache(articleGuideRaw.affiliateModules),
+    };
     const articleContent = [articleGuide.intro, articleGuide.content, articleGuide.conclusion].filter(Boolean).join('\n\n');
     const articleDescription =
       guide.seoDescription?.trim() ||

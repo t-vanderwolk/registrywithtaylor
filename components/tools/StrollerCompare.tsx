@@ -168,7 +168,7 @@ function PlaceholderSlot({ slotNumber, onFocusAdd }: { slotNumber: number; onFoc
 }
 
 function ProductColumn({ item, index, onRemove }: { item: StrollerCompareItem; index: number; onRemove: () => void }) {
-  const price = formatPrice(item.babylistPrice ?? item.macroBabyPrice ?? null);
+  const price = formatPrice(item.babylistPrice ?? item.macroBabyPrice ?? item.amazonPrice ?? null);
   return (
     <div className="relative flex min-h-[15rem] flex-col rounded-[1.4rem] border border-[rgba(215,161,175,0.35)] bg-white p-4 shadow-[0_10px_28px_rgba(72,49,56,0.06)]">
       <div className="flex items-center justify-between">
@@ -279,7 +279,7 @@ export default function StrollerCompare({
   const highestMax = maxWeights.length ? Math.max(...maxWeights) : null;
 
   const rows: { label: string; render: (item: StrollerCompareItem) => ReactNode }[] = [
-    { label: 'Price', render: (i) => <SpecValue text={formatPrice(i.babylistPrice ?? i.macroBabyPrice ?? null)} /> },
+    { label: 'Price', render: (i) => <SpecValue text={formatPrice(i.babylistPrice ?? i.macroBabyPrice ?? i.amazonPrice ?? null)} /> },
     { label: 'Type', render: (i) => <SpecValue text={i.categoryLabel} /> },
     {
       label: 'Stroller weight',

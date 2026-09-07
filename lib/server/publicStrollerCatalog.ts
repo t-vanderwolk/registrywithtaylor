@@ -19,6 +19,12 @@ import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
+import {
+  bestAmazonImage,
+  bestAmazonPrice,
+  bestAmazonUrl,
+  getAmazonCacheMapForUrls,
+} from '@/lib/server/amazonCreators/cache';
 import type { TravelSystemStrollerOption } from '@/lib/compatibilityEngine';
 
 const PROVIDER_ANB = 'awin_anbbaby';
@@ -352,6 +358,13 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     }
   }
 
+  const amazonCacheMap = await getAmazonCacheMapForUrls(
+    [...visibleGroups.values()].flatMap((group) => [
+      group.amazon?.url ?? null,
+      getAffiliateLinks(group.brand, group.model).amazonUrl ?? null,
+    ]),
+  );
+
   const byBrand = new Map<string, Map<StrollerCategory, PublicStrollerProduct[]>>();
   for (const group of visibleGroups.values()) {
     const babylist = isPublicBabylistOffer(group.babylist) ? group.babylist : null;
@@ -360,7 +373,19 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
         ? group.macrobaby
         : null;
     const bombi = isPublicBombiOffer(group.bombi) ? group.bombi : null;
-    const amazon = isPublicAmazonOffer(group.amazon) ? group.amazon : null;
+    const rawAmazon = isPublicAmazonOffer(group.amazon) ? group.amazon : null;
+    const rawAmazonUrl = rawAmazon?.url ?? getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
+    const amazonProduct = rawAmazonUrl ? amazonCacheMap.get(rawAmazonUrl) : null;
+    const amazonUrl = bestAmazonUrl(rawAmazonUrl, amazonProduct);
+    const amazonOffer = amazonUrl
+      ? {
+          price: bestAmazonPrice(rawAmazon?.price ?? null, amazonProduct),
+          url: amazonUrl,
+          image: bestAmazonImage(rawAmazon?.image ?? null, amazonProduct),
+          title: amazonProduct?.title ?? rawAmazon?.title ?? `${group.brand} ${group.model}`.trim(),
+        }
+      : null;
+    const amazon = rawAmazon && amazonOffer ? amazonOffer : null;
     // A hand-added open-box product surfaces on its GoodBuy Gear link alone.
     const gbgShop = group.gbgShop && (group.gbgShop.url || group.gbgShop.price != null) ? group.gbgShop : null;
     // Babylist / MacroBaby / Bombi are preferred; a stroller with only an Amazon
@@ -369,9 +394,6 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const primary = babylist ?? macrobaby ?? bombi ?? amazon ?? gbgShop;
     if (!primary) continue;
 
-    // Prefer the catalog's own Amazon link (manual override); fall back to the
-    // static per-model Amazon map.
-    const amazonUrl = amazon?.url ?? getAffiliateLinks(group.brand, group.model).amazonUrl ?? null;
     const source: PublicStrollerProduct['source'] = babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : amazon ? 'amazon' : 'goodbuygear';
     // Raw open-box match, then gate the *badge* by the admin override. An
     // open-box-only card (source === 'goodbuygear') keeps its link — that's its
@@ -388,12 +410,12 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       model: group.model,
       summary: getStrollerProfile(group.brand, group.model)?.description ?? null,
       price: primary.price,
-      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazon?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
+      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazonOffer?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
       affiliateUrl: primary.url,
       source,
       retailers: {
         babylist: babylist ? { price: babylist.price, url: babylist.url } : null,
-        amazon: amazonUrl ? { price: amazon?.price ?? null, url: amazonUrl } : null,
+        amazon: amazonUrl ? { price: amazonOffer?.price ?? null, url: amazonUrl } : null,
         macrobaby: macrobaby ? { price: macrobaby.price, url: macrobaby.url } : null,
         bombi: bombi ? { price: bombi.price, url: bombi.url } : null,
         anb: null,
@@ -444,6 +466,8 @@ export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<Tra
         bombiUrl: product.retailers.bombi?.url ?? null,
         bombiImage: product.source === 'bombi' ? product.image : null,
         bombiPrice: product.retailers.bombi?.price ?? null,
+        amazonImage: product.source === 'amazon' ? product.image : null,
+        amazonPrice: product.retailers.amazon?.price ?? null,
         amazonUrl: product.retailers.amazon?.url ?? null,
       })),
     ),

@@ -16,6 +16,12 @@ import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { gbgBadgeKey, applyGbgBadge } from '@/lib/catalog/gbgBadge';
 import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
+import {
+  bestAmazonImage,
+  bestAmazonPrice,
+  bestAmazonUrl,
+  getAmazonCacheMapForUrls,
+} from '@/lib/server/amazonCreators/cache';
 
 const PROVIDER_ANB = 'awin_anbbaby';
 const PROVIDER_BABYLIST = 'babylist_impact';
@@ -148,6 +154,10 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
   }
 
   const byBrand = new Map<string, PublicCarSeatProduct[]>();
+  const amazonCacheMap = await getAmazonCacheMapForUrls(
+    [...groups.values()].map((group) => getAffiliateLinks(group.brand, group.model).amazonUrl ?? null),
+  );
+
   for (const g of groups.values()) {
     const babylist = g.babylist && hasPublicCoreRetailer({
       provider: PROVIDER_BABYLIST,
@@ -168,8 +178,10 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
     const primary = babylist ?? macrobaby;
     if (!primary) continue;
 
-    const amazonUrl = getAffiliateLinks(g.brand, g.model).amazonUrl ?? null;
-    const amazon = amazonUrl ? { price: null as number | null, url: amazonUrl } : null;
+    const rawAmazonUrl = getAffiliateLinks(g.brand, g.model).amazonUrl ?? null;
+    const amazonProduct = rawAmazonUrl ? amazonCacheMap.get(rawAmazonUrl) : null;
+    const amazonUrl = bestAmazonUrl(rawAmazonUrl, amazonProduct);
+    const amazon = amazonUrl ? { price: bestAmazonPrice(null, amazonProduct), url: amazonUrl } : null;
 
     const rawGbg: CarSeatRetailerOffer | null = g.gbg ? { price: g.gbg.price, url: g.gbg.url } : null;
     const gbgState = gbgOverrides.get(gbgBadgeKey(g.brand, g.model));
@@ -179,8 +191,8 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
     byBrand.get(g.brand)!.push({
       name: primary.title,
       model: g.model,
-      price: primary.price,
-      image: babylist?.image ?? macrobaby?.image ?? g.anb?.image ?? g.gbg?.image ?? null,
+      price: primary.price ?? amazon?.price ?? null,
+      image: babylist?.image ?? macrobaby?.image ?? g.anb?.image ?? g.gbg?.image ?? bestAmazonImage(null, amazonProduct),
       affiliateUrl: primary.url,
       source: babylist ? 'babylist' : 'macrobaby',
       retailers: {

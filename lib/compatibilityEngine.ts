@@ -18,6 +18,8 @@ export type TravelSystemStrollerOption = {
   bombiPrice?: number | null;
   bombiImage?: string | null;
   amazonUrl?: string | null;
+  amazonImage?: string | null;
+  amazonPrice?: number | null;
 };
 
 export type TravelSystemCarSeatOption = {
@@ -35,6 +37,8 @@ export type TravelSystemCarSeatOption = {
   bombiPrice?: number | null;
   bombiImage?: string | null;
   amazonUrl?: string | null;
+  amazonImage?: string | null;
+  amazonPrice?: number | null;
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
 };
@@ -78,6 +82,8 @@ export type CompatibleCarSeatResult = {
   bombiPrice?: number | null;
   bombiImage?: string | null;
   amazonUrl?: string | null;
+  amazonImage?: string | null;
+  amazonPrice?: number | null;
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
 };
@@ -112,6 +118,8 @@ export type CompatibleStrollerResult = {
   bombiPrice?: number | null;
   bombiImage?: string | null;
   amazonUrl?: string | null;
+  amazonImage?: string | null;
+  amazonPrice?: number | null;
 };
 
 export type TravelSystemCompatibilityByCarSeatResponse = {
