@@ -88,6 +88,7 @@ type RetailerOffer = { price: number | null; url: string | null };
 type FinderProduct = {
   name: string;
   model: string;
+  displayModel?: string;
   summary?: string | null;
   price: number | null;
   image: string | null;
@@ -308,7 +309,7 @@ function ProductCard({
           : retailers?.amazon?.price != null
             ? 'Amazon'
             : null;
-  const displayTitle = displayNameWithoutBrand(product.model || product.name, brand);
+  const displayTitle = displayNameWithoutBrand(product.displayModel || product.model || product.name, brand);
 
   return (
     <div

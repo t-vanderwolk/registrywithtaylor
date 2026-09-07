@@ -1387,6 +1387,23 @@ const PROFILES: StrollerProfile[] = [
   },
   {
     brand: 'Veer',
+    match: /\b(?:cruiser xl|cruiser city xl)\b/,
+    description:
+      'The four-seat version of Veer\'s premium adventure wagon: real suspension, a smooth push, and room for a bigger crew without giving up the newborn, toddler, and car-seat add-on system.',
+    bestFor: 'Larger families who need four seats and want Veer\'s premium all-terrain ride and accessory system.',
+    priceTier: 'luxury',
+    valueScore: 80,
+    specs: [
+      { label: 'Seats', value: '4 kids + add-ons' },
+      { label: 'Wheels', value: 'All-terrain, suspension' },
+      { label: 'Handle', value: 'Push or pull' },
+      { label: 'Extras', value: 'Newborn / toddler / car-seat add-ons' },
+    ],
+    pros: ['Four-seat capacity', 'Rugged all-terrain build with real suspension', 'Newborn and car-seat add-ons available'],
+    cons: ['Larger folded footprint', 'Expensive, especially once you add on'],
+  },
+  {
+    brand: 'Veer',
     match: /.*/,
     description:
       'The premium adventure wagon: a rugged all-terrain frame with a smooth push, real suspension, and a system of newborn, toddler, and car-seat add-ons. The wagon that thinks it’s a stroller.',

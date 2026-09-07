@@ -264,15 +264,20 @@ export function adapterTitleMatchesStrollerModel(
       return { matched: true, matchedModel: null, matchKind: 'core' };
     }
 
-    // Veer's wagon adapters reference the "Cruiser" line generically ("Veer
-    // Cruiser Infant Car Seat Adapter", "…for Cruiser Wagon"). Cruiser / Cruiser
-    // XL / Cruiser City share the same infant-seat adapters, so a Veer stroller
-    // whose model is in the Cruiser line matches any Cruiser adapter title.
+    // Veer's wagon adapters reference the "Cruiser" line generically, and the
+    // Cruiser / Cruiser City frames share adapters within the same capacity.
+    // The 2-seat and XL 4-seat adapters are different products and must never
+    // cross-match.
     if (
       strollerBrandKey === 'veer' &&
       /\bcruiser\b/.test(normalizeText(strollerModel)) &&
       titleTokens.includes('cruiser')
     ) {
+      const strollerIsXl = tokens(strollerModel).includes('xl');
+      const adapterIsXl = titleTokens.includes('xl');
+      if (strollerIsXl !== adapterIsXl) {
+        return { matched: false, matchedModel: null, matchKind: null };
+      }
       return { matched: true, matchedModel: 'cruiser', matchKind: 'core' };
     }
 

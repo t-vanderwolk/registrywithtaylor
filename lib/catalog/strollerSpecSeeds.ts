@@ -1646,6 +1646,15 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       modular: true, fitsOverheadBin: false,
     },
     {
+      match: /cruiser.*xl|cruiser city xl/,
+      summary:
+        'The four-seat Veer wagon: 55 lb per seat across four seats, all-terrain wheels, and a handle that switches between push and pull. It keeps the same infant-car-seat accessory system in a roomier frame.',
+      priceRange: 'luxury', foldType: 'standard', lifestyle: ['trail', 'suburban'],
+      maxWeightLbs: 55, budgetMin: 800, budgetMax: 1100,
+      isExpandable: false, suitableFromBirth: false, suitableForJogging: false,
+      modular: false, fitsOverheadBin: false,
+    },
+    {
       match: /./,
       summary:
         'The wagon that pushes like a stroller: 55 lb per seat across two seats, all-terrain wheels and a handle that switches between push and pull. Riders need to sit unassisted, so plan on 6 months and up unless you add the infant accessories.',

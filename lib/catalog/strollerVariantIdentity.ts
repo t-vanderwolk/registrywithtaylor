@@ -130,3 +130,20 @@ export function strollerVariantNoiseScore(model: string, brand: string) {
 
   return score;
 }
+
+export function strollerPublicDisplayModel(model: string, brand: string) {
+  if (normalizeText(brand) !== 'veer') return model;
+
+  switch (normalizeText(model)) {
+    case 'cruiser':
+      return 'Cruiser (2 Seater)';
+    case 'cruiser xl':
+      return 'Cruiser XL (4 Seater)';
+    case 'cruiser city':
+      return 'Cruiser City (2 Seater)';
+    case 'cruiser city xl':
+      return 'Cruiser City XL (4 Seater)';
+    default:
+      return model;
+  }
+}

@@ -5,6 +5,7 @@ import { mergeStrollerModel, overrideStrollerCategory } from '@/lib/catalog/stro
 import { productModelKey } from '@/lib/catalog/modelIdentity';
 import {
   normalizeStrollerVariantModel,
+  strollerPublicDisplayModel,
   strollerVariantNoiseScore,
 } from '@/lib/catalog/strollerVariantIdentity';
 import {
@@ -66,6 +67,7 @@ type Offer = RetailerOffer & { image: string | null; title: string };
 export type PublicStrollerProduct = {
   name: string;
   model: string;
+  displayModel: string;
   /** Short TMBC summary from the curated profile (null if none written yet). */
   summary: string | null;
   price: number | null;
@@ -253,18 +255,20 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       continue;
     }
 
-    if (row.itemGroupId) {
-      const groupIdKey = `${row.provider}:${row.itemGroupId}`;
-      if (seenGroups.has(groupIdKey)) continue;
-      seenGroups.add(groupIdKey);
-    }
-
     const rawBrand = (row.enrichment?.canonicalBrand || row.brand || '').trim();
     const brand = canonicalStrollerBrand(rawBrand);
     const rawModel = modelLikeCanonicalName(row.enrichment?.canonicalName) ?? parseStrollerModel(row.title, rawBrand || brand);
     const model = mergeStrollerModel(brand, cleanPublicModelName(rawModel, brand));
     if (!model) continue;
     if (isExcludedStrollerFinderModel(brand, model)) continue;
+    if (row.itemGroupId) {
+      // Item groups normally contain cosmetic variants, but some feeds also put
+      // materially different capacities (such as Veer 2- and 4-seat wagons) in
+      // one group. Keep one row per canonical model within the item group.
+      const groupIdKey = `${row.provider}:${row.itemGroupId}:${productModelKey(brand, model)}`;
+      if (seenGroups.has(groupIdKey)) continue;
+      seenGroups.add(groupIdKey);
+    }
     category = overrideStrollerCategory(brand, model, category);
     const key = productModelKey(brand, model || row.title);
 
@@ -408,6 +412,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const product: PublicStrollerProduct = {
       name: primary.title,
       model: group.model,
+      displayModel: strollerPublicDisplayModel(group.model, group.brand),
       summary: getStrollerProfile(group.brand, group.model)?.description ?? null,
       price: primary.price,
       image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazonOffer?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
@@ -453,7 +458,7 @@ export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<Tra
       typeRow.products.map((product) => ({
         brand: brandRow.brand,
         model: product.model,
-        displayName: `${brandRow.brand} ${product.model}`.replace(/\s+/g, ' ').trim(),
+        displayName: `${brandRow.brand} ${product.displayModel}`.replace(/\s+/g, ' ').trim(),
         // Same curated summary the finder shows, so the checker cards match.
         summary: getStrollerProfile(brandRow.brand, product.model)?.description ?? null,
         strollerCategory: typeRow.category,
