@@ -1,0 +1,231 @@
+platform,car_seat_brand,car_seat_model,condition,source_column,pair_type
+Cruiser,Graco,All Graco Click Connect Systems,,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Graco,Baby Jogger City Go,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Graco,Baby Jogger City Mini GT,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Graco,SnugRide SnugLock (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Graco,SnugRide Click Connect,,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Britax,B-Safe 35,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,B-Safe 35 Elite,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,B-Safe Ultra,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,B-Safe Gen2,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,B-Safe Gen2 FlexFit,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,B-Safe Gen2 FlexFit+,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Endeavour,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Chaperone,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,UPPAbaby,Mesa,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,UPPAbaby,Mesa V2,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,UPPAbaby,Mesa Max,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,UPPAbaby,Aria,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Nuna,PIPA aire RX,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Nuna,PIPA lite lx,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Nuna,PIPA lite,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Nuna,PIPA RX,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Nuna,PIPA,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Cybex,Aton Q & M,,Cruiser & Cruiser City,COMBINED_SOURCE_ENTRY
+Cruiser,Maxi-Cosi,Mico Max 30,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Maxi-Cosi,Mico 30,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Maxi-Cosi,Nxt,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Maxi-Cosi,Mico AP,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Clek,Liing,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Cypress,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Willow,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Willow S,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Britax,Willow SC,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Chicco,Fit2 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Chicco,Fit2 LE (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Chicco,Keyfit (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Chicco,Keyfit 35 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Chicco,Keyfit 30 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser,Peg Perego,Primo Viaggio 4-35,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser,Peg Perego,Primo Viaggio 4-35 Nido,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Graco,All Graco Click Connect Systems,,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Graco,Baby Jogger City Go,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Graco,Baby Jogger City Mini GT,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Graco,SnugRide SnugLock (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Graco,SnugRide Click Connect,,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Britax,B-Safe 35,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,B-Safe 35 Elite,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,B-Safe Ultra,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,B-Safe Gen2,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,B-Safe Gen2 FlexFit,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,B-Safe Gen2 FlexFit+,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Endeavour,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Chaperone,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,UPPAbaby,Mesa,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,UPPAbaby,Mesa V2,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,UPPAbaby,Mesa Max,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,UPPAbaby,Aria,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Nuna,PIPA aire RX,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Nuna,PIPA lite lx,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Nuna,PIPA lite,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Nuna,PIPA RX,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Nuna,PIPA,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Cybex,Aton Q & M,,Cruiser & Cruiser City,COMBINED_SOURCE_ENTRY
+Cruiser City,Maxi-Cosi,Mico Max 30,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Maxi-Cosi,Mico 30,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Maxi-Cosi,Nxt,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Maxi-Cosi,Mico AP,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Clek,Liing,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Cypress,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Willow,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Willow S,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Britax,Willow SC,† requires Cruiser seat back folded down,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Chicco,Fit2 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Chicco,Fit2 LE (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Chicco,Keyfit (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Chicco,Keyfit 35 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Chicco,Keyfit 30 (all models),,Cruiser & Cruiser City,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City,Peg Perego,Primo Viaggio 4-35,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser City,Peg Perego,Primo Viaggio 4-35 Nido,,Cruiser & Cruiser City,EXACT_SOURCE_PAIR
+Cruiser XL,Graco,All Graco Click Connect Systems,,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Graco,Baby Jogger City Go,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Graco,Baby Jogger City Mini GT,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Graco,SnugRide SnugLock (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Graco,SnugRide Click Connect,,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Britax,B-Safe 35,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,B-Safe 35 Elite,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,B-Safe Ultra,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,B-Safe Gen2,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,B-Safe Gen2 FlexFit,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,B-Safe Gen2 FlexFit+,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Endeavour,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Chaperone,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,UPPAbaby,Mesa,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,UPPAbaby,Mesa V2,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,UPPAbaby,Mesa Max,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,UPPAbaby,Aria,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Nuna,PIPA aire RX,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Nuna,PIPA lite lx,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Nuna,PIPA lite,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Nuna,PIPA RX,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Nuna,PIPA,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Cybex,Aton Q & M,,Cruiser XL & Cruiser City XL,COMBINED_SOURCE_ENTRY
+Cruiser XL,Maxi-Cosi,Mico Max 30,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Maxi-Cosi,Mico 30,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Maxi-Cosi,Nxt,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Maxi-Cosi,Mico AP,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Clek,Liing,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Cypress,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Willow,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Willow S,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Britax,Willow SC,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Chicco,Fit2 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Chicco,Fit2 LE (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Chicco,Keyfit (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Chicco,Keyfit 35 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Chicco,Keyfit 30 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser XL,Peg Perego,Primo Viaggio 4-35,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser XL,Peg Perego,Primo Viaggio 4-35 Nido,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Graco,All Graco Click Connect Systems,,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Graco,Baby Jogger City Go,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Graco,Baby Jogger City Mini GT,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Graco,SnugRide SnugLock (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Graco,SnugRide Click Connect,,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Britax,B-Safe 35,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,B-Safe 35 Elite,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,B-Safe Ultra,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,B-Safe Gen2,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,B-Safe Gen2 FlexFit,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,B-Safe Gen2 FlexFit+,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Endeavour,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Chaperone,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,UPPAbaby,Mesa,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,UPPAbaby,Mesa V2,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,UPPAbaby,Mesa Max,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,UPPAbaby,Aria,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Nuna,PIPA aire RX,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Nuna,PIPA lite lx,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Nuna,PIPA lite,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Nuna,PIPA RX,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Nuna,PIPA,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Cybex,Aton Q & M,,Cruiser XL & Cruiser City XL,COMBINED_SOURCE_ENTRY
+Cruiser City XL,Maxi-Cosi,Mico Max 30,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Maxi-Cosi,Mico 30,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Maxi-Cosi,Nxt,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Maxi-Cosi,Mico AP,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Clek,Liing,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Cypress,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Willow,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Willow S,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Britax,Willow SC,† requires Cruiser seat back folded down,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Chicco,Fit2 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Chicco,Fit2 LE (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Chicco,Keyfit (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Chicco,Keyfit 35 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Chicco,Keyfit 30 (all models),,Cruiser XL & Cruiser City XL,FAMILY_OR_SYSTEM_CLAIM
+Cruiser City XL,Peg Perego,Primo Viaggio 4-35,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+Cruiser City XL,Peg Perego,Primo Viaggio 4-35 Nido,,Cruiser XL & Cruiser City XL,EXACT_SOURCE_PAIR
+&Roll,Graco,All Graco Click Connect Systems,,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Graco,Baby Jogger City Go,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Graco,Baby Jogger City Mini GT,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Graco,SnugRide SnugLock (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Graco,SnugRide Click Connect,,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Britax,B-Safe 35,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,B-Safe 35 Elite,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,B-Safe Ultra,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,B-Safe Gen2,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,B-Safe Gen2 FlexFit,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,B-Safe Gen2 FlexFit+,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Endeavour,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Chaperone,,&Roll,EXACT_SOURCE_PAIR
+&Roll,UPPAbaby,Mesa,,&Roll,EXACT_SOURCE_PAIR
+&Roll,UPPAbaby,Mesa V2,,&Roll,EXACT_SOURCE_PAIR
+&Roll,UPPAbaby,Mesa Max,,&Roll,EXACT_SOURCE_PAIR
+&Roll,UPPAbaby,Aria,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Nuna,PIPA aire RX,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Nuna,PIPA lite lx,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Nuna,PIPA lite,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Nuna,PIPA RX,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Nuna,PIPA,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Cybex,Aton Q & M,,&Roll,COMBINED_SOURCE_ENTRY
+&Roll,Maxi-Cosi,Mico Max 30,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Maxi-Cosi,Mico 30,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Maxi-Cosi,Nxt,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Maxi-Cosi,Mico AP,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Clek,Liing,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Cyprus,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Willow,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Willow S,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Britax,Willow SC,,&Roll,EXACT_SOURCE_PAIR
+&Roll,Chicco,Fit2 (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Chicco,Fit2 LE (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Chicco,Keyfit (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Chicco,Keyfit 35 (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Roll,Chicco,Keyfit 30 (all models),,&Roll,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Graco,All Graco Click Connect Systems,,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Graco,Baby Jogger City Go,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Graco,Baby Jogger City Mini GT,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Graco,SnugRide SnugLock (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Graco,SnugRide Click Connect,,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Britax,B-Safe 35,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,B-Safe 35 Elite,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,B-Safe Ultra,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,B-Safe Gen2,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,B-Safe Gen2 FlexFit,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,B-Safe Gen2 FlexFit+,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Endeavour,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Chaperone,,&Jog,EXACT_SOURCE_PAIR
+&Jog,UPPAbaby,Mesa,,&Jog,EXACT_SOURCE_PAIR
+&Jog,UPPAbaby,Mesa V2,,&Jog,EXACT_SOURCE_PAIR
+&Jog,UPPAbaby,Mesa Max,,&Jog,EXACT_SOURCE_PAIR
+&Jog,UPPAbaby,Aria,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Nuna,PIPA aire RX,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Nuna,PIPA lite lx,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Nuna,PIPA lite,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Nuna,PIPA RX,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Nuna,PIPA,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Cybex,Aton Q & M,,&Jog,COMBINED_SOURCE_ENTRY
+&Jog,Maxi-Cosi,Mico Max 30,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Maxi-Cosi,Mico 30,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Maxi-Cosi,Nxt,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Maxi-Cosi,Mico AP,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Clek,Liing,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Cyprus,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Willow,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Willow S,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Britax,Willow SC,,&Jog,EXACT_SOURCE_PAIR
+&Jog,Chicco,Fit2 (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Chicco,Fit2 LE (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Chicco,Keyfit (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Chicco,Keyfit 35 (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM
+&Jog,Chicco,Keyfit 30 (all models),,&Jog,FAMILY_OR_SYSTEM_CLAIM

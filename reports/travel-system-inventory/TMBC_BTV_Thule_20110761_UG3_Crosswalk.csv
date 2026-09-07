@@ -1,0 +1,41 @@
+chart_brand,chart_model_verbatim,classification,production_seat,ug3_row_status,note
+BeSafe,IZI GO Modular X1 i-Size,CATALOGUE_GAP,—,no row,Not in TMBC CarSeat catalogue.
+BeSafe,IZI GO X1,CATALOGUE_GAP,—,no row,Not stocked.
+BeSafe,Go Beyond,CATALOGUE_GAP,—,no row,Not stocked.
+Britax,Baby-Safe 3,CATALOGUE_GAP,—,no row,Euro Britax/Römer seat; not stocked.
+Britax,Willow,IDENTITY_REVIEW,Britax Willow S / Willow SC,no plain-Willow row,"Chart lists plain ""Willow""; production carries Willow S / Willow SC. Not aliased."
+Cybex,Aton 2,CATALOGUE_GAP,—,no row,Legacy Aton; not stocked.
+Cybex,Aton Q,CATALOGUE_GAP,—,no row,Legacy Aton; not stocked.
+Cybex,Aton G,CATALOGUE_GAP → ANCHOR,—,no row (would anchor the 6 Aton G2 VERIFY),"**Real CYBEX seat, named on 20110761 AND the Charm 11500701 chart, but NOT in the CarSeat catalogue.** If catalogued, Thule UG3/UG4/UG3-Double × Aton G = MANUFACTURER_EXACT and becomes the anchor for the 6 Aton G2 VERIFY rows. Chart does NOT name ""Aton G2""."
+Cybex,Aton S2,CATALOGUE_GAP,—,no row,Not stocked.
+Cybex,Cloud Q,CATALOGUE_GAP,—,no row,Not stocked.
+Cybex,Cloud G,IDENTITY_MATCH,Cybex Cloud G Pro Comfort Extend,KEEP confirmed,"RESOLVED by first-party clarification: i-Size is a Europe-only ECE R129 label, not a separate seat; the US Cybex Cloud lineup is Cloud Q / Cloud T / Cloud G. Chart ""Cloud G"" / ""Cloud G i-size"" = the US Cloud G = production ""Cloud G Pro Comfort Extend"" (verbose retail name for the single US Cloud G). 3 KEEP rows (UG3 / UG3 Double / UG4-wheel) valid. Optional catalogue rename ""Cloud G Pro Comfort Extend"" -> ""Cloud G"" (hygiene, not applied)."
+Cybex,Cloud G i-size,NOT_IN_US_OR_I_SIZE,—,—,i-Size variant; production uses the US Cloud G (Pro Comfort Extend).
+Cybex,Cloud T i-size,IDENTITY_MATCH,Cybex Cloud T,KEEP confirmed,"RESOLVED by first-party clarification: i-Size is a Europe-only ECE R129 label; the US seat is simply ""Cloud T"". Chart ""Cloud T i-size"" = US Cloud T = production ""Cloud T"" (same seat). 3 KEEP rows (UG3 / UG3 Double / UG4-wheel) valid. (The i-size suffix appears even on this US doc — Thule lists each seat's full regulatory name.)"
+Cybex,Cloud Z i-size,CATALOGUE_GAP,—,no row,i-Size; not stocked.
+Cybex,Cloud Z2 i-size,CATALOGUE_GAP,—,no row,i-Size; not stocked.
+Joie,Gemm/i-gemm,CATALOGUE_GAP,—,no row,Not stocked.
+Maxi-Cosi,Mico 12,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Pebble 360 Pro,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Coral 360,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Coral i-size,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Marble,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Mico 30,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Mico NXT,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Pebble,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Pebble 360,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Pebble Plus i-size,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Pebble Pro i-size,CATALOGUE_GAP,—,no row,Not stocked (production Maxi-Cosi = Ambra/Mico Luxe/Mico Pro/Mico XP/Peri 180).
+Maxi-Cosi,Mico Luxe,EXACT_CANONICAL_MATCH,Maxi-Cosi Mico Luxe,KEEP confirmed,Exact. UG3 KEEP validated.
+Maxi-Cosi,Peri 180,EXACT_CANONICAL_MATCH,Maxi-Cosi Peri 180,KEEP confirmed,Exact. UG3 KEEP validated.
+Nuna,Pipa RX,EXACT_CANONICAL_MATCH,Nuna PIPA RX,KEEP confirmed,Exact. UG3 KEEP validated.
+Nuna,Pipa Aire RX,EXACT_CANONICAL_MATCH,Nuna PIPA Aire rx,KEEP confirmed,Exact. UG3 KEEP validated.
+Nuna,Pipa Aire,EXACT_CANONICAL_MATCH,Nuna PIPA Aire,KEEP confirmed,Exact. UG3 KEEP validated.
+Nuna,Arra Next,CATALOGUE_GAP,—,no row,Arra (convertible line); production Nuna infant = PIPA family. Not a match.
+Nuna,Pipa,CATALOGUE_GAP,—,no row,"Plain classic Pipa; production has PIPA Aire/Aire rx/RX/urbn, not plain Pipa."
+Nuna,Pipa Lite,CATALOGUE_GAP,—,no row,Not stocked.
+Nuna,Pipa Lite R,CATALOGUE_GAP,—,no row,Not stocked.
+Nuna,Pipa Lite RX,CATALOGUE_GAP,—,no row,Not stocked.
+Thule,Maple,CATALOGUE_GAP,—,no row,Thule own seat; not in CarSeat catalogue. Select markets only.
+—,[NEG/ABSENT] Maxi-Cosi Ambra / Mico Pro / Mico XP; Nuna PIPA urbn,ABSENT_FROM_CHART,(those production seats),REMOVE confirmed,None appear on 20110761 → UG3 REMOVE validated.
+—,[ABSENT] Cybex Aton G2 / Aton G2 Swivel,ABSENT_FROM_CHART,Cybex Aton G2 / Aton G2 Swivel,VERIFY confirmed,"Chart names ""Aton G"", NOT ""Aton G2"" → the 6 UG3/UG4/UG3-Double Aton G2 rows correctly remain VERIFY. Absence is not affirmative incompatibility."

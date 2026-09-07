@@ -1,0 +1,2 @@
+compatibility_id,stroller_model,car_seat_brand,car_seat_model,frozen_audit_action,corrected_audit_action,reason
+—,—(NO CORRECTIONS)—,—,—,—,—,"BOB Gear Single Stroller Compatibility Chart (Jan 2024) confirms all 68 single-chassis frozen rows: 0 REMOVE->KEEP, 0 KEEP->REMOVE. Frozen BOB block validated; no version bump."

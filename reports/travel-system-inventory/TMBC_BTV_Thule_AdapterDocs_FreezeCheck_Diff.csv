@@ -1,0 +1,2 @@
+compatibility_id,stroller,car_seat,frozen_action,corrected_action,reason
+—,—(NO CORRECTIONS)—,—,—,—,"Thule first-party adapter docs 20110761 (UG3-single Maxi-Cosi, US Feb 2024), 514848 (legacy Glide/UG1&2, 51100941), and 1760375 (Charm 11500701) confirm all reconcilable frozen Thule rows: 0 REMOVE<->KEEP, 0 KEEP<->REMOVE. The 6 Aton G2 rows remain VERIFY (charts name ""Aton G"", not ""Aton G2""). No version bump."
