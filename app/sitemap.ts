@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
-import { getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
+import { getTravelSystemCarSeats, getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { strollerCategories, strollerFinderCategoryHref, strollerFinderBrandHref } from '@/lib/resources/knowBeforeYouBuy';
+import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
 
@@ -43,13 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // NOTE: /tools/travel-system/results?stroller=…&carSeat=… pages are
-  // intentionally noindex (see app/tools/travel-system/results/page.tsx — they
-  // canonicalize to a noindexed bare path). A sitemap must never list noindexed
-  // URLs, so those result permutations are deliberately excluded here. Only the
-  // indexable /tools/travel-system page (in staticEntries) and the discoverable
-  // Stroller Finder brand landing pages below are included.
   let brandEntries: MetadataRoute.Sitemap = [];
+  let travelSystemResultEntries: MetadataRoute.Sitemap = [];
   try {
     const strollers = await getTravelSystemStrollers();
 
@@ -64,8 +60,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
+
+    travelSystemResultEntries = strollers.map((stroller) => ({
+      url: buildUrl(travelSystemResultsHref('stroller', stroller)),
+      changeFrequency: 'weekly' as const,
+      priority: 0.65,
+    }));
   } catch (error) {
     console.error('Failed to build stroller-finder brand sitemap entries.', error);
+  }
+
+  try {
+    const carSeats = await getTravelSystemCarSeats();
+    travelSystemResultEntries.push(
+      ...carSeats.map((carSeat) => ({
+        url: buildUrl(travelSystemResultsHref('carSeat', carSeat)),
+        changeFrequency: 'weekly' as const,
+        priority: 0.65,
+      })),
+    );
+  } catch (error) {
+    console.error('Failed to build travel-system car-seat sitemap entries.', error);
   }
 
   let blogEntries: MetadataRoute.Sitemap = [];
@@ -86,7 +101,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...categoryEntries, ...brandEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [...staticEntries, ...categoryEntries, ...brandEntries, ...travelSystemResultEntries, ...blogEntries].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }

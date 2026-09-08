@@ -21,9 +21,9 @@ export function findTravelSystemOptionBySlug<T extends TravelSystemRouteOption>(
   return options.find((option) => travelSystemSlug(option) === normalizedSlug) ?? null;
 }
 
-export function travelSystemResultsHref(kind: TravelSystemStartKind, option: TravelSystemRouteOption) {
+export function travelSystemResultsHref(kind: TravelSystemStartKind, option: TravelSystemRouteOption): `/${string}` {
   const params = new URLSearchParams({
     [kind === 'stroller' ? 'stroller' : 'carSeat']: travelSystemSlug(option),
   });
-  return `/tools/travel-system/results?${params.toString()}`;
+  return `/tools/travel-system/results?${params.toString()}` as `/${string}`;
 }

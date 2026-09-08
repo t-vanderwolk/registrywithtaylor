@@ -7,7 +7,7 @@ import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
-import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
+import { getStrollerCompareCatalog, type StrollerCompareItem } from '@/lib/server/strollerCompareCatalog';
 
 // No "zero affiliate commission" claim here — this tool carries affiliate buy
 // links, so that badge would contradict the disclosure used elsewhere on the site.
@@ -15,22 +15,78 @@ const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required'];
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = buildMarketingMetadata({
-  title: 'Stroller Comparison Tool — Compare Strollers Side by Side | Taylor-Made Baby Co.',
-  description:
-    'Compare up to three strollers head-to-head — weight, fold, price, max child weight, newborn and jogging readiness — with live prices and where to buy.',
-  path: '/tools/compare',
-  imagePath: '/assets/hero/hero-03.jpg',
-  imageAlt: 'Compare strollers side by side',
-  keywords: [
-    'stroller comparison tool',
-    'compare strollers',
-    'stroller comparison chart',
-    'stroller weight comparison',
-    'best stroller comparison',
-    'side by side stroller comparison',
-  ],
-});
+function parseCompareIds(rawIds?: string | string[]) {
+  return (Array.isArray(rawIds) ? rawIds[0] : rawIds ?? '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+}
+
+function comparePath(ids: string[]): `/${string}` {
+  if (ids.length === 0) return '/tools/compare';
+  const params = new URLSearchParams({ ids: ids.join(',') });
+  return `/tools/compare?${params.toString()}` as `/${string}`;
+}
+
+function baseCompareMetadata() {
+  return buildMarketingMetadata({
+    title: 'Stroller Comparison Tool — Compare Strollers Side by Side | Taylor-Made Baby Co.',
+    description:
+      'Compare up to three strollers head-to-head — weight, fold, price, max child weight, newborn and jogging readiness — with live prices and where to buy.',
+    path: '/tools/compare',
+    imagePath: '/assets/hero/hero-03.jpg',
+    imageAlt: 'Compare strollers side by side',
+    keywords: [
+      'stroller comparison tool',
+      'compare strollers',
+      'stroller comparison chart',
+      'stroller weight comparison',
+      'best stroller comparison',
+      'side by side stroller comparison',
+    ],
+  });
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<{ ids?: string | string[] }>;
+}) {
+  const params = searchParams ? await searchParams : {};
+  const ids = parseCompareIds(params.ids);
+  if (ids.length === 0) return baseCompareMetadata();
+
+  const catalog = await getStrollerCompareCatalog();
+  const byId = new Map(catalog.map((item) => [item.id, item]));
+  const selected = ids
+    .map((id) => byId.get(id))
+    .filter((item): item is StrollerCompareItem => item != null);
+  if (selected.length === 0) return baseCompareMetadata();
+
+  const canonicalIds = selected.map((item) => item.id);
+  const names = selected.map((item) => item.displayName);
+  const title =
+    names.length === 1
+      ? `Compare ${names[0]} Against Other Strollers | Taylor-Made Baby Co.`
+      : `Compare ${names.join(' vs ')} | Taylor-Made Baby Co.`;
+
+  return buildMarketingMetadata({
+    title,
+    description:
+      names.length === 1
+        ? `Compare ${names[0]} side by side with other strollers on weight, fold, price, newborn readiness, jogging readiness, and where to buy.`
+        : `Compare ${names.join(' vs ')} side by side on weight, fold, price, newborn readiness, jogging readiness, and where to buy.`,
+    path: comparePath(canonicalIds),
+    imagePath: selected[0].image ?? '/assets/hero/hero-03.jpg',
+    imageAlt: `Compare ${names.join(' vs ')}`,
+    keywords: [
+      ...names.map((name) => `${name} comparison`),
+      'stroller comparison tool',
+      'compare strollers side by side',
+    ],
+  });
+}
 
 const compareSchema = {
   '@context': 'https://schema.org',
@@ -65,11 +121,7 @@ export default async function StrollerComparePage({
 }) {
   const params = searchParams ? await searchParams : {};
   const rawIds = Array.isArray(params.ids) ? params.ids[0] : params.ids;
-  const initialIds = (rawIds ?? '')
-    .split(',')
-    .map((id) => id.trim())
-    .filter(Boolean)
-    .slice(0, 3);
+  const initialIds = parseCompareIds(rawIds);
 
   const catalog = await getStrollerCompareCatalog();
 

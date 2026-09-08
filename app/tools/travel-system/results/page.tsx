@@ -31,7 +31,7 @@ import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
-import { findTravelSystemOptionBySlug, travelSystemSlug } from '@/lib/travelSystemRouting';
+import { findTravelSystemOptionBySlug, travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 
 export const dynamic = 'force-dynamic';
 
@@ -172,49 +172,45 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const selection = await loadSelection(searchParams);
 
-  // Every variant of this page is an interactive tool output — the parameterised
-  // results (?stroller / ?carSeat) as well as the empty state. Keeping them all
-  // noindex avoids a contradictory signal where an indexable ?stroller= page
-  // canonicalises to the bare /results path, which is itself noindexed. Google is
-  // told, consistently, not to index any of them (but to follow the links out).
-  const noIndexRobots = { index: false, follow: true } as const;
-
   if (selection.status === 'stroller') {
-    return {
-      ...buildMarketingMetadata({
-        title: `Compatible Infant Car Seats for ${selection.result.stroller.displayName} | Taylor-Made Baby Co.`,
-        description: `See direct-fit and adapter-required infant car seats for ${selection.result.stroller.displayName}.`,
-        path: '/tools/travel-system/results',
-        imagePath: '/assets/hero/hero-03.jpg',
-        imageAlt: 'Travel system compatibility results',
-      }),
-      robots: noIndexRobots,
-    };
+    const stroller = selection.result.stroller;
+    return buildMarketingMetadata({
+      title: `Compatible Infant Car Seats for ${stroller.displayName} | Taylor-Made Baby Co.`,
+      description: `See direct-fit and adapter-required infant car seats for ${stroller.displayName}.`,
+      path: travelSystemResultsHref('stroller', stroller),
+      imagePath: '/assets/hero/hero-03.jpg',
+      imageAlt: `${stroller.displayName} travel system compatibility results`,
+      keywords: [
+        `${stroller.displayName} compatible car seats`,
+        `${stroller.brand} ${stroller.model} travel system`,
+        `${stroller.brand} stroller compatibility`,
+      ],
+    });
   }
 
   if (selection.status === 'carSeat') {
-    return {
-      ...buildMarketingMetadata({
-        title: `Compatible Strollers for ${selection.result.carSeat.displayName} | Taylor-Made Baby Co.`,
-        description: `See direct-fit and adapter-required strollers for ${selection.result.carSeat.displayName}.`,
-        path: '/tools/travel-system/results',
-        imagePath: '/assets/hero/hero-03.jpg',
-        imageAlt: 'Travel system compatibility results',
-      }),
-      robots: noIndexRobots,
-    };
+    const carSeat = selection.result.carSeat;
+    return buildMarketingMetadata({
+      title: `Compatible Strollers for ${carSeat.displayName} | Taylor-Made Baby Co.`,
+      description: `See direct-fit and adapter-required strollers for ${carSeat.displayName}.`,
+      path: travelSystemResultsHref('carSeat', carSeat),
+      imagePath: '/assets/hero/hero-03.jpg',
+      imageAlt: `${carSeat.displayName} travel system compatibility results`,
+      keywords: [
+        `${carSeat.displayName} compatible strollers`,
+        `${carSeat.brand} ${carSeat.model} travel system`,
+        `${carSeat.brand} car seat compatibility`,
+      ],
+    });
   }
 
-  return {
-    ...buildMarketingMetadata({
-      title: 'Travel System Results | Taylor-Made Baby Co.',
-      description: 'Choose a stroller or infant car seat to see travel-system compatibility results.',
-      path: '/tools/travel-system/results',
-      imagePath: '/assets/hero/hero-03.jpg',
-      imageAlt: 'Travel system compatibility results',
-    }),
-    robots: noIndexRobots,
-  };
+  return buildMarketingMetadata({
+    title: 'Travel System Compatibility Checker | Taylor-Made Baby Co.',
+    description: 'Choose a stroller or infant car seat to see travel-system compatibility results.',
+    path: '/tools/travel-system',
+    imagePath: '/assets/hero/hero-03.jpg',
+    imageAlt: 'Travel system compatibility results',
+  });
 }
 
 function BabylistHeartIcon() {

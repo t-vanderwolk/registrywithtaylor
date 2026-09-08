@@ -50,17 +50,17 @@ const finderFaqSchema = {
   })),
 };
 
-// Per-brand metadata so each ?brand= view is a distinct, indexable page with its
-// own title + self-referencing canonical, instead of all collapsing onto the base
-// finder. Category views keep the base metadata (they carry their own canonical
-// via the category deep-links).
+// Per-filter metadata so each ?brand= and ?category= view is a distinct,
+// indexable page with its own title + self-referencing canonical, instead of all
+// collapsing onto the base finder.
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ brand?: string | string[] }>;
+  searchParams: Promise<{ brand?: string | string[]; category?: string | string[] }>;
 }) {
-  const { brand } = await searchParams;
+  const { brand, category } = await searchParams;
   const brandName = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
+  const categorySlug = (Array.isArray(category) ? category[0] : category)?.trim() || null;
 
   if (brandName) {
     return buildMarketingMetadata({
@@ -70,6 +70,24 @@ export async function generateMetadata({
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${brandName} strollers`,
       keywords: [`${brandName} strollers`, `${brandName} stroller comparison`, `${brandName} travel system`],
+    });
+  }
+
+  const categoryEntry = categorySlug
+    ? strollerCategories.find((entry) => entry.slug === categorySlug)
+    : null;
+  if (categoryEntry) {
+    return buildMarketingMetadata({
+      title: `${categoryEntry.name} Strollers — Browse Models, Prices & Compatibility | Taylor-Made Baby Co.`,
+      description: `Browse ${categoryEntry.name.toLowerCase()} strollers by model, price, retailer availability, and travel-system compatibility.`,
+      path: strollerFinderCategoryHref(categoryEntry.slug),
+      imagePath: '/assets/hero/hero-03.jpg',
+      imageAlt: `${categoryEntry.name} strollers`,
+      keywords: [
+        `${categoryEntry.name} strollers`,
+        `${categoryEntry.name} stroller comparison`,
+        `${categoryEntry.name} travel system strollers`,
+      ],
     });
   }
 

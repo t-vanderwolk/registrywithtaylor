@@ -9,13 +9,13 @@
 export const STROLLER_FINDER_BASE = '/tools/stroller-finder';
 
 /** Deep-link to the Stroller Finder pre-filtered to a category (its finder slug). */
-export function strollerFinderCategoryHref(categorySlug: string) {
-  return `${STROLLER_FINDER_BASE}?category=${encodeURIComponent(categorySlug)}`;
+export function strollerFinderCategoryHref(categorySlug: string): `/${string}` {
+  return `${STROLLER_FINDER_BASE}?category=${encodeURIComponent(categorySlug)}` as `/${string}`;
 }
 
 /** Deep-link to the Stroller Finder opened on a specific brand's page. */
-export function strollerFinderBrandHref(brand: string) {
-  return `${STROLLER_FINDER_BASE}?brand=${encodeURIComponent(brand)}`;
+export function strollerFinderBrandHref(brand: string): `/${string}` {
+  return `${STROLLER_FINDER_BASE}?brand=${encodeURIComponent(brand)}` as `/${string}`;
 }
 
 export type StartCard = {
