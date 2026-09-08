@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Generate the TMBC travel-system compatibility CSV matrix from the 274-row
-Stroller-table export. Read-only: produces a CSV, touches no database.
+"""Generate the TMBC travel-system compatibility CSV matrix from the curated
+stroller audit row list. Read-only: produces a CSV, touches no database.
 
 Columns: Brand, Model, Overall, then one column per infant-car-seat family with
 Direct / Incl. / Sep. / blank, plus Adapter, Source, Notes.
@@ -93,10 +93,8 @@ ROWS = [
 ("Radio Flyer","Voya XT Baby"),("Romer","Tura"),
 ("Safety 1st","Disney Baby Character Umbrella"),("Safety 1st","Easy-Fold"),("Safety 1st","Easy-Fold Compact"),
 ("Safety 1st","Summit Quad Wagon"),
-("Silver Cross","Breez"),("Silver Cross","Clic"),("Silver Cross","Clic Compact"),("Silver Cross","Comet"),
-("Silver Cross","Cove 2"),("Silver Cross","Dune"),("Silver Cross","Dune 2"),("Silver Cross","Jet 5"),
-("Silver Cross","Jet Double"),("Silver Cross","Nia Travel"),("Silver Cross","Reef"),("Silver Cross","Reef 2"),
-("Silver Cross","Wave"),("Silver Cross","Wave 3"),("Silver Cross","Wave 3 Single to Double"),
+("Silver Cross","Reef"),("Silver Cross","Cove 2"),("Silver Cross","Breez"),("Silver Cross","Nia"),
+("Silver Cross","Clic"),("Silver Cross","Jet Double"),("Silver Cross","Wave"),("Silver Cross","Wave 3"),
 ("Stokke","Yoyo 3"),
 ("Thule","Chariot Cross 2 Double"),("Thule","Chariot Cross 2 Single"),("Thule","Chariot Sport 2 Double"),
 ("Thule","Chariot Sport 2 Single"),("Thule","Glide 2"),("Thule","Sleek"),("Thule","Spring 2"),
@@ -160,6 +158,8 @@ def classify(brand, model):
         return prof({"cybex":"Sep."}, "Cybex model-specific adapter (Aton/Cloud)", "cybex-online.com", "Sep.", "Cybex Aton/Cloud ONLY — Nuna/Maxi-Cosi not supported")
     # ---- Silver Cross ----
     if b=="silver cross":
+        if m=="clic":
+            return prof({"pipa":"Direct","joie":"Direct"}, "Direct fit", "silvercrossus.com", "Direct", "PIPA series + Joie Mint Latch only; no shared Maxi-Cosi/Cybex/Clek adapter")
         return prof({**euro("Sep.")}, "Silver Cross car seat adapter (model-specific)", "silvercrossus.com", "Sep.", "Nuna/Cybex/Maxi-Cosi/Clek")
     # ---- Thule ----
     if b=="thule":

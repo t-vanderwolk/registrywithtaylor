@@ -23,6 +23,12 @@ const MODEL_MERGES: Record<string, Record<string, string>> = {
     // NOTE: the "* Double" variants keep their own names on purpose so they land
     // in the Double section (see CATEGORY_OVERRIDES below).
   },
+  'silver cross': {
+    'clic compact': 'Clic',
+    'nia travel': 'Nia',
+    'reef 2': 'Reef',
+    'wave 3 single to double': 'Wave 3',
+  },
 };
 
 export function mergeStrollerModel(brand: string, model: string): string {
@@ -89,6 +95,16 @@ const CATEGORY_OVERRIDES: Record<string, Record<string, StrollerCategory>> = {
     'summit x3 double': 'double',
     'city mini double': 'double',
     'city tour 2 double': 'double',
+  },
+  'silver cross': {
+    reef: 'full-size',
+    'cove 2': 'full-size',
+    breez: 'compact',
+    nia: 'travel',
+    clic: 'travel',
+    'jet double': 'double',
+    wave: 'convertible-modular',
+    'wave 3': 'convertible-modular',
   },
 };
 

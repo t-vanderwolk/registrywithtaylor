@@ -133,18 +133,16 @@ Rules applied: matched by **model, not brand alone**; only **manufacturer-suppor
 
 ## Silver Cross
 
-*Source: silvercrossus.com (Dune/Reef and Wave/Coast adapter pages).*
+*Source: silvercrossus.com and TMBC September 2026 Silver Cross correction.*
 
-### Silver Cross — Reef · Dune
-**Adapter Sold Separately** (single universal adapter)
-- Nuna PIPA series, Cybex Aton/Cloud (incl. Aton G / Cloud G), Maxi-Cosi Mico 30 / Mico Luxe+ / Coral XP, Clek Liing — Adapter: *Silver Cross Dune/Reef Car Seat Adapters*
+### Silver Cross — Reef · Cove 2 · Breez · Nia · Jet Double · Wave · Wave 3
+**Adapter Sold Separately** (model-specific Silver Cross adapter)
+- Nuna PIPA series, Cybex Aton/Cloud family, Maxi-Cosi infant seats, and Clek infant seats.
 
-### Silver Cross — Wave · Coast
-**Adapter Sold Separately**
-- Nuna PIPA series, Cybex Aton/Cloud, Maxi-Cosi Mico / Coral XP — Adapter: *Silver Cross Wave/Coast Upper & Main Car Seat Adapters*
-
-### Silver Cross — Clic · Tide · Comet · Jet
-- ⚠ Compact/travel frames — adapter availability varies by model; **needs verification** against the official Silver Cross compatibility chart per model.
+### Silver Cross — Clic
+**Direct Fit**
+- Nuna PIPA series and Joie Mint Latch only.
+- Not treated as compatible with the shared Maxi-Cosi / Cybex / Clek adapter family.
 
 ---
 
@@ -886,13 +884,11 @@ Every row from your `SELECT brand, model FROM "Stroller"` export, mapped to a ve
 | Safety 1st Disney Umbrella / Easy-Fold / Easy-Fold Compact | None | umbrella/compact |
 | Safety 1st Summit Quad Wagon | None | wagon |
 
-### Silver Cross — *Sep.* (Maxi-Cosi/Cybex/Nuna/Clek)
+### Silver Cross — target lineup
 | Model | Status | Note |
 |---|---|---|
-| Reef / Reef 2 | Sep. | Dune/Reef adapter |
-| Dune / Dune 2 | Sep. | Dune/Reef adapter |
-| Wave / Wave 3 (+ Single to Double) | Sep. | Wave/Coast adapter |
-| Breez / Clic / Clic Compact / Comet / Cove 2 / Jet 5 / Jet Double / Nia Travel | Review | compact/travel frames — confirm per-model adapter |
+| Reef / Cove 2 / Breez / Nia / Jet Double / Wave / Wave 3 | Sep. | Nuna / Cybex / Maxi-Cosi / Clek via model-specific Silver Cross adapter |
+| Clic | Direct | Nuna PIPA series + Joie Mint Latch only; no shared Maxi-Cosi / Cybex / Clek adapter |
 
 ### Stokke
 | Model | Status | Note |
@@ -950,14 +946,14 @@ The flagged Review rows were researched and resolved. Final per-row breakdown (s
 
 | Verdict | Count | Examples |
 |---|---|---|
-| **Sep.** (adapter sold separately) | 144 | UPPAbaby, Bugaboo (Fox 2/Donkey/Bee), Silver Cross, Thule Urban Glide/Spring/Sleek, BOB, Baby Jogger, Veer, Joolz, Mima, Bumbleride, Mockingbird, Zoe, Larktale, Ergobaby, WonderFold, Joovy, Guava, Stokke/Babyzen |
+| **Sep.** (adapter sold separately) | 136 | UPPAbaby, Bugaboo (Fox 2/Donkey/Bee), Silver Cross target shared-adapter models, Thule Urban Glide/Spring/Sleek, BOB, Baby Jogger, Veer, Joolz, Mima, Bumbleride, Mockingbird, Zoe, Larktale, Ergobaby, WonderFold, Joovy, Guava, Stokke/Babyzen |
 | **Incl.** (adapter included) | 44 | Nuna (PIPA only), Bugaboo Fox 5/Dragonfly, Cybex Priam/Mios, Maxi-Cosi Tayla/Fame/Oxford, Mompush Ultimate/Meteor, Joie |
-| **Direct** (own seat, no adapter) | 31 | Chicco (Bravo/Corso/TRE/Presto), Graco (Modes/joggers), Britax (Grove/Brook/Prism), Evenflo (Pivot/Shyft), Baby Trend, Nuna TRVL, Peg Perego (Vivace/Ypsi/Z4) |
+| **Direct** (own seat, no adapter) | 32 | Chicco (Bravo/Corso/TRE/Presto), Graco (Modes/joggers), Britax (Grove/Brook/Prism), Evenflo (Pivot/Shyft), Baby Trend, Nuna TRVL, Peg Perego (Vivace/Ypsi/Z4), Silver Cross Clic |
 | **Direct + Sep.** | 8 | UPPAbaby Vista/Cruz, Orbit Baby G5/M+, Peg Perego City Loop |
 | **None** (no infant car seat) | 26 | UPPAbaby G-Luxe, Safety 1st, Delta umbrellas, Bugaboo Ant/Kangaroo, Evenflo Hummingbird, Mompush Lithe, Veer toddler configs, **Thule Chariot (sling)** |
 | **Review** (still unverified) | 19 | DFY R1, Egg, Mercedes/Hartan, Romer Tura, Ingenuity 3DSuite, Bellini Juno, Momcozy ClickGo, Peg Perego Volo/Selfie, Britax Juniper/B-Clever, Mima Miro, Orbit X5, BOB Rambler, Baby Jogger City Prix, Delta Icon Ultra |
 | **Excluded** | 2 | Doona Liki Trike; Momcozy ChangeGo (not a stroller) |
 
-**Resolved in the second pass:** Chicco joggers/doubles → Direct (KeyFit, built-in armbar); Graco joggers (FastAction/Outpace/Ready2Jet) → Direct; Nuna TRVL/TRVL lx → Direct (built-in PIPA); Maxi-Cosi Fame/Oxford → Incl.; Baby Jogger GT3/Sights → Sep.; Bugaboo Bee 5/Donkey 6 → Sep., Ant/Kangaroo → None; Silver Cross Jet/Comet/Clic/Breez/Nia → Sep.; Cybex Beezy/Coya/Melio/Eezy/Eos/Libelle → Sep. **(Cybex Aton/Cloud only — not Nuna/Maxi-Cosi)**; Thule Spring/Sleek → Sep., Chariot → None (uses a sling); Mompush Wiz/Velo → Sep., Lithe → None; Guava Roam → Sep.; Zoe The Journey/Traveler → Sep.; Joolz Dot → Sep.; Evenflo Pivot Xplore → Sep., Hummingbird → None; Delta Jeep *joggers* → Sep. (Chicco KeyFit via Delta adapter).
+**Resolved in the second pass:** Chicco joggers/doubles → Direct (KeyFit, built-in armbar); Graco joggers (FastAction/Outpace/Ready2Jet) → Direct; Nuna TRVL/TRVL lx → Direct (built-in PIPA); Maxi-Cosi Fame/Oxford → Incl.; Baby Jogger GT3/Sights → Sep.; Bugaboo Bee 5/Donkey 6 → Sep., Ant/Kangaroo → None; Silver Cross Reef/Cove 2/Breez/Nia/Jet Double/Wave/Wave 3 → Sep. and Clic → Direct for PIPA series + Joie Mint Latch only; Cybex Beezy/Coya/Melio/Eezy/Eos/Libelle → Sep. **(Cybex Aton/Cloud only — not Nuna/Maxi-Cosi)**; Thule Spring/Sleek → Sep., Chariot → None (uses a sling); Mompush Wiz/Velo → Sep., Lithe → None; Guava Roam → Sep.; Zoe The Journey/Traveler → Sep.; Joolz Dot → Sep.; Evenflo Pivot Xplore → Sep., Hummingbird → None; Delta Jeep *joggers* → Sep. (Chicco KeyFit via Delta adapter).
 
-> The remaining **19 Review** rows assert no compatibility — all niche/compact frames or brands with no published US adapter list. The CSV companion (`TMBC-Travel-System-Compatibility-Matrix.csv`) is the authoritative per-row matrix: 274 stroller rows × 13 car-seat-family columns, each cell Direct / Incl. / Sep. / blank, plus Adapter, Source, and Notes.
+> The remaining **19 Review** rows assert no compatibility — all niche/compact frames or brands with no published US adapter list. The CSV companion (`TMBC-Travel-System-Compatibility-Matrix.csv`) is the authoritative per-row matrix: 267 stroller rows × 13 car-seat-family columns, each cell Direct / Incl. / Sep. / blank, plus Adapter, Source, and Notes.

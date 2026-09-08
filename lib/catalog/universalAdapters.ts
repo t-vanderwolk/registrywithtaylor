@@ -77,11 +77,16 @@ export const UNIVERSAL_ADAPTER_RULES: UniversalAdapterRule[] = [
   // BOB joggers take Britax / Nuna / CYBEX / Maxi-Cosi via the BOB universal infant
   // car seat adapter (Wayfinder / Revolution / Alterrain).
   { brand: 'BOB', model: /\b(wayfinder|revolution|alterrain)\b/i, family: 'Wayfinder / Revolution / Alterrain' },
-  // Silver Cross modular + travel frames take Nuna / Maxi-Cosi / CYBEX / Clek via
-  // their car seat adapter (on top of the same-brand Silver Cross Dream seat).
-  // The Clic is EXCLUDED — it direct-fits Nuna + Joie only, no adapter (handled
-  // by scripts/fixSilverCrossClic.ts).
-  { brand: 'Silver Cross', model: null, family: 'all Silver Cross frames', excludeModel: /\bclic\b/i },
+  // Silver Cross target lineup: Reef / Cove 2 / Breez / Nia / Jet Double / Wave /
+  // Wave 3 take Nuna / Maxi-Cosi / CYBEX / Clek via model-specific Silver Cross
+  // adapters. Clic is excluded because it direct-fits only Nuna PIPA-series plus
+  // Joie Mint Latch (handled by scripts/fixSilverCrossClic.ts).
+  {
+    brand: 'Silver Cross',
+    model: /\b(reef|cove\s*2|breez|nia|jet\s*double|wave(?:\s*3)?)\b/i,
+    family: 'Reef / Cove 2 / Breez / Nia / Jet Double / Wave / Wave 3',
+    excludeModel: /\bclic\b|\bdune\b|\bcomet\b|\bjet\s*5\b|\bwave\s*3\s*single\s*to\s*double\b/i,
+  },
   // Guava Roam takes Nuna / Maxi-Cosi / CYBEX (+ Chicco / Graco / Britax) via the
   // Roam car seat adapter.
   { brand: 'Guava Family', model: /\broam\b/i, family: 'Roam' },

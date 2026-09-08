@@ -593,7 +593,8 @@ function isClosedEcosystemStroller(brand: string) {
 // Model-specific direct-fit-only frames: they accept a fixed short list of infant
 // seats (via explicit DIRECT rows) and must NOT flow through the shared euro
 // adapter expansion in either direction. e.g. the Silver Cross Clic direct-fits
-// Nuna + Joie only — no adapter, no Maxi-Cosi / CYBEX / Clek inference.
+// Nuna PIPA-series + Joie Mint Latch only — no adapter, no Maxi-Cosi / CYBEX /
+// Clek inference.
 const DIRECT_FIT_ONLY_STROLLERS: { brand: string; model: RegExp }[] = [
   { brand: 'silver cross', model: /\bclic\b/i },
   // Britax's modular line (Brook / Brook+ / Grove / Juniper / Juniper+ / Phases /
