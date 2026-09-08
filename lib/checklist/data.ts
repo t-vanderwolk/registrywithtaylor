@@ -25,20 +25,92 @@ export const DEFAULT_TYPE: ChecklistType = 'neutral';
 export type CategoryId =
   | 'sleep'
   | 'feeding'
+  | 'solids'
+  | 'diapering'
   | 'bath'
+  | 'health'
   | 'getting-around'
-  | 'everyday'
+  | 'diaper-bag'
   | 'clothing'
-  | 'support';
+  | 'play'
+  | 'awake-time'
+  | 'travel'
+  | 'home-safety'
+  | 'postpartum'
+  | 'support'
+  | 'registry-strategy';
 
 export const categories: { id: CategoryId; title: string }[] = [
-  { id: 'sleep', title: 'Sleep' },
-  { id: 'feeding', title: 'Feeding' },
-  { id: 'bath', title: 'Bath Time' },
+  { id: 'sleep', title: 'Sleep + Nursery' },
+  { id: 'feeding', title: 'Feeding + Pumping' },
+  { id: 'solids', title: 'Starting Solids' },
+  { id: 'diapering', title: 'Diapering' },
+  { id: 'bath', title: 'Bath' },
+  { id: 'health', title: 'Health + Grooming' },
   { id: 'getting-around', title: 'Getting Around' },
-  { id: 'everyday', title: 'Everyday Living' },
-  { id: 'clothing', title: 'Clothing + Linens' },
-  { id: 'support', title: 'Support + Smart Extras' },
+  { id: 'diaper-bag', title: 'Diaper Bag' },
+  { id: 'clothing', title: 'Clothing' },
+  { id: 'play', title: 'Play + Development' },
+  { id: 'awake-time', title: 'Awake-Time Gear' },
+  { id: 'travel', title: 'Travel' },
+  { id: 'home-safety', title: 'Home + Safety' },
+  { id: 'postpartum', title: 'Postpartum' },
+  { id: 'support', title: 'Support + Services' },
+  { id: 'registry-strategy', title: 'Registry Strategy' },
+];
+
+export type ChecklistTiming =
+  | 'before-baby'
+  | 'first-8-weeks'
+  | '3-6-months'
+  | '6-12-months'
+  | 'later';
+
+export type ChecklistTake =
+  | 'essential'
+  | 'try-first'
+  | 'register-early'
+  | 'nice-to-have'
+  | 'lifestyle-dependent'
+  | 'wait';
+
+export type ChecklistTimingFilter = 'all' | ChecklistTiming;
+export type ChecklistTakeFilter = 'all' | ChecklistTake;
+
+export const CHECKLIST_TIMING_LABELS: Record<ChecklistTiming, string> = {
+  'before-baby': 'Before Baby',
+  'first-8-weeks': 'First 8 Weeks',
+  '3-6-months': '3-6 Months',
+  '6-12-months': '6-12 Months',
+  later: 'Later',
+};
+
+export const CHECKLIST_TAKE_LABELS: Record<ChecklistTake, string> = {
+  essential: 'Essential',
+  'try-first': 'Try First',
+  'register-early': 'Register Early',
+  'nice-to-have': 'Nice to Have',
+  'lifestyle-dependent': 'Lifestyle Dependent',
+  wait: 'Wait',
+};
+
+export const CHECKLIST_TIMING_FILTERS: { id: ChecklistTimingFilter; label: string }[] = [
+  { id: 'all', label: 'All timing' },
+  { id: 'before-baby', label: CHECKLIST_TIMING_LABELS['before-baby'] },
+  { id: 'first-8-weeks', label: CHECKLIST_TIMING_LABELS['first-8-weeks'] },
+  { id: '3-6-months', label: CHECKLIST_TIMING_LABELS['3-6-months'] },
+  { id: '6-12-months', label: CHECKLIST_TIMING_LABELS['6-12-months'] },
+  { id: 'later', label: CHECKLIST_TIMING_LABELS.later },
+];
+
+export const CHECKLIST_TAKE_FILTERS: { id: ChecklistTakeFilter; label: string }[] = [
+  { id: 'all', label: "All Taylor's Takes" },
+  { id: 'essential', label: CHECKLIST_TAKE_LABELS.essential },
+  { id: 'try-first', label: CHECKLIST_TAKE_LABELS['try-first'] },
+  { id: 'register-early', label: CHECKLIST_TAKE_LABELS['register-early'] },
+  { id: 'nice-to-have', label: CHECKLIST_TAKE_LABELS['nice-to-have'] },
+  { id: 'lifestyle-dependent', label: CHECKLIST_TAKE_LABELS['lifestyle-dependent'] },
+  { id: 'wait', label: CHECKLIST_TAKE_LABELS.wait },
 ];
 
 export type RelatedPost = { label: string; slug: string };
@@ -60,8 +132,8 @@ export type RelatedReadingCard = {
 /**
  * "Related reading" links shown per checklist category — every relevant live
  * post (verified against the sitemap), not a capped subset. Slugs with no live
- * post are silently skipped at render. Categories without a match (Bath Time,
- * Clothing + Linens) are omitted rather than padded.
+ * post are silently skipped at render. Categories without a match are omitted
+ * rather than padded.
  * To edit: add/remove { label, slug } — slug is the /blog/<slug> path.
  */
 export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = {
@@ -78,6 +150,12 @@ export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = 
       slug: 'bottle-washer-showdown-momcozy-grownsy-bc-babycare-eufy-papablic',
     },
     { label: 'Momcozy baby products', slug: 'momcozy-baby-products' },
+  ],
+  solids: [
+    { label: 'Best high chairs (2026)', slug: 'best-highchairs-2026-real-life-guide' },
+  ],
+  diapering: [
+    { label: 'Best diaper pails (2026)', slug: 'blog-best-diaper-pails-2026' },
   ],
   'getting-around': [
     { label: 'Best full-size strollers (2026)', slug: 'best-full-size-strollers-2026' },
@@ -100,11 +178,16 @@ export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = 
     { label: 'Silver Cross Cove 2 review', slug: 'silver-cross-cove-2-review' },
     { label: 'Nuna VIAA CABN', slug: 'nuna-viaa-cabn-has-arrived' },
   ],
-  everyday: [
-    { label: 'Best diaper pails (2026)', slug: 'blog-best-diaper-pails-2026' },
+  play: [
     { label: 'New baby gear in 2026', slug: 'baby-gear-released-2026-so-far' },
   ],
-  support: [
+  travel: [
+    { label: 'Pack ’n play vs. travel crib', slug: 'blog-pack-and-play-vs-travel-crib' },
+    { label: 'Nuna travel crib showdown', slug: 'nuna-travel-crib-showdown-sena-paal-cove' },
+    { label: 'SlumberPod review', slug: 'slumberpod-review-travel-baby-sleep' },
+    { label: 'Best travel strollers (2026)', slug: 'best-travel-strollers-2026' },
+  ],
+  'registry-strategy': [
     { label: 'Taylor’s registry essentials', slug: 'taylors-registry-essentials' },
     { label: 'Registry completion discounts', slug: 'baby-registry-completion-discounts-2026' },
     { label: 'Free baby welcome boxes', slug: 'best-free-baby-welcome-boxes-2026' },
@@ -116,6 +199,8 @@ export const categoryRelatedPosts: Partial<Record<CategoryId, RelatedPost[]>> = 
       label: 'Target Baby concierge',
       slug: 'target-baby-concierge-virtual-specialist-guide-2026',
     },
+  ],
+  support: [
     { label: 'NFL newborn fan clubs', slug: 'nfl-newborn-fan-clubs' },
     { label: 'MLB newborn fan clubs', slug: 'mlb-newborn-fan-clubs' },
   ],
@@ -129,6 +214,10 @@ export type ChecklistItem = {
   category: string;
   title: string;
   note?: string;
+  /** Timeline filter shown in the public checklist. */
+  timing?: ChecklistTiming;
+  /** Taylor's scannable recommendation status. */
+  take?: ChecklistTake;
   /** Understated editorial pill. Freeform so twins quantity labels fit too. */
   badge?: string;
   /** A single Taylor's Pick. */
@@ -141,7 +230,15 @@ export type ChecklistItem = {
   /** Which versions include this item. Omitted = all four. */
   include?: ChecklistType[];
   /** Twins-only overrides. `label` becomes a quantity pill (BUY 2, SHARE, …). */
-  twins?: { title?: string; note?: string; badge?: string; label?: string; taylorsTake?: string };
+  twins?: {
+    title?: string;
+    note?: string;
+    timing?: ChecklistTiming;
+    take?: ChecklistTake;
+    badge?: string;
+    label?: string;
+    taylorsTake?: string;
+  };
 };
 
 export const TWINS_CALLOUT = {
@@ -152,748 +249,656 @@ export const TWINS_CALLOUT = {
 export const DISCLOSURE =
   'A quick note: Some links are affiliate links, which means Taylor-Made Baby Co. may earn a commission at no additional cost to you. Recommendations are always selected independently.';
 
+type ChecklistItemExtras = Omit<ChecklistItem, 'id' | 'category' | 'title' | 'take' | 'timing'>;
+
+const ck = (
+  category: CategoryId,
+  id: string,
+  title: string,
+  take: ChecklistTake,
+  timing: ChecklistTiming,
+  extras: ChecklistItemExtras = {},
+): ChecklistItem => ({ ...extras, id, category, title, take, timing });
+
+const NURSERY_STYLE: StyleCollection = {
+  girl: ['Soft blush, warm cream, and gentle terracotta', 'Small florals, fine stripes, or solids'],
+  boy: ['Sage, oat, and soft slate', 'Simple stripes, solids, or a quiet motif'],
+  neutral: ['Ivory, oatmeal, clay, and fog', 'Solids or the quietest pattern in the room'],
+};
+
+const CLOTHING_STYLE: StyleCollection = {
+  girl: ['Blush, cream, terracotta, and soft rose', 'Tiny florals, fine stripes, or soft knits'],
+  boy: ['Sage, oat, slate, and warm gray', 'Solids, simple stripes, or a subtle motif'],
+  neutral: ['Ivory, oatmeal, clay, and fog', 'Calm solids and understated earth tones'],
+};
+
 export const checklistItems: ChecklistItem[] = [
-  // ── SLEEP ──────────────────────────────────────────────────────────────────
-  {
-    id: 'crib',
-    category: 'sleep',
-    title: 'Mini crib or full-size crib',
-    note: 'One safe, flat sleep space is all a newborn needs.',
-    badge: 'ESSENTIAL',
+  // Sleep + Nursery
+  ck('sleep', 'crib', 'Crib, mini crib, bassinet, or approved primary sleep space', 'essential', 'before-baby', {
+    note: 'A firm, flat, safety-approved place for baby to sleep from night one.',
     recommendationIds: ['davinci-dylan-mini-crib', 'stokke-sleepi-crib'],
     taylorsTake:
-      'Pick based on your room, not the catalog. A mini crib buys you time in a small space; a full-size crib lasts longer. Either is right — a bare, firm, flat surface is the only rule that matters.',
+      'Pick based on your room and routine. The non-negotiable is a firm, flat, approved sleep surface with only a fitted sheet.',
     twins: {
-      title: '2 safe sleep spaces',
-      note: 'Each baby needs their own flat, firm sleep surface.',
+      title: '2 approved safe sleep spaces',
+      note: 'Each baby needs their own firm, flat sleep surface.',
       label: 'BUY 2',
-      taylorsTake:
-        'This is the clearest "buy two" on the list. Two babies means two safe sleep spaces from night one — no sharing here, even at the start.',
     },
-  },
-  {
-    id: 'crib-mattress',
-    category: 'sleep',
-    title: 'Crib mattress',
-    note: 'Firm and flat, sized to your crib.',
-    badge: 'ESSENTIAL',
-    taylorsTake: 'Firm is non-negotiable for safe sleep. You do not need the most expensive one — you need the right firmness and a snug fit.',
-    twins: { title: '2 crib mattresses', label: 'BUY 2' },
-  },
-  {
-    id: 'crib-sheets',
-    category: 'sleep',
-    title: '2–3 fitted crib sheets',
-    note: 'Enough to rotate through the inevitable middle-of-the-night change.',
-    taylorsTake: 'Two or three per sleep space is plenty. More than that just fills a drawer.',
-    styleCollection: {
-      girl: ['Soft blush, warm cream, and gentle terracotta', 'Small ditsy florals or fine stripes'],
-      boy: ['Sage, oat, and soft slate', 'Simple stripes or a subtle geo'],
-      neutral: ['Ivory, oatmeal, and muted clay', 'Solids, or the quietest pattern in the room'],
-    },
-    twins: { title: '4–6 fitted crib sheets total', note: 'Roughly two to three per sleep space.', label: 'BUY 2' },
-  },
-  {
-    id: 'mattress-protector',
-    category: 'sleep',
-    title: 'Waterproof mattress protector',
-    note: 'The layer that saves the mattress and your sanity.',
-    badge: 'ESSENTIAL',
-    taylorsTake: 'A quiet hero. One leak at 3am and you will be glad it is there — and glad you can strip it in seconds.',
-    twins: { title: '2 waterproof mattress protectors', label: 'BUY 2' },
-  },
-  {
-    id: 'travel-crib',
-    category: 'sleep',
-    title: 'Portable playard / travel crib',
-    note: 'A second safe sleep space for travel and downstairs.',
-    badge: 'SPACE SAVER',
+  }),
+  ck('sleep', 'crib-mattress', 'Appropriately sized firm mattress', 'essential', 'before-baby', {
+    note: 'Firm, flat, and snugly fitted to the sleep space.',
+    twins: { title: '2 appropriately sized firm mattresses', label: 'BUY 2' },
+  }),
+  ck('sleep', 'crib-sheets', '2-3 fitted sheets per sleep space', 'essential', 'before-baby', {
+    note: 'Enough to rotate through middle-of-the-night changes.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: '4-6 fitted sheets total', label: 'BUY 2' },
+  }),
+  ck('sleep', 'mattress-protector', '2 waterproof mattress protectors', 'essential', 'before-baby', {
+    note: 'Protects the mattress and makes overnight cleanup faster.',
+    twins: { title: '2-4 waterproof mattress protectors', label: 'BUY 2' },
+  }),
+  ck('sleep', 'safe-sleep-boundaries', 'Bare-crib safe sleep boundaries', 'essential', 'before-baby', {
+    note: 'Skip pillows, bumpers, loose blankets, positioners, extra toppers, and stuffed animals in the infant sleep space.',
+  }),
+  ck('sleep', 'travel-crib', 'Portable playard / travel crib', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Useful as a second approved sleep space for travel, visits, or downstairs.',
     recommendationId: 'playard-pick',
-    taylorsTake: 'Doubles as a safe sleep space away from home and a contained spot on the main floor. If your home is small, this can even stand in for a bassinet early on.',
-    twins: {
-      title: 'Twin-friendly portable sleep / travel plan',
-      note: 'Two safe surfaces when you are away from the cribs.',
-      taylorsTake: 'For twins, think through where each baby sleeps away from home before you travel — one travel crib rarely covers two.',
-    },
-  },
-  {
-    id: 'swaddles',
-    category: 'sleep',
-    title: 'Swaddles or sleep sacks',
-    note: 'Newborns sleep better contained; sacks take over once they roll.',
-    taylorsTake: 'Start with a few swaddles, then move to sleep sacks around the time baby shows signs of rolling. Try one style before you buy a stack.',
-    styleCollection: {
-      girl: ['Blush, cream, and soft rose', 'Tiny florals or a fine dot'],
-      boy: ['Sage, fog, and warm gray', 'Solids or a subtle stripe'],
-      neutral: ['Oat, ivory, and clay', 'Solids and gentle earth tones'],
-    },
-    twins: { title: 'Sleep sacks or swaddles for each baby', label: 'BUY 2', note: 'One in use, one in the wash — per baby.' },
-  },
-  {
-    id: 'monitor',
-    category: 'sleep',
-    title: 'Baby monitoring system',
-    note: 'A video view for peace of mind.',
+    twins: { title: 'Twin-friendly portable sleep plan', note: 'Plan for two safe surfaces away from the cribs.' },
+  }),
+  ck('sleep', 'bassinet-if-using', 'Bassinet + fitted sheets, if using', 'lifestyle-dependent', 'before-baby', {
+    note: 'Helpful near your bed, but not required if your crib or playard setup works.',
+  }),
+  ck('sleep', 'swaddles', 'Swaddle trial set', 'try-first', 'before-baby', {
+    note: 'Try a few styles before buying a full stack.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: 'Swaddle trial set for each baby', label: 'TRY FIRST' },
+  }),
+  ck('sleep', 'sleep-sacks', '2-3 sleep sacks', 'register-early', 'first-8-weeks', {
+    note: 'Useful once baby transitions out of swaddles.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: 'Sleep sacks for each baby', label: 'BUY 2' },
+  }),
+  ck('sleep', 'monitor', 'Baby monitor', 'nice-to-have', 'before-baby', {
+    note: 'A clear view can be helpful, but it is not a medical device.',
     recommendationId: 'monitor-pick',
-    taylorsTake: 'A video monitor is a comfort tool, not a medical device. Pick a reliable one and resist the urge to buy every sensor add-on.',
-    twins: {
-      title: 'Monitor with two-camera capability',
-      note: 'One system, two views — not two separate apps.',
-      label: 'BUY 1 system',
-      taylorsTake: 'For twins, choose a system that supports two cameras on one account. Two separate monitors means two apps and twice the fumbling.',
-    },
-  },
-  {
-    id: 'audio-monitor',
-    category: 'sleep',
-    title: 'Simple audio monitor',
-    note: 'Sometimes you just want sound and long battery.',
-    badge: 'NICE TO HAVE',
+    twins: { title: 'Monitor with two-camera capability', note: 'One system, two views.' },
+  }),
+  ck('sleep', 'audio-monitor', 'Simple audio monitor', 'nice-to-have', 'before-baby', {
+    note: 'A low-stress backup or the only monitor you need in a small home.',
     recommendationId: 'audio-monitor-pick',
-    taylorsTake: 'An honest backup or, in a small home, the only monitor you need. Less screen, less to charge.',
-    twins: { title: 'Audio monitor', note: 'A low-stress backup to your video system.' },
-  },
-  {
-    id: 'blackout',
-    category: 'sleep',
-    title: 'Blackout solution',
-    note: 'Portable blackout panels or curtains help day sleep.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Not day-one urgent, but genuinely useful for naps and summer bedtimes. Portable panels travel well.',
-  },
-  {
-    id: 'night-light',
-    category: 'sleep',
-    title: 'Night-light',
-    note: 'Warm, dim light for feeds and changes.',
-    taylorsTake: 'Choose warm and dim over bright and white — you want to see, not to wake everyone fully.',
-  },
+  }),
+  ck('sleep', 'sound-machine', 'Sound machine', 'nice-to-have', 'before-baby', {
+    note: 'Consistent background sound for sleep routines.',
+  }),
+  ck('sleep', 'portable-sound-machine', 'Portable sound machine', 'nice-to-have', 'first-8-weeks', {
+    note: 'Helpful for naps away from the nursery.',
+  }),
+  ck('sleep', 'night-light', 'Warm dim night-light', 'nice-to-have', 'before-baby', {
+    note: 'Dim, warm light for feeds and changes without fully waking everyone.',
+  }),
+  ck('sleep', 'blackout', 'Blackout curtains or portable blackout solution', 'nice-to-have', 'first-8-weeks', {
+    note: 'Helpful for naps, summer bedtimes, and travel.',
+  }),
+  ck('sleep', 'humidifier', 'Cool-mist humidifier', 'nice-to-have', 'before-baby', {
+    note: 'Useful in dry rooms or during congestion season.',
+  }),
+  ck('sleep', 'nursery-landing-zone', 'Nursery chair, side table, and small caddy', 'nice-to-have', 'before-baby', {
+    note: 'A comfortable feeding/change landing zone if your space allows.',
+  }),
 
-  // ── FEEDING ─────────────────────────────────────────────────────────────────
-  {
-    id: 'bottle-trial',
-    category: 'feeding',
-    title: 'Bottle trial pack',
-    note: 'Let baby pick the winner before you buy a full set.',
-    badge: 'TRY FIRST',
+  // Feeding + Pumping
+  ck('feeding', 'bottle-trial', 'Bottle trial box or 2-4 individual bottles', 'try-first', 'before-baby', {
+    note: 'Let baby choose the winner before you buy a full set.',
     recommendationId: 'bottle-trial-pick',
-    taylorsTake: 'Babies are opinionated about bottles. A small variety pack is cheap insurance against a set of eight your baby refuses.',
-    twins: {
-      title: 'Bottle trial packs before buying multiples',
-      note: 'Confirm the winner, then buy the quantity you actually need.',
-      label: 'TRY FIRST',
-    },
-  },
-  {
-    id: 'pacifier-trial',
-    category: 'feeding',
-    title: 'Pacifier trial pack',
-    note: 'Same logic as bottles — preferences vary.',
-    badge: 'TRY FIRST',
-    taylorsTake: 'Try a couple of shapes before committing. Many a parent has a drawer of one style baby will not touch.',
-    twins: { title: 'Pacifier trial packs before buying multiples', label: 'TRY FIRST' },
-  },
-  {
-    id: 'manual-pump',
-    category: 'feeding',
-    title: 'Manual breast pump',
-    note: 'Catches letdown and relieves fullness — small and cheap.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Even if you plan to nurse, a simple manual pump is a low-cost comfort in the early weeks.',
-  },
-  {
-    id: 'primary-pump',
-    category: 'feeding',
-    title: 'Primary breast pump, if needed',
-    note: 'Check insurance coverage first — many are covered.',
+    taylorsTake:
+      'Babies are opinionated about bottles. A small variety pack is cheap insurance against a set of eight your baby refuses.',
+    twins: { title: 'Bottle trial packs before buying multiples', label: 'TRY FIRST' },
+  }),
+  ck('feeding', 'additional-bottles', 'Additional bottles after baby chooses a favorite', 'wait', 'first-8-weeks', {
+    note: 'Buy the quantity once the bottle style is proven.',
+  }),
+  ck('feeding', 'slow-flow-nipples', 'Slow-flow or appropriate nipples', 'try-first', 'before-baby', {
+    note: 'Flow preference and feeding needs vary by baby.',
+  }),
+  ck('feeding', 'bottle-brush', 'Bottle brush', 'essential', 'before-baby', {
+    note: 'Essential if bottles or pump parts will be part of your routine.',
+    twins: { title: 'Bottle cleaning station', note: 'Brush, drying space, and a half-asleep routine.' },
+  }),
+  ck('feeding', 'bottle-drying-rack', 'Bottle drying rack or drying mat', 'nice-to-have', 'before-baby', {
+    note: 'Gives bottles and small parts a dedicated drying spot.',
+  }),
+  ck('feeding', 'dishwasher-basket', 'Dishwasher basket for small parts', 'nice-to-have', 'before-baby', {
+    note: 'Keeps nipples, valves, and pump pieces from disappearing.',
+  }),
+  ck('feeding', 'bottle-labels-daycare', 'Bottle labels for daycare', 'wait', '3-6-months', {
+    note: 'Wait until you know your childcare setup.',
+  }),
+  ck('feeding', 'insulated-bottle-cooler', 'Insulated bottle or milk cooler', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Useful for pumping, formula, childcare, or longer outings.',
+  }),
+  ck('feeding', 'primary-pump', 'Insurance-covered primary breast pump, if needed', 'lifestyle-dependent', 'before-baby', {
+    note: 'Check insurance coverage before buying one outright.',
     recommendationId: 'breast-pump-pick',
-    taylorsTake: 'Before you register for a pump, check what your insurance covers — it is often free. Comfort and reliable suction matter more than gadgets.',
-  },
-  {
-    id: 'milk-storage',
-    category: 'feeding',
-    title: 'Milk storage bags or containers',
-    note: 'For anyone pumping or building a stash.',
-    taylorsTake: 'Only relevant if you are pumping. Start modest; you can restock in a day.',
-    twins: { title: 'Extra milk storage', note: 'Two feeders can mean more to store — but still buy as you go.' },
-  },
-  {
-    id: 'bottle-brush',
-    category: 'feeding',
-    title: 'Bottle brush',
-    note: 'A dedicated brush makes cleaning far easier.',
-    taylorsTake: 'A small thing that you will use every single day. Worth having from the start.',
-    twins: { title: 'Bottle cleaning station', note: 'A brush, a drying rack, and a routine you can do half-asleep.' },
-  },
-  {
-    id: 'bottle-drying-rack',
-    category: 'feeding',
-    title: 'Bottle drying rack',
-    note: 'A dedicated spot for bottles and parts to air-dry.',
-    taylorsTake:
-      'Bottles and their small parts dry faster and cleaner on a rack of their own than piled in the dish drainer. A simple everyday workhorse worth having from day one.',
-    twins: {
-      title: 'Larger bottle drying rack',
-      note: 'Two babies means more bottles drying at once — size up.',
-    },
-  },
-  {
-    id: 'dishwasher-basket',
-    category: 'feeding',
-    title: 'Dishwasher basket',
-    note: 'Corrals nipples, valves, and small parts.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Saves you from losing tiny parts to the bottom of the machine.',
-  },
-  {
-    id: 'sterilizer',
-    category: 'feeding',
-    title: 'Microwave sterilization solution',
-    note: 'A simple bag or bin sterilizes in minutes.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'A microwave steam bag does the job without a countertop appliance you will store away by month four.',
-    twins: { title: 'Sterilization solution', note: 'A microwave bag or bin — no bulky appliance required.' },
-  },
-  {
-    id: 'bottle-washer',
-    category: 'feeding',
-    title: 'Bottle washer, if you want the upgrade',
-    note: 'An all-in-one countertop machine that washes, sterilizes, and dries.',
-    badge: 'NICE TO HAVE',
-    taylorsTake:
-      'A real convenience if you will be washing bottles all day — it replaces the brush-sterilize-dry shuffle with one machine. Not essential, and it does take counter space, so register it as a splurge rather than a must-have.',
-    twins: {
-      title: 'Bottle washer — a genuine time-saver for two',
-      note: 'Twice the bottles is what finally earns an all-in-one washer its counter space.',
-      taylorsTake:
-        'With two babies’ worth of bottles a day, an all-in-one washer is one of the few convenience appliances that genuinely pays off. Still a splurge — but a defensible one for twins.',
-    },
-  },
-  {
-    id: 'warm-water-dispenser',
-    category: 'feeding',
-    title: 'Warm-water dispenser',
-    note: 'Instant warm water for mixing bottles at 3am.',
-    badge: 'NICE TO HAVE',
-    taylorsTake:
-      'If you are formula-feeding or topping up, a dispenser that holds water at the right temperature spares you the middle-of-the-night wait for a bottle to warm. Not essential — a kettle and patience work — but a real comfort in the newborn fog.',
-    twins: {
-      title: 'Warm-water dispenser',
-      note: 'Two night-feeds make instant warm water even more worth it.',
-    },
-  },
-  {
-    id: 'burp-cloths',
-    category: 'feeding',
-    title: 'Burp cloths',
-    note: 'You will use more than you think.',
-    taylorsTake: 'Buy the plain, absorbent kind and plenty of them. These live on your shoulder for months.',
-    twins: { title: 'Plenty of burp cloths', note: 'Two feeders, roughly double the laundry — this is a fair "more" item.' },
-  },
-  {
-    id: 'high-chair',
-    category: 'feeding',
-    title: 'High chair',
-    note: 'You will not need this until around six months.',
-    badge: 'WAIT UNTIL LATER',
+  }),
+  ck('feeding', 'manual-pump', 'Manual breast pump', 'nice-to-have', 'first-8-weeks', {
+    note: 'Small, inexpensive help for letdown or fullness.',
+  }),
+  ck('feeding', 'wearable-pump', 'Wearable pump', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Convenient for some pumping routines, but not automatically necessary.',
+  }),
+  ck('feeding', 'flange-sizing', 'Correct pump flange sizes or inserts', 'try-first', 'first-8-weeks', {
+    note: 'Fit affects comfort and output; size after you know what you need.',
+  }),
+  ck('feeding', 'extra-pump-parts', 'Extra pump parts after you know your system', 'wait', 'first-8-weeks', {
+    note: 'Do not buy spares for a system you may not use.',
+  }),
+  ck('feeding', 'milk-collectors', 'Milk collection cups or collectors', 'nice-to-have', 'first-8-weeks', {
+    note: 'Helpful for some nursing and pumping routines.',
+  }),
+  ck('feeding', 'milk-storage', 'Breastmilk storage bags or containers', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Only useful if you are pumping or building a stash.',
+    twins: { title: 'Extra milk storage if pumping for two' },
+  }),
+  ck('feeding', 'milk-freezer-organizer', 'Milk freezer organizer', 'nice-to-have', 'first-8-weeks', {
+    note: 'Keeps stored milk dated and easy to rotate.',
+  }),
+  ck('feeding', 'pumping-bra', 'Pumping bra', 'nice-to-have', 'first-8-weeks', {
+    note: 'Worth it if you pump regularly.',
+  }),
+  ck('feeding', 'pump-bag-cleaning', 'Portable pump bag and cleaning supplies', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'For work, travel, or pumping away from home.',
+  }),
+  ck('feeding', 'nursing-pillow', 'Nursing pillow', 'try-first', 'before-baby', {
+    note: 'Parent body shape, chair setup, and baby preference matter.',
+  }),
+  ck('feeding', 'nursing-bras-tanks', 'Nursing bras or tanks', 'nice-to-have', 'before-baby', {
+    note: 'Start small until you know your postpartum size and feeding routine.',
+  }),
+  ck('feeding', 'nursing-pads-balm', 'Nursing pads and nipple balm', 'nice-to-have', 'before-baby', {
+    note: 'Comfort supplies if breastfeeding or pumping.',
+  }),
+  ck('feeding', 'nursing-cover', 'Nursing cover', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Only if it fits your privacy preferences and routine.',
+  }),
+  ck('feeding', 'sterilizer', 'Microwave sterilization bags or container', 'nice-to-have', 'before-baby', {
+    note: 'A simple steam option without committing to a large appliance.',
+  }),
+  ck('feeding', 'bottle-washer', 'Bottle washer or countertop sterilizer', 'nice-to-have', 'before-baby', {
+    note: 'A splurge that can pay off if bottles or pump parts dominate your day.',
+    twins: { title: 'Bottle washer or sterilizer for two-baby volume' },
+  }),
+  ck('feeding', 'warm-water-dispenser', 'Bottle warmer or warm-water dispenser', 'nice-to-have', 'first-8-weeks', {
+    note: 'Convenient for formula or pumped milk, but skippable.',
+  }),
+  ck('feeding', 'formula-prep', 'Formula pitcher or diaper-bag dispenser', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Useful if formula is part of the plan.',
+  }),
+  ck('feeding', 'burp-cloths', '8-12 burp cloths', 'essential', 'before-baby', {
+    note: 'Plain, absorbent cloths earn their keep every day.',
+    twins: { title: 'Plenty of burp cloths for two feeders' },
+  }),
+  ck('feeding', 'pacifier-trial', 'Pacifier trial pack', 'try-first', 'before-baby', {
+    note: 'Same logic as bottles: try shapes before buying a dozen.',
+    twins: { title: 'Pacifier trial packs before buying multiples', label: 'TRY FIRST' },
+  }),
+
+  // Starting Solids
+  ck('solids', 'high-chair', 'High chair', 'register-early', '3-6-months', {
+    note: 'Add it for gifting and completion discounts; you will use it closer to solids.',
     recommendationId: 'high-chair-pick',
-    taylorsTake: 'Register early to catch a completion discount, but there is no rush to have it assembled. Solids start around six months.',
-    twins: { title: '2 high chairs', label: 'BUY 2', note: 'Two eaters, two seats — but still not until solids begin.' },
-  },
-  {
-    id: 'bibs',
-    category: 'feeding',
-    title: 'Bibs',
-    note: 'Drool bibs early, mess bibs at solids.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'A few drool bibs are handy early; save the big silicone catch-all bibs for solids.',
-    styleCollection: {
-      girl: ['Blush and cream tones', 'Simple scalloped edges'],
-      boy: ['Sage and slate tones', 'Clean, solid colors'],
-      neutral: ['Oat and ivory tones', 'Undyed or muted solids'],
-    },
-  },
-  {
-    id: 'feeding-set',
-    category: 'feeding',
-    title: 'First feeding set for later',
-    note: 'Plates, spoons, and cups for the solids stage.',
-    badge: 'WAIT UNTIL LATER',
-    taylorsTake: 'A "future you" item. Register it, but do not open it until solids are on the horizon.',
-    twins: { title: '2 feeding sets for later', label: 'BUY 2' },
-  },
+    twins: { title: '2 high chairs', label: 'BUY 2' },
+  }),
+  ck('solids', 'high-chair-fit-extras', 'High-chair tray or footrest, if required', 'lifestyle-dependent', '3-6-months', {
+    note: 'Only if your chosen high chair needs the add-ons.',
+  }),
+  ck('solids', 'solids-bibs', '2-3 silicone or wipeable bibs', 'wait', '3-6-months', {
+    note: 'Great later; not needed for newborn feeding.',
+  }),
+  ck('solids', 'first-spoons', 'First spoons', 'wait', '3-6-months', {
+    note: 'Small, soft spoons for the first food stage.',
+  }),
+  ck('solids', 'bowls-plates', 'Baby bowls and plates', 'wait', '3-6-months', {
+    note: 'Register now, open when solids are on the horizon.',
+  }),
+  ck('solids', 'open-straw-cups', 'Open cup and straw cup', 'wait', '3-6-months', {
+    note: 'Useful skill-building cups for the solids stage.',
+  }),
+  ck('solids', 'snack-food-storage', 'Snack and food storage containers', 'nice-to-have', '6-12-months', {
+    note: 'Handy once meals and snacks leave the house.',
+  }),
+  ck('solids', 'placemat-splash-mat', 'Portable placemat or splash mat', 'nice-to-have', '6-12-months', {
+    note: 'Makes cleanup easier at home or restaurants.',
+  }),
+  ck('solids', 'portable-high-chair', 'Portable high chair or hook-on chair', 'lifestyle-dependent', '6-12-months', {
+    note: 'Good for travel, restaurants, or homes without a dining setup.',
+  }),
 
-  // ── BATH TIME ───────────────────────────────────────────────────────────────
-  {
-    id: 'bathtub',
-    category: 'bath',
-    title: 'Baby bathtub',
-    note: 'Supports a newborn until they can sit.',
-    recommendationId: 'bathtub-pick',
-    taylorsTake: 'Simple and easy to drain beats elaborate. You are bathing a small, slippery human — support and cleanup are the whole job.',
-    twins: {
-      title: '1 baby bathtub',
-      note: 'You bathe one baby at a time regardless.',
-      label: 'BUY 1 / SHARE',
-      taylorsTake: 'A clear "share" for twins — one tub is genuinely enough, since bath time happens one baby at a time.',
-    },
-  },
-  {
-    id: 'bath-stand',
-    category: 'bath',
-    title: 'Bath stand, if helpful',
-    note: 'Saves your back by raising the tub.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Optional, but kind to your back if you will bathe in a tub or shower rather than the sink.',
-    twins: { title: 'Bath stand, if useful' },
-  },
-  {
-    id: 'hooded-towels',
-    category: 'bath',
-    title: '2–3 hooded towels',
-    note: 'Soft, absorbent, and hooded to hold in warmth.',
-    taylorsTake: 'Two or three is plenty. The hood matters more than the design.',
-    styleCollection: {
-      girl: ['Blush, cream, or soft rose', 'A gently scalloped or embroidered edge'],
-      boy: ['Sage, fog, or warm gray', 'A simple contrast trim'],
-      neutral: ['Oat, ivory, or clay', 'Undyed or tonal'],
-    },
-    twins: { title: '4–6 hooded towels', note: 'Roughly two to three per baby.' },
-  },
-  {
-    id: 'washcloths',
-    category: 'bath',
-    title: 'Washcloths',
-    note: 'Soft cloths for baths and quick cleanups.',
-    taylorsTake: 'Buy a multipack of the softest you can find — they earn their keep beyond the bath.',
-  },
-  {
-    id: 'baby-wash',
-    category: 'bath',
-    title: 'Gentle baby wash + shampoo',
-    note: 'One fragrance-free, tear-free bottle does it all.',
-    taylorsTake: 'One gentle, fragrance-free bottle covers hair and body. You do not need a shelf of products for a newborn.',
-  },
-  {
-    id: 'baby-lotion',
-    category: 'bath',
-    title: 'Baby lotion',
-    note: 'A simple, fragrance-free moisturizer.',
-    twins: { title: 'Lotion' },
-  },
-  {
-    id: 'kneeler',
-    category: 'bath',
-    title: 'Kneeler + elbow rest',
-    note: 'Cushions tub-side bath time.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'A small comfort for your knees and elbows once baths move to the big tub.',
-  },
-  {
-    id: 'bath-thermometer',
-    category: 'bath',
-    title: 'Bath thermometer, optional',
-    note: 'Your wrist works too, but some parents like the number.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Genuinely optional. Your wrist is a perfectly good thermometer — skip it if you want to skip something.',
-    twins: { title: 'Optional bath thermometer' },
-  },
-  {
-    id: 'spout-cover',
-    category: 'bath',
-    title: 'Spout cover',
-    note: 'Cushions the hard tub faucet once baby moves to the big tub.',
-    badge: 'WAIT UNTIL LATER',
-    taylorsTake:
-      'Not needed while baby is in the infant tub — but once they graduate to the big tub and start scooting, a padded spout cover saves a few bumped heads.',
-    twins: { title: 'Spout cover', note: 'One covers the shared tub faucet.' },
-  },
-  {
-    id: 'bath-toys',
-    category: 'bath',
-    title: 'Bath toys',
-    note: 'A few simple toys make the tub a happy place — later on.',
-    badge: 'WAIT UNTIL LATER',
-    taylorsTake:
-      'Newborns do not play in the bath, so there is no rush. Once baby can sit, a small set of easy-to-clean toys earns its keep — bonus points if they do not squirt and trap water.',
-    twins: { title: 'Bath toys to share' },
-  },
-  {
-    id: 'bath-toy-bin',
-    category: 'bath',
-    title: 'Bath toy bin',
-    note: 'A draining bin or net keeps toys tidy and mildew-free.',
-    badge: 'NICE TO HAVE',
-    taylorsTake:
-      'The unsung hero of bath toys: a bin or net that drains and lets air in is what keeps them from turning slimy. Choose draining over cute.',
-    twins: { title: 'Bath toy bin' },
-  },
-
-  // ── GETTING AROUND ──────────────────────────────────────────────────────────
-  {
-    id: 'primary-stroller',
-    category: 'getting-around',
-    title: 'Primary stroller',
-    note: 'The frame you will use most days.',
-    badge: 'ESSENTIAL',
-    recommendationIds: ['primary-stroller-pick', 'nuna-demi-icon'],
-    taylorsTake: 'Buy for your real home and routine — trunk size, doorways, and whether stairs are in your life. The best stroller is the one that fits the way you actually move.',
-    twins: {
-      title: 'Double stroller selected for the family’s actual lifestyle',
-      note: 'One frame that carries two beats two separate strollers.',
-      taylorsTake: 'For twins, choose the double configuration around your doorways, sidewalks, and trunk before you fall for a photo. Side-by-side vs. inline is a lifestyle decision.',
-    },
-  },
-  {
-    id: 'infant-car-seat',
-    category: 'getting-around',
-    title: 'Infant car seat',
-    note: 'A safe ride home is the one true day-one item.',
-    badge: 'ESSENTIAL',
-    recommendationId: 'infant-car-seat-pick',
-    taylorsTake: 'You cannot leave the hospital without a safe car seat install. An infant seat that clicks into your stroller keeps a sleeping baby sleeping.',
-    twins: {
-      title: '2 infant car seats',
-      label: 'BUY 2',
-      note: 'Two babies, two seats — no exceptions on safety.',
-    },
-  },
-  {
-    id: 'travel-system-stroller',
-    category: 'getting-around',
-    title: 'Travel stroller',
-    note: 'A newborn-ready stroller your infant seat clicks into.',
-    badge: 'ESSENTIAL',
-    taylorsTake: 'The other half of a smooth day-one setup: a stroller that takes your infant car seat — directly or with the right adapter — so you can move a sleeping baby from car to stroller without waking them.',
-    twins: {
-      title: 'Double stroller or two travel setups for two',
-      note: 'Plan how two newborns ride from day one — side-by-side or inline.',
-    },
-  },
-  {
-    id: 'convertible-car-seat',
-    category: 'getting-around',
-    title: 'Convertible car seat',
-    note: 'Register early even if baby starts in an infant seat.',
-    badge: 'REGISTER EARLY',
-    recommendationId: 'britax-galaxy360',
-    taylorsTake: 'You may not need this on day one, but adding it early lets you use completion discounts and gives family a practical larger gift. It is the seat baby grows into after the infant seat.',
-    twins: { title: '2 convertible car seats', label: 'BUY 2' },
-  },
-  {
-    id: 'car-seat-adapters',
-    category: 'getting-around',
-    title: 'Stroller car-seat adapters, if required',
-    note: 'Turns your stroller + infant seat into a travel system.',
-    taylorsTake: 'Check whether your stroller and infant seat need an adapter to click together — many do, and it is easy to forget until you are standing in the driveway.',
-    twins: { title: 'Required stroller adapters', note: 'Confirm the adapters for two seats on your double frame.' },
-  },
-  {
-    id: 'carrier',
-    category: 'getting-around',
-    title: 'Baby carrier',
-    note: 'Hands-free comfort for you, closeness for baby.',
-    recommendationId: 'baby-carrier-pick',
-    taylorsTake: 'A good carrier buys you two free hands and often a calmer baby. Comfort for the wearer is what keeps it in use — try before you commit to a stack of them.',
-    twins: {
-      title: '1–2 carriers depending on caregivers',
-      label: '1–2',
-      note: 'One shared carrier often covers it; add a second if two adults wear at once.',
-    },
-  },
-  {
-    id: 'rain-cover',
-    category: 'getting-around',
-    title: 'Stroller rain cover, if useful',
-    note: 'Weather protection for your climate.',
-    badge: 'NICE TO HAVE',
-    twins: { title: 'Rain cover if useful' },
-  },
-  {
-    id: 'changing-mat',
-    category: 'getting-around',
-    title: 'Portable changing mat',
-    note: 'A fold-up mat for changes on the go.',
-    taylorsTake: 'Lives in the diaper bag and makes any surface a safe changing spot.',
-  },
-  {
-    id: 'wet-dry-bag',
-    category: 'getting-around',
-    title: 'Wet/dry bag',
-    note: 'Separates the clean from the very much not clean.',
-    badge: 'NICE TO HAVE',
-    twins: { title: '2 wet/dry bags', label: 'BUY 2' },
-  },
-
-  // ── EVERYDAY LIVING ─────────────────────────────────────────────────────────
-  {
-    id: 'diaper-pail',
-    category: 'everyday',
-    title: 'Diaper pail',
-    note: 'Odor control where the diapers happen.',
+  // Diapering
+  ck('diapering', 'newborn-diapers', 'Small supply of newborn diapers', 'essential', 'before-baby', {
+    note: 'Start modest; many babies outgrow newborn size quickly.',
+  }),
+  ck('diapering', 'size-one-diapers', 'Size 1 diapers', 'essential', 'before-baby', {
+    note: 'A practical next size to have ready.',
+    twins: { title: 'Diapers across sizes, not a newborn stockpile' },
+  }),
+  ck('diapering', 'diaper-trial', 'Diaper brand trial or small packs', 'try-first', 'before-baby', {
+    note: 'Fit, skin, and leaks vary by baby.',
+  }),
+  ck('diapering', 'baby-wipes', 'Baby wipes', 'essential', 'before-baby', {
+    note: 'Start with a gentle option and restock once you know what works.',
+  }),
+  ck('diapering', 'diaper-cream', 'Diaper cream or barrier ointment', 'essential', 'before-baby', {
+    note: 'A basic tube belongs in the changing station from day one.',
+  }),
+  ck('diapering', 'changing-pad', 'Changing pad', 'essential', 'before-baby', {
+    note: 'A wipeable pad on a secured dresser can replace a dedicated changing table.',
+  }),
+  ck('diapering', 'changing-liners', 'Changing-pad covers or waterproof liners', 'nice-to-have', 'before-baby', {
+    note: 'Helpful if your changing surface is not fully wipeable.',
+  }),
+  ck('diapering', 'portable-changing-mat', 'Portable changing mat', 'essential', 'before-baby', {
+    note: 'Turns any outing surface into a workable changing spot.',
+  }),
+  ck('diapering', 'diaper-pail', 'Diaper pail and liners, if required', 'nice-to-have', 'before-baby', {
+    note: 'Worth it where diapers happen most often.',
     recommendationId: 'diaper-pail-pick',
-    taylorsTake: 'Look for one that seals well and takes regular trash bags, so you are not locked into a refill subscription for years.',
-    twins: {
-      title: '1 large-capacity diaper pail',
-      label: 'BUY 1 / SHARE',
-      note: 'One good, large pail handles two babies.',
-    },
-  },
-  {
-    id: 'portable-pail',
-    category: 'everyday',
-    title: 'Portable diaper pail or bags',
-    note: 'For the diaper bag and on-the-go changes.',
-    badge: 'NICE TO HAVE',
-    twins: { title: 'Portable diaper bags / pail' },
-  },
-  {
-    id: 'changing-pad',
-    category: 'everyday',
-    title: 'Changing pad',
-    note: 'A wipeable, contoured pad for your dresser-top station.',
-    taylorsTake: 'Skip a dedicated changing table if you like — a contoured pad on a secured dresser does the same job and lasts longer.',
-  },
-  {
-    id: 'diaper-caddy',
-    category: 'everyday',
-    title: 'Diaper caddy',
-    note: 'A grab-and-go bin so supplies follow you around the house.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'The best organizing buy under $30. Stock it once and changes happen wherever you are.',
-    twins: {
-      title: '2 diaper caddies if living across multiple floors',
-      label: '1–2',
-      note: 'A caddy per level saves a lot of stairs.',
-    },
-  },
-  {
-    id: 'diapers-wipes',
-    category: 'everyday',
-    title: 'Diapers + wipes',
-    note: 'Start modest — sizes change fast.',
-    badge: 'ESSENTIAL',
-    taylorsTake: 'Do not stockpile newborn size. Babies grow through it quickly, and you can restock in a day. A range of sizes beats a mountain of one.',
-    twins: {
-      title: 'Diapers + wipes without excessive newborn stockpiling',
-      note: 'Two babies still outgrow newborn size fast — buy across sizes.',
-    },
-  },
-  {
-    id: 'newborn-care-kit',
-    category: 'everyday',
-    title: 'Newborn care kit',
-    note: 'Thermometer, nasal aspirator, and the basics.',
-    taylorsTake: 'A small kit covers the "it is 2am and I need this now" moments — thermometer, aspirator, saline.',
-  },
-  {
-    id: 'grooming-kit',
-    category: 'everyday',
-    title: 'Baby grooming kit',
-    note: 'Tiny nail file, comb, and brush.',
-    badge: 'NICE TO HAVE',
-    twins: { title: 'Grooming kit' },
-  },
-  {
-    id: 'play-mat',
-    category: 'everyday',
-    title: 'Play mat',
-    note: 'A soft, safe spot for tummy time.',
-    taylorsTake: 'Tummy time headquarters. Choose one that wipes clean and lies flat over a giant activity center.',
-    styleCollection: {
-      girl: ['Blush, cream, and muted rose palette', 'Soft, uncluttered patterns'],
-      boy: ['Sage, oat, and slate palette', 'Simple shapes, low contrast'],
-      neutral: ['Warm neutrals and earth tones', 'Calm, minimal design'],
-    },
-    twins: { title: 'Large play mat', note: 'One generous mat gives two babies room to share.' },
-  },
-  {
-    id: 'awake-seat',
-    category: 'everyday',
-    title: 'Bouncer or safe awake-time seat',
-    note: 'A safe place to set baby down for a minute.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'One safe spot to put baby down while you eat or shower. You do not need three versions of this.',
-    twins: {
-      title: '1–2 awake-time seats based on actual need',
-      label: '1–2',
-      note: 'Two hands, two babies — a second seat can genuinely help here.',
-    },
-  },
-  {
-    id: 'organizers',
-    category: 'everyday',
-    title: 'Storage / drawer organizers',
-    note: 'Small dividers keep tiny clothes findable.',
-    badge: 'NICE TO HAVE',
-    twins: { title: 'Storage organizers' },
-  },
-  {
-    id: 'childproofing',
-    category: 'everyday',
-    title: 'Childproofing basics for later',
-    note: 'Gates and latches for the crawling stage.',
-    badge: 'WAIT UNTIL LATER',
-    taylorsTake: 'Months away, but worth a line on the list so it is on your radar before baby is mobile.',
-  },
+    twins: { title: '1 large-capacity diaper pail', label: 'SHARE' },
+  }),
+  ck('diapering', 'disposal-bags', 'Portable diaper disposal bags', 'nice-to-have', 'before-baby', {
+    note: 'Small and useful for changes away from home.',
+  }),
+  ck('diapering', 'diaper-caddy', 'Diaper caddy or second caddy for multi-level homes', 'lifestyle-dependent', 'before-baby', {
+    note: 'A supply bin per floor saves steps if your home needs it.',
+  }),
+  ck('diapering', 'wet-dry-bag', 'Wet/dry bag', 'nice-to-have', 'before-baby', {
+    note: 'Separates the clean from the messy on laundry and outings.',
+  }),
 
-  // ── CLOTHING + LINENS ───────────────────────────────────────────────────────
-  {
-    id: 'bodysuits',
-    category: 'clothing',
-    title: '6–8 everyday bodysuits',
-    note: 'The workhorse of a newborn wardrobe.',
-    taylorsTake: 'Bodysuits over outfits in the early weeks. Buy a range of sizes, not a stack of newborn — some babies skip newborn entirely.',
-    styleCollection: {
-      girl: ['Blush, cream, terracotta, and soft rose', 'Tiny florals, fine stripes, or solids'],
-      boy: ['Sage, oat, slate, and warm gray', 'Solids, simple stripes, or a subtle motif'],
-      neutral: ['Ivory, oatmeal, clay, and fog', 'Solids and quiet earth tones'],
-    },
-    twins: { title: '10–14 bodysuits total', note: 'Roughly six to eight per baby, across sizes.' },
-  },
-  {
-    id: 'sleepers',
-    category: 'clothing',
-    title: '6–8 sleepers / pajamas',
-    note: 'Zip sleepers make night changes painless.',
-    taylorsTake: 'Zippers over snaps at 3am — your future self will thank you. Again, spread across sizes.',
-    styleCollection: {
-      girl: ['Blush and cream tones', 'Soft florals or solids'],
-      boy: ['Sage and slate tones', 'Solids or fine stripes'],
-      neutral: ['Oat and ivory tones', 'Calm solids'],
-    },
-    twins: { title: '10–14 sleepers total', note: 'Roughly six to eight per baby.' },
-  },
-  {
-    id: 'outfits',
-    category: 'clothing',
-    title: '2–3 easy outfits',
-    note: 'For photos and going out — kept simple.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'A couple of "leaving the house" outfits is plenty. Newborns live in bodysuits and sleepers.',
-    styleCollection: {
-      girl: ['Blush, cream, and warm neutral pieces', 'Soft knits and gentle prints'],
-      boy: ['Sage, oat, and slate pieces', 'Simple knits and solids'],
-      neutral: ['Warm neutral, ivory, and clay pieces', 'Understated, tonal'],
-    },
-    twins: { title: '4–6 easy outfits total' },
-  },
-  {
-    id: 'socks',
-    category: 'clothing',
-    title: 'Socks / booties',
-    note: 'They vanish in the wash — buy a pack.',
-    taylorsTake: 'They disappear. Buy one style so the survivors always have a match.',
-  },
-  {
-    id: 'seasonal-layers',
-    category: 'clothing',
-    title: 'Seasonal layers',
-    note: 'A weather-appropriate jacket, hat, or bunting.',
-    taylorsTake: 'Buy for the season baby will actually be that size — a newborn snowsuit in July rarely fits by winter.',
-  },
-  {
-    id: 'blankets',
-    category: 'clothing',
-    title: '2–3 lightweight blankets',
-    note: 'For swaddling, tummy time, and stroller shade — not crib sleep.',
-    taylorsTake: 'Muslin is the multitasker: swaddle, burp cloth, sunshade, play surface. Keep loose blankets out of the crib.',
-    styleCollection: {
-      girl: ['Blush, cream, and soft rose', 'Tiny florals or solids'],
-      boy: ['Sage, fog, and warm gray', 'Solids or a subtle stripe'],
-      neutral: ['Oat, ivory, and clay', 'Solids and earth tones'],
-    },
-    twins: { title: '4–6 lightweight blankets', note: 'Two to three per baby.' },
-  },
-  {
-    id: 'hamper',
-    category: 'clothing',
-    title: 'Laundry hamper',
-    note: 'You are about to do a lot of laundry.',
-    twins: { title: 'Large laundry hamper', note: 'Twins generate laundry — size up.' },
-  },
-  {
-    id: 'detergent',
-    category: 'clothing',
-    title: 'Baby-safe detergent',
-    note: 'Fragrance-free and gentle on new skin.',
-    taylorsTake: 'Fragrance-free is the safe default. You can always switch if skin tolerates more.',
-  },
+  // Bath
+  ck('bath', 'bathtub', 'Baby bathtub', 'essential', 'before-baby', {
+    note: 'Supports a slippery newborn until they can sit.',
+    recommendationId: 'bathtub-pick',
+    twins: { title: '1 baby bathtub', label: 'SHARE' },
+  }),
+  ck('bath', 'bath-stand', 'Bath stand', 'nice-to-have', 'before-baby', {
+    note: 'Optional back-saver depending on where you bathe baby.',
+  }),
+  ck('bath', 'hooded-towels', '2-3 hooded towels', 'essential', 'before-baby', {
+    note: 'Soft, absorbent, and easy to wrap fast.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: '4-6 hooded towels', label: 'BUY 2' },
+  }),
+  ck('bath', 'washcloths', '6-8 washcloths', 'essential', 'before-baby', {
+    note: 'Useful for baths and quick cleanups.',
+  }),
+  ck('bath', 'baby-wash', 'Gentle baby wash + shampoo', 'essential', 'before-baby', {
+    note: 'One fragrance-free, tear-free bottle is enough.',
+  }),
+  ck('bath', 'baby-lotion', 'Fragrance-free moisturizer', 'nice-to-have', 'before-baby', {
+    note: 'Simple skin care if baby needs it.',
+  }),
+  ck('bath', 'bath-thermometer', 'Rinsing cup or bath thermometer', 'nice-to-have', 'first-8-weeks', {
+    note: 'Useful if it makes bath time calmer.',
+  }),
+  ck('bath', 'kneeler', 'Kneeler + elbow rest', 'wait', '6-12-months', {
+    note: 'More useful once baths move to the big tub.',
+  }),
+  ck('bath', 'spout-cover', 'Spout cover and non-slip bath mat', 'wait', '6-12-months', {
+    note: 'Later-stage big-tub safety, not a newborn need.',
+  }),
+  ck('bath', 'bath-toys-storage', 'Bath toys and draining storage', 'wait', '6-12-months', {
+    note: 'Choose easy-to-clean toys once baby can actually play in the bath.',
+  }),
 
-  // ── SUPPORT + SMART EXTRAS ──────────────────────────────────────────────────
-  {
-    id: 'completion-discount',
-    category: 'support',
-    title: 'Registry completion-discount plan',
-    note: 'Most registries give you a one-time discount to finish the list.',
-    badge: 'ESSENTIAL',
-    taylorsTake: 'One of the highest-value moves on this whole list. Plan to buy your remaining big items in a single completion-discount window instead of piecemeal.',
+  // Health + Grooming
+  ck('health', 'thermometer', 'Digital infant thermometer', 'essential', 'before-baby', {
+    note: 'One reliable thermometer belongs in the house before baby arrives.',
+  }),
+  ck('health', 'nasal-saline', 'Nasal aspirator + saline', 'essential', 'before-baby', {
+    note: 'Basic congestion help for the first cold or stuffy night.',
+  }),
+  ck('health', 'nail-care', 'Nail file or baby nail clippers', 'essential', 'before-baby', {
+    note: 'Tiny nails get sharp quickly.',
+  }),
+  ck('health', 'brush-comb', 'Soft baby brush or comb', 'nice-to-have', 'before-baby', {
+    note: 'Simple grooming, especially for cradle-cap flakes or hair.',
+  }),
+  ck('health', 'oral-syringe', 'Medicine dispenser or oral syringe', 'nice-to-have', 'before-baby', {
+    note: 'Good to have before you are trying to find one at night.',
+  }),
+  ck('health', 'first-aid-basics', 'Basic first-aid supplies', 'essential', 'before-baby', {
+    note: 'Keep this practical and follow pediatric guidance for medications.',
+  }),
+  ck('health', 'humidifier-care', 'Humidifier cleaning supplies, if using', 'lifestyle-dependent', 'before-baby', {
+    note: 'A humidifier only helps if you can keep it clean.',
+  }),
+  ck('health', 'toothbrush-teethers', 'Baby toothbrush and teethers', 'wait', '3-6-months', {
+    note: 'Later oral-care and teething items.',
+  }),
+  ck('health', 'sunscreen-guidance', 'Baby sunscreen plan', 'wait', '6-12-months', {
+    note: 'Ask your pediatrician and follow age guidance before using sunscreen.',
+  }),
+  ck('health', 'health-tracker', 'Health-record or medication tracker', 'nice-to-have', 'first-8-weeks', {
+    note: 'Useful when sleep deprivation makes details harder to remember.',
+  }),
+
+  // Getting Around
+  ck('getting-around', 'rear-facing-car-seat', "A rear-facing car seat appropriate for baby's size and your vehicle", 'essential', 'before-baby', {
+    note: 'This is the real day-one car-seat requirement; infant seats are one possible solution.',
+    taylorsTake:
+      'A rear-facing-only infant seat, a convertible seat, or an all-in-one may work for a newborn when used according to the manufacturer and installed correctly.',
+    twins: { title: "2 rear-facing car seats appropriate for each baby's size and your vehicle", label: 'BUY 2' },
+  }),
+  ck('getting-around', 'infant-car-seat', 'Infant car seat', 'lifestyle-dependent', 'before-baby', {
+    note: 'A click-in infant seat is a travel-system choice, not the only safe newborn option.',
+    recommendationId: 'infant-car-seat-pick',
+    twins: { title: '2 infant car seats, if using infant seats', label: 'BUY 2' },
+  }),
+  ck('getting-around', 'infant-seat-base', 'Included infant-seat base, if using an infant seat', 'lifestyle-dependent', 'before-baby', {
+    note: 'Confirm the base fits your actual vehicle install.',
+  }),
+  ck('getting-around', 'extra-infant-base', 'Extra infant-seat base', 'nice-to-have', 'before-baby', {
+    note: 'Useful for a second car, but not automatic.',
+  }),
+  ck('getting-around', 'convertible-car-seat', 'Convertible or all-in-one car seat', 'register-early', 'before-baby', {
+    note: 'Smart to register early even if baby starts in an infant seat.',
+    recommendationId: 'britax-galaxy360',
+    twins: { title: '2 convertible or all-in-one car seats', label: 'BUY 2' },
+  }),
+  ck('getting-around', 'car-seat-registration', 'Car-seat registration completed', 'essential', 'before-baby', {
+    note: 'Register seats for recall notices.',
+  }),
+  ck('getting-around', 'cpst-install-check', 'CPST installation check', 'register-early', 'before-baby', {
+    note: 'A certified passenger safety tech can check both the seat and your install.',
+    twins: { title: 'CPST installation check for both seats' },
+  }),
+  ck('getting-around', 'primary-stroller', 'Primary stroller', 'lifestyle-dependent', 'before-baby', {
+    note: 'Buy for your real home: trunk, stairs, sidewalks, doorways, and storage.',
+    recommendationIds: ['primary-stroller-pick', 'nuna-demi-icon'],
+    twins: {
+      title: 'Double stroller selected for your actual routine',
+      note: 'One frame that carries two beats two separate strollers for most twin families.',
+    },
+  }),
+  ck('getting-around', 'car-seat-adapters', 'Stroller car-seat adapters, if required', 'essential', 'before-baby', {
+    note: 'The often-forgotten piece that makes a stroller + infant seat work together.',
+  }),
+  ck('getting-around', 'stroller-bassinet', 'Stroller bassinet', 'lifestyle-dependent', 'before-baby', {
+    note: 'Useful if you plan long newborn walks and your stroller supports it.',
+  }),
+  ck('getting-around', 'stroller-weather-accessories', 'Stroller rain cover, insect net, or fan', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Buy for your climate, not for a generic list.',
+  }),
+  ck('getting-around', 'parent-organizer-cup-holder', 'Parent organizer or cup holder', 'nice-to-have', 'first-8-weeks', {
+    note: 'A convenience add-on if your stroller handle setup needs it.',
+  }),
+  ck('getting-around', 'child-snack-tray', 'Child snack tray', 'wait', '6-12-months', {
+    note: 'Not relevant until snacks and seated stroller time become real.',
+  }),
+  ck('getting-around', 'sibling-stroller-kit', 'Ride-on board, second seat, or sibling kit', 'lifestyle-dependent', '6-12-months', {
+    note: 'Only for older siblings, twins, or planned stroller expansion.',
+  }),
+  ck('getting-around', 'travel-system-stroller', 'Compact travel stroller', 'lifestyle-dependent', '6-12-months', {
+    note: 'A second stroller can be useful, but usually later.',
+    recommendationId: 'travel-stroller-pick',
+  }),
+  ck('getting-around', 'carrier', 'Structured baby carrier', 'try-first', 'before-baby', {
+    note: 'Comfort for the wearer is what keeps a carrier in use.',
+    recommendationId: 'baby-carrier-pick',
+    twins: { title: '1-2 structured carriers depending on caregivers', label: '1-2' },
+  }),
+  ck('getting-around', 'soft-wrap-carrier', 'Soft wrap or newborn carrier', 'try-first', 'before-baby', {
+    note: 'Some parents love wraps; some prefer buckles. Try before buying multiples.',
+  }),
+
+  // Diaper Bag
+  ck('diaper-bag', 'diaper-bag-backpack', 'Diaper bag or backpack', 'essential', 'before-baby', {
+    note: 'Choose one that fits your stroller, car, and daily carrying style.',
+  }),
+  ck('diaper-bag', 'diaper-bag-changing-kit', 'Compact changing kit', 'essential', 'before-baby', {
+    note: 'Changing mat, a few diapers, wipes, cream, and a disposal bag.',
+  }),
+  ck('diaper-bag', 'small-diaper-pouch', 'Small diaper pouch', 'nice-to-have', 'before-baby', {
+    note: 'Keeps the change setup easy to move between bags.',
+  }),
+  ck('diaper-bag', 'travel-wipes-disposal', 'Travel wipe case and disposal bags', 'nice-to-have', 'before-baby', {
+    note: 'Small refills for changes away from home.',
+  }),
+  ck('diaper-bag', 'baby-change-clothes', 'Change of clothes for baby', 'essential', 'before-baby', {
+    note: 'The outing item you will be happiest to have packed.',
+  }),
+  ck('diaper-bag', 'parent-spare-shirt', 'Spare shirt for parent', 'nice-to-have', 'first-8-weeks', {
+    note: 'For spit-up days when baby is not the only one who needs changing.',
+  }),
+  ck('diaper-bag', 'feeding-pacifier-kit', 'Feeding supplies and pacifier case as needed', 'lifestyle-dependent', 'before-baby', {
+    note: 'Pack based on how baby actually eats and soothes.',
+  }),
+  ck('diaper-bag', 'adult-sanitizer-firstaid', 'Hand sanitizer and small first-aid pouch', 'nice-to-have', 'before-baby', {
+    note: 'Adult sanitizer and basic outing supplies, kept simple.',
+  }),
+
+  // Clothing
+  ck('clothing', 'bodysuits', '6-8 everyday bodysuits', 'essential', 'before-baby', {
+    note: 'Spread sizes instead of buying one huge newborn stack.',
+    styleCollection: CLOTHING_STYLE,
+    twins: { title: '10-14 everyday bodysuits total', label: 'BUY 2' },
+  }),
+  ck('clothing', 'sleepers', '6-8 zip sleepers', 'essential', 'before-baby', {
+    note: 'Zippers beat snaps at 3am.',
+    styleCollection: CLOTHING_STYLE,
+    twins: { title: '10-14 zip sleepers total', label: 'BUY 2' },
+  }),
+  ck('clothing', 'easy-outfits', '2-3 easy outfits', 'nice-to-have', 'before-baby', {
+    note: 'A few simple going-out pieces; newborns mostly live in bodysuits and sleepers.',
+    styleCollection: CLOTHING_STYLE,
+  }),
+  ck('clothing', 'socks-booties', 'Socks or booties', 'essential', 'before-baby', {
+    note: 'Buy one simple style so the survivors match.',
+  }),
+  ck('clothing', 'seasonal-layers', 'Seasonal layers', 'lifestyle-dependent', 'before-baby', {
+    note: 'Buy for the season baby will actually be that size.',
+  }),
+  ck('clothing', 'muslin-blankets', '2-3 lightweight muslin blankets', 'essential', 'before-baby', {
+    note: 'Useful for swaddling, stroller shade, and floor time; not for crib sleep.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: '4-6 lightweight muslin blankets', label: 'BUY 2' },
+  }),
+  ck('clothing', 'laundry-care', 'Fragrance-free detergent and gentle stain remover', 'essential', 'before-baby', {
+    note: 'Simple laundry basics for sensitive newborn skin and inevitable stains.',
+  }),
+  ck('clothing', 'special-outfit', 'Special occasion or coming-home outfit', 'nice-to-have', 'before-baby', {
+    note: 'Keep it comfortable and weather-appropriate.',
+  }),
+
+  // Play + Development
+  ck('play', 'play-mat', 'Large floor or play mat', 'essential', 'first-8-weeks', {
+    note: 'A safe, flat place for tummy time and floor play.',
+    styleCollection: NURSERY_STYLE,
+    twins: { title: 'Large play mat with room for two' },
+  }),
+  ck('play', 'activity-gym', 'Activity gym', 'nice-to-have', 'first-8-weeks', {
+    note: 'Useful, but a simple mat and a few toys can also work.',
+  }),
+  ck('play', 'high-contrast-cards', 'High-contrast cards', 'nice-to-have', 'first-8-weeks', {
+    note: 'Small visual play for the newborn stage.',
+  }),
+  ck('play', 'tummy-time-mirror', 'Tummy-time mirror', 'nice-to-have', 'first-8-weeks', {
+    note: 'A simple motivator for early floor time.',
+  }),
+  ck('play', 'rattles-crinkle-toy', 'Soft rattles or crinkle toy', 'nice-to-have', 'first-8-weeks', {
+    note: 'A few simple objects are plenty.',
+  }),
+  ck('play', 'board-books', 'Board books', 'register-early', 'first-8-weeks', {
+    note: 'Books last long past the newborn stage.',
+  }),
+  ck('play', 'teethers', 'Teethers', 'wait', '3-6-months', {
+    note: 'Add them before teething hits; do not fill a newborn drawer with them.',
+  }),
+  ck('play', 'grasping-stacking-sensory', 'Grasping toys, stacking cups, or sensory balls', 'wait', '3-6-months', {
+    note: 'Better once baby is reaching and mouthing.',
+  }),
+  ck('play', 'activity-center', 'Stationary activity center', 'wait', '6-12-months', {
+    note: 'A later awake-time item, not a newborn essential.',
+  }),
+  ck('play', 'push-walker', 'Push walker, shape sorter, or toy basket', 'wait', 'later', {
+    note: 'Later mobility and toddler-stage items can wait.',
+  }),
+
+  // Awake-Time Gear
+  ck('awake-time', 'awake-seat', 'One bouncer or safe awake-time seat', 'nice-to-have', 'before-baby', {
+    note: 'For supervised awake time only; move baby to a firm, flat sleep surface if they fall asleep.',
+    twins: { title: '1-2 awake-time seats based on actual need', label: '1-2' },
+  }),
+  ck('awake-time', 'swing', 'Swing', 'try-first', 'first-8-weeks', {
+    note: 'Some babies love them; some do not. Supervised awake time only.',
+  }),
+  ck('awake-time', 'portable-bouncer', 'Portable bouncer', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Only if moving an awake-time seat around the house matters.',
+  }),
+  ck('awake-time', 'contained-play-space', 'Playard or activity center as contained play space', 'wait', '6-12-months', {
+    note: 'A later-stage contained spot once baby is more mobile.',
+  }),
+
+  // Travel
+  ck('travel', 'travel-crib-plan', 'Travel crib or playard', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Use only approved sleep products for sleep away from home.',
+    recommendationId: 'playard-pick',
+  }),
+  ck('travel', 'travel-crib-sheet', 'Travel crib sheet', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Only the sheet sized for your travel crib or playard.',
+  }),
+  ck('travel', 'compact-travel-stroller', 'Compact or travel stroller', 'lifestyle-dependent', '6-12-months', {
+    note: 'A second stroller should solve a real travel or trunk problem.',
+    recommendationId: 'travel-stroller-pick',
+  }),
+  ck('travel', 'stroller-car-seat-travel-bags', 'Stroller or car-seat travel bag', 'nice-to-have', '6-12-months', {
+    note: 'Useful for flights or checking gear.',
+  }),
+  ck('travel', 'travel-sleep-kit', 'Travel sound, blackout, and monitor kit', 'nice-to-have', 'first-8-weeks', {
+    note: 'Build this only if travel or overnight visits are likely.',
+  }),
+  ck('travel', 'travel-feeding-kit', 'Travel bottle drying or portable warmer setup', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'Only if feeding away from home is part of the routine.',
+  }),
+  ck('travel', 'portable-changing-kit', 'Portable changing kit', 'essential', 'before-baby', {
+    note: 'The outing essential: mat, diapers, wipes, cream, and bags.',
+  }),
+  ck('travel', 'gear-rental-plan', 'Rental plan for bulky destination gear', 'nice-to-have', '6-12-months', {
+    note: 'You do not need to own everything you can rent at your destination.',
+  }),
+
+  // Home + Safety
+  ck('home-safety', 'smoke-co-detectors', 'Working smoke and carbon-monoxide detectors', 'essential', 'before-baby', {
+    note: 'Confirm alarms are present, working, and placed appropriately.',
+  }),
+  ck('home-safety', 'furniture-tv-anchoring', 'Furniture and TV anchoring', 'register-early', '3-6-months', {
+    note: 'Plan before baby pulls to stand.',
+  }),
+  ck('home-safety', 'outlet-covers', 'Outlet covers', 'wait', '6-12-months', {
+    note: 'Babyproofing for the mobile stage.',
+  }),
+  ck('home-safety', 'cabinet-latches', 'Cabinet and drawer latches', 'wait', '6-12-months', {
+    note: 'Install where baby can reach hazards.',
+  }),
+  ck('home-safety', 'baby-gates', 'Baby gates and stair gates', 'wait', '6-12-months', {
+    note: 'Match gates to the actual openings and stairs in your home.',
+  }),
+  ck('home-safety', 'window-cord-safety', 'Cordless window coverings or blind-cord safety', 'register-early', '3-6-months', {
+    note: 'Address cords before baby is mobile.',
+  }),
+  ck('home-safety', 'window-guards-stops', 'Window guards or stops where appropriate', 'wait', '6-12-months', {
+    note: 'Home-specific safety for accessible windows.',
+  }),
+  ck('home-safety', 'door-toilet-stove-safety', 'Door, toilet, stove, and appliance safety solutions', 'wait', '6-12-months', {
+    note: 'Buy for the hazards your home actually has.',
+  }),
+  ck('home-safety', 'pool-safety-review', 'Pool safety review, where applicable', 'lifestyle-dependent', 'before-baby', {
+    note: 'A true essential if a pool is part of the home or regular care environment.',
+  }),
+
+  // Postpartum
+  ck('postpartum', 'postpartum-underwear-pads', 'Comfortable postpartum underwear and pads', 'essential', 'before-baby', {
+    note: 'Parent recovery belongs on the registry too.',
+  }),
+  ck('postpartum', 'peri-bottle-cold-packs', 'Peri bottle and cold packs', 'nice-to-have', 'before-baby', {
+    note: 'General comfort supplies; follow your clinician for specific recovery needs.',
+  }),
+  ck('postpartum', 'lounge-clothes', 'Comfortable lounge clothes or pajamas', 'nice-to-have', 'before-baby', {
+    note: 'Soft, washable, and easy for feeding if needed.',
+  }),
+  ck('postpartum', 'nursing-pumping-bras', 'Nursing or pumping bras, if needed', 'nice-to-have', 'before-baby', {
+    note: 'Start with a few until sizing and feeding plans settle.',
+  }),
+  ck('postpartum', 'feeding-comfort', 'Breast pads and nipple care, if needed', 'nice-to-have', 'before-baby', {
+    note: 'Comfort basics for breastfeeding or pumping.',
+  }),
+  ck('postpartum', 'parent-station', 'Large water bottle, snacks, and long charging cable', 'nice-to-have', 'before-baby', {
+    note: 'A practical bedside or feeding-station setup for the parent.',
+  }),
+  ck('postpartum', 'c-section-recovery-support', 'C-section recovery support, if relevant', 'lifestyle-dependent', 'before-baby', {
+    note: 'Keep this personal and clinician-guided.',
+  }),
+
+  // Support + Services
+  ck('support', 'pediatrician-selected', 'Pediatrician selected', 'essential', 'before-baby', {
+    note: 'Choose before baby arrives so the first visit is not a scramble.',
+  }),
+  ck('support', 'lactation-support-contact', 'Lactation support contact, if desired', 'lifestyle-dependent', 'before-baby', {
+    note: 'Line up help before you need it during a hard feeding night.',
+  }),
+  ck('support', 'postpartum-doula-support', 'Postpartum doula or newborn-care support', 'lifestyle-dependent', 'before-baby', {
+    note: 'Support hours can be more useful than another object.',
+    twins: { title: 'Postpartum or newborn-care support for two babies' },
+  }),
+  ck('support', 'meal-household-support', 'Meal train, meal delivery, or cleaning support', 'nice-to-have', 'before-baby', {
+    note: 'Fed and rested parents are the point.',
+  }),
+  ck('support', 'family-pet-night-help', 'Pet, babysitting, family-help, or night-support plan', 'lifestyle-dependent', 'before-baby', {
+    note: 'Plan the help your actual household needs.',
+  }),
+  ck('support', 'newborn-photo-keepsake', 'Newborn photography, announcement, or keepsake plan', 'nice-to-have', 'before-baby', {
+    note: 'Book early if the short newborn-photo window matters to you.',
+  }),
+
+  // Registry Strategy
+  ck('registry-strategy', 'choose-primary-registry', 'Choose a primary registry', 'essential', 'before-baby', {
+    note: 'One main home keeps gifts and returns simpler.',
+  }),
+  ck('registry-strategy', 'secondary-registries-value', 'Create secondary registries only for real value', 'nice-to-have', 'before-baby', {
+    note: 'Use extras for welcome boxes, retailer perks, or unique items, not clutter.',
+  }),
+  ck('registry-strategy', 'welcome-boxes', 'Claim eligible welcome boxes', 'nice-to-have', 'before-baby', {
+    note: 'Free samples and occasional useful basics for a few minutes of setup.',
+  }),
+  ck('registry-strategy', 'completion-discount-plan', 'Check completion-discount rules and dates', 'essential', 'before-baby', {
+    note: 'Plan the discount window before buying remaining big items.',
     twins: { title: 'Registry completion-discount strategy' },
-  },
-  {
-    id: 'welcome-box',
-    category: 'support',
-    title: 'Welcome-box eligibility checklist',
-    note: 'Many registries offer a free welcome box of samples.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'Free samples and a few genuinely useful items for the cost of a few minutes. Worth doing across the registries you use.',
-    twins: { title: 'Welcome-box strategy' },
-  },
-  {
-    id: 'postpartum-support',
-    category: 'support',
-    title: 'Postpartum / feeding support',
-    note: 'Lactation help, a postpartum doula, or a support line.',
-    taylorsTake: 'Support in the first weeks is as valuable as any product. Line it up before you need it, not during a hard night.',
-  },
-  {
-    id: 'cpst-check',
-    category: 'support',
-    title: 'CPST car-seat installation check',
-    note: 'A certified tech confirms your install is right.',
-    taylorsTake: 'Most seats are installed wrong. A certified passenger safety tech (CPST) checking your install is free peace of mind — Taylor is not a CPST, so this is the right hands for it.',
-    twins: { title: 'CPST check for both car seats', note: 'Have both installs checked, not just one.' },
-  },
-  {
-    id: 'babywearing-education',
-    category: 'support',
-    title: 'Babywearing education, if desired',
-    note: 'A quick lesson makes a carrier click.',
-    badge: 'NICE TO HAVE',
-    twins: { title: 'Babywearing education' },
-  },
-  {
-    id: 'meal-support',
-    category: 'support',
-    title: 'Meal / household support',
-    note: 'A meal train or cleaning help beats another onesie.',
-    taylorsTake: 'If people ask what you need, this is a real answer. Fed and rested parents are the point.',
-    twins: { title: 'Meal and household support', note: 'With twins, accept more help than feels polite.' },
-  },
-  {
-    id: 'caregiver-plan',
-    category: 'support',
-    title: 'Extra caregiver plan',
-    note: 'Two babies often means an extra set of hands.',
-    include: ['twins'],
-    taylorsTake: 'Twins-specific and worth planning early: who helps, when, and how. A second adult during witching hour is not a luxury.',
-  },
-  {
-    id: 'keepsake-plan',
-    category: 'support',
-    title: 'Newborn photos or keepsake plan',
-    note: 'Book early if you want newborn photos.',
-    badge: 'NICE TO HAVE',
-    taylorsTake: 'If newborn photos matter to you, book before baby arrives — the window is short.',
-  },
-  {
-    id: 'service-gift-cards',
-    category: 'support',
-    title: 'Gift cards for services, not just stuff',
-    note: 'Meals, cleaning, or support hours make excellent gifts.',
-    taylorsTake: 'When family wants to give something meaningful, a service gift card often helps more than another object.',
-    twins: { title: 'Service gift cards' },
-  },
+  }),
+  ck('registry-strategy', 'later-stage-discount-items', 'Add later-stage items before the discount closes', 'register-early', 'before-baby', {
+    note: 'High chairs, convertible seats, and later gear can be smart registry math.',
+  }),
+  ck('registry-strategy', 'rewards-cashback-sales', 'Compare retailer rewards, cashback, and sale periods', 'nice-to-have', 'before-baby', {
+    note: 'A little timing can save real money on major gear.',
+  }),
+  ck('registry-strategy', 'insurance-hsa-fsa', 'Check insurance and HSA/FSA eligibility', 'essential', 'before-baby', {
+    note: 'Especially for pumps and eligible health or recovery supplies.',
+  }),
+  ck('registry-strategy', 'group-gifting-service-cash', 'Create group-gifting, service, or cash-fund options', 'nice-to-have', 'before-baby', {
+    note: 'Let people help with the expensive or practical things.',
+  }),
+  ck('registry-strategy', 'openbox-secondhand-rental', 'Check open-box, secondhand, and rental opportunities', 'nice-to-have', 'before-baby', {
+    note: 'Buy new when safety or recalls matter; save where secondhand or rental makes sense.',
+  }),
+  ck('registry-strategy', 'register-gear-recalls', 'Register car seats and major gear for recalls', 'essential', 'before-baby', {
+    note: 'Recall notices matter most for safety gear.',
+  }),
+  ck('registry-strategy', 'returns-packaging', 'Save receipts and keep packaging on uncertain items', 'nice-to-have', 'before-baby', {
+    note: 'Do not open later-stage gear simply because it arrived.',
+  }),
+  ck('registry-strategy', 'first-eight-weeks-plan', 'Build around the first 8 weeks first', 'essential', 'before-baby', {
+    note: 'Everything else can be registered early, waited on, or skipped.',
+  }),
 ];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -904,6 +909,10 @@ export type ResolvedItem = {
   category: string;
   title: string;
   note?: string;
+  timing?: ChecklistTiming;
+  timingLabel?: string;
+  take?: ChecklistTake;
+  takeLabel?: string;
   badge?: string;
   /** Twins quantity pill, e.g. "BUY 2" — only present on the twins version. */
   label?: string;
@@ -917,11 +926,17 @@ export type ResolvedItem = {
 export function resolveItem(item: ChecklistItem, type: ChecklistType): ResolvedItem {
   const isTwins = type === 'twins';
   const t = item.twins;
+  const timing = isTwins && t?.timing !== undefined ? t.timing : item.timing;
+  const take = isTwins && t?.take !== undefined ? t.take : item.take;
   return {
     id: item.id,
     category: item.category,
     title: isTwins && t?.title ? t.title : item.title,
     note: isTwins && t?.note !== undefined ? t.note : item.note,
+    timing,
+    timingLabel: timing ? CHECKLIST_TIMING_LABELS[timing] : undefined,
+    take,
+    takeLabel: take ? CHECKLIST_TAKE_LABELS[take] : undefined,
     badge: isTwins && t?.badge !== undefined ? t.badge : item.badge,
     label: isTwins ? t?.label : undefined,
     recommendationId: item.recommendationId,
@@ -943,6 +958,16 @@ export function itemsForType(
   source: ChecklistItem[] = checklistItems,
 ): ChecklistItem[] {
   return source.filter((i) => !i.include || i.include.includes(type));
+}
+
+export function itemMatchesChecklistFilters(
+  item: { timing?: ChecklistTiming; take?: ChecklistTake },
+  timingFilter: ChecklistTimingFilter,
+  takeFilter: ChecklistTakeFilter,
+): boolean {
+  const timingMatches = timingFilter === 'all' || item.timing === timingFilter;
+  const takeMatches = takeFilter === 'all' || item.take === takeFilter;
+  return timingMatches && takeMatches;
 }
 
 /**

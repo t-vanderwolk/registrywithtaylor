@@ -96,6 +96,55 @@
   outline-offset: 2px;
 }
 
+/* ── Filters ───────────────────────────────────────────────────────────────*/
+.tmbc-checklist__filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.tmbc-filter {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.tmbc-filter__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-gray);
+}
+.tmbc-filter__select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--ck-border);
+  border-radius: 0.7rem;
+  background: #fff;
+  color: var(--ck-charcoal);
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.55rem 0.8rem;
+}
+.tmbc-filter__select:focus-visible {
+  outline: 2px solid var(--ck-blush-dusty);
+  outline-offset: 2px;
+}
+.tmbc-checklist__empty {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: var(--ck-gray);
+  font-size: 0.9rem;
+}
+@media (min-width: 560px) {
+  .tmbc-checklist__filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ── Overall progress + toolbar ────────────────────────────────────────────*/
 .tmbc-checklist__toolbar {
   margin-top: 1.25rem;
@@ -330,6 +379,16 @@
   border-color: var(--ck-gold);
   color: #7a5b1e;
   background: rgba(201, 165, 106, 0.12);
+}
+.tmbc-badge--take {
+  border-color: rgba(201, 135, 145, 0.35);
+  color: var(--ck-blush-dusty);
+  background: #fff;
+}
+.tmbc-badge--time {
+  border-color: rgba(201, 165, 106, 0.42);
+  color: #7a5b1e;
+  background: rgba(201, 165, 106, 0.1);
 }
 
 /* ── Item detail (Taylor's Take + recommendation) ──────────────────────────*/

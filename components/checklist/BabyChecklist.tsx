@@ -4,12 +4,16 @@ import '@/styles/checklist.css';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  CHECKLIST_TAKE_FILTERS,
+  CHECKLIST_TIMING_FILTERS,
   CHECKLIST_TYPES,
   DEFAULT_TYPE,
   DISCLOSURE,
   TWINS_CALLOUT,
   groupedItemsForType,
-  itemsForType,
+  itemMatchesChecklistFilters,
+  type ChecklistTakeFilter,
+  type ChecklistTimingFilter,
   type ChecklistType,
   type ChecklistItem as ChecklistItemDef,
   type ResolvedItem,
@@ -189,6 +193,8 @@ export default function BabyChecklist({
   goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
 }) {
   const [type, setType] = useState<ChecklistType>(initialType);
+  const [timingFilter, setTimingFilter] = useState<ChecklistTimingFilter>('all');
+  const [takeFilter, setTakeFilter] = useState<ChecklistTakeFilter>('all');
   const [checked, setChecked] = useState<Checked>({});
   const [hydrated, setHydrated] = useState(false);
   // Which category accordion is currently open — drives the right-hand reading
@@ -269,17 +275,32 @@ export default function BabyChecklist({
   }, []);
 
   const groups = useMemo(() => groupedItemsForType(type, items, categories), [type, items, categories]);
-  const allItems = useMemo(() => itemsForType(type, items), [type, items]);
-  const total = allItems.length;
-  const done = allItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
+  const filteredGroups = useMemo(
+    () =>
+      groups
+        .map((group) => ({
+          ...group,
+          items: group.items.filter((item) =>
+            itemMatchesChecklistFilters(item, timingFilter, takeFilter),
+          ),
+        }))
+        .filter((group) => group.items.length > 0),
+    [groups, timingFilter, takeFilter],
+  );
+  const visibleItems = useMemo(
+    () => filteredGroups.flatMap((group) => group.items),
+    [filteredGroups],
+  );
+  const total = visibleItems.length;
+  const done = visibleItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
   const pct = total ? Math.round((done / total) * 100) : 0;
 
   // Seed the reading column to the first category (rendered open by default), and
   // re-seed when the version changes. Toggling clears/updates it from there, so
   // an empty right column means no category is open.
   useEffect(() => {
-    setOpenCategory(groups[0]?.category.id ?? '');
-  }, [groups]);
+    setOpenCategory(filteredGroups[0]?.category.id ?? '');
+  }, [filteredGroups]);
 
   const selectType = useCallback(
     (next: ChecklistType) => {
@@ -335,7 +356,9 @@ export default function BabyChecklist({
 
   // The right-hand reading column follows the open category. When no category is
   // open (openCategory === ''), it shows nothing.
-  const activeCategory = openCategory;
+  const activeCategory = filteredGroups.some((group) => group.category.id === openCategory)
+    ? openCategory
+    : '';
   const sidebarCards = activeCategory ? relatedReading[activeCategory] ?? [] : [];
 
   return (
@@ -373,10 +396,45 @@ export default function BabyChecklist({
         ))}
       </div>
 
+      <div className="tmbc-checklist__filters" aria-label="Checklist filters">
+        <label className="tmbc-filter">
+          <span className="tmbc-filter__label">When do I need this?</span>
+          <select
+            className="tmbc-filter__select"
+            value={timingFilter}
+            onChange={(e) => setTimingFilter(e.target.value as ChecklistTimingFilter)}
+          >
+            {CHECKLIST_TIMING_FILTERS.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="tmbc-filter">
+          <span className="tmbc-filter__label">Taylor&rsquo;s Take</span>
+          <select
+            className="tmbc-filter__select"
+            value={takeFilter}
+            onChange={(e) => setTakeFilter(e.target.value as ChecklistTakeFilter)}
+          >
+            {CHECKLIST_TAKE_FILTERS.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       {/* Overall progress + actions */}
       <div className="tmbc-checklist__toolbar">
         <div className="tmbc-progress__label">
-          <strong>Your checklist</strong>
+          <strong>
+            {timingFilter === 'all' && takeFilter === 'all'
+              ? 'Your checklist'
+              : 'Visible checklist'}
+          </strong>
           <span className="tmbc-progress__pct">
             {pct}% complete <span aria-hidden="true">·</span> {done} of {total}
           </span>
@@ -413,7 +471,12 @@ export default function BabyChecklist({
       <p className="tmbc-disclosure">{DISCLOSURE}</p>
 
       {/* Categories */}
-      {groups.map((group, idx) => {
+      {filteredGroups.length === 0 && (
+        <p className="tmbc-checklist__empty">
+          No checklist items match those filters.
+        </p>
+      )}
+      {filteredGroups.map((group, idx) => {
         const catItems = group.items;
         const catDone = catItems.reduce((n, i) => (checked[i.id] ? n + 1 : n), 0);
         return (
@@ -573,6 +636,12 @@ function ChecklistRow({
         <label className="tmbc-item__label" htmlFor={inputId}>
           <span className="tmbc-item__title">
             {item.title}
+            {item.takeLabel && (
+              <span className="tmbc-badge tmbc-badge--take">{item.takeLabel}</span>
+            )}
+            {item.timingLabel && (
+              <span className="tmbc-badge tmbc-badge--time">{item.timingLabel}</span>
+            )}
             {item.badge && <span className="tmbc-badge">{item.badge}</span>}
             {item.label && <span className="tmbc-badge tmbc-badge--qty">{item.label}</span>}
           </span>
