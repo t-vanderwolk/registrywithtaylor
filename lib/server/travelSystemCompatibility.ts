@@ -128,6 +128,16 @@ type StrollerCompatibilityRow = {
   confidence: string;
 };
 
+type SharedAdapterMetadata = {
+  adapterType: string | null;
+  adapterBabylistUrl: string | null;
+  adapterImage: string | null;
+  adapterPrice: number | null;
+};
+
+type SharedAdapterInferredSeatRow = CarSeatRow & SharedAdapterMetadata;
+type SharedAdapterInferredStrollerRow = StrollerRow & SharedAdapterMetadata;
+
 // ── Babylist (Impact.com) enrichment ──────────────────────────────────────────
 type BabylistFields = {
   babylistUrl: string | null;
@@ -686,6 +696,35 @@ function getAdapterType(
   return `${strollerBrand} adapter for ${carSeatBrand} infant seats`;
 }
 
+function sharedAdapterMetadataFromTriggerRows(
+  explicitRows: Array<{
+    brand: string;
+    adapterRequired: boolean;
+    adapterType: string | null;
+    adapterBabylistUrl: string | null;
+    adapterImage: string | null;
+    adapterPrice: number | null;
+  }>,
+): SharedAdapterMetadata {
+  const triggerRow =
+    explicitRows.find(
+      (row) =>
+        normalizeBrand(row.brand) === SHARED_ADAPTER_TRIGGER_BRAND &&
+        row.adapterRequired &&
+        (row.adapterBabylistUrl || row.adapterImage || row.adapterPrice != null || row.adapterType),
+    ) ??
+    explicitRows.find(
+      (row) => normalizeBrand(row.brand) === SHARED_ADAPTER_TRIGGER_BRAND && row.adapterRequired,
+    );
+
+  return {
+    adapterType: triggerRow?.adapterType ?? null,
+    adapterBabylistUrl: triggerRow?.adapterBabylistUrl ?? null,
+    adapterImage: triggerRow?.adapterImage ?? null,
+    adapterPrice: triggerRow?.adapterPrice ?? null,
+  };
+}
+
 function hasMissingTravelSystemSchema(error: unknown) {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     return error.code === 'P2010' || error.code === 'P2021' || error.code === 'P2022';
@@ -830,7 +869,7 @@ async function getSharedAdapterInferredSeats(
   stroller: StrollerRow,
   explicitRows: CarSeatCompatibilityRow[],
   retailerMap: Map<string, PublicRetailerFields>,
-): Promise<CarSeatRow[]> {
+): Promise<SharedAdapterInferredSeatRow[]> {
   // BOB / Thule / Veer have a frozen row-level audit. Do not rebuild that block
   // from the old shared-adapter rule; only explicit audited rows may surface.
   if (isRowLevelAuditedStrollerBrand(stroller.brand)) {
@@ -857,7 +896,8 @@ async function getSharedAdapterInferredSeats(
   }
 
   const explicitSeatIds = new Set(explicitRows.map((row) => row.carSeatId));
-  const inferred: CarSeatRow[] = [];
+  const adapterMetadata = sharedAdapterMetadataFromTriggerRows(explicitRows);
+  const inferred: SharedAdapterInferredSeatRow[] = [];
 
   for (const brand of SHARED_ADAPTER_EXPANSION_BRANDS) {
     const rows = await prisma.$queryRaw<CarSeatRow[]>`
@@ -878,7 +918,7 @@ async function getSharedAdapterInferredSeats(
     `;
     for (const row of await enrichWithPublicRetailers(rows, retailerMap)) {
       if (!explicitSeatIds.has(row.id) && hasPublicTravelSystemRetailer(row)) {
-        inferred.push(row);
+        inferred.push({ ...row, ...adapterMetadata });
         explicitSeatIds.add(row.id); // prevent dupes across expansion brands
       }
     }
@@ -897,14 +937,14 @@ async function getSharedAdapterInferredStrollers(
   carSeat: CarSeatRow,
   seenStrollerIds: Set<string>,
   retailerMap: Map<string, PublicRetailerFields>,
-): Promise<StrollerRow[]> {
+): Promise<SharedAdapterInferredStrollerRow[]> {
   if (!usesSharedInfantSeatAdapter(carSeat.brand)) {
     return [];
   }
 
   // No "SELECT DISTINCT … ORDER BY LOWER(col)" — Postgres requires DISTINCT's
   // ORDER BY expressions to be in the select list. Dedupe + sort in JS instead.
-  const rows = await prisma.$queryRaw<StrollerRow[]>`
+  const rows = await prisma.$queryRaw<SharedAdapterInferredStrollerRow[]>`
     SELECT
       stroller."id",
       stroller."brand",
@@ -914,17 +954,22 @@ async function getSharedAdapterInferredStrollers(
       stroller."babylistUrl",
       stroller."babylistPrice",
       COALESCE(stroller."imageUrl", stroller."babylistImage") AS "babylistImage",
-      stroller."amazonUrl" AS "amazonUrl"
+      stroller."amazonUrl" AS "amazonUrl",
+      compat."adapterType" AS "adapterType",
+      compat."adapterBabylistUrl" AS "adapterBabylistUrl",
+      compat."adapterImage" AS "adapterImage",
+      compat."adapterPrice" AS "adapterPrice"
     FROM "Compatibility" AS compat
     INNER JOIN "Stroller" AS stroller ON stroller."id" = compat."strollerId"
     INNER JOIN "CarSeat" AS seat ON seat."id" = compat."carSeatId"
     WHERE seat."seatType" = 'INFANT'
       AND LOWER(seat."brand") = ${SHARED_ADAPTER_TRIGGER_BRAND}
+      AND compat."adapterRequired" = TRUE
       AND LOWER(stroller."brand") NOT IN (${Prisma.join([...CLOSED_ECOSYSTEM_STROLLER_BRANDS])})
   `;
 
   const seen = new Set(seenStrollerIds);
-  const out: StrollerRow[] = [];
+  const out: SharedAdapterInferredStrollerRow[] = [];
   for (const row of await enrichWithPublicRetailers(rows, retailerMap)) {
     if (seen.has(row.id) || !hasPublicTravelSystemRetailer(row)) continue;
     // Same guard as stroller-first: BOB / Thule / Veer are governed only by the
@@ -1359,7 +1404,14 @@ export async function getTravelSystemCompatibility(
         displayName,
         compatibilityType: 'ADAPTER',
         adapterRequired: true,
-        adapterType: getAdapterType(stroller.brand, row.brand, true, null, null),
+        adapterType: row.adapterType ?? getAdapterType(stroller.brand, row.brand, true, null, null),
+        adapterImage: adapterIncludedWithStroller(stroller.brand) ? null : row.adapterImage,
+        adapterUrl: adapterIncludedWithStroller(stroller.brand)
+          ? null
+          : isAnbAdapterUrl(row.adapterBabylistUrl)
+            ? null
+            : row.adapterBabylistUrl,
+        adapterPrice: adapterIncludedWithStroller(stroller.brand) ? null : row.adapterPrice,
         notes:
           'Compatible through the shared Maxi-Cosi / Nuna / CYBEX / Clek adapter family. Use the adapter specified for this stroller model.',
         confidence: 'MEDIUM',
@@ -1637,10 +1689,14 @@ export async function getTravelSystemCompatibilityByCarSeat(
         summary: row.summary,
         compatibilityType: 'ADAPTER',
         adapterRequired: true,
-        adapterType: getAdapterType(row.brand, carSeat.brand, true, null, null),
-        adapterImage: null,
-        adapterUrl: null,
-        adapterPrice: null,
+        adapterType: row.adapterType ?? getAdapterType(row.brand, carSeat.brand, true, null, null),
+        adapterImage: adapterIncludedWithStroller(row.brand) ? null : row.adapterImage,
+        adapterUrl: adapterIncludedWithStroller(row.brand)
+          ? null
+          : isAnbAdapterUrl(row.adapterBabylistUrl)
+            ? null
+            : row.adapterBabylistUrl,
+        adapterPrice: adapterIncludedWithStroller(row.brand) ? null : row.adapterPrice,
         notes:
           'Compatible through the shared Maxi-Cosi / Nuna / CYBEX / Clek adapter family. Use the adapter specified for this stroller model.',
         confidence: 'MEDIUM',

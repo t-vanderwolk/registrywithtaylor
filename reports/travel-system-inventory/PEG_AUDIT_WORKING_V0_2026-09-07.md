@@ -24,6 +24,7 @@ Scope: PEG/Peg Perego only, using the user's updated display rule.
 - Explicit manufacturer-negative rows: 25
 - Decision rows: 100
 - Retail audit rows: 40
+- User-supplied Amazon adapter-link rows: 6
 
 ## Production Baseline
 
@@ -53,13 +54,16 @@ Scope: PEG/Peg Perego only, using the user's updated display rule.
 
 ## Retail-Link Policy
 
-- IKCS0018 adapter rows use Babylist product SKU 2428247.
-- IKCS0030 has no Babylist/Amazon exact product in the production catalog snapshot; the app will use the Amazon search fallback instead of the hidden MacroBaby adapter.
+- IKCS0018 adapter rows use the exact Amazon adapter link: https://amzn.to/467dIbZ.
+- IKCS0030 adapter rows use the exact Amazon adapter link: https://amzn.to/4ynhNVt.
+- Logical Maxi-Cosi / CYBEX / Clek shared-adapter display rows inherit the same adapter image/link/price from the named Nuna trigger rows for that stroller.
+- Four supplied Amazon links are documented but not wired to PEG stroller rows: IKCS0026 is reverse PEG car-seat-on-other-brand scope, B08T7PLCXH is unresolved for this target set, B07YD1NX82 is UPPAbaby reverse scope, and B084BJK517 is a YPSI/Z4 double-stroller adapter.
 - Retail audit status counts:
   - AMAZON_ALLOWED: 1
   - AUTHORIZED_RETAILER_FALLBACK_PUBLIC: 2
   - BABYLIST_ALLOWED: 8
   - FALLBACK_RETAILER_NOT_USED: 29
+  - USER_SUPPLIED_AMAZON_ALLOWED: 6
 
 ## QA
 
@@ -69,6 +73,7 @@ Scope: PEG/Peg Perego only, using the user's updated display rule.
 - Logical shared-adapter row assertion: PASS
 - Explicit negative row assertion: PASS
 - Peri guard target assertion: PASS from rollback production validation, 3 target rows.
+- User-supplied Amazon adapter-link mapping: PASS, 2 used for current PEG stroller adapter rows and 4 held out of production changes.
 
 ## Discrepancies
 
@@ -85,3 +90,4 @@ Scope: PEG/Peg Perego only, using the user's updated display rule.
 - TMBC_PEG_NormalizedPairs_2026-09-07.csv
 - TMBC_PEG_Decision_Set_2026-09-07.csv
 - TMBC_PEG_Retail_Link_Audit_2026-09-07.csv
+- TMBC_PEG_Amazon_Link_Map_2026-09-07.csv
