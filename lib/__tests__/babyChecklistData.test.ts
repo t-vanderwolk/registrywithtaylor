@@ -5,6 +5,7 @@ import {
   categories,
   checklistItems,
   groupedItemsForType,
+  itemsForType,
   itemMatchesChecklistFilters,
   type ChecklistTakeFilter,
   type ChecklistTimingFilter,
@@ -12,8 +13,9 @@ import {
 import { products } from '@/lib/checklist/products';
 
 describe('comprehensive baby checklist data', () => {
-  it('keeps the expanded checklist within the intended 150-175 item range', () => {
+  it('keeps the public checklist curated while preserving the full static source list', () => {
     expect(checklistItems).toHaveLength(175);
+    expect(itemsForType('neutral')).toHaveLength(123);
     expect(categories.map((category) => category.title)).toEqual([
       'Sleep + Nursery',
       'Feeding + Pumping',
@@ -44,14 +46,15 @@ describe('comprehensive baby checklist data', () => {
   });
 
   it('keeps every structured filter populated', () => {
+    const publicItems = itemsForType('neutral');
     for (const option of CHECKLIST_TIMING_FILTERS) {
       if (option.id === 'all') continue;
-      expect(checklistItems.some((item) => item.timing === option.id)).toBe(true);
+      expect(publicItems.some((item) => item.timing === option.id)).toBe(true);
     }
 
     for (const option of CHECKLIST_TAKE_FILTERS) {
       if (option.id === 'all') continue;
-      expect(checklistItems.some((item) => item.take === option.id)).toBe(true);
+      expect(publicItems.some((item) => item.take === option.id)).toBe(true);
     }
   });
 
@@ -156,7 +159,7 @@ describe('comprehensive baby checklist data', () => {
       'travel-system-stroller',
       'warm-water-dispenser',
     ];
-    const currentIds = new Set(checklistItems.map((item) => item.id));
+    const currentIds = new Set(itemsForType('neutral').map((item) => item.id));
 
     expect(assignedPickRowIds.filter((id) => !currentIds.has(id))).toEqual([]);
   });
