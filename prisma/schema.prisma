@@ -1060,6 +1060,7 @@ model ChecklistCategory {
   id        String   @id // slug, e.g. "keepsakes"
   title     String
   sortOrder Int      @default(100) // static categories occupy 0..70
+  hidden    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -1075,9 +1076,12 @@ model ChecklistItem {
   note        String?
   badge       String?
   taylorsTake String?
+  timing      String?
+  take        String?
   // Empty = all versions; otherwise a subset of girl/boy/neutral/twins.
   includeVersions String[] @default([])
   sortOrder   Int      @default(100)
+  hidden      Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

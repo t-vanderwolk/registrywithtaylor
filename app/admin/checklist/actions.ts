@@ -3,10 +3,52 @@
 import { revalidatePath } from 'next/cache';
 import { requireAdminSession } from '@/lib/server/session';
 import prismaBase from '@/lib/server/prisma';
+import {
+  categories as staticCategories,
+  checklistItems as staticItems,
+  type ChecklistTake,
+  type ChecklistTiming,
+} from '@/lib/checklist/data';
 
 // ChecklistProduct lands in the generated client on the Heroku build.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
+
+const VALID_TIMINGS: ChecklistTiming[] = [
+  'before-baby',
+  'first-8-weeks',
+  '3-6-months',
+  '6-12-months',
+  'later',
+];
+const VALID_TAKES: ChecklistTake[] = [
+  'essential',
+  'try-first',
+  'register-early',
+  'nice-to-have',
+  'lifestyle-dependent',
+  'wait',
+];
+const staticCategoryDefaults = new Map<string, { title: string; sortOrder: number }>(
+  staticCategories.map((category, index) => [
+    category.id,
+    { title: category.title, sortOrder: index * 10 },
+  ]),
+);
+const staticItemDefaults = new Map(
+  staticItems.map((item) => [
+    item.id,
+    {
+      categoryId: item.category,
+      title: item.title,
+      note: item.note ?? null,
+      badge: item.badge ?? null,
+      taylorsTake: item.taylorsTake ?? null,
+      timing: item.timing ?? null,
+      take: item.take ?? null,
+    },
+  ]),
+);
 
 const str = (fd: FormData, k: string): string | null => {
   const v = fd.get(k);
@@ -28,6 +70,10 @@ const list = (fd: FormData, k: string): string[] =>
     .getAll(k)
     .map((v) => String(v).trim())
     .filter(Boolean);
+const option = <T extends string>(fd: FormData, k: string, valid: readonly T[]): T | null => {
+  const v = str(fd, k);
+  return valid.includes(v as T) ? (v as T) : null;
+};
 const slugify = (s: string): string =>
   s
     .toLowerCase()
@@ -118,9 +164,9 @@ export async function deleteChecklistProduct(formData: FormData) {
   revalidate();
 }
 
-// ─── Checklist categories (admin-created, additive to the static ones) ────────
+// ─── Checklist categories (DB overrides for static rows + manual rows) ────────
 
-/** Create or rename a checklist category. Id is a slug (auto from title). */
+/** Create or rename a checklist category. Existing static ids become editable DB overrides. */
 export async function saveChecklistCategory(formData: FormData) {
   await requireAdminSession('/admin/checklist');
   const title = str(formData, 'title');
@@ -128,25 +174,30 @@ export async function saveChecklistCategory(formData: FormData) {
   const id = slugify(str(formData, 'id') ?? title);
   if (!id) return;
   const sortOrder = intNum(formData, 'sortOrder') ?? 100;
+  const hidden = !bool(formData, 'visible');
   await db.checklistCategory.upsert({
     where: { id },
-    create: { id, title, sortOrder },
-    update: { title, sortOrder },
+    create: { id, title, sortOrder, hidden },
+    update: { title, sortOrder, hidden },
   });
   revalidate();
 }
 
-/** Delete a category and any admin items filed under it. */
+/** Hide a category without deleting products or item assignments. */
 export async function deleteChecklistCategory(formData: FormData) {
   await requireAdminSession('/admin/checklist');
   const id = str(formData, 'id');
   if (!id) return;
-  await db.checklistItem.deleteMany({ where: { categoryId: id } }).catch(() => {});
-  await db.checklistCategory.delete({ where: { id } }).catch(() => {});
+  const fallback = staticCategoryDefaults.get(id) ?? { title: id, sortOrder: 100 };
+  await db.checklistCategory.upsert({
+    where: { id },
+    create: { id, title: fallback.title, sortOrder: fallback.sortOrder, hidden: true },
+    update: { hidden: true },
+  });
   revalidate();
 }
 
-// ─── Checklist line items (admin-created, additive to the static ones) ────────
+// ─── Checklist line items (DB overrides for static rows + manual rows) ────────
 
 /** Create a checklist line item under a category (static or admin category id). */
 export async function createChecklistItem(formData: FormData) {
@@ -169,38 +220,67 @@ export async function createChecklistItem(formData: FormData) {
       note: str(formData, 'note'),
       badge: str(formData, 'badge'),
       taylorsTake: str(formData, 'taylorsTake'),
+      timing: option(formData, 'timing', VALID_TIMINGS),
+      take: option(formData, 'take', VALID_TAKES),
       includeVersions: list(formData, 'includeVersions'),
       sortOrder: intNum(formData, 'sortOrder') ?? 100,
+      hidden: !bool(formData, 'visible'),
     },
   });
   revalidate();
 }
 
-/** Update a checklist line item. */
+/** Update a checklist line item. Existing static ids become editable DB overrides. */
 export async function updateChecklistItem(formData: FormData) {
   await requireAdminSession('/admin/checklist');
   const id = str(formData, 'id');
   if (!id) return;
-  await db.checklistItem.update({
+  const fallback = staticItemDefaults.get(id);
+  const categoryId = str(formData, 'categoryId') ?? fallback?.categoryId;
+  const title = str(formData, 'title') ?? fallback?.title;
+  if (!categoryId || !title) return;
+  const data = {
+    categoryId,
+    title,
+    note: str(formData, 'note'),
+    badge: str(formData, 'badge'),
+    taylorsTake: str(formData, 'taylorsTake'),
+    timing: option(formData, 'timing', VALID_TIMINGS),
+    take: option(formData, 'take', VALID_TAKES),
+    includeVersions: list(formData, 'includeVersions'),
+    sortOrder: intNum(formData, 'sortOrder') ?? 100,
+    hidden: !bool(formData, 'visible'),
+  };
+  await db.checklistItem.upsert({
     where: { id },
-    data: {
-      categoryId: str(formData, 'categoryId') ?? undefined,
-      title: str(formData, 'title') ?? undefined,
-      note: str(formData, 'note'),
-      badge: str(formData, 'badge'),
-      taylorsTake: str(formData, 'taylorsTake'),
-      includeVersions: list(formData, 'includeVersions'),
-      sortOrder: intNum(formData, 'sortOrder') ?? undefined,
-    },
+    create: { id, ...data },
+    update: data,
   });
   revalidate();
 }
 
-/** Delete a checklist line item. */
+/** Hide a checklist line item without deleting any product recommendations or affiliate links. */
 export async function deleteChecklistItem(formData: FormData) {
   await requireAdminSession('/admin/checklist');
   const id = str(formData, 'id');
   if (!id) return;
-  await db.checklistItem.delete({ where: { id } }).catch(() => {});
+  const fallback = staticItemDefaults.get(id);
+  await db.checklistItem.upsert({
+    where: { id },
+    create: {
+      id,
+      categoryId: fallback?.categoryId ?? 'registry-strategy',
+      title: fallback?.title ?? id,
+      note: fallback?.note ?? null,
+      badge: fallback?.badge ?? null,
+      taylorsTake: fallback?.taylorsTake ?? null,
+      timing: fallback?.timing ?? null,
+      take: fallback?.take ?? null,
+      includeVersions: [],
+      sortOrder: 100,
+      hidden: true,
+    },
+    update: { hidden: true },
+  });
   revalidate();
 }

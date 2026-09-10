@@ -4,6 +4,13 @@ import ChecklistCatalogPicker from '@/components/admin/checklist/ChecklistCatalo
 import ChecklistBlogProductPicker from '@/components/admin/checklist/ChecklistBlogProductPicker';
 import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import {
+  CHECKLIST_TAKE_LABELS,
+  CHECKLIST_TIMING_LABELS,
+  type ChecklistTake,
+  type ChecklistTiming,
+  type ChecklistType,
+} from '@/lib/checklist/data';
+import {
   createChecklistProduct,
   updateChecklistProduct,
   deleteChecklistProduct,
@@ -28,11 +35,26 @@ const db = prismaBase as any;
 const field = 'w-full rounded-md border border-neutral-200 px-3 py-1.5 text-sm text-neutral-800';
 const lbl = 'flex flex-col gap-1 text-[0.78rem] text-neutral-500';
 
-const VERSIONS: { id: string; label: string }[] = [
+const VERSIONS: { id: ChecklistType; label: string }[] = [
   { id: 'girl', label: 'Girl' },
   { id: 'boy', label: 'Boy' },
   { id: 'neutral', label: 'Neutral' },
   { id: 'twins', label: 'Twins' },
+];
+const TIMINGS: ChecklistTiming[] = [
+  'before-baby',
+  'first-8-weeks',
+  '3-6-months',
+  '6-12-months',
+  'later',
+];
+const TAKES: ChecklistTake[] = [
+  'essential',
+  'try-first',
+  'register-early',
+  'nice-to-have',
+  'lifestyle-dependent',
+  'wait',
 ];
 
 type CatGroup = { id: string; title: string; items: { id: string; title: string }[] };
@@ -70,7 +92,7 @@ function CategorySelect({
   defaultValue,
 }: {
   name: string;
-  categories: { id: string; title: string }[];
+  categories: { id: string; title: string; hidden?: boolean }[];
   defaultValue?: string | null;
 }) {
   return (
@@ -81,6 +103,33 @@ function CategorySelect({
       {categories.map((c) => (
         <option key={c.id} value={c.id}>
           {c.title}
+          {c.hidden ? ' (hidden)' : ''}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function TimingSelect({ defaultValue }: { defaultValue?: string | null }) {
+  return (
+    <select name="timing" defaultValue={defaultValue ?? ''} className={field}>
+      <option value="">— No timing label —</option>
+      {TIMINGS.map((timing) => (
+        <option key={timing} value={timing}>
+          {CHECKLIST_TIMING_LABELS[timing]}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function TakeSelect({ defaultValue }: { defaultValue?: string | null }) {
+  return (
+    <select name="take" defaultValue={defaultValue ?? ''} className={field}>
+      <option value="">— No Taylor&apos;s Take —</option>
+      {TAKES.map((take) => (
+        <option key={take} value={take}>
+          {CHECKLIST_TAKE_LABELS[take]}
         </option>
       ))}
     </select>
@@ -181,18 +230,6 @@ function ProductRow({
   );
 }
 
-type DbCategory = { id: string; title: string; sortOrder: number };
-type DbItem = {
-  id: string;
-  categoryId: string;
-  title: string;
-  note: string | null;
-  badge: string | null;
-  taylorsTake: string | null;
-  includeVersions: string[];
-  sortOrder: number;
-};
-
 export default async function AdminChecklistPage() {
   await requireAdminSession('/admin/checklist');
 
@@ -204,30 +241,18 @@ export default async function AdminChecklistPage() {
     dbError = true;
   }
 
-  // Merged structure (static + admin) powers the placement dropdown + grouping.
-  const structure = await getChecklistStructure();
+  // Merged editable structure (static baseline + DB overrides/manual rows).
+  const structure = await getChecklistStructure({ includeHidden: true });
   const groups: CatGroup[] = structure.categories.map((c) => ({
     id: c.id,
-    title: c.title,
-    items: structure.items.filter((it) => it.category === c.id).map((it) => ({ id: it.id, title: it.title })),
+    title: c.hidden ? `${c.title} (hidden)` : c.title,
+    items: structure.items
+      .filter((it) => it.category === c.id)
+      .map((it) => ({ id: it.id, title: it.hidden ? `${it.title} (hidden)` : it.title })),
   }));
   const itemLabel = new Map(structure.items.map((it) => [it.id, it.title]));
   const itemCategory = new Map(structure.items.map((it) => [it.id, it.category]));
   const categoryTitle = new Map(structure.categories.map((c) => [c.id, c.title]));
-
-  // Admin-created rows are the only editable/deletable structure.
-  let dbCategories: DbCategory[] = [];
-  let dbItems: DbItem[] = [];
-  try {
-    dbCategories = (await db.checklistCategory.findMany({ orderBy: { sortOrder: 'asc' } })) as DbCategory[];
-  } catch {
-    dbCategories = [];
-  }
-  try {
-    dbItems = (await db.checklistItem.findMany({ orderBy: [{ categoryId: 'asc' }, { sortOrder: 'asc' }] })) as DbItem[];
-  } catch {
-    dbItems = [];
-  }
 
   // Organize picks by the category of the checklist line they display under.
   const groupsByKey = new Map<string, { key: string; title: string; rows: Row[] }>();
@@ -259,8 +284,9 @@ export default async function AdminChecklistPage() {
       <section className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50/60 p-4">
         <h2 className="font-serif text-lg text-neutral-900">Categories &amp; line items</h2>
         <p className="mt-1 text-xs text-neutral-500">
-          The static baseline always shows. Anything you add here appears alongside it — a whole new
-          category, or a new line under any category. Assign products to a line from the picks below.
+          Every category and line item is editable here, including the original checklist defaults.
+          Saving a default row creates a database override; hiding a row keeps product picks and
+          affiliate links intact.
         </p>
 
         {/* Add a category */}
@@ -268,33 +294,48 @@ export default async function AdminChecklistPage() {
           <summary className="cursor-pointer text-sm font-semibold text-neutral-800">+ Add a category</summary>
           <form action={saveChecklistCategory} className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className={lbl}>Title *<input name="title" required placeholder="Keepsakes" className={field} /></label>
-            <label className={lbl}>Order<input name="sortOrder" placeholder="100" className={field} /><span className="text-[0.7rem] text-neutral-400">Static run 0–70; higher = later.</span></label>
+            <label className={lbl}>Order<input name="sortOrder" placeholder="100" className={field} /><span className="text-[0.7rem] text-neutral-400">Defaults run 0, 10, 20…; higher = later.</span></label>
+            <label className="flex items-center gap-2 text-sm text-neutral-600">
+              <input type="checkbox" name="visible" defaultChecked /> Visible on checklist
+            </label>
             <div className="sm:col-span-2">
               <button className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white">Add category</button>
             </div>
           </form>
         </details>
 
-        {/* Existing admin categories */}
-        {dbCategories.length > 0 && (
+        {/* Existing categories, including original defaults */}
+        {structure.categories.length > 0 && (
           <div className="mt-3 space-y-2">
-            {dbCategories.map((c) => (
+            {structure.categories.map((c) => (
               <details key={c.id} className="rounded-lg border border-neutral-200 bg-white p-3">
                 <summary className="flex cursor-pointer items-center justify-between text-sm text-neutral-800">
-                  <span className="font-semibold">{c.title}</span>
-                  <span className="text-xs text-neutral-400">order {c.sortOrder}</span>
+                  <span className="flex items-center gap-2 font-semibold">
+                    {c.title}
+                    {c.hidden ? (
+                      <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[0.65rem] uppercase tracking-[0.12em] text-neutral-500">
+                        hidden
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="text-xs text-neutral-400">
+                    {c.source ?? 'static'} · order {c.sortOrder}
+                  </span>
                 </summary>
                 <form action={saveChecklistCategory} className="mt-3 grid gap-3 sm:grid-cols-2">
                   <input type="hidden" name="id" value={c.id} />
                   <label className={lbl}>Title<input name="title" defaultValue={c.title} className={field} /></label>
                   <label className={lbl}>Order<input name="sortOrder" defaultValue={c.sortOrder} className={field} /></label>
+                  <label className="flex items-center gap-2 text-sm text-neutral-600">
+                    <input type="checkbox" name="visible" defaultChecked={!c.hidden} /> Visible on checklist
+                  </label>
                   <div className="sm:col-span-2">
                     <button className="rounded-full bg-neutral-900 px-4 py-1.5 text-xs font-semibold text-white">Save</button>
                   </div>
                 </form>
                 <form action={deleteChecklistCategory} className="mt-2">
                   <input type="hidden" name="id" value={c.id} />
-                  <button className="text-xs font-semibold text-red-600 underline">Delete category + its items</button>
+                  <button className="text-xs font-semibold text-red-600 underline">Hide category</button>
                 </form>
               </details>
             ))}
@@ -310,6 +351,8 @@ export default async function AdminChecklistPage() {
             <label className={`${lbl} sm:col-span-2`}>Note<input name="note" placeholder="Short one-liner shown under the title." className={field} /></label>
             <label className={lbl}>Badge<input name="badge" placeholder="NICE TO HAVE" className={field} /></label>
             <label className={lbl}>Order<input name="sortOrder" placeholder="100" className={field} /></label>
+            <label className={lbl}>Timing<TimingSelect /></label>
+            <label className={lbl}>Taylor&apos;s Take<TakeSelect /></label>
             <label className={`${lbl} sm:col-span-2`}>Taylor&rsquo;s take<textarea name="taylorsTake" rows={2} className={field} /></label>
             <fieldset className="sm:col-span-2">
               <legend className="text-[0.78rem] text-neutral-500">Show on versions (none = all)</legend>
@@ -321,48 +364,63 @@ export default async function AdminChecklistPage() {
                 ))}
               </div>
             </fieldset>
+            <label className="flex items-center gap-2 text-sm text-neutral-600">
+              <input type="checkbox" name="visible" defaultChecked /> Visible on checklist
+            </label>
             <div className="sm:col-span-2">
               <button className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white">Add line item</button>
             </div>
           </form>
         </details>
 
-        {/* Existing admin items */}
-        {dbItems.length > 0 && (
+        {/* Existing line items, including original defaults */}
+        {structure.items.length > 0 && (
           <div className="mt-3 space-y-2">
-            {dbItems.map((it) => (
+            {structure.items.map((it) => (
               <details key={it.id} className="rounded-lg border border-neutral-200 bg-white p-3">
                 <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm text-neutral-800">
-                  <span className="font-semibold">{it.title}</span>
+                  <span className="flex items-center gap-2 font-semibold">
+                    {it.title}
+                    {it.hidden ? (
+                      <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[0.65rem] uppercase tracking-[0.12em] text-neutral-500">
+                        hidden
+                      </span>
+                    ) : null}
+                  </span>
                   <span className="text-xs text-neutral-400">
-                    {categoryTitle.get(it.categoryId) ?? it.categoryId}
+                    {it.source ?? 'static'} · {categoryTitle.get(it.category) ?? it.category}
                   </span>
                 </summary>
                 <form action={updateChecklistItem} className="mt-3 grid gap-3 sm:grid-cols-2">
                   <input type="hidden" name="id" value={it.id} />
                   <label className={lbl}>Title<input name="title" defaultValue={it.title} className={field} /></label>
-                  <label className={lbl}>Category<CategorySelect name="categoryId" categories={structure.categories} defaultValue={it.categoryId} /></label>
+                  <label className={lbl}>Category<CategorySelect name="categoryId" categories={structure.categories} defaultValue={it.category} /></label>
                   <label className={`${lbl} sm:col-span-2`}>Note<input name="note" defaultValue={it.note ?? ''} className={field} /></label>
                   <label className={lbl}>Badge<input name="badge" defaultValue={it.badge ?? ''} className={field} /></label>
                   <label className={lbl}>Order<input name="sortOrder" defaultValue={it.sortOrder} className={field} /></label>
+                  <label className={lbl}>Timing<TimingSelect defaultValue={it.timing} /></label>
+                  <label className={lbl}>Taylor&apos;s Take<TakeSelect defaultValue={it.take} /></label>
                   <label className={`${lbl} sm:col-span-2`}>Taylor&rsquo;s take<textarea name="taylorsTake" rows={2} defaultValue={it.taylorsTake ?? ''} className={field} /></label>
                   <fieldset className="sm:col-span-2">
                     <legend className="text-[0.78rem] text-neutral-500">Show on versions (none = all)</legend>
                     <div className="mt-1 flex flex-wrap gap-3">
                       {VERSIONS.map((v) => (
                         <label key={v.id} className="flex items-center gap-1.5 text-sm text-neutral-600">
-                          <input type="checkbox" name="includeVersions" value={v.id} defaultChecked={it.includeVersions.includes(v.id)} /> {v.label}
+                          <input type="checkbox" name="includeVersions" value={v.id} defaultChecked={it.include?.includes(v.id)} /> {v.label}
                         </label>
                       ))}
                     </div>
                   </fieldset>
+                  <label className="flex items-center gap-2 text-sm text-neutral-600">
+                    <input type="checkbox" name="visible" defaultChecked={!it.hidden} /> Visible on checklist
+                  </label>
                   <div className="sm:col-span-2">
                     <button className="rounded-full bg-neutral-900 px-4 py-1.5 text-xs font-semibold text-white">Save</button>
                   </div>
                 </form>
                 <form action={deleteChecklistItem} className="mt-2">
                   <input type="hidden" name="id" value={it.id} />
-                  <button className="text-xs font-semibold text-red-600 underline">Delete line item</button>
+                  <button className="text-xs font-semibold text-red-600 underline">Hide line item</button>
                 </form>
               </details>
             ))}

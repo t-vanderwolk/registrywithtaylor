@@ -343,7 +343,8 @@ const CONDENSED_OUT_ITEM_IDS = new Set<string>([
   'returns-packaging',
 ]);
 
-export function isPublicChecklistItem(item: { id: string }): boolean {
+export function isPublicChecklistItem(item: { id: string; hidden?: boolean }): boolean {
+  if (typeof item.hidden === 'boolean') return !item.hidden;
   return !CONDENSED_OUT_ITEM_IDS.has(item.id);
 }
 
