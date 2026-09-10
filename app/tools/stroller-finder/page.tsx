@@ -4,8 +4,9 @@ import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
 import StrollerCatalogFinder from '@/components/tools/StrollerCatalogFinder';
 import ToolBreadcrumb from '@/components/tools/ToolBreadcrumb';
-import SectionIntro from '@/components/ui/SectionIntro';
 import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
+import SectionDivider from '@/components/ui/SectionDivider';
+import { Body, Eyebrow, H1 } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 import {
   strollerCategories,
@@ -92,6 +93,19 @@ export default async function StrollerFinderPage({
   const initialCategory = (Array.isArray(category) ? category[0] : category)?.trim() || null;
   const initialBrand = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
   const initialMode = (Array.isArray(view) ? view[0] : view)?.trim() === 'category' ? 'category' : null;
+  const categoryEntry = initialCategory
+    ? strollerCategories.find((entry) => entry.slug === initialCategory)
+    : null;
+  const pageTitle = initialBrand
+    ? `${initialBrand} Strollers`
+    : categoryEntry
+      ? `${categoryEntry.name} Strollers`
+      : 'Stroller Finder';
+  const pageDescription = initialBrand
+    ? `Browse ${initialBrand} strollers by model, type, live prices, photos, and shopping links.`
+    : categoryEntry
+      ? `Browse ${categoryEntry.name.toLowerCase()} strollers by model, price, retailer availability, and travel-system compatibility.`
+      : 'Browse our growing stroller catalog by brand and type — with live Babylist prices, photos, and shopping links.';
 
   return (
     <SiteShell currentPath="/tools/stroller-finder">
@@ -102,12 +116,14 @@ export default async function StrollerFinderPage({
           <div className="mx-auto mb-6 max-w-4xl">
             <ToolBreadcrumb current="Stroller Finder" />
           </div>
-          <SectionIntro
-            eyebrow="Tool"
-            title="Stroller Finder"
-            description="Browse our growing stroller catalog by brand and type — with live Babylist prices, photos, and shopping links."
-            contentWidthClassName="max-w-4xl"
-          />
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex justify-center">
+              <SectionDivider />
+            </div>
+            <Eyebrow className="mt-3 justify-center">Tool</Eyebrow>
+            <H1 className="mx-auto mt-4 max-w-4xl tracking-[0]">{pageTitle}</H1>
+            <Body className="mx-auto mt-4 max-w-none text-neutral-600">{pageDescription}</Body>
+          </div>
 
           <div className="mt-4 text-center">
             <Link
