@@ -7,9 +7,7 @@ import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminNotificationBell from '@/components/admin/AdminNotificationBell';
-
-type NavLink = { label: string; href: string };
-type NavSection = { label: string; links: NavLink[] };
+import type { AdminNavSection } from '@/lib/admin/navigation';
 
 function isActive(pathname: string, href: string) {
   if (href === '/admin') {
@@ -26,10 +24,15 @@ export default function AdminShell({
 }: {
   children: ReactNode;
   brand: string;
-  sections: NavSection[];
+  sections: AdminNavSection[];
   isReviewerMode?: boolean;
 }) {
   const pathname = usePathname() ?? '/admin';
+  const activeHref = sections
+    .flatMap((section) => section.links)
+    .map((link) => link.href)
+    .filter((href) => isActive(pathname, href))
+    .sort((a, b) => b.length - a.length)[0];
 
   return (
     <div className="admin-page">
@@ -46,12 +49,15 @@ export default function AdminShell({
             <p className="admin-eyebrow">{isReviewerMode ? 'Reviewer Portal' : 'Admin Portal'}</p>
             <p className="admin-h2">{brand}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="admin-shell-actions">
             {!isReviewerMode ? (
               <>
                 <AdminNotificationBell />
                 <AdminButton asChild variant="primary">
-                  <Link href="/admin/strollers">Manage strollers</Link>
+                  <Link href="/admin/catalog/compatibility">Compatibility</Link>
+                </AdminButton>
+                <AdminButton asChild variant="secondary">
+                  <Link href="/admin/checklist">Checklist</Link>
                 </AdminButton>
                 <AdminButton asChild variant="secondary">
                   <Link href="/admin/blog/new">New Post</Link>
@@ -81,17 +87,22 @@ export default function AdminShell({
                   return (
                     <div key={section.label} className="admin-stack gap-1.5">
                       <p className="admin-eyebrow">{section.label}</p>
+                      {section.summary ? <p className="admin-nav-summary">{section.summary}</p> : null}
                       <nav className="admin-stack gap-1.5" aria-label={`${section.label} navigation`}>
-                        {section.links.map((link) => (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className={`admin-nav-link ${isActive(pathname, link.href) ? 'is-active' : ''}`}
-                            aria-current={isActive(pathname, link.href) ? 'page' : undefined}
-                          >
-                            {link.label}
-                          </Link>
-                        ))}
+                        {section.links.map((link) => {
+                          const active = link.href === activeHref;
+
+                          return (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              className={`admin-nav-link ${active ? 'is-active' : ''}`}
+                              aria-current={active ? 'page' : undefined}
+                            >
+                              {link.label}
+                            </Link>
+                          );
+                        })}
                       </nav>
                     </div>
                   );

@@ -7,60 +7,16 @@ import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
+import { getAdminDashboardNavGroups } from '@/lib/admin/navigation';
 import { getNewsletterAnalytics } from '@/lib/server/mailchimp';
 import { requireAdminViewSession } from '@/lib/server/session';
 
 export const dynamic = 'force-dynamic';
 
-type AdminNavLink = { href: string; label: string; editorOnly?: boolean };
-
-// Grouped admin navigation surfaced in the dashboard Quick links.
-// editorOnly links are hidden for read-only (reviewer) admins.
-const ADMIN_NAV_GROUPS: { title: string; links: AdminNavLink[] }[] = [
-  {
-    title: 'Databases',
-    links: [
-      { href: '/admin/strollers', label: 'Strollers', editorOnly: true },
-      { href: '/admin/car-seats', label: 'Car seats', editorOnly: true },
-      { href: '/admin/catalog/compatibility', label: 'Compatibility', editorOnly: true },
-      { href: '/admin/catalog', label: 'Affiliate catalog', editorOnly: true },
-      { href: '/admin/catalog/health', label: 'Catalog health' },
-    ],
-  },
-  {
-    title: 'Content',
-    links: [
-      { href: '/admin/blog', label: 'Blog' },
-      { href: '/admin/blog/planner', label: 'Blog planner', editorOnly: true },
-      { href: '/admin/media', label: 'Media library', editorOnly: true },
-    ],
-  },
-  {
-    title: 'People',
-    links: [
-      { href: '/admin/members', label: 'Members' },
-      { href: '/admin/consultations', label: 'Consultations' },
-      { href: '/admin/inquiries', label: 'Inquiries', editorOnly: true },
-    ],
-  },
-  {
-    title: 'Commerce',
-    links: [
-      { href: '/admin/affiliates', label: 'Affiliates', editorOnly: true },
-      { href: '/admin/affiliate-links', label: 'Affiliate links', editorOnly: true },
-      { href: '/admin/partners', label: 'Partners', editorOnly: true },
-      { href: '/admin/babylist', label: 'Babylist SKUs', editorOnly: true },
-    ],
-  },
-  {
-    title: 'Insights',
-    links: [{ href: '/admin/analytics', label: 'Analytics' }],
-  },
-];
-
 export default async function AdminDashboardPage() {
   const session = await requireAdminViewSession();
   const readOnly = session.user.role === 'REVIEWER';
+  const navGroups = getAdminDashboardNavGroups(readOnly);
   const [
     consultationStatusCounts,
     inquiryStatusCounts,
@@ -125,6 +81,30 @@ export default async function AdminDashboardPage() {
             : 'Monitor consultation workflow, tracked web traffic, and the queues that keep the business moving.'
         }
       />
+
+      <AdminSurface variant="muted" className="admin-stack gap-4">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Admin areas</p>
+          <p className="admin-body">Choose a workspace by the job you need to do.</p>
+        </div>
+        <div className="admin-hub-grid">
+          {navGroups.map((group) => (
+            <section key={group.label} className="admin-hub-group" aria-label={`${group.label} links`}>
+              <div className="admin-stack gap-1">
+                <h2 className="admin-hub-title">{group.label}</h2>
+                {group.summary ? <p className="admin-micro">{group.summary}</p> : null}
+              </div>
+              <div className="admin-hub-links">
+                {group.links.map((link) => (
+                  <AdminButton key={link.href} asChild variant="secondary" size="sm">
+                    <Link href={link.href}>{link.label}</Link>
+                  </AdminButton>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </AdminSurface>
 
       <AdminSurface className="admin-stack gap-5">
         <h2 className="admin-h2">Consultation Requests</h2>
@@ -313,28 +293,7 @@ export default async function AdminDashboardPage() {
         </AdminSurface>
       ) : null}
 
-      <AdminSurface variant="muted" className="admin-stack gap-4">
-        <p className="admin-eyebrow">Quick links</p>
-        <p className="admin-body">Blog posts in system: {totalPosts}</p>
-        <div className="admin-stack gap-4">
-          {ADMIN_NAV_GROUPS.map((group) => {
-            const links = group.links.filter((link) => !link.editorOnly || !readOnly);
-            if (links.length === 0) return null;
-            return (
-              <div key={group.title} className="admin-stack gap-2">
-                <p className="admin-eyebrow opacity-60">{group.title}</p>
-                <div className="flex flex-wrap items-center gap-2">
-                  {links.map((link) => (
-                    <AdminButton key={link.href} asChild variant="secondary">
-                      <Link href={link.href}>{link.label}</Link>
-                    </AdminButton>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </AdminSurface>
+      <p className="admin-micro">Blog posts in system: {totalPosts}</p>
     </AdminStack>
   );
 }

@@ -5,9 +5,10 @@ import Link from 'next/link';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
-import SectionIntro from '@/components/ui/SectionIntro';
 import StrollerProfilePanel from '@/components/tools/StrollerProfilePanel';
 import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
+import SectionDivider from '@/components/ui/SectionDivider';
+import { Body, Eyebrow, H1 } from '@/components/ui/MarketingHeading';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 import { getStrollerRealSpecs } from '@/lib/server/strollerSpecLookup';
@@ -872,6 +873,10 @@ export default async function TravelSystemResultsPage({
   const results = isStrollerFirst ? selection.result.compatibleCarSeats : selection.result.compatibleStrollers;
   const counts = countMatches(results);
   const resultNoun = isStrollerFirst ? 'compatible infant car seats' : 'compatible strollers';
+  const pageTitle = isStrollerFirst
+    ? `Compatible Infant Car Seats for ${selected.displayName}`
+    : `Compatible Strollers for ${selected.displayName}`;
+  const pageDescription = `We found ${counts.total} ${resultNoun} for ${selected.displayName}.`;
 
   // Real, feed-backed specs for the selected stroller (weight, seat limit, fold).
   const strollerRealSpecs = isStrollerFirst
@@ -891,12 +896,14 @@ export default async function TravelSystemResultsPage({
               current={displayNameWithoutBrand(selected.displayName, selected.brand)}
             />
           </div>
-          <SectionIntro
-            eyebrow="Travel System Results"
-            title="Your Travel System Results"
-            description={`We found ${counts.total} ${resultNoun} for ${selected.displayName}.`}
-            contentWidthClassName="max-w-4xl"
-          />
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex justify-center">
+              <SectionDivider />
+            </div>
+            <Eyebrow className="mt-3 justify-center">Travel System Results</Eyebrow>
+            <H1 className="mx-auto mt-4 max-w-4xl tracking-[0]">{pageTitle}</H1>
+            <Body className="mx-auto mt-4 max-w-none text-neutral-600">{pageDescription}</Body>
+          </div>
 
           <div className="mt-10 space-y-8">
             <SelectedSummaryCard

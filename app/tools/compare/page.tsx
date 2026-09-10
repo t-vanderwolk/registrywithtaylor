@@ -124,6 +124,23 @@ export default async function StrollerComparePage({
   const initialIds = parseCompareIds(rawIds);
 
   const catalog = await getStrollerCompareCatalog();
+  const byId = new Map(catalog.map((item) => [item.id, item]));
+  const selected = initialIds
+    .map((id) => byId.get(id))
+    .filter((item): item is StrollerCompareItem => item != null);
+  const selectedNames = selected.map((item) => item.displayName);
+  const heading =
+    selectedNames.length === 1
+      ? `Compare ${selectedNames[0]} Against Other Strollers`
+      : selectedNames.length > 1
+        ? `Compare ${selectedNames.join(' vs ')}`
+        : 'Stroller Comparison Tool: Compare Strollers Side by Side';
+  const intro =
+    selectedNames.length === 1
+      ? `Compare ${selectedNames[0]} side by side with other strollers — weight, fold, price, basket, modular, travel-system, overhead-bin, newborn and jogging readiness.`
+      : selectedNames.length > 1
+        ? `Compare ${selectedNames.join(' vs ')} side by side — weight, fold, price, basket, modular, travel-system, overhead-bin, newborn and jogging readiness.`
+        : 'Line up two or three strollers and see how they stack up — weight, fold, price, basket, modular, travel-system, overhead-bin, newborn and jogging readiness — with live prices and where to buy each one.';
 
   return (
     <SiteShell currentPath="/tools/compare">
@@ -150,11 +167,10 @@ export default async function StrollerComparePage({
 
             <p className="mkt-eyebrow mt-6">Free Tool · Instant Results · No Sign-Up</p>
             <h1 className="mt-3 font-serif text-[clamp(2rem,4.4vw,3rem)] leading-[1.05] tracking-[-0.03em] text-neutral-900">
-              Stroller Comparison Tool: Compare Strollers Side by Side
+              {heading}
             </h1>
             <p className="mt-5 max-w-2xl text-[1rem] leading-[1.8] text-neutral-600">
-              Line up two or three strollers and see how they stack up — weight, fold, price, basket, modular, travel-system,
-              overhead-bin, newborn and jogging readiness — with live prices and where to buy each one.
+              {intro}
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[0.78rem] font-medium text-[var(--color-accent-dark)]">
               {HERO_BADGES.map((badge) => (

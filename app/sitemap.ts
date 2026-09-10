@@ -1,12 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
+import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
 import { getTravelSystemCarSeats, getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { strollerCategories, strollerFinderCategoryHref, strollerFinderBrandHref } from '@/lib/resources/knowBeforeYouBuy';
 import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
+const compareResultHref = (id: string) => {
+  const params = new URLSearchParams({ ids: id });
+  return `/tools/compare?${params.toString()}`;
+};
 
 // /learn and /academy are intentionally excluded from the sitemap (and from the
 // internal-link system) while those surfaces are hidden. The static set below
@@ -46,6 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let brandEntries: MetadataRoute.Sitemap = [];
   let travelSystemResultEntries: MetadataRoute.Sitemap = [];
+  let compareResultEntries: MetadataRoute.Sitemap = [];
   try {
     const strollers = await getTravelSystemStrollers();
 
@@ -83,6 +89,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Failed to build travel-system car-seat sitemap entries.', error);
   }
 
+  try {
+    const compareCatalog = await getStrollerCompareCatalog();
+    compareResultEntries = compareCatalog.map((item) => ({
+      url: buildUrl(compareResultHref(item.id)),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.error('Failed to build stroller-compare sitemap entries.', error);
+  }
+
   let blogEntries: MetadataRoute.Sitemap = [];
   try {
     const posts = await getPublicBlogIndexPosts(new Date());
@@ -101,7 +118,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...categoryEntries, ...brandEntries, ...travelSystemResultEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [
+        ...staticEntries,
+        ...categoryEntries,
+        ...brandEntries,
+        ...compareResultEntries,
+        ...travelSystemResultEntries,
+        ...blogEntries,
+      ].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }

@@ -36,6 +36,18 @@ function isLearnGated(pathname: string): boolean {
   return pathname.startsWith('/learn/');
 }
 
+function isHiddenLearningRoute(pathname: string): boolean {
+  return pathname === '/academy' || pathname.startsWith('/academy/') || pathname === '/learn' || pathname.startsWith('/learn/');
+}
+
+function withHiddenLearningRobots(response: NextResponse, pathname: string): NextResponse {
+  if (isHiddenLearningRoute(pathname)) {
+    response.headers.set('X-Robots-Tag', 'noindex, follow');
+  }
+
+  return response;
+}
+
 // ─── Middleware ───────────────────────────────────────────────────────────────
 
 // Retired preview lessons now live as Journal pillar posts. Permanent-redirect
@@ -49,37 +61,17 @@ const LESSON_TO_POST: Record<string, string> = {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
+  // ── Academy in launch-phase hidden state ───────────────────────────────────
+  // Keep the concept hidden while the flag is off, but still attach an explicit
+  // crawl directive to the source URL before sending visitors to the live hub.
+  if (!isAcademyEnabled() && isHiddenLearningRoute(pathname)) {
+    return withHiddenLearningRobots(NextResponse.redirect(new URL('/resources', req.url), 308), pathname);
+  }
+
   // ── Retired preview lessons → Journal pillar posts (permanent) ─────────────
   const retiredTarget = LESSON_TO_POST[pathname];
   if (retiredTarget) {
-    return NextResponse.redirect(new URL(retiredTarget, req.url), 308);
-  }
-
-  // ── Academy in launch-phase hidden state ───────────────────────────────────
-  // Academy is hidden from the public, with two exceptions:
-  //   (a) the three free preview modules stay public (surfaced on /resources), and
-  //   (b) signed-in members keep access to their modules from the dashboard.
-  // Everyone else hitting an Academy route is sent to /services.
-  if (
-    !isAcademyEnabled() &&
-    (pathname === '/academy' ||
-      pathname.startsWith('/academy/') ||
-      pathname === '/learn' ||
-      pathname.startsWith('/learn/'))
-  ) {
-    const isPublicPreview =
-      pathname === '/learn/art-of-the-registry' ||
-      pathname === '/learn/nursery-foundations' ||
-      pathname === '/learn/stroller-foundations';
-
-    if (!isPublicPreview) {
-      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-      if (!token) {
-        return NextResponse.redirect(new URL('/services', req.url));
-      }
-      // Signed-in members fall through to the enrollment gate below.
-    }
-    // Public preview modules fall through (whitelisted as public in the gate).
+    return withHiddenLearningRobots(NextResponse.redirect(new URL(retiredTarget, req.url), 308), pathname);
   }
 
   // ── Registry API guard ────────────────────────────────────────────────────
@@ -88,7 +80,7 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-    return NextResponse.next();
+    return withHiddenLearningRobots(NextResponse.next(), pathname);
   }
 
   // ── Admin guard ────────────────────────────────────────────────────────────
@@ -98,15 +90,15 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       const loginUrl = new URL('/login', req.url);
       loginUrl.searchParams.set('callbackUrl', `${pathname}${req.nextUrl.search}`);
-      return NextResponse.redirect(loginUrl);
+      return withHiddenLearningRobots(NextResponse.redirect(loginUrl), pathname);
     }
 
     const role = token.role as string | undefined;
     if (!canAccessAdminView(role)) {
-      return NextResponse.redirect(new URL(getDashboardPath(role), req.url));
+      return withHiddenLearningRobots(NextResponse.redirect(new URL(getDashboardPath(role), req.url)), pathname);
     }
 
-    return NextResponse.next();
+    return withHiddenLearningRobots(NextResponse.next(), pathname);
   }
 
   // ── Member dashboard guard (all /dashboard/* except reviewer) ─────────────
@@ -116,10 +108,10 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       const loginUrl = new URL('/login', req.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(loginUrl);
+      return withHiddenLearningRobots(NextResponse.redirect(loginUrl), pathname);
     }
 
-    return NextResponse.next();
+    return withHiddenLearningRobots(NextResponse.next(), pathname);
   }
 
   // ── Reviewer dashboard guard ───────────────────────────────────────────────
@@ -129,15 +121,15 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       const loginUrl = new URL('/login', req.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
-      return NextResponse.redirect(loginUrl);
+      return withHiddenLearningRobots(NextResponse.redirect(loginUrl), pathname);
     }
 
     const role = token.role as string | undefined;
     if (!canAccessAdminView(role)) {
-      return NextResponse.redirect(new URL('/', req.url));
+      return withHiddenLearningRobots(NextResponse.redirect(new URL('/', req.url)), pathname);
     }
 
-    return NextResponse.next();
+    return withHiddenLearningRobots(NextResponse.next(), pathname);
   }
 
   // ── Shared enrollment check (used by /learn and /academy gates) ──────────
@@ -151,19 +143,19 @@ export async function middleware(req: NextRequest) {
   if (needsEnrollmentCheck) {
     const enrolled = req.cookies.get('tmbc_enrolled');
     if (enrolled?.value) {
-      return NextResponse.next();
+      return withHiddenLearningRobots(NextResponse.next(), pathname);
     }
 
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const PAID_TIERS = new Set(['academy', 'academy_plus', 'concierge']);
     if (token?.tier && PAID_TIERS.has(token.tier as string)) {
-      return NextResponse.next();
+      return withHiddenLearningRobots(NextResponse.next(), pathname);
     }
 
-    return NextResponse.redirect(new URL('/learn/waitlist', req.url));
+    return withHiddenLearningRobots(NextResponse.redirect(new URL('/learn/waitlist', req.url)), pathname);
   }
 
-  return NextResponse.next();
+  return withHiddenLearningRobots(NextResponse.next(), pathname);
 }
 
 export const config = {

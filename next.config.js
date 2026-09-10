@@ -80,25 +80,24 @@ const academyGuideRedirects = [
   { source: '/academy/postpartum/first-weeks-essentials', destination: '/learn', permanent: true },
 ];
 
-// When Academy is hidden (launch-phase), every /academy and /guides URL ultimately
-// lands on /services. Sending them straight there in one 301 avoids a redirect
-// chain (/academy → /learn → /services) that Search Console flags. When Academy is
-// re-enabled, the /learn destination redirects above take over to preserve equity.
-// The Academy / Learn / Guides were all EDUCATIONAL content, so while hidden they
-// 301 to /resources (the current "Know Before You Buy" educational hub) — the
-// closest live equivalent — rather than the /services sales page. This also
-// scrubs the legacy "Academy / mentor-led / membership / waitlist" positioning
-// from Google's index once the Academy env flag is off (see NEXT_PUBLIC_ACADEMY_ENABLED).
-const academyDisabledFlatten = [
-  { source: '/academy', destination: '/resources', permanent: true },
-  { source: '/academy/:path*', destination: '/resources', permanent: true },
+// When Academy is hidden (launch-phase), legacy guide URLs collapse to
+// /resources, the current "Know Before You Buy" educational hub. Academy/Learn
+// routes are handled in middleware instead so their source responses can carry
+// an explicit X-Robots-Tag noindex directive before redirecting.
+const academyDisabledGuideRedirects = [
   { source: '/guides', destination: '/resources', permanent: true },
   { source: '/guides/:path*', destination: '/resources', permanent: true },
-  { source: '/learn', destination: '/resources', permanent: true },
-  { source: '/learn/:path*', destination: '/resources', permanent: true },
 ];
 
+const academyEnabledGuideRedirects = academyGuideRedirects.filter(
+  ({ source }) => !source.startsWith('/academy') && !source.startsWith('/learn'),
+);
+
 const academyEnabled = process.env.NEXT_PUBLIC_ACADEMY_ENABLED === 'true';
+
+const hiddenLearningRobotsHeader = [
+  { key: 'X-Robots-Tag', value: 'noindex, follow' },
+];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -144,6 +143,22 @@ const nextConfig = {
   // (Next already hashes + immutably caches /_next/static; this covers /assets.)
   async headers() {
     return [
+      {
+        source: '/academy',
+        headers: hiddenLearningRobotsHeader,
+      },
+      {
+        source: '/academy/:path*',
+        headers: hiddenLearningRobotsHeader,
+      },
+      {
+        source: '/learn',
+        headers: hiddenLearningRobotsHeader,
+      },
+      {
+        source: '/learn/:path*',
+        headers: hiddenLearningRobotsHeader,
+      },
       {
         source: '/assets/:path*',
         headers: [
@@ -191,8 +206,8 @@ const nextConfig = {
       // Academy → Learn must come BEFORE the legacy guide redirects
       // so the more-specific patterns take precedence.
       ...(academyEnabled
-        ? [...academyToLearnRedirects, ...academyGuideRedirects]
-        : academyDisabledFlatten),
+        ? academyEnabledGuideRedirects
+        : academyDisabledGuideRedirects),
       // ─── Retired standalone pages → their current homes ──────────────────────
       // These URLs 404 today but are still in Google's index ("Crawled – currently
       // not indexed"). 301 them to /services so the equity + any inbound links land
