@@ -198,6 +198,27 @@
     color: var(--admin-color-text-muted);
   }
 
+  .admin-shell-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .admin-shell-actions {
+      justify-content: flex-end;
+    }
+  }
+
+  .admin-nav-summary {
+    margin: -0.2rem 0 0.2rem;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--admin-color-text-micro);
+  }
+
   .admin-nav-link {
     border-radius: 16px;
     color: var(--admin-color-text-muted);
@@ -220,6 +241,46 @@
     color: var(--admin-color-text);
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
     font-weight: 600;
+  }
+
+  .admin-hub-grid {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 768px) {
+    .admin-hub-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .admin-hub-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .admin-hub-group {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.8rem;
+    border-top: 1px solid var(--admin-color-border);
+    padding-top: 1rem;
+  }
+
+  .admin-hub-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--admin-color-text);
+  }
+
+  .admin-hub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
   }
 
   .admin-btn {

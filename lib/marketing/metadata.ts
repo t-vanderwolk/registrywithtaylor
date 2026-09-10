@@ -41,6 +41,34 @@ const DEFAULT_SITE_KEYWORDS = [
   'parenthood planning',
 ] as const;
 
+export const NOINDEX_FOLLOW_ROBOTS = {
+  index: false,
+  follow: true,
+  googleBot: {
+    index: false,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
+  },
+} satisfies Metadata['robots'];
+
+const INDEX_FOLLOW_ROBOTS = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
+  },
+} satisfies Metadata['robots'];
+
+function isHiddenLearningPath(path: BuildMarketingMetadataInput['path']) {
+  return path === '/academy' || path.startsWith('/academy/') || path === '/learn' || path.startsWith('/learn/');
+}
+
 function normalizeKeyword(value: string) {
   return value.replace(/\s+/g, ' ').trim();
 }
@@ -136,17 +164,7 @@ export function buildMarketingMetadata({
     authors: [{ name: 'Taylor Vanderwolk', url: SITE_URL }],
     creator: 'Taylor Vanderwolk',
     publisher: SITE_NAME,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-        'max-video-preview': -1,
-      },
-    },
+    robots: isHiddenLearningPath(path) ? NOINDEX_FOLLOW_ROBOTS : INDEX_FOLLOW_ROBOTS,
     alternates: {
       canonical: path,
     },

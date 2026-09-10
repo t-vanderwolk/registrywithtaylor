@@ -1,11 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/marketing/metadata';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
-import { getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
+import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
+import { getTravelSystemCarSeats, getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { strollerCategories, strollerFinderCategoryHref, strollerFinderBrandHref } from '@/lib/resources/knowBeforeYouBuy';
+import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
 
 const buildUrl = (path: string) => new URL(path, SITE_URL).toString();
+const compareResultHref = (id: string) => {
+  const params = new URLSearchParams({ ids: id });
+  return `/tools/compare?${params.toString()}`;
+};
 
 // /learn and /academy are intentionally excluded from the sitemap (and from the
 // internal-link system) while those surfaces are hidden. The static set below
@@ -43,13 +49,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // NOTE: /tools/travel-system/results?stroller=…&carSeat=… pages are
-  // intentionally noindex (see app/tools/travel-system/results/page.tsx — they
-  // canonicalize to a noindexed bare path). A sitemap must never list noindexed
-  // URLs, so those result permutations are deliberately excluded here. Only the
-  // indexable /tools/travel-system page (in staticEntries) and the discoverable
-  // Stroller Finder brand landing pages below are included.
   let brandEntries: MetadataRoute.Sitemap = [];
+  let travelSystemResultEntries: MetadataRoute.Sitemap = [];
+  let compareResultEntries: MetadataRoute.Sitemap = [];
   try {
     const strollers = await getTravelSystemStrollers();
 
@@ -64,8 +66,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
+
+    travelSystemResultEntries = strollers.map((stroller) => ({
+      url: buildUrl(travelSystemResultsHref('stroller', stroller)),
+      changeFrequency: 'weekly' as const,
+      priority: 0.65,
+    }));
   } catch (error) {
     console.error('Failed to build stroller-finder brand sitemap entries.', error);
+  }
+
+  try {
+    const carSeats = await getTravelSystemCarSeats();
+    travelSystemResultEntries.push(
+      ...carSeats.map((carSeat) => ({
+        url: buildUrl(travelSystemResultsHref('carSeat', carSeat)),
+        changeFrequency: 'weekly' as const,
+        priority: 0.65,
+      })),
+    );
+  } catch (error) {
+    console.error('Failed to build travel-system car-seat sitemap entries.', error);
+  }
+
+  try {
+    const compareCatalog = await getStrollerCompareCatalog();
+    compareResultEntries = compareCatalog.map((item) => ({
+      url: buildUrl(compareResultHref(item.id)),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.error('Failed to build stroller-compare sitemap entries.', error);
   }
 
   let blogEntries: MetadataRoute.Sitemap = [];
@@ -86,7 +118,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // De-dupe by URL (variant strollers can share a slug) while preserving order.
   return Array.from(
     new Map(
-      [...staticEntries, ...categoryEntries, ...brandEntries, ...blogEntries].map((entry) => [entry.url, entry]),
+      [
+        ...staticEntries,
+        ...categoryEntries,
+        ...brandEntries,
+        ...compareResultEntries,
+        ...travelSystemResultEntries,
+        ...blogEntries,
+      ].map((entry) => [entry.url, entry]),
     ).values(),
   );
 }
