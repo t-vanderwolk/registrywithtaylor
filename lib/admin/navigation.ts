@@ -42,7 +42,7 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
     label: 'Publishing',
     summary: 'Public blog workflow, editorial planning, reusable media, and categories.',
     links: [
-      { label: 'Posts', href: '/admin/blog' },
+      { label: 'Blog Hub', href: '/admin/blog' },
       { label: 'Planner', href: '/admin/blog/planner' },
       { label: 'Categories', href: '/admin/blog/categories' },
       { label: 'Media Library', href: '/admin/media' },

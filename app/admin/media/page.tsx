@@ -98,7 +98,7 @@ export default async function AdminMediaPage({ searchParams }: { searchParams?: 
       <AdminHeader
         eyebrow="Media"
         title="Media library"
-          subtitle={
+        subtitle={
           bucketName
             ? `Uploaded blog assets stored in the ${bucketName} bucket.`
             : 'Storage is not configured yet. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to enable uploads. SUPABASE_STORAGE_BUCKET defaults to blog-media.'
@@ -123,7 +123,7 @@ export default async function AdminMediaPage({ searchParams }: { searchParams?: 
         <AdminSurface>
           <AdminEmptyState
             title="No media uploaded yet"
-            hint="Upload files from the blog, guide, or academy editor to populate the library."
+            hint="Upload files from the blog editor to populate the library."
           />
         </AdminSurface>
       ) : (

@@ -12,6 +12,13 @@ type SearchParams = Promise<Record<string, string | string[] | undefined>> | und
 
 export const dynamic = 'force-dynamic';
 
+const PUBLISHING_WORKSPACES = [
+  { label: 'Planner', href: '/admin/blog/planner' },
+  { label: 'Categories', href: '/admin/blog/categories' },
+  { label: 'Media Library', href: '/admin/media' },
+  { label: 'Public Blog', href: '/blog' },
+];
+
 export default async function AdminBlogIndex({
   searchParams,
 }: {
@@ -47,6 +54,25 @@ export default async function AdminBlogIndex({
           </>
         }
       />
+
+      <AdminSurface variant="muted" className="admin-stack gap-4">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Publishing workspaces</p>
+          <p className="admin-body">Use the blog hub as the starting point for drafting, planning, category review, and media cleanup.</p>
+        </div>
+        <div className="admin-hub-links">
+          {!readOnly ? (
+            <AdminButton asChild variant="primary" size="sm">
+              <Link href="/admin/blog/new">New Post</Link>
+            </AdminButton>
+          ) : null}
+          {PUBLISHING_WORKSPACES.map((workspace) => (
+            <AdminButton key={workspace.href} asChild variant="secondary" size="sm">
+              <Link href={workspace.href}>{workspace.label}</Link>
+            </AdminButton>
+          ))}
+        </div>
+      </AdminSurface>
 
       <AdminKpiStrip
         items={[
