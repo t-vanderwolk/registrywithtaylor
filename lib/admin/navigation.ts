@@ -52,7 +52,7 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
     label: 'Affiliate',
     summary: 'Affiliate programs, partner metadata, and trackable short links.',
     links: [
-      { label: 'Affiliate Canon', href: '/admin/affiliates' },
+      { label: 'Affiliate Hub', href: '/admin/affiliates' },
       { label: 'Partners', href: '/admin/partners' },
       { label: 'Short Links', href: '/admin/affiliate-links' },
     ],

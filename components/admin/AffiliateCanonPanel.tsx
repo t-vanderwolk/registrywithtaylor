@@ -1,4 +1,5 @@
 import type { AffiliateNetwork } from '@prisma/client';
+import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import AffiliatePartnerIdentity from '@/components/admin/AffiliatePartnerIdentity';
@@ -17,6 +18,12 @@ import { requireAdminSession } from '@/lib/server/session';
 import { isStorageConfigured, uploadToStorage } from '@/lib/server/storage';
 
 const NETWORK_OPTIONS: AffiliateNetwork[] = ['CJ', 'IMPACT', 'AWIN', 'DIRECT'];
+
+const AFFILIATE_WORKSPACES = [
+  { label: 'Partner Metadata', href: '/admin/partners' },
+  { label: 'Short Link Generator', href: '/admin/affiliate-links' },
+  { label: 'Analytics Overview', href: '/admin/analytics' },
+];
 
 const asText = (value: FormDataEntryValue | null) => (typeof value === 'string' ? value.trim() : '');
 
@@ -327,7 +334,31 @@ export default async function AffiliateCanonPanel() {
         eyebrow="Affiliate Partners"
         title="Brand and network management"
         subtitle="Manage canonical brands, affiliate programs, and reusable destination links without losing legacy redirect tracking."
+        actions={
+          <div className="flex flex-wrap gap-2">
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/partners">Partners</Link>
+            </AdminButton>
+            <AdminButton asChild variant="primary">
+              <Link href="/admin/affiliate-links">Short Links</Link>
+            </AdminButton>
+          </div>
+        }
       />
+
+      <AdminSurface variant="muted" className="admin-stack gap-4">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Affiliate workspaces</p>
+          <p className="admin-body">Start here for canonical brands and programs, then move to partner metadata or trackable campaign links when needed.</p>
+        </div>
+        <div className="admin-hub-links">
+          {AFFILIATE_WORKSPACES.map((workspace) => (
+            <AdminButton key={workspace.href} asChild variant="secondary" size="sm">
+              <Link href={workspace.href}>{workspace.label}</Link>
+            </AdminButton>
+          ))}
+        </div>
+      </AdminSurface>
 
       <section className="grid gap-4 xl:grid-cols-3">
         <AdminSurface className="admin-stack gap-4">
