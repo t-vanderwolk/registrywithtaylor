@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import prisma from '@/lib/server/prisma';
-import { registryDelegate } from '@/lib/server/prismaRegistry';
 import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
@@ -24,8 +23,6 @@ export default async function AdminDashboardPage() {
     blogViews,
     mostViewedPost,
     newsletter,
-    totalRegistries,
-    totalMembers,
   ] = await Promise.all([
     prisma.consultationRequest.groupBy({
       by: ['status'],
@@ -54,8 +51,6 @@ export default async function AdminDashboardPage() {
       },
     }),
     getNewsletterAnalytics(),
-    registryDelegate.count().catch(() => 0),
-    prisma.learner.count().catch(() => 0),
   ]);
 
   const consultationCountByStatus = consultationStatusCounts.reduce<Record<string, number>>((acc, row) => {
@@ -117,22 +112,6 @@ export default async function AdminDashboardPage() {
           <div>
             <AdminButton asChild variant="primary">
               <Link href="/admin/consultations">Open consultation inbox</Link>
-            </AdminButton>
-          </div>
-        ) : null}
-      </AdminSurface>
-
-      <AdminSurface className="admin-stack gap-5">
-        <h2 className="admin-h2">Members</h2>
-        <section className="admin-kpi-grid md:grid-cols-3" aria-label="Member metrics">
-          <AdminKpiCard label="Members" value={String(totalMembers)} hint="Registered accounts" />
-          <AdminKpiCard label="Registry Submissions" value={String(totalRegistries)} hint="Total registries saved by members" />
-          <AdminKpiCard label="Avg Registries / Member" value={totalMembers > 0 ? (totalRegistries / totalMembers).toFixed(1) : '0'} hint="Engagement indicator" />
-        </section>
-        {!readOnly ? (
-          <div>
-            <AdminButton asChild variant="primary">
-              <Link href="/admin/members">Open members panel</Link>
             </AdminButton>
           </div>
         ) : null}

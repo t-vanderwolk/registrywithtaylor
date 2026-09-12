@@ -54,7 +54,7 @@ export default function AdminShell({
               <>
                 <AdminNotificationBell />
                 <AdminButton asChild variant="primary">
-                  <Link href="/admin/catalog/compatibility">Compatibility</Link>
+                  <Link href="/admin/products">Products</Link>
                 </AdminButton>
                 <AdminButton asChild variant="secondary">
                   <Link href="/admin/checklist">Checklist</Link>

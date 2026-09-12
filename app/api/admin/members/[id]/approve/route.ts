@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 import { sendEmail, getAdminEmail } from '@/lib/email/sendEmail';
 import {
   memberApprovalTemplate,
@@ -26,10 +25,13 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  let token;
+  try {
+    token = await requireAdminMutation(request);
+  } catch (error) {
+    return forbiddenResponse(error);
   }
+  if (!token) return unauthorizedResponse();
 
   const { id } = await params;
 

@@ -10,7 +10,7 @@ export type AdminNavSection = {
   links: AdminNavLink[];
 };
 
-const HIDDEN_ADMIN_PREFIXES = ['/admin/academy', '/admin/guides'];
+const HIDDEN_ADMIN_PREFIXES = ['/admin/academy', '/admin/guides', '/admin/members'];
 const HIDDEN_ADMIN_ROUTES = new Set(['/admin/academy-analytics', '/academy']);
 
 export function isHiddenAdminLink(href: string) {
@@ -26,14 +26,11 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
     label: 'Products & Compatibility',
     summary: 'Catalog records, stroller data, car seats, SKUs, images, and travel-system matching.',
     links: [
+      { label: 'Product Hub', href: '/admin/products' },
       { label: 'Strollers', href: '/admin/strollers' },
       { label: 'Car Seats', href: '/admin/car-seats' },
       { label: 'Compatibility', href: '/admin/catalog/compatibility' },
-      { label: 'Affiliate Catalog', href: '/admin/catalog' },
       { label: 'Catalog Health', href: '/admin/catalog/health' },
-      { label: 'Babylist SKUs', href: '/admin/babylist' },
-      { label: 'Recategorize', href: '/admin/catalog/recategorize' },
-      { label: 'GoodBuy Gear Badges', href: '/admin/catalog/goodbuygear' },
     ],
   },
   {
@@ -62,9 +59,8 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
   },
   {
     label: 'Clients & Requests',
-    summary: 'Member records, waitlist enrollment, consultations, inquiries, and certificates.',
+    summary: 'Consultations, website inquiries, and gift certificates.',
     links: [
-      { label: 'Waitlist & Enrollment', href: '/admin/members' },
       { label: 'Consultations', href: '/admin/consultations' },
       { label: 'Inquiries', href: '/admin/inquiries' },
       { label: 'Gift Certificates', href: '/admin/gifts' },

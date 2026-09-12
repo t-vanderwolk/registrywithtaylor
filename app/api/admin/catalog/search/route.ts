@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -31,10 +30,8 @@ type Row = {
  * price for an immediate fallback.
  */
 export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  const token = await requireAdmin(request);
+  if (!token) return unauthorizedResponse();
 
   const q = (request.nextUrl.searchParams.get('q') ?? '').trim();
   if (q.length < 2) return NextResponse.json({ results: [] });

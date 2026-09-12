@@ -1,20 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/server/authOptions';
 import prisma from '@/lib/server/prisma';
+import { forbiddenResponse, requireAdminMutation, unauthorizedResponse } from '@/lib/server/apiAuth';
 
 /**
  * POST /api/admin/members/[id]/reject
  * Marks a waitlist entry as rejected. Reversible — admin can approve later.
  */
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  let token;
+  try {
+    token = await requireAdminMutation(request);
+  } catch (error) {
+    return forbiddenResponse(error);
   }
+  if (!token) return unauthorizedResponse();
 
   const { id } = await params;
 

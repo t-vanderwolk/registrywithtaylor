@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/server/authOptions';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin, unauthorizedResponse } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { registryDelegate } from '@/lib/server/prismaRegistry';
 
@@ -8,16 +7,10 @@ type RouteContext = { params: Promise<{ userId: string }> };
 
 // ─── GET /api/admin/member/[userId] ──────────────────────────────────────────
 
-export async function GET(_req: Request, { params: paramsPromise }: RouteContext) {
+export async function GET(req: NextRequest, { params: paramsPromise }: RouteContext) {
   const { userId } = await paramsPromise;
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-  if (session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  const token = await requireAdmin(req);
+  if (!token) return unauthorizedResponse();
 
   // Phase 1: fetch the user — we need email to bridge to Learner
   const user = await prisma.user.findUnique({
