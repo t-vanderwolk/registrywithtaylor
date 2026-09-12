@@ -1,7 +1,12 @@
+import Link from 'next/link';
 import prismaBase from '@/lib/server/prisma';
 import { requireAdminSession } from '@/lib/server/session';
 import ChecklistCatalogPicker from '@/components/admin/checklist/ChecklistCatalogPicker';
 import ChecklistBlogProductPicker from '@/components/admin/checklist/ChecklistBlogProductPicker';
+import AdminButton from '@/components/admin/ui/AdminButton';
+import AdminHeader from '@/components/admin/ui/AdminHeader';
+import AdminStack from '@/components/admin/ui/AdminStack';
+import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import {
   CHECKLIST_TAKE_LABELS,
@@ -266,31 +271,64 @@ export default async function AdminChecklistPage() {
   const orderedGroups = [...groupsByKey.values()].filter((g) => g.rows.length > 0);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="font-serif text-2xl text-neutral-900">Baby Checklist</h1>
-      <p className="mt-1 text-sm text-neutral-500">
-        The categories, line items, and Taylor&rsquo;s Picks shown on the Baby Checklist tool. Edits
-        go live within an hour (or on the next deploy).
-      </p>
+    <AdminStack gap="xl">
+      <AdminHeader
+        eyebrow="Checklist"
+        title="Baby Checklist"
+        subtitle="Manage the public checklist structure and the Taylor's Picks shown inside each checklist section."
+        actions={
+          <AdminButton asChild variant="secondary">
+            <Link href="/resources/baby-checklist">View public checklist</Link>
+          </AdminButton>
+        }
+      />
 
       {dbError && (
-        <div className="mt-4 rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-          The <code>ChecklistProduct</code> table isn&rsquo;t live yet. Deploy the migration, then run{' '}
-          <code>npm run checklist:seed</code>.
-        </div>
+        <AdminSurface variant="muted">
+          <p className="admin-body text-admin-warning">
+            The <code>ChecklistProduct</code> table isn&rsquo;t live yet. Deploy the migration, then run{' '}
+            <code>npm run checklist:seed</code>.
+          </p>
+        </AdminSurface>
       )}
 
+      <AdminSurface variant="muted" className="admin-stack gap-4">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Workspace sections</p>
+          <p className="admin-body">
+            Use the structure section for checklist rows and visibility. Use Taylor&rsquo;s Picks for products, links, images, and badges.
+          </p>
+        </div>
+        <div className="admin-hub-links">
+          <AdminButton asChild variant="primary" size="sm">
+            <a href="#checklist-structure">Structure · {structure.categories.length} categories</a>
+          </AdminButton>
+          <AdminButton asChild variant="secondary" size="sm">
+            <a href="#checklist-items">{structure.items.length} line items</a>
+          </AdminButton>
+          <AdminButton asChild variant="secondary" size="sm">
+            <a href="#checklist-picks">{rows.length} Taylor&rsquo;s Picks</a>
+          </AdminButton>
+        </div>
+      </AdminSurface>
+
       {/* ── Structure: categories + line items ─────────────────────────────── */}
-      <section className="mt-8 rounded-xl border border-neutral-200 bg-neutral-50/60 p-4">
-        <h2 className="font-serif text-lg text-neutral-900">Categories &amp; line items</h2>
-        <p className="mt-1 text-xs text-neutral-500">
-          Every category and line item is editable here, including the original checklist defaults.
-          Saving a default row creates a database override; hiding a row keeps product picks and
-          affiliate links intact.
-        </p>
+      <AdminSurface as="section" id="checklist-structure" className="admin-stack gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="admin-stack gap-1.5">
+            <p className="admin-eyebrow">Structure</p>
+            <h2 className="admin-h2">Categories &amp; line items</h2>
+            <p className="admin-body">
+              Every category and line item is editable here, including the original checklist defaults.
+              Saving a default row creates a database override; hiding a row keeps product picks and
+              affiliate links intact.
+            </p>
+          </div>
+          <span className="admin-chip">{structure.categories.length} categories</span>
+        </div>
 
         {/* Add a category */}
-        <details className="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
+        <details className="rounded-lg border border-neutral-200 bg-white p-4">
           <summary className="cursor-pointer text-sm font-semibold text-neutral-800">+ Add a category</summary>
           <form action={saveChecklistCategory} className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className={lbl}>Title *<input name="title" required placeholder="Keepsakes" className={field} /></label>
@@ -343,7 +381,7 @@ export default async function AdminChecklistPage() {
         )}
 
         {/* Add a line item */}
-        <details className="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
+        <details id="checklist-items" className="rounded-lg border border-neutral-200 bg-white p-4">
           <summary className="cursor-pointer text-sm font-semibold text-neutral-800">+ Add a line item</summary>
           <form action={createChecklistItem} className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className={lbl}>Title *<input name="title" required placeholder="Warm-water dispenser" className={field} /></label>
@@ -426,72 +464,83 @@ export default async function AdminChecklistPage() {
             ))}
           </div>
         )}
-      </section>
+      </AdminSurface>
 
       {/* ── Products / picks ───────────────────────────────────────────────── */}
-      <h2 className="mt-10 font-serif text-lg text-neutral-900">Taylor&rsquo;s Picks</h2>
-
-      {/* Create */}
-      <details className="mt-4 rounded-lg border border-neutral-200 bg-white p-4">
-        <summary className="cursor-pointer font-semibold text-neutral-800">+ Add a product</summary>
-        <form action={createChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
-          <ChecklistCatalogPicker />
-          <ChecklistBlogProductPicker />
-          <label className={lbl}>Brand *<input name="brand" required className={field} /></label>
-          <label className={lbl}>Product *<input name="product" required className={field} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Editorial review<textarea name="review" rows={2} className={field} /></label>
-          <label className={lbl}>Best for<input name="bestFor" className={field} /></label>
-          <label className={lbl}>Standout<input name="standout" className={field} /></label>
-          <p className="text-xs text-neutral-500 sm:col-span-2">
-            Add at least one retailer link below — Babylist, Amazon, or another retailer. None is
-            individually required; any one makes the pick live.
-          </p>
-          <label className={`${lbl} sm:col-span-2`}>Babylist link (optional)<input name="affiliateUrl" placeholder="https://babylist.pxf.io/…" className={field} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" className={field} /></label>
-          <label className={lbl}>Other retailer name (optional)<input name="secondaryRetailer" placeholder="Target, Pottery Barn Kids…" className={field} /></label>
-          <label className={lbl}>Other retailer link (optional)<input name="secondaryUrl" placeholder="https://…" className={field} /></label>
-          <label className={lbl}>Price<input name="price" placeholder="149" className={field} /></label>
-          <label className={lbl}>Price source<input name="priceSource" placeholder="Babylist" className={field} /></label>
-          <label className={lbl}>Retailer<input name="retailer" placeholder="Babylist" className={field} /></label>
-          <label className={lbl}>Badge<input name="badge" placeholder="Taylor's Pick" className={field} /></label>
-          <label className={`${lbl} sm:col-span-2`}>
-            Displays under checklist item
-            <ItemSelect name="checklistItemId" groups={groups} />
-            <span className="text-[0.72rem] text-neutral-400">
-              Which line of the checklist shows this pick. Leave on default to keep its built-in placement.
-            </span>
-          </label>
-          <label className={`${lbl} sm:col-span-2`}>Image URL<input name="imageUrl" className={field} /></label>
-          <label className="flex items-center gap-2 text-sm text-neutral-600">
-            <input type="checkbox" name="disclosure" /> Affiliate disclosure
-          </label>
-          <div className="sm:col-span-2">
-            <button className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white">
-              Add product
-            </button>
+      <AdminSurface as="section" id="checklist-picks" className="admin-stack gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="admin-stack gap-1.5">
+            <p className="admin-eyebrow">Products</p>
+            <h2 className="admin-h2">Taylor&rsquo;s Picks</h2>
+            <p className="admin-body">
+              Edit product copy, badges, images, and retailer links shown inside the public checklist.
+            </p>
           </div>
-        </form>
-      </details>
+          <span className="admin-chip">{rows.length} picks</span>
+        </div>
 
-      {/* List / edit / delete */}
-      <div className="mt-6 space-y-3">
-        {orderedGroups.map((g) => (
-          <section key={g.key} className="space-y-3">
-            <h3 className="pt-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-neutral-400">
-              {g.title} <span className="text-neutral-300">· {g.rows.length}</span>
-            </h3>
-            {g.rows.map((r) => (
-              <ProductRow key={r.id} r={r} groups={groups} itemLabel={itemLabel} />
-            ))}
-          </section>
-        ))}
-        {rows.length === 0 && !dbError && (
-          <p className="text-sm text-neutral-500">
-            No products yet. Run <code>npm run checklist:seed</code> to import the current picks, or
-            add one above.
-          </p>
-        )}
-      </div>
-    </div>
+        {/* Create */}
+        <details className="rounded-lg border border-neutral-200 bg-white p-4">
+          <summary className="cursor-pointer font-semibold text-neutral-800">+ Add a product</summary>
+          <form action={createChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
+            <ChecklistCatalogPicker />
+            <ChecklistBlogProductPicker />
+            <label className={lbl}>Brand *<input name="brand" required className={field} /></label>
+            <label className={lbl}>Product *<input name="product" required className={field} /></label>
+            <label className={`${lbl} sm:col-span-2`}>Editorial review<textarea name="review" rows={2} className={field} /></label>
+            <label className={lbl}>Best for<input name="bestFor" className={field} /></label>
+            <label className={lbl}>Standout<input name="standout" className={field} /></label>
+            <p className="text-xs text-neutral-500 sm:col-span-2">
+              Add at least one retailer link below — Babylist, Amazon, or another retailer. None is
+              individually required; any one makes the pick live.
+            </p>
+            <label className={`${lbl} sm:col-span-2`}>Babylist link (optional)<input name="affiliateUrl" placeholder="https://babylist.pxf.io/…" className={field} /></label>
+            <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" className={field} /></label>
+            <label className={lbl}>Other retailer name (optional)<input name="secondaryRetailer" placeholder="Target, Pottery Barn Kids…" className={field} /></label>
+            <label className={lbl}>Other retailer link (optional)<input name="secondaryUrl" placeholder="https://…" className={field} /></label>
+            <label className={lbl}>Price<input name="price" placeholder="149" className={field} /></label>
+            <label className={lbl}>Price source<input name="priceSource" placeholder="Babylist" className={field} /></label>
+            <label className={lbl}>Retailer<input name="retailer" placeholder="Babylist" className={field} /></label>
+            <label className={lbl}>Badge<input name="badge" placeholder="Taylor's Pick" className={field} /></label>
+            <label className={`${lbl} sm:col-span-2`}>
+              Displays under checklist item
+              <ItemSelect name="checklistItemId" groups={groups} />
+              <span className="text-[0.72rem] text-neutral-400">
+                Which line of the checklist shows this pick. Leave on default to keep its built-in placement.
+              </span>
+            </label>
+            <label className={`${lbl} sm:col-span-2`}>Image URL<input name="imageUrl" className={field} /></label>
+            <label className="flex items-center gap-2 text-sm text-neutral-600">
+              <input type="checkbox" name="disclosure" /> Affiliate disclosure
+            </label>
+            <div className="sm:col-span-2">
+              <button className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white">
+                Add product
+              </button>
+            </div>
+          </form>
+        </details>
+
+        {/* List / edit / delete */}
+        <div className="mt-6 space-y-3">
+          {orderedGroups.map((g) => (
+            <section key={g.key} className="space-y-3">
+              <h3 className="pt-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-neutral-400">
+                {g.title} <span className="text-neutral-300">· {g.rows.length}</span>
+              </h3>
+              {g.rows.map((r) => (
+                <ProductRow key={r.id} r={r} groups={groups} itemLabel={itemLabel} />
+              ))}
+            </section>
+          ))}
+          {rows.length === 0 && !dbError && (
+            <p className="text-sm text-neutral-500">
+              No products yet. Run <code>npm run checklist:seed</code> to import the current picks, or
+              add one above.
+            </p>
+          )}
+        </div>
+      </AdminSurface>
+    </AdminStack>
   );
 }
