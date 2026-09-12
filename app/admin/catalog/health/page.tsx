@@ -4,6 +4,7 @@ import AdminButton from '@/components/admin/ui/AdminButton';
 import AdminContainer from '@/components/admin/ui/AdminContainer';
 import AdminHeader from '@/components/admin/ui/AdminHeader';
 import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
+import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import { requireAdminSession } from '@/lib/server/session';
@@ -108,6 +109,13 @@ function QueueThumb({ src, label }: { src: string | null; label: string }) {
 const PROVIDERS = ['babylist_impact', 'awin_anbbaby', 'shopify_macrobaby', 'impact_goodbuygear'];
 const MACROBABY_PROVIDER = 'shopify_macrobaby';
 
+const HEALTH_NAV = [
+  { label: 'Summary', href: '#catalog-health-summary' },
+  { label: 'Review queues', href: '#catalog-health-review' },
+  { label: 'Adapter health', href: '#catalog-health-adapters' },
+  { label: 'Coverage gaps', href: '#catalog-health-gaps' },
+];
+
 const SEAT_BRAND_ALIASES: Array<{ brand: string; res: RegExp[] }> = [
   { brand: 'Maxi-Cosi', res: [/maxi[\s-]?cosi/i] },
   { brand: 'Nuna', res: [/\bnuna\b/i, /\bpipa\b/i] },
@@ -140,13 +148,17 @@ export default async function CatalogHealthPage() {
 
   return (
     <main className="admin-page">
-      <AdminContainer className="admin-stack">
+      <AdminContainer>
+        <AdminStack gap="xl">
         <AdminHeader
           eyebrow="Catalog"
           title="Catalog Health"
           subtitle="A read-only control room for public catalog quality: duplicate risk, review queues, adapter coverage, CTA source mix, images, and affiliate tracking."
           actions={
             <div className="flex flex-wrap gap-2">
+              <AdminButton asChild variant="primary">
+                <Link href="/admin/products">Product Hub</Link>
+              </AdminButton>
               <AdminButton asChild variant="secondary">
                 <Link href="/admin/catalog/compatibility">Compatibility manager</Link>
               </AdminButton>
@@ -175,144 +187,174 @@ export default async function CatalogHealthPage() {
               <AdminKpiCard label="Bad MacroBaby URLs" value={health.badMacroBabyUrls.length.toLocaleString()} hint="Missing _j tracking" />
             </section>
 
-            <AdminSurface className="admin-stack">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <p className="admin-eyebrow">Public CTA Source Mix</p>
-                  <h2 className="admin-h2">Primary public retailer source</h2>
-                </div>
-                <span className="admin-chip">{health.publicProducts.length.toLocaleString()} public products</span>
+            <AdminSurface variant="muted" className="admin-stack gap-4">
+              <div className="admin-stack gap-1.5">
+                <p className="admin-eyebrow">Health workspaces</p>
+                <p className="admin-body">Jump straight to the section you need without changing the health check itself.</p>
               </div>
-              <div className="grid gap-3 md:grid-cols-5">
-                {Object.entries(health.sourceMix).map(([source, count]) => (
-                  <div key={source} className="rounded-[18px] border border-[var(--admin-color-border)] bg-white p-4">
-                    <p className="admin-eyebrow">{source}</p>
-                    <p className="admin-h2 mt-1">{count.toLocaleString()}</p>
+              <div className="admin-hub-links">
+                {HEALTH_NAV.map((item) => (
+                  <AdminButton key={item.href} asChild variant="secondary" size="sm">
+                    <a href={item.href}>{item.label}</a>
+                  </AdminButton>
+                ))}
+              </div>
+            </AdminSurface>
+
+            <section id="catalog-health-summary" className="admin-stack gap-4">
+              <SectionIntro
+                eyebrow="Summary"
+                title="Public catalog signals"
+                body="A quick view of duplicate risk and which retailer source is currently powering public calls to action."
+              />
+
+              <AdminSurface className="admin-stack">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="admin-eyebrow">Public CTA Source Mix</p>
+                    <h2 className="admin-h2">Primary public retailer source</h2>
                   </div>
-                ))}
+                  <span className="admin-chip">{health.publicProducts.length.toLocaleString()} public products</span>
+                </div>
+                <div className="grid gap-3 md:grid-cols-5">
+                  {Object.entries(health.sourceMix).map(([source, count]) => (
+                    <div key={source} className="rounded-[18px] border border-[var(--admin-color-border)] bg-white p-4">
+                      <p className="admin-eyebrow">{source}</p>
+                      <p className="admin-h2 mt-1">{count.toLocaleString()}</p>
+                    </div>
+                  ))}
+                </div>
+              </AdminSurface>
+
+              <AdminSurface className="admin-stack">
+                <SectionTitle title="Duplicate Risk" count={health.duplicateRisks.length} />
+                <AdminTable
+                  density="compact"
+                  columns={[
+                    { key: 'key', label: 'Group' },
+                    { key: 'count', label: 'Count', align: 'right' },
+                    { key: 'products', label: 'Products' },
+                  ]}
+                  emptyState={<p className="admin-body p-4">No public duplicate risks found.</p>}
+                >
+                  {health.duplicateRisks.slice(0, 12).map((group) => (
+                    <tr key={group.key} className="admin-row">
+                      <td className="admin-table-code">{group.key}</td>
+                      <td className="text-right text-admin">{group.count}</td>
+                      <td className="admin-micro">{group.products.join(' · ')}</td>
+                    </tr>
+                  ))}
+                </AdminTable>
+              </AdminSurface>
+            </section>
+
+            <section id="catalog-health-review" className="admin-stack gap-4">
+              <SectionIntro
+                eyebrow="Review queues"
+                title="Manual catalog work"
+                body="Products needing review and intentionally hidden rows stay together so cleanup actions are easier to find."
+              />
+
+              <div className="grid gap-4 lg:grid-cols-2">
+                <AdminSurface className="admin-stack">
+                  <SectionTitle title="Manual Review Queue" count={health.reviewRows.length} />
+                  <AdminTable
+                    density="compact"
+                    columns={[
+                      { key: 'title', label: 'Product' },
+                      { key: 'status', label: 'Status' },
+                      { key: 'actions', label: 'Actions', align: 'right' },
+                    ]}
+                    emptyState={<p className="admin-body p-4">No rows currently need review.</p>}
+                  >
+                    {health.reviewRows.slice(0, 12).map((row: CatalogQueueRow) => (
+                      <tr key={row.id} className="admin-row">
+                        <td>
+                          <div className="flex items-center gap-2.5">
+                            <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
+                            <div className="admin-stack gap-0.5">
+                              <span className="text-admin">{row.title}</span>
+                              <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
+                            </div>
+                          </div>
+                          {!row.imageUrl ? (
+                            <form action={setImageFromHealth} className="mt-2 flex items-center gap-1.5">
+                              <input type="hidden" name="id" value={row.id} />
+                              <input
+                                type="url"
+                                name="imageUrl"
+                                required
+                                placeholder="Paste image URL…"
+                                className="w-full max-w-[16rem] rounded-full border border-neutral-200 px-2.5 py-1 text-[0.7rem]"
+                              />
+                              <button type="submit" className={ACTION_BTN}>Add image</button>
+                            </form>
+                          ) : null}
+                        </td>
+                        <td><StatusBadge status={row.enrichment?.reviewStatus ?? 'UNKNOWN'} /></td>
+                        <td>
+                          <div className="flex flex-wrap items-center justify-end gap-1.5">
+                            <form action={markReviewedFromHealth}>
+                              <input type="hidden" name="id" value={row.id} />
+                              <button type="submit" className={ACTION_BTN}>Approve</button>
+                            </form>
+                            <form action={hideFromHealth}>
+                              <input type="hidden" name="id" value={row.id} />
+                              <button type="submit" className={ACTION_BTN}>Hide</button>
+                            </form>
+                            <Link href={`/admin/catalog?q=${encodeURIComponent(row.title)}`} className={ACTION_BTN}>Edit</Link>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </AdminSurface>
+
+                <AdminSurface className="admin-stack">
+                  <SectionTitle title="Hidden Products" count={health.hiddenRows.length} />
+                  <AdminTable
+                    density="compact"
+                    columns={[
+                      { key: 'title', label: 'Product' },
+                      { key: 'type', label: 'Type' },
+                      { key: 'actions', label: 'Actions', align: 'right' },
+                    ]}
+                    emptyState={<p className="admin-body p-4">No hidden products found.</p>}
+                  >
+                    {health.hiddenRows.slice(0, 12).map((row: CatalogQueueRow) => (
+                      <tr key={row.id} className="admin-row">
+                        <td>
+                          <div className="flex items-center gap-2.5">
+                            <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
+                            <div className="admin-stack gap-0.5">
+                              <span className="text-admin">{row.title}</span>
+                              <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="admin-micro">{row.enrichment?.productType ?? '—'}</td>
+                        <td>
+                          <div className="flex flex-wrap items-center justify-end gap-1.5">
+                            <form action={unhideFromHealth}>
+                              <input type="hidden" name="id" value={row.id} />
+                              <button type="submit" className={ACTION_BTN}>Unhide</button>
+                            </form>
+                            <form action={deleteFromHealth}>
+                              <input type="hidden" name="id" value={row.id} />
+                              <ConfirmButton message={`Delete "${row.title}"? This removes it from the catalog entirely.`} className={ACTION_BTN_DANGER}>
+                                Delete
+                              </ConfirmButton>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </AdminSurface>
               </div>
-            </AdminSurface>
+            </section>
 
-            <AdminSurface className="admin-stack">
-              <SectionTitle title="Duplicate Risk" count={health.duplicateRisks.length} />
-              <AdminTable
-                density="compact"
-                columns={[
-                  { key: 'key', label: 'Group' },
-                  { key: 'count', label: 'Count', align: 'right' },
-                  { key: 'products', label: 'Products' },
-                ]}
-                emptyState={<p className="admin-body p-4">No public duplicate risks found.</p>}
-              >
-                {health.duplicateRisks.slice(0, 12).map((group) => (
-                  <tr key={group.key} className="admin-row">
-                    <td className="admin-table-code">{group.key}</td>
-                    <td className="text-right text-admin">{group.count}</td>
-                    <td className="admin-micro">{group.products.join(' · ')}</td>
-                  </tr>
-                ))}
-              </AdminTable>
-            </AdminSurface>
-
-            <div className="grid gap-4 lg:grid-cols-2">
-              <AdminSurface className="admin-stack">
-                <SectionTitle title="Manual Review Queue" count={health.reviewRows.length} />
-                <AdminTable
-                  density="compact"
-                  columns={[
-                    { key: 'title', label: 'Product' },
-                    { key: 'status', label: 'Status' },
-                    { key: 'actions', label: 'Actions', align: 'right' },
-                  ]}
-                  emptyState={<p className="admin-body p-4">No rows currently need review.</p>}
-                >
-                  {health.reviewRows.slice(0, 12).map((row: CatalogQueueRow) => (
-                    <tr key={row.id} className="admin-row">
-                      <td>
-                        <div className="flex items-center gap-2.5">
-                          <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
-                          <div className="admin-stack gap-0.5">
-                            <span className="text-admin">{row.title}</span>
-                            <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
-                          </div>
-                        </div>
-                        {!row.imageUrl ? (
-                          <form action={setImageFromHealth} className="mt-2 flex items-center gap-1.5">
-                            <input type="hidden" name="id" value={row.id} />
-                            <input
-                              type="url"
-                              name="imageUrl"
-                              required
-                              placeholder="Paste image URL…"
-                              className="w-full max-w-[16rem] rounded-full border border-neutral-200 px-2.5 py-1 text-[0.7rem]"
-                            />
-                            <button type="submit" className={ACTION_BTN}>Add image</button>
-                          </form>
-                        ) : null}
-                      </td>
-                      <td><StatusBadge status={row.enrichment?.reviewStatus ?? 'UNKNOWN'} /></td>
-                      <td>
-                        <div className="flex flex-wrap items-center justify-end gap-1.5">
-                          <form action={markReviewedFromHealth}>
-                            <input type="hidden" name="id" value={row.id} />
-                            <button type="submit" className={ACTION_BTN}>Approve</button>
-                          </form>
-                          <form action={hideFromHealth}>
-                            <input type="hidden" name="id" value={row.id} />
-                            <button type="submit" className={ACTION_BTN}>Hide</button>
-                          </form>
-                          <Link href={`/admin/catalog?q=${encodeURIComponent(row.title)}`} className={ACTION_BTN}>Edit</Link>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </AdminTable>
-              </AdminSurface>
-
-              <AdminSurface className="admin-stack">
-                <SectionTitle title="Hidden Products" count={health.hiddenRows.length} />
-                <AdminTable
-                  density="compact"
-                  columns={[
-                    { key: 'title', label: 'Product' },
-                    { key: 'type', label: 'Type' },
-                    { key: 'actions', label: 'Actions', align: 'right' },
-                  ]}
-                  emptyState={<p className="admin-body p-4">No hidden products found.</p>}
-                >
-                  {health.hiddenRows.slice(0, 12).map((row: CatalogQueueRow) => (
-                    <tr key={row.id} className="admin-row">
-                      <td>
-                        <div className="flex items-center gap-2.5">
-                          <QueueThumb src={row.imageUrl} label={row.brand ?? row.title} />
-                          <div className="admin-stack gap-0.5">
-                            <span className="text-admin">{row.title}</span>
-                            <span className="admin-micro">{row.brand ?? 'Unknown brand'} · {providerLabel(row.provider)}</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="admin-micro">{row.enrichment?.productType ?? '—'}</td>
-                      <td>
-                        <div className="flex flex-wrap items-center justify-end gap-1.5">
-                          <form action={unhideFromHealth}>
-                            <input type="hidden" name="id" value={row.id} />
-                            <button type="submit" className={ACTION_BTN}>Unhide</button>
-                          </form>
-                          <form action={deleteFromHealth}>
-                            <input type="hidden" name="id" value={row.id} />
-                            <ConfirmButton message={`Delete "${row.title}"? This removes it from the catalog entirely.`} className={ACTION_BTN_DANGER}>
-                              Delete
-                            </ConfirmButton>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </AdminTable>
-              </AdminSurface>
-            </div>
-
-            <AdminSurface className="admin-stack">
+            <AdminSurface id="catalog-health-adapters" className="admin-stack">
               <SectionTitle title="Adapter Health" count={health.adapterProducts.length} />
               <div className="grid gap-3 md:grid-cols-5">
                 <MiniMetric label="Adapter products" value={health.adapterProducts.length} />
@@ -345,47 +387,56 @@ export default async function CatalogHealthPage() {
               </AdminTable>
             </AdminSurface>
 
-            <div className="grid gap-4 lg:grid-cols-2">
-              <AdminSurface className="admin-stack">
-                <SectionTitle title="Image Gaps" count={health.missingImages.length} />
-                <AdminTable
-                  density="compact"
-                  columns={[
-                    { key: 'product', label: 'Public Product' },
-                    { key: 'source', label: 'Source' },
-                  ]}
-                  emptyState={<p className="admin-body p-4">No public image gaps found.</p>}
-                >
-                  {health.missingImages.slice(0, 12).map((row) => (
-                    <tr key={`${row.area}-${row.brand}-${row.model}`} className="admin-row">
-                      <td className="text-admin">{row.brand} {row.model}</td>
-                      <td className="admin-micro">{row.source}</td>
-                    </tr>
-                  ))}
-                </AdminTable>
-              </AdminSurface>
+            <section id="catalog-health-gaps" className="admin-stack gap-4">
+              <SectionIntro
+                eyebrow="Coverage gaps"
+                title="Public product gaps"
+                body="Missing images and stroller compatibility gaps are grouped here because they usually need source research before editing."
+              />
 
-              <AdminSurface className="admin-stack">
-                <SectionTitle title="Orphan Strollers" count={health.orphanStrollers.length} />
-                <AdminTable
-                  density="compact"
-                  columns={[
-                    { key: 'stroller', label: 'Canonical Stroller' },
-                    { key: 'source', label: 'Public?' },
-                  ]}
-                  emptyState={<p className="admin-body p-4">Every canonical stroller has compatibility rows.</p>}
-                >
-                  {health.orphanStrollers.slice(0, 12).map((row) => (
-                    <tr key={row.id} className="admin-row">
-                      <td className="text-admin">{row.brand} {row.model}</td>
-                      <td><ListedBadge listed={row.publiclyListed} /></td>
-                    </tr>
-                  ))}
-                </AdminTable>
-              </AdminSurface>
-            </div>
+              <div className="grid gap-4 lg:grid-cols-2">
+                <AdminSurface className="admin-stack">
+                  <SectionTitle title="Image Gaps" count={health.missingImages.length} />
+                  <AdminTable
+                    density="compact"
+                    columns={[
+                      { key: 'product', label: 'Public Product' },
+                      { key: 'source', label: 'Source' },
+                    ]}
+                    emptyState={<p className="admin-body p-4">No public image gaps found.</p>}
+                  >
+                    {health.missingImages.slice(0, 12).map((row) => (
+                      <tr key={`${row.area}-${row.brand}-${row.model}`} className="admin-row">
+                        <td className="text-admin">{row.brand} {row.model}</td>
+                        <td className="admin-micro">{row.source}</td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </AdminSurface>
+
+                <AdminSurface className="admin-stack">
+                  <SectionTitle title="Orphan Strollers" count={health.orphanStrollers.length} />
+                  <AdminTable
+                    density="compact"
+                    columns={[
+                      { key: 'stroller', label: 'Canonical Stroller' },
+                      { key: 'source', label: 'Public?' },
+                    ]}
+                    emptyState={<p className="admin-body p-4">Every canonical stroller has compatibility rows.</p>}
+                  >
+                    {health.orphanStrollers.slice(0, 12).map((row) => (
+                      <tr key={row.id} className="admin-row">
+                        <td className="text-admin">{row.brand} {row.model}</td>
+                        <td><ListedBadge listed={row.publiclyListed} /></td>
+                      </tr>
+                    ))}
+                  </AdminTable>
+                </AdminSurface>
+              </div>
+            </section>
           </>
         )}
+        </AdminStack>
       </AdminContainer>
     </main>
   );
@@ -642,6 +693,16 @@ function SectionTitle({ title, count }: { title: string; count: number }) {
     <div className="flex flex-wrap items-center justify-between gap-3">
       <h2 className="admin-h2">{title}</h2>
       <span className="admin-chip">{count.toLocaleString()}</span>
+    </div>
+  );
+}
+
+function SectionIntro({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
+  return (
+    <div className="admin-stack gap-1.5">
+      <p className="admin-eyebrow">{eyebrow}</p>
+      <h2 className="admin-h2">{title}</h2>
+      <p className="admin-body max-w-3xl">{body}</p>
     </div>
   );
 }
