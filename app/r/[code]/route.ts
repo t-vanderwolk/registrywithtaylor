@@ -5,6 +5,7 @@ import { getRequestToken, isReviewerRole } from '@/lib/server/apiAuth';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 import { getHostname, isDomainAllowed, isHttps } from '@/lib/server/urlSafety';
+import { SITE_URL } from '@/lib/marketing/metadata';
 
 const REDIRECT_ROUTE_KEY = '/r/[code]';
 const BOT_MARKERS = ['bot', 'crawler', 'spider'];
@@ -39,8 +40,8 @@ const isBotUserAgent = (userAgent: string | null) => {
   return BOT_MARKERS.some((marker) => normalized.includes(marker));
 };
 
-const fallbackRedirect = (request: NextRequest) =>
-  NextResponse.redirect(new URL('/blog', request.url), { status: 302 });
+const fallbackRedirect = () =>
+  NextResponse.redirect(new URL('/blog', process.env.NEXT_PUBLIC_SITE_URL || SITE_URL), { status: 302 });
 
 export async function GET(
   request: NextRequest,
@@ -109,7 +110,7 @@ export async function GET(
     });
 
     if (!link) {
-      return fallbackRedirect(request);
+      return fallbackRedirect();
     }
 
     const resolvedDestinationUrl = link.destinationUrl?.trim() || link.url?.trim() || '';
@@ -120,7 +121,7 @@ export async function GET(
         partnerId: link.partnerId,
         programId: link.programId,
       });
-      return fallbackRedirect(request);
+      return fallbackRedirect();
     }
 
     const hostname = getHostname(resolvedDestinationUrl);
@@ -132,7 +133,7 @@ export async function GET(
         programId: link.programId,
         destinationUrl: resolvedDestinationUrl,
       });
-      return fallbackRedirect(request);
+      return fallbackRedirect();
     }
 
     if (!isHttps(resolvedDestinationUrl)) {
@@ -144,7 +145,7 @@ export async function GET(
         destinationUrl: resolvedDestinationUrl,
         protocol: new URL(resolvedDestinationUrl).protocol,
       });
-      return fallbackRedirect(request);
+      return fallbackRedirect();
     }
 
     const allowedDomains = [
@@ -164,7 +165,7 @@ export async function GET(
         hostname,
         allowedDomains,
       });
-      return fallbackRedirect(request);
+      return fallbackRedirect();
     }
 
     logger.info('affiliate_redirect', {
@@ -217,6 +218,6 @@ export async function GET(
       code,
       error: error instanceof Error ? error.message : 'unknown_error',
     });
-    return fallbackRedirect(request);
+    return fallbackRedirect();
   }
 }

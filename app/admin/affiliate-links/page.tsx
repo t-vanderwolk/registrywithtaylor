@@ -14,6 +14,7 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import AdminTable from '@/components/admin/ui/AdminTable';
 import AdminTabs from '@/components/admin/ui/AdminTabs';
+import { SITE_URL } from '@/lib/marketing/metadata';
 import { listAffiliateLinkOptions } from '@/lib/server/affiliateBrands';
 
 type SearchParams = Promise<{ sort?: string; created?: string }> | undefined;
@@ -210,7 +211,7 @@ export default async function AdminAffiliateLinksPage({
       ? [...links].sort((a, b) => b._count.clicks - a._count.clicks || b.createdAt.getTime() - a.createdAt.getTime())
       : links;
 
-  const siteOrigin = process.env.NEXTAUTH_URL?.replace(/\/$/, '') || 'http://localhost:3000';
+  const siteOrigin = (process.env.NEXT_PUBLIC_SITE_URL || SITE_URL).replace(/\/$/, '');
   const createdShortUrl = createdCode ? `${siteOrigin}/r/${createdCode}` : null;
 
   return (
