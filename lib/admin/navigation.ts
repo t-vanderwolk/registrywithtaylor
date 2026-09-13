@@ -61,6 +61,7 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
     label: 'Clients & Requests',
     summary: 'Consultations, website inquiries, and gift certificates.',
     links: [
+      { label: 'Requests Hub', href: '/admin/requests' },
       { label: 'Consultations', href: '/admin/consultations' },
       { label: 'Inquiries', href: '/admin/inquiries' },
       { label: 'Gift Certificates', href: '/admin/gifts' },
