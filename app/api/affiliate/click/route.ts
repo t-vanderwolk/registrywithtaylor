@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
-import { affiliateRetailerFromUrl } from '@/lib/analytics/affiliateRetailer';
+import { normalizeAffiliateClickAttribution } from '@/lib/analytics/affiliateRetailer';
 import { getRequestIp, isLikelyBot, visitorHashFrom } from '@/lib/server/viewTracking';
 
 export const runtime = 'nodejs';
@@ -43,9 +43,12 @@ export async function POST(req: NextRequest) {
   }
 
   const b = body as Record<string, unknown>;
-  const resolved = affiliateRetailerFromUrl(url);
-  const retailer = str(b.retailer) ?? resolved.retailer;
-  const network = str(b.network) ?? resolved.network;
+  const attribution = normalizeAffiliateClickAttribution({
+    retailer: str(b.retailer),
+    network: str(b.network),
+    source: str(b.source, 64),
+    url,
+  });
   const visitorHash = visitorHashFrom(ip, userAgent);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,18 +70,18 @@ export async function POST(req: NextRequest) {
 
     await db.outboundClick.create({
       data: {
-        retailer,
-        network,
+        retailer: attribution.retailer,
+        network: attribution.network,
         brand: str(b.brand, 128),
         product: str(b.product, 256),
         url,
-        source: str(b.source, 64),
+        source: attribution.source,
         pageType: str(b.pageType, 32),
         path: str(b.path, 256),
         visitorHash,
       },
     });
-    return NextResponse.json({ ok: true, counted: true, retailer });
+    return NextResponse.json({ ok: true, counted: true, retailer: attribution.retailer });
   } catch {
     // Table not migrated yet or transient error — never block the beacon.
     return NextResponse.json({ ok: true, counted: false, reason: 'unavailable' });

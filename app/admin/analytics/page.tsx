@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import BlogRevenueCharts from '@/components/admin/analytics/BlogRevenueCharts';
 import prisma from '@/lib/server/prisma';
+import {
+  aggregateAffiliateRetailerCounts,
+  type AffiliateRetailerCount,
+} from '@/lib/analytics/affiliateRetailer';
 import { POST_STATUS_LABELS, type PostStatusValue } from '@/lib/blog/postStatus';
 import { getBlogRevenueAnalytics } from '@/lib/server/blogRevenueAnalytics';
 import AdminButton from '@/components/admin/ui/AdminButton';
@@ -38,6 +42,15 @@ const formatRpm = (value: number) =>
     currency: 'USD',
     maximumFractionDigits: 0,
   })}/1k`;
+
+const ANALYTICS_NAV = [
+  { label: 'Blog', href: '#analytics-blog' },
+  { label: 'Tools', href: '#analytics-tools' },
+  { label: 'Compare', href: '#analytics-compare' },
+  { label: 'Checklist', href: '#analytics-checklist' },
+  { label: 'Affiliate', href: '#analytics-affiliate' },
+  { label: 'Revenue', href: '#analytics-revenue' },
+];
 
 const getLifecycleLabel = (
   status: PostStatusValue,
@@ -116,34 +129,31 @@ export default async function AdminAnalyticsPage() {
 
   // Unified outbound affiliate clicks (tools + blog + tracked links), grouped by
   // retailer, so the numbers can be reconciled against each network's dashboard.
-  // Cast to any + try/catch: the AffiliateClick table lands on the next deploy.
-  type RetailerRow = { retailer: string; total: number; last28: number; network: string | null };
-  let retailerRows: RetailerRow[] = [];
+  // Cast to any + try/catch so analytics still render if OutboundClick is unavailable.
+  let retailerRows: AffiliateRetailerCount[] = [];
   let outbound28dTotal = 0;
   let outboundAllTotal = 0;
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const db = prisma as any;
     const [allTime, last28]: [
-      Array<{ retailer: string; network: string | null; _count: { _all: number } }>,
-      Array<{ retailer: string; _count: { _all: number } }>,
+      Array<{ retailer: string; network: string | null; url: string; _count: { _all: number } }>,
+      Array<{ retailer: string; network: string | null; url: string; _count: { _all: number } }>,
     ] = await Promise.all([
-      db.outboundClick.groupBy({ by: ['retailer', 'network'], _count: { _all: true } }),
-      db.outboundClick.groupBy({ by: ['retailer'], where: { createdAt: { gte: since28d } }, _count: { _all: true } }),
+      db.outboundClick.groupBy({ by: ['retailer', 'network', 'url'], _count: { _all: true } }),
+      db.outboundClick.groupBy({
+        by: ['retailer', 'network', 'url'],
+        where: { createdAt: { gte: since28d } },
+        _count: { _all: true },
+      }),
     ]);
-    const last28Map = new Map(last28.map((r) => [r.retailer, r._count._all]));
-    const merged = new Map<string, RetailerRow>();
-    for (const r of allTime) {
-      const existing = merged.get(r.retailer);
-      const total = (existing?.total ?? 0) + r._count._all;
-      merged.set(r.retailer, {
-        retailer: r.retailer,
-        network: existing?.network ?? r.network,
-        total,
-        last28: last28Map.get(r.retailer) ?? 0,
-      });
-    }
-    retailerRows = [...merged.values()].sort((a, b) => b.total - a.total);
+    const toCounts = (rows: typeof allTime) => rows.map((row) => ({
+      retailer: row.retailer,
+      network: row.network,
+      url: row.url,
+      count: row._count._all,
+    }));
+    retailerRows = aggregateAffiliateRetailerCounts(toCounts(allTime), toCounts(last28));
     outboundAllTotal = retailerRows.reduce((s, r) => s + r.total, 0);
     outbound28dTotal = retailerRows.reduce((s, r) => s + r.last28, 0);
   } catch {
@@ -176,7 +186,8 @@ export default async function AdminAnalyticsPage() {
     ]);
     const clickByTool = new Map<string, number>();
     for (const c of clicks28d) {
-      const t = (c.source ?? '').replace(/^tool:/, '');
+      const t = (c.source ?? '').match(/^tool:([^:]+)/)?.[1] ?? '';
+      if (!t) continue;
       clickByTool.set(t, (clickByTool.get(t) ?? 0) + c._count._all);
     }
     const byTool = new Map<string, ToolRow>();
@@ -310,300 +321,347 @@ export default async function AdminAnalyticsPage() {
     <AdminStack gap="xl">
       <AdminHeader
         eyebrow="Analytics"
-        title="Blog performance overview"
-        subtitle="Track output volume, status mix, and post-level readership at a glance."
+        title="Analytics command center"
+        subtitle="Review blog readership, free-tool funnels, checklist clicks, affiliate activity, and estimated revenue from one organized workspace."
         actions={
-          <AdminButton asChild variant="secondary">
-            <Link href="/admin/blog">Manage blog</Link>
-          </AdminButton>
+          <div className="flex flex-wrap gap-2">
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/blog">Blog Hub</Link>
+            </AdminButton>
+            <AdminButton asChild variant="secondary">
+              <Link href="/admin/affiliates">Affiliate Hub</Link>
+            </AdminButton>
+          </div>
         }
       />
 
-      <section className="admin-kpi-grid" aria-label="Analytics metrics">
-        <AdminKpiCard label="Total posts" value={String(totalPosts)} />
-        <AdminKpiCard label="Drafts" value={String(countsByStatus.DRAFT)} />
-        <AdminKpiCard label="Scheduled" value={String(countsByStatus.SCHEDULED)} />
-        <AdminKpiCard label="Published" value={String(countsByStatus.PUBLISHED)} />
-        <AdminKpiCard label="Archived" value={String(countsByStatus.ARCHIVED)} />
-        <AdminKpiCard label="Views (28d, deduped)" value={views28d.toLocaleString()} />
-        <AdminKpiCard label="Total views (all-time)" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
+      <AdminSurface variant="muted" className="admin-stack gap-4">
+        <div className="admin-stack gap-1.5">
+          <p className="admin-eyebrow">Analytics workspaces</p>
+          <p className="admin-body">Jump to the part of the dashboard you need without scrolling through every report.</p>
+        </div>
+        <div className="admin-hub-links">
+          {ANALYTICS_NAV.map((item) => (
+            <AdminButton key={item.href} asChild variant="secondary" size="sm">
+              <a href={item.href}>{item.label}</a>
+            </AdminButton>
+          ))}
+        </div>
+      </AdminSurface>
+
+      <section id="analytics-blog" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Blog"
+          title="Blog readership"
+          body="Post volume, status mix, deduped 28-day views, and all-time post counters."
+        />
+
+        <section className="admin-kpi-grid" aria-label="Analytics metrics">
+          <AdminKpiCard label="Total posts" value={String(totalPosts)} />
+          <AdminKpiCard label="Drafts" value={String(countsByStatus.DRAFT)} />
+          <AdminKpiCard label="Scheduled" value={String(countsByStatus.SCHEDULED)} />
+          <AdminKpiCard label="Published" value={String(countsByStatus.PUBLISHED)} />
+          <AdminKpiCard label="Archived" value={String(countsByStatus.ARCHIVED)} />
+          <AdminKpiCard label="Views (28d, deduped)" value={views28d.toLocaleString()} />
+          <AdminKpiCard label="Total views (all-time)" value={(viewsSum._sum.views ?? 0).toLocaleString()} />
+        </section>
+
+        <AdminSurface variant="muted" className="admin-stack">
+          <p className="admin-eyebrow">How these numbers compare to GA &amp; Search Console</p>
+          <p className="admin-body">
+            &ldquo;Views (28d, deduped)&rdquo; counts one bot-filtered view per reader per post per 6-hour
+            window, so it tracks closest to GA4. &ldquo;Total views (all-time)&rdquo; is a cumulative counter
+            that also includes older, un-deduped hits, so it reads higher. Google Search Console measures
+            something different again — only visits that arrive from Google Search — so it is expected to be
+            the lowest of the three. GA4 also loses hits to ad/consent blockers, so it can sit a bit under the
+            deduped figure. These are blog posts only; site-wide GA traffic includes tools, home, and services.
+          </p>
+        </AdminSurface>
+
+        <AdminSurface variant="muted" className="admin-stack" >
+          <p className="admin-eyebrow">Top performer</p>
+          <p className="admin-body">
+            {mostViewedPost
+              ? `${mostViewedPost.title} (${mostViewedPost.views} views, ${POST_STATUS_LABELS[mostViewedPost.status].toLowerCase()})`
+              : 'No post data yet.'}
+          </p>
+        </AdminSurface>
+
+        <AdminSurface className="admin-stack" >
+          <h2 className="admin-h2">Post view counts</h2>
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'title', label: 'Title' },
+              { key: 'slug', label: 'Slug' },
+              { key: 'status', label: 'Status' },
+              { key: 'lifecycle', label: 'Lifecycle date' },
+              { key: 'views28d', label: 'Views (28d)', align: 'right' },
+              { key: 'views', label: 'Views (all-time)', align: 'right' },
+            ]}
+            emptyState={<p className="admin-body p-6">No post data yet.</p>}
+          >
+            {postsByViews.map((post) => (
+              <tr key={post.id} className="admin-row">
+                <td className="text-admin">{post.title}</td>
+                <td>
+                  <span className="admin-table-code">{post.slug}</span>
+                </td>
+                <td>
+                  <StatusPill status={post.status} />
+                </td>
+                <td className="admin-micro">{getLifecycleLabel(post.status, post.publishedAt, post.scheduledFor, post.archivedAt)}</td>
+                <td className="text-right text-admin">{(views28dMap.get(post.id) ?? 0).toLocaleString()}</td>
+                <td className="text-right text-admin">{post.views.toLocaleString()}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
       </section>
 
-      <AdminSurface variant="muted" className="admin-stack">
-        <p className="admin-eyebrow">How these numbers compare to GA &amp; Search Console</p>
-        <p className="admin-body">
-          &ldquo;Views (28d, deduped)&rdquo; counts one bot-filtered view per reader per post per 6-hour
-          window, so it tracks closest to GA4. &ldquo;Total views (all-time)&rdquo; is a cumulative counter
-          that also includes older, un-deduped hits, so it reads higher. Google Search Console measures
-          something different again — only visits that arrive from Google Search — so it is expected to be
-          the lowest of the three. GA4 also loses hits to ad/consent blockers, so it can sit a bit under the
-          deduped figure. These are blog posts only; site-wide GA traffic includes tools, home, and services.
-        </p>
-      </AdminSurface>
+      <section id="analytics-tools" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Free Tools"
+          title="Tool usage funnel (28 days)"
+          body="Bot-filtered usage of the Stroller Finder, Travel System Checker, Stroller Quiz, and Stroller Compare."
+        />
 
-      <AdminSurface variant="muted" className="admin-stack" >
-        <p className="admin-eyebrow">Top performer</p>
-        <p className="admin-body">
-          {mostViewedPost
-            ? `${mostViewedPost.title} (${mostViewedPost.views} views, ${POST_STATUS_LABELS[mostViewedPost.status].toLowerCase()})`
-            : 'No post data yet.'}
-        </p>
-      </AdminSurface>
-
-      <AdminSurface className="admin-stack" >
-        <h2 className="admin-h2">Post view counts</h2>
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'title', label: 'Title' },
-            { key: 'slug', label: 'Slug' },
-            { key: 'status', label: 'Status' },
-            { key: 'lifecycle', label: 'Lifecycle date' },
-            { key: 'views28d', label: 'Views (28d)', align: 'right' },
-            { key: 'views', label: 'Views (all-time)', align: 'right' },
-          ]}
-          emptyState={<p className="admin-body p-6">No post data yet.</p>}
-        >
-          {postsByViews.map((post) => (
-            <tr key={post.id} className="admin-row">
-              <td className="text-admin">{post.title}</td>
-              <td>
-                <span className="admin-table-code">{post.slug}</span>
-              </td>
-              <td>
-                <StatusPill status={post.status} />
-              </td>
-              <td className="admin-micro">{getLifecycleLabel(post.status, post.publishedAt, post.scheduledFor, post.archivedAt)}</td>
-              <td className="text-right text-admin">{(views28dMap.get(post.id) ?? 0).toLocaleString()}</td>
-              <td className="text-right text-admin">{post.views.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
-
-      <AdminHeader
-        eyebrow="Free Tools"
-        title="Tool usage funnel (28 days)"
-        subtitle="Bot-filtered usage of the Stroller Finder, Travel System Checker, Stroller Quiz, and Stroller Compare. Opens are counted once per visitor per tool per day; selections and results count every interaction."
-      />
-
-      <AdminSurface className="admin-stack">
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'tool', label: 'Tool' },
-            { key: 'opens', label: 'Opens', align: 'right' },
-            { key: 'selections', label: 'Selections', align: 'right' },
-            { key: 'results', label: 'Results viewed', align: 'right' },
-            { key: 'clicks', label: 'Affiliate clicks', align: 'right' },
-          ]}
-          emptyState={
-            <p className="admin-body p-6">
-              No tool usage logged yet. This fills in once the tool-event table is deployed and visitors start
-              using the Finder, Checker, Quiz, or Compare tool.
-            </p>
-          }
-        >
-          {toolRows.map((row) => (
-            <tr key={row.tool} className="admin-row">
-              <td className="text-admin">{row.label}</td>
-              <td className="text-right text-admin">{row.opens.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.selections.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.results.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.clicks.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
-
-      <AdminHeader
-        eyebrow="Stroller Compare"
-        title="What people put head to head (28 days)"
-        subtitle="A comparison is counted once two strollers sit side by side, so a visitor who adds one stroller and leaves shows up as a drop-off rather than a comparison. Each distinct set is counted once per session."
-      />
-
-      <section className="admin-kpi-grid" aria-label="Stroller Compare metrics">
-        <AdminKpiCard label="2-stroller comparisons" value={compareDepth.twoWay.toLocaleString()} />
-        <AdminKpiCard label="3-stroller comparisons" value={compareDepth.threeWay.toLocaleString()} />
-        <AdminKpiCard label="Opens without a comparison" value={compareAbandoned.toLocaleString()} />
+        <AdminSurface className="admin-stack">
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'tool', label: 'Tool' },
+              { key: 'opens', label: 'Opens', align: 'right' },
+              { key: 'selections', label: 'Selections', align: 'right' },
+              { key: 'results', label: 'Results viewed', align: 'right' },
+              { key: 'clicks', label: 'Affiliate clicks', align: 'right' },
+            ]}
+            emptyState={
+              <p className="admin-body p-6">
+                No tool usage logged yet. This fills in once the tool-event table is deployed and visitors start
+                using the Finder, Checker, Quiz, or Compare tool.
+              </p>
+            }
+          >
+            {toolRows.map((row) => (
+              <tr key={row.tool} className="admin-row">
+                <td className="text-admin">{row.label}</td>
+                <td className="text-right text-admin">{row.opens.toLocaleString()}</td>
+                <td className="text-right text-admin">{row.selections.toLocaleString()}</td>
+                <td className="text-right text-admin">{row.results.toLocaleString()}</td>
+                <td className="text-right text-admin">{row.clicks.toLocaleString()}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
       </section>
 
-      <AdminSurface className="admin-stack">
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'name', label: 'Stroller' },
-            { key: 'picks', label: 'Times added', align: 'right' },
-          ]}
-          emptyState={
-            <p className="admin-body p-6">
-              No comparisons logged yet. This fills in once the Compare tool is deployed and visitors start
-              adding strollers to a comparison.
-            </p>
-          }
-        >
-          {comparedRows.map((row) => (
-            <tr key={row.name} className="admin-row">
-              <td className="text-admin">{row.name}</td>
-              <td className="text-right text-admin">{row.picks.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
+      <section id="analytics-compare" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Stroller Compare"
+          title="What people put head to head (28 days)"
+          body="A comparison is counted once two strollers sit side by side; visitors who leave after one stroller show up as drop-off."
+        />
 
-      <AdminHeader
-        eyebrow="Baby Registry Checklist"
-        title="Products people click on /resources/baby-checklist"
-        subtitle="Real, bot-filtered outbound clicks on the checklist's product buy-buttons, by product and retailer. Use it to see which picks convert and which underperform."
-      />
+        <section className="admin-kpi-grid" aria-label="Stroller Compare metrics">
+          <AdminKpiCard label="2-stroller comparisons" value={compareDepth.twoWay.toLocaleString()} />
+          <AdminKpiCard label="3-stroller comparisons" value={compareDepth.threeWay.toLocaleString()} />
+          <AdminKpiCard label="Opens without a comparison" value={compareAbandoned.toLocaleString()} />
+        </section>
 
-      <section className="admin-kpi-grid" aria-label="Baby checklist product-click metrics">
-        <AdminKpiCard label="Checklist clicks (28d)" value={checklistClick28.toLocaleString()} />
-        <AdminKpiCard label="Checklist clicks (all-time)" value={checklistClickAll.toLocaleString()} />
-        <AdminKpiCard label="Products clicked" value={String(checklistProductRows.length)} />
+        <AdminSurface className="admin-stack">
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'name', label: 'Stroller' },
+              { key: 'picks', label: 'Times added', align: 'right' },
+            ]}
+            emptyState={
+              <p className="admin-body p-6">
+                No comparisons logged yet. This fills in once the Compare tool is deployed and visitors start
+                adding strollers to a comparison.
+              </p>
+            }
+          >
+            {comparedRows.map((row) => (
+              <tr key={row.name} className="admin-row">
+                <td className="text-admin">{row.name}</td>
+                <td className="text-right text-admin">{row.picks.toLocaleString()}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
       </section>
 
-      <AdminSurface className="admin-stack">
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'product', label: 'Product' },
-            { key: 'brand', label: 'Brand' },
-            { key: 'last28', label: 'Clicks (28d)', align: 'right' },
-            { key: 'total', label: 'Clicks (all-time)', align: 'right' },
-          ]}
-          emptyState={
-            <p className="admin-body p-6">
-              No checklist product clicks logged yet. This fills in once visitors start clicking the buy-buttons on
-              the Baby Registry Checklist.
-            </p>
-          }
-        >
-          {checklistProductRows.map((row) => (
-            <tr key={`${row.brand ?? ''}-${row.product}`} className="admin-row">
-              <td className="text-admin">{row.product}</td>
-              <td className="admin-micro">{row.brand ?? '—'}</td>
-              <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.total.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
+      <section id="analytics-checklist" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Baby Registry Checklist"
+          title="Checklist product clicks"
+          body="Real, bot-filtered outbound clicks on the checklist product buy-buttons, by product and retailer."
+        />
 
-      <AdminHeader
-        eyebrow="Affiliate"
-        title="Outbound clicks by retailer"
-        subtitle="Real, bot-filtered clicks on outbound affiliate links across the whole site (tools, blog, and tracked links). Use this to reconcile against each network's own dashboard."
-      />
+        <section className="admin-kpi-grid" aria-label="Baby checklist product-click metrics">
+          <AdminKpiCard label="Checklist clicks (28d)" value={checklistClick28.toLocaleString()} />
+          <AdminKpiCard label="Checklist clicks (all-time)" value={checklistClickAll.toLocaleString()} />
+          <AdminKpiCard label="Products clicked" value={String(checklistProductRows.length)} />
+        </section>
 
-      <section className="admin-kpi-grid" aria-label="Outbound affiliate click metrics">
-        <AdminKpiCard label="Outbound clicks (28d)" value={outbound28dTotal.toLocaleString()} />
-        <AdminKpiCard label="Outbound clicks (all-time)" value={outboundAllTotal.toLocaleString()} />
-        <AdminKpiCard label="Retailers tracked" value={String(retailerRows.length)} />
+        <AdminSurface className="admin-stack">
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'product', label: 'Product' },
+              { key: 'brand', label: 'Brand' },
+              { key: 'last28', label: 'Clicks (28d)', align: 'right' },
+              { key: 'total', label: 'Clicks (all-time)', align: 'right' },
+            ]}
+            emptyState={
+              <p className="admin-body p-6">
+                No checklist product clicks logged yet. This fills in once visitors start clicking the buy-buttons on
+                the Baby Registry Checklist.
+              </p>
+            }
+          >
+            {checklistProductRows.map((row) => (
+              <tr key={`${row.brand ?? ''}-${row.product}`} className="admin-row">
+                <td className="text-admin">{row.product}</td>
+                <td className="admin-micro">{row.brand ?? '—'}</td>
+                <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
+                <td className="text-right text-admin">{row.total.toLocaleString()}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
       </section>
 
-      <AdminSurface className="admin-stack">
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'retailer', label: 'Retailer' },
-            { key: 'network', label: 'Network' },
-            { key: 'last28', label: 'Clicks (28d)', align: 'right' },
-            { key: 'total', label: 'Clicks (all-time)', align: 'right' },
-          ]}
-          emptyState={
-            <p className="admin-body p-6">
-              No outbound clicks logged yet. This table fills in once the affiliate-click table is deployed and
-              visitors start clicking buy links.
-            </p>
-          }
-        >
-          {retailerRows.map((row) => (
-            <tr key={row.retailer} className="admin-row">
-              <td className="text-admin">{row.retailer}</td>
-              <td className="admin-micro">{row.network ?? '—'}</td>
-              <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
-              <td className="text-right text-admin">{row.total.toLocaleString()}</td>
-            </tr>
-          ))}
-        </AdminTable>
-        <p className="admin-micro">
-          These are your first-party click counts (deduped, bots removed). Networks like Impact and CJ filter
-          invalid clicks aggressively and will read lower; lightweight trackers (e.g. MacroBaby, Silver Cross via
-          UAP) barely filter and will read higher. Time windows also differ per network dashboard.
-        </p>
-      </AdminSurface>
+      <section id="analytics-affiliate" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Affiliate"
+          title="Outbound clicks by retailer"
+          body="Real, bot-filtered clicks on outbound affiliate links across tools, blog, and tracked links."
+        />
 
-      <AdminHeader
-        eyebrow="Revenue Estimator"
-        title="Blog revenue leaders"
-        subtitle="Estimate affiliate value by combining click logs with program-level order value and commission assumptions."
-      />
+        <section className="admin-kpi-grid" aria-label="Outbound affiliate click metrics">
+          <AdminKpiCard label="Outbound clicks (28d)" value={outbound28dTotal.toLocaleString()} />
+          <AdminKpiCard label="Outbound clicks (all-time)" value={outboundAllTotal.toLocaleString()} />
+          <AdminKpiCard label="Retailers tracked" value={String(retailerRows.length)} />
+        </section>
 
-      <section className="admin-kpi-grid" aria-label="Blog revenue estimator metrics">
-        <AdminKpiCard label="Est. revenue" value={formatCurrency(revenueAnalytics.summary.totalEstimatedRevenue)} />
-        <AdminKpiCard label="Affiliate clicks" value={revenueAnalytics.summary.totalAffiliateClicks.toLocaleString()} />
-        <AdminKpiCard label="Posts with clicks" value={revenueAnalytics.summary.monetizedPosts.toLocaleString()} />
-        <AdminKpiCard label="Brands with clicks" value={revenueAnalytics.summary.monetizedBrands.toLocaleString()} />
+        <AdminSurface className="admin-stack">
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'retailer', label: 'Retailer' },
+              { key: 'network', label: 'Network' },
+              { key: 'last28', label: 'Clicks (28d)', align: 'right' },
+              { key: 'total', label: 'Clicks (all-time)', align: 'right' },
+            ]}
+            emptyState={
+              <p className="admin-body p-6">
+                No outbound clicks logged yet. This table fills in once the affiliate-click table is deployed and
+                visitors start clicking buy links.
+              </p>
+            }
+          >
+            {retailerRows.map((row) => (
+              <tr key={row.retailer} className="admin-row">
+                <td className="text-admin">{row.retailer}</td>
+                <td className="admin-micro">{row.network ?? '—'}</td>
+                <td className="text-right text-admin">{row.last28.toLocaleString()}</td>
+                <td className="text-right text-admin">{row.total.toLocaleString()}</td>
+              </tr>
+            ))}
+          </AdminTable>
+          <p className="admin-micro">
+            These are your first-party click counts (deduped, bots removed). Networks like Impact and CJ filter
+            invalid clicks aggressively and will read lower; lightweight trackers (e.g. MacroBaby, Silver Cross via
+            UAP) barely filter and will read higher. Time windows also differ per network dashboard.
+          </p>
+        </AdminSurface>
       </section>
 
-      <BlogRevenueCharts
-        topEarningPosts={revenueAnalytics.topEarningPosts}
-        revenueOverTime={revenueAnalytics.revenueOverTime}
-      />
+      <section id="analytics-revenue" className="admin-stack gap-4">
+        <SectionIntro
+          eyebrow="Revenue Estimator"
+          title="Blog revenue leaders"
+          body="Estimated affiliate value from click logs, program-level order value, and commission assumptions."
+        />
 
-      <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Blog Revenue Leaders</h2>
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'post', label: 'Blog Post' },
-            { key: 'views', label: 'Views', align: 'right' },
-            { key: 'clicks', label: 'Affiliate Clicks', align: 'right' },
-            { key: 'revenue', label: 'Estimated Revenue', align: 'right' },
-            { key: 'rpm', label: 'RPM', align: 'right' },
-          ]}
-          emptyState={<p className="admin-body p-6">No blog revenue data yet.</p>}
-        >
-          {revenueLeaderRows.map((post) => (
-            <tr key={post.postId} className="admin-row">
-              <td>
-                <div className="admin-stack gap-1">
-                  <p className="text-admin">{post.postTitle}</p>
-                  <Link href={`/blog/${post.slug}`} target="_blank" className="admin-micro underline underline-offset-2">
-                    /blog/{post.slug}
-                  </Link>
-                </div>
-              </td>
-              <td className="text-right text-admin">{post.views.toLocaleString()}</td>
-              <td className="text-right text-admin">{post.affiliateClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{formatCurrency(post.estimatedRevenue)}</td>
-              <td className="text-right admin-micro">{formatRpm(post.rpm)}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
+        <section className="admin-kpi-grid" aria-label="Blog revenue estimator metrics">
+          <AdminKpiCard label="Est. revenue" value={formatCurrency(revenueAnalytics.summary.totalEstimatedRevenue)} />
+          <AdminKpiCard label="Affiliate clicks" value={revenueAnalytics.summary.totalAffiliateClicks.toLocaleString()} />
+          <AdminKpiCard label="Posts with clicks" value={revenueAnalytics.summary.monetizedPosts.toLocaleString()} />
+          <AdminKpiCard label="Brands with clicks" value={revenueAnalytics.summary.monetizedBrands.toLocaleString()} />
+        </section>
 
-      <AdminSurface className="admin-stack">
-        <h2 className="admin-h2">Affiliate Brand Performance</h2>
-        <AdminTable
-          density="compact"
-          columns={[
-            { key: 'brand', label: 'Brand' },
-            { key: 'clicks', label: 'Clicks', align: 'right' },
-            { key: 'revenue', label: 'Estimated Revenue', align: 'right' },
-          ]}
-          emptyState={<p className="admin-body p-6">No affiliate brand data yet.</p>}
-        >
-          {revenueAnalytics.brandPerformance.slice(0, 12).map((brand) => (
-            <tr key={brand.brandId} className="admin-row">
-              <td className="text-admin">{brand.brandName}</td>
-              <td className="text-right text-admin">{brand.affiliateClicks.toLocaleString()}</td>
-              <td className="text-right text-admin">{formatCurrency(brand.estimatedRevenue)}</td>
-            </tr>
-          ))}
-        </AdminTable>
-      </AdminSurface>
+        <BlogRevenueCharts
+          topEarningPosts={revenueAnalytics.topEarningPosts}
+          revenueOverTime={revenueAnalytics.revenueOverTime}
+        />
+
+        <AdminSurface className="admin-stack">
+          <h2 className="admin-h2">Blog Revenue Leaders</h2>
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'post', label: 'Blog Post' },
+              { key: 'views', label: 'Views', align: 'right' },
+              { key: 'clicks', label: 'Affiliate Clicks', align: 'right' },
+              { key: 'revenue', label: 'Estimated Revenue', align: 'right' },
+              { key: 'rpm', label: 'RPM', align: 'right' },
+            ]}
+            emptyState={<p className="admin-body p-6">No blog revenue data yet.</p>}
+          >
+            {revenueLeaderRows.map((post) => (
+              <tr key={post.postId} className="admin-row">
+                <td>
+                  <div className="admin-stack gap-1">
+                    <p className="text-admin">{post.postTitle}</p>
+                    <Link href={`/blog/${post.slug}`} target="_blank" className="admin-micro underline underline-offset-2">
+                      /blog/{post.slug}
+                    </Link>
+                  </div>
+                </td>
+                <td className="text-right text-admin">{post.views.toLocaleString()}</td>
+                <td className="text-right text-admin">{post.affiliateClicks.toLocaleString()}</td>
+                <td className="text-right text-admin">{formatCurrency(post.estimatedRevenue)}</td>
+                <td className="text-right admin-micro">{formatRpm(post.rpm)}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
+
+        <AdminSurface className="admin-stack">
+          <h2 className="admin-h2">Affiliate Brand Performance</h2>
+          <AdminTable
+            density="compact"
+            columns={[
+              { key: 'brand', label: 'Brand' },
+              { key: 'clicks', label: 'Clicks', align: 'right' },
+              { key: 'revenue', label: 'Estimated Revenue', align: 'right' },
+            ]}
+            emptyState={<p className="admin-body p-6">No affiliate brand data yet.</p>}
+          >
+            {revenueAnalytics.brandPerformance.slice(0, 12).map((brand) => (
+              <tr key={brand.brandId} className="admin-row">
+                <td className="text-admin">{brand.brandName}</td>
+                <td className="text-right text-admin">{brand.affiliateClicks.toLocaleString()}</td>
+                <td className="text-right text-admin">{formatCurrency(brand.estimatedRevenue)}</td>
+              </tr>
+            ))}
+          </AdminTable>
+        </AdminSurface>
+      </section>
     </AdminStack>
+  );
+}
+
+function SectionIntro({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
+  return (
+    <div className="admin-stack gap-1.5">
+      <p className="admin-eyebrow">{eyebrow}</p>
+      <h2 className="admin-h2">{title}</h2>
+      <p className="admin-body max-w-3xl">{body}</p>
+    </div>
   );
 }
