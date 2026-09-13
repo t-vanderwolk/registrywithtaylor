@@ -122,6 +122,12 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
           actions={
             <div className="flex flex-wrap gap-2">
               <AdminButton asChild variant="secondary">
+                <Link href="/admin/products">Product hub</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
+                <Link href="/admin/catalog/compatibility">Compatibility</Link>
+              </AdminButton>
+              <AdminButton asChild variant="secondary">
                 <Link href="/admin/catalog/recategorize">Recategorize types</Link>
               </AdminButton>
               <AdminButton asChild variant="secondary">
@@ -140,47 +146,37 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
           </AdminSurface>
         ) : (
           <>
-            <AdminSurface className="admin-stack gap-3">
-              <p className="admin-eyebrow">Add a stroller</p>
-              <form action={createStroller} className="grid gap-3 sm:grid-cols-2">
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
-                  Brand *
-                  <input name="brand" required placeholder="UPPAbaby" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
-                  Model *
-                  <input name="model" required placeholder="Vista V2" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
-                  Display name
-                  <input name="displayName" placeholder="UPPAbaby Vista V2" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
-                  Amazon affiliate link
-                  <input name="amazonUrl" placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
-                  Babylist affiliate link
-                  <input name="manualBabylistUrl" placeholder="https://www.babylist.com/gp/…" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
-                  Image URL
-                  <input name="imageUrl" placeholder="https://…/product.jpg (optional — overrides the Babylist image)" className={field} />
-                </label>
-                <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
-                  Summary
-                  <textarea name="summary" rows={2} className={field} />
-                </label>
-                <div className="sm:col-span-2">
-                  <button type="submit" className="rounded-full bg-[var(--color-cta-pink)] px-5 py-2 text-[0.78rem] font-semibold text-white">
-                    Add stroller
-                  </button>
-                </div>
-              </form>
+            <AdminSurface variant="muted" className="admin-stack gap-4">
+              <div className="admin-stack gap-1.5">
+                <p className="admin-eyebrow">Related workspaces</p>
+                <p className="admin-body">Move between the stroller database, car seats, compatibility rows, and catalog health without returning to the dashboard.</p>
+              </div>
+              <div className="admin-hub-links">
+                <AdminButton asChild variant="primary" size="sm">
+                  <Link href="/admin/products">Product hub</Link>
+                </AdminButton>
+                <AdminButton asChild variant="secondary" size="sm">
+                  <Link href="/admin/car-seats">Car seats</Link>
+                </AdminButton>
+                <AdminButton asChild variant="secondary" size="sm">
+                  <Link href="/admin/catalog/compatibility">Compatibility</Link>
+                </AdminButton>
+                <AdminButton asChild variant="secondary" size="sm">
+                  <Link href="/admin/catalog/health">Catalog health</Link>
+                </AdminButton>
+              </div>
             </AdminSurface>
 
             <AdminSurface className="admin-stack gap-3">
-              <p className="admin-body">{total.toLocaleString()} strollers</p>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="admin-eyebrow">Find a stroller</p>
+                  <p className="admin-body">{total.toLocaleString()} strollers</p>
+                </div>
+                <AdminButton asChild variant="secondary" size="sm">
+                  <Link href="/admin/catalog/recategorize">Recategorize types</Link>
+                </AdminButton>
+              </div>
               <form method="get" className="flex flex-wrap items-end gap-3">
                 <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
                   Search
@@ -190,6 +186,49 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
                   Filter
                 </button>
               </form>
+            </AdminSurface>
+
+            <AdminSurface className="admin-stack gap-3">
+              <details>
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--color-accent-dark)]">
+                  + Add a stroller manually
+                </summary>
+                <form action={createStroller} className="mt-4 grid gap-3 border-t border-neutral-100 pt-4 sm:grid-cols-2">
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Brand *
+                    <input name="brand" required placeholder="UPPAbaby" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Model *
+                    <input name="model" required placeholder="Vista V2" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Display name
+                    <input name="displayName" placeholder="UPPAbaby Vista V2" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Amazon affiliate link
+                    <input name="amazonUrl" placeholder="https://www.amazon.com/dp/…?tag=taylormadebab-20" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500">
+                    Babylist affiliate link
+                    <input name="manualBabylistUrl" placeholder="https://www.babylist.com/gp/…" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Image URL
+                    <input name="imageUrl" placeholder="https://…/product.jpg (optional — overrides the Babylist image)" className={field} />
+                  </label>
+                  <label className="admin-stack gap-1 text-[0.78rem] text-neutral-500 sm:col-span-2">
+                    Summary
+                    <textarea name="summary" rows={2} className={field} />
+                  </label>
+                  <div className="sm:col-span-2">
+                    <button type="submit" className="rounded-full bg-[var(--color-cta-pink)] px-5 py-2 text-[0.78rem] font-semibold text-white">
+                      Add stroller
+                    </button>
+                  </div>
+                </form>
+              </details>
             </AdminSurface>
 
             <div className="admin-stack gap-3">
