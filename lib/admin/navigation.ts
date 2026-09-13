@@ -36,7 +36,10 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
   {
     label: 'Checklist',
     summary: 'Checklist categories, items, and product picks shown on the public checklist.',
-    links: [{ label: 'Checklist Picks', href: '/admin/checklist' }],
+    links: [
+      { label: 'Checklist Structure', href: '/admin/checklist' },
+      { label: 'Checklist Product Hub', href: '/admin/checklist/products' },
+    ],
   },
   {
     label: 'Publishing',

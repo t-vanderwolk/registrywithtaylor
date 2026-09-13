@@ -57,7 +57,7 @@ export default function AdminShell({
                   <Link href="/admin/products">Products</Link>
                 </AdminButton>
                 <AdminButton asChild variant="secondary">
-                  <Link href="/admin/checklist">Checklist</Link>
+                  <Link href="/admin/checklist/products">Checklist Products</Link>
                 </AdminButton>
                 <AdminButton asChild variant="secondary">
                   <Link href="/admin/blog/new">New Post</Link>
