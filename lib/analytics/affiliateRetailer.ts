@@ -30,6 +30,7 @@ const RULES: Array<{ test: RegExp; retailer: string; network: string | null }> =
   { test: /babylist/i, retailer: 'Babylist', network: 'Impact' },
   { test: /(^|\.)amazon\.|amzn\.to/i, retailer: 'Amazon', network: 'Amazon Associates' },
   { test: /macrobaby/i, retailer: 'MacroBaby', network: 'Shopify' },
+  { test: /bombi/i, retailer: 'Bombi', network: null },
   { test: /silvercross/i, retailer: 'Silver Cross', network: 'UAP' },
   { test: /goodbuygear/i, retailer: 'GoodBuyGear', network: 'Impact' },
   { test: /anbbaby/i, retailer: 'ANB Baby', network: 'Awin' },
@@ -46,6 +47,7 @@ const CANONICAL_RETAILERS: Record<string, AffiliateRetailer> = {
   babylist: { retailer: 'Babylist', network: 'Impact' },
   macrobaby: { retailer: 'MacroBaby', network: 'Shopify' },
   'macro baby': { retailer: 'MacroBaby', network: 'Shopify' },
+  bombi: { retailer: 'Bombi', network: null },
 };
 
 const CANONICAL_NETWORKS: Record<string, string> = {

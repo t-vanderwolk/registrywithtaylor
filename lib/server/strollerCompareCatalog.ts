@@ -25,6 +25,8 @@ export type StrollerCompareItem = {
   babylistPrice: number | null;
   macroBabyUrl: string | null;
   macroBabyPrice: number | null;
+  bombiUrl: string | null;
+  bombiPrice: number | null;
   amazonUrl: string | null;
   amazonPrice: number | null;
   ownWeightLbs: number | null;
@@ -58,6 +60,10 @@ const specKey = (brand: string, model: string) => `${brand.trim().toLowerCase()}
 function categoryLabel(category: string | null | undefined): string | null {
   if (!category) return null;
   return STROLLER_CATEGORY_LABELS[category as StrollerCategory] ?? null;
+}
+
+function canUseOverheadBinFlag(category: string | null | undefined) {
+  return category !== 'double' && category !== 'double-travel' && category !== 'double-jogging' && category !== 'wagon';
 }
 
 /**
@@ -124,6 +130,9 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
     const spec = specMap.get(key) ?? null;
     const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? null;
     const attrs = resolveCompareAttributes(option.brand, option.model, option.strollerCategory ?? null);
+    const fitsOverheadBin = canUseOverheadBinFlag(option.strollerCategory)
+      ? (spec?.fitsOverheadBin ?? attrs.fitsOverheadBin)
+      : false;
 
     items.push({
       id,
@@ -136,6 +145,8 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       babylistPrice: option.babylistPrice ?? null,
       macroBabyUrl: option.macroBabyUrl ?? null,
       macroBabyPrice: option.macroBabyPrice ?? null,
+      bombiUrl: option.bombiUrl ?? null,
+      bombiPrice: option.bombiPrice ?? null,
       amazonUrl: option.amazonUrl ?? null,
       amazonPrice: option.amazonPrice ?? null,
       ownWeightLbs: spec?.ownWeightLbs ?? null,
@@ -146,7 +157,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       // Prefer curated DB values; fall back to the category-derived defaults.
       modular: spec?.modular ?? attrs.modular,
       travelSystemCompatible: compatibleKeys.has(key),
-      fitsOverheadBin: spec?.fitsOverheadBin ?? attrs.fitsOverheadBin,
+      fitsOverheadBin,
       basketCapacity: attrs.basketCapacity,
       basketCapacityLbs: spec?.basketCapacityLbs ?? null,
     });

@@ -20,6 +20,17 @@ function formatWeight(value: number | null): string | null {
   return `${value % 1 === 0 ? value : value.toFixed(1)} lbs`;
 }
 
+function uniqueValidIds(ids: string[], byId: Map<string, StrollerCompareItem>) {
+  const seen = new Set<string>();
+  return ids
+    .filter((id) => {
+      if (!byId.has(id) || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    })
+    .slice(0, MAX_COLUMNS);
+}
+
 function SearchIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" className="shrink-0">
@@ -168,7 +179,7 @@ function PlaceholderSlot({ slotNumber, onFocusAdd }: { slotNumber: number; onFoc
 }
 
 function ProductColumn({ item, index, onRemove }: { item: StrollerCompareItem; index: number; onRemove: () => void }) {
-  const price = formatPrice(item.babylistPrice ?? item.macroBabyPrice ?? item.amazonPrice ?? null);
+  const price = formatPrice(item.babylistPrice ?? item.macroBabyPrice ?? item.bombiPrice ?? item.amazonPrice ?? null);
   return (
     <div className="relative flex min-h-[15rem] flex-col rounded-[1.4rem] border border-[rgba(215,161,175,0.35)] bg-white p-4 shadow-[0_10px_28px_rgba(72,49,56,0.06)]">
       <div className="flex items-center justify-between">
@@ -208,9 +219,8 @@ export default function StrollerCompare({
 }) {
   const byId = useMemo(() => new Map(catalog.map((item) => [item.id, item])), [catalog]);
 
-  const [selectedIds, setSelectedIds] = useState<string[]>(() =>
-    initialIds.filter((id) => byId.has(id)).slice(0, MAX_COLUMNS),
-  );
+  const initialSelectedIds = useMemo(() => uniqueValidIds(initialIds, byId), [initialIds, byId]);
+  const [selectedIds, setSelectedIds] = useState<string[]>(() => initialSelectedIds);
 
   // Focusing the active search from a passive placeholder card.
   const gridRef = useRef<HTMLDivElement>(null);
@@ -220,7 +230,7 @@ export default function StrollerCompare({
   // checker or a shared URL) arrives with slots already filled, so record that
   // separately from a cold start.
   useEffect(() => {
-    trackToolOpened('stroller-compare', { seededSlots: initialIds.length, deepLinked: initialIds.length > 0 });
+    trackToolOpened('stroller-compare', { seededSlots: initialSelectedIds.length, deepLinked: initialSelectedIds.length > 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -279,7 +289,7 @@ export default function StrollerCompare({
   const highestMax = maxWeights.length ? Math.max(...maxWeights) : null;
 
   const rows: { label: string; render: (item: StrollerCompareItem) => ReactNode }[] = [
-    { label: 'Price', render: (i) => <SpecValue text={formatPrice(i.babylistPrice ?? i.macroBabyPrice ?? i.amazonPrice ?? null)} /> },
+    { label: 'Price', render: (i) => <SpecValue text={formatPrice(i.babylistPrice ?? i.macroBabyPrice ?? i.bombiPrice ?? i.amazonPrice ?? null)} /> },
     { label: 'Type', render: (i) => <SpecValue text={i.categoryLabel} /> },
     {
       label: 'Stroller weight',
@@ -377,6 +387,7 @@ export default function StrollerCompare({
                 const babylist = item.babylistUrl;
                 const amazon = item.amazonUrl;
                 const macro = !babylist ? item.macroBabyUrl : null;
+                const bombi = !babylist && !macro ? item.bombiUrl : null;
                 return (
                   <div key={item.id} className="flex flex-col gap-2">
                     {babylist ? (
@@ -400,6 +411,17 @@ export default function StrollerCompare({
                         className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on MacroBaby
+                      </ToolAffiliateLink>
+                    ) : bombi ? (
+                      <ToolAffiliateLink
+                        tool="stroller-compare"
+                        href={bombi}
+                        product={item.displayName}
+                        retailer="bombi"
+                        brand={item.brand}
+                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
+                      >
+                        Shop on Bombi
                       </ToolAffiliateLink>
                     ) : null}
                     {amazon ? (

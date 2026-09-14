@@ -16,10 +16,15 @@ const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required'];
 export const dynamic = 'force-dynamic';
 
 function parseCompareIds(rawIds?: string | string[]) {
+  const seen = new Set<string>();
   return (Array.isArray(rawIds) ? rawIds[0] : rawIds ?? '')
     .split(',')
     .map((id) => id.trim())
-    .filter(Boolean)
+    .filter((id) => {
+      if (!id || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    })
     .slice(0, 3);
 }
 

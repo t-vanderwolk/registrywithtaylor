@@ -15,6 +15,8 @@ describe('affiliate retailer canonicalization', () => {
     [{ retailer: 'babylist' }, { retailer: 'Babylist', network: 'Impact' }],
     [{ retailer: 'MacroBaby' }, { retailer: 'MacroBaby', network: 'Shopify' }],
     [{ retailer: 'macrobaby' }, { retailer: 'MacroBaby', network: 'Shopify' }],
+    [{ retailer: 'bombi' }, { retailer: 'Bombi', network: null }],
+    [{ url: 'https://hellobombi.com/products/bebee-v3-stroller' }, { retailer: 'Bombi', network: null }],
   ])('canonicalizes %o', (input, expected) => {
     expect(canonicalizeAffiliateRetailer(input)).toEqual(expected);
   });
