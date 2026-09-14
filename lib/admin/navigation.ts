@@ -52,6 +52,15 @@ const EDITOR_NAV_SECTIONS: AdminNavSection[] = [
     ],
   },
   {
+    label: 'Newsletter',
+    summary: 'Local subscriber tracking, audience list, and weekly issue planning.',
+    links: [
+      { label: 'Newsletter Hub', href: '/admin/newsletter' },
+      { label: 'Subscribers', href: '/admin/newsletter/subscribers' },
+      { label: 'Issues', href: '/admin/newsletter/issues' },
+    ],
+  },
+  {
     label: 'Affiliate',
     summary: 'Affiliate programs, partner metadata, and trackable short links.',
     links: [

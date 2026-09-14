@@ -1,9 +1,9 @@
-import { createHash } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { adminNotificationTemplate } from '@/lib/email/templates/adminNotification';
 import { consultationConfirmationTemplate } from '@/lib/email/templates/consultationConfirmation';
 import { getAdminEmail, sendEmail } from '@/lib/email/sendEmail';
 import { forbiddenResponse, rejectReviewerMutation } from '@/lib/server/apiAuth';
+import { subscribeToNewsletter } from '@/lib/server/newsletter';
 import prisma from '@/lib/server/prisma';
 import { consumeRateLimit } from '@/lib/server/rateLimit';
 
@@ -29,39 +29,6 @@ const wantsJson = (req: NextRequest) =>
 
 const jsonError = (message: string, status: number, fieldErrors?: Record<string, string>) =>
   NextResponse.json({ error: message, fieldErrors: fieldErrors ?? {} }, { status });
-
-async function addMailchimpConsultationTag(email: string, name: string) {
-  const apiKey = process.env.MAILCHIMP_API_KEY;
-  const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
-  const dc = 'us22';
-
-  if (!apiKey || !audienceId) return;
-
-  const hash = createHash('md5').update(email.toLowerCase()).digest('hex');
-  const firstName = name.split(' ')[0] ?? name;
-  const auth = `Basic ${Buffer.from(`anystring:${apiKey}`).toString('base64')}`;
-  const headers = { Authorization: auth, 'Content-Type': 'application/json' };
-
-  // Upsert subscriber
-  await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${audienceId}/members/${hash}`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify({
-      email_address: email,
-      status_if_new: 'subscribed',
-      merge_fields: { FNAME: firstName },
-    }),
-  }).catch(() => null);
-
-  // Add "Consultation Lead" tag (triggers Mailchimp automation)
-  await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${audienceId}/members/${hash}/tags`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      tags: [{ name: 'Consultation Lead', status: 'active' }],
-    }),
-  }).catch(() => null);
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -129,8 +96,16 @@ export async function POST(req: NextRequest) {
     select: { id: true },
   });
 
-  // Add to Mailchimp with consultation tag
-  await addMailchimpConsultationTag(email, name);
+  // Keep a local subscriber record without blocking the consultation intake.
+  await subscribeToNewsletter({
+    email,
+    firstName: name.split(' ')[0] ?? name,
+    source: 'consultation_request',
+    sourceDetail: '/consultation',
+    tags: ['Consultation Lead'],
+  }).catch((error) => {
+    console.error('Consultation newsletter capture error:', error);
+  });
 
   // Notify client + Taylor
   await Promise.allSettled([

@@ -34,7 +34,7 @@ export const homeStructuredData = {
         height: 1024,
       },
       description:
-        'Taylor-Made Baby Co. is an expert baby registry consulting service for expecting parents, offering personalized stroller, car seat, nursery, and registry guidance from a Gugu Guru certified baby gear specialist.',
+        'Taylor-Made Baby Co. is an expert baby registry consulting service for expecting parents, offering personalized stroller, car seat, nursery, and registry guidance from a Gugu Concierge.',
       foundingDate: '2022',
       founder: { '@id': PERSON_ID },
       areaServed: { '@type': 'Country', name: 'United States' },
@@ -60,7 +60,7 @@ export const homeStructuredData = {
       familyName: 'Vanderwolk',
       jobTitle: 'Baby Registry Consultant',
       description:
-        'Baby registry consultant and Gugu Guru certified specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co.',
+        'Baby registry consultant and Gugu Concierge with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. Founder of Taylor-Made Baby Co.',
       url: SITE_URL,
       image: TAYLOR_IMAGE,
       worksFor: { '@id': ORG_ID },
@@ -73,10 +73,10 @@ export const homeStructuredData = {
         {
           '@type': 'EducationalOccupationalCredential',
           credentialCategory: 'certification',
-          name: 'Gugu Guru Certified Baby Gear Specialist',
+          name: 'Gugu Concierge',
           recognizedBy: {
             '@type': 'Organization',
-            name: 'Gugu Guru',
+            name: 'Gugu Concierge',
             url: 'https://gugu-guru.thinkific.com/courses/BabyConcierge',
           },
         },
@@ -105,7 +105,7 @@ export const homeStructuredData = {
       name: 'Baby Registry Consultation',
       serviceType: 'Baby Registry Consulting',
       description:
-        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Gugu Guru certified specialist Taylor Vanderwolk.',
+        'One hour virtual baby registry consultation for expecting parents covering stroller selection, car seat safety, nursery planning, feeding gear, and registry strategy. Delivered by Gugu Concierge Taylor Vanderwolk.',
       provider: { '@id': PERSON_ID },
       offers: {
         '@type': 'Offer',

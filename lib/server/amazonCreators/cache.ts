@@ -18,6 +18,7 @@ import prismaBase from '@/lib/server/prisma';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
+let amazonProductCacheTableExistsPromise: Promise<boolean> | null = null;
 
 function jsonValue(value: unknown) {
   return value == null ? Prisma.JsonNull : value;
@@ -29,6 +30,17 @@ function dateValue(value: unknown): Date | null {
 
 function isFuture(value: Date | null | undefined, now: Date) {
   return value instanceof Date && value.getTime() > now.getTime();
+}
+
+async function amazonProductCacheTableExists() {
+  amazonProductCacheTableExistsPromise ??= prismaBase
+    .$queryRaw<Array<{ exists: boolean }>>(
+      Prisma.sql`SELECT to_regclass('public."AmazonProductCache"') IS NOT NULL AS "exists"`,
+    )
+    .then((rows) => rows[0]?.exists === true)
+    .catch(() => false);
+
+  return amazonProductCacheTableExistsPromise;
 }
 
 export function amazonOfferIsFresh(row: Pick<AmazonCachedProduct, 'syncStatus' | 'offerExpiresAt'>, now = new Date()) {
@@ -107,6 +119,7 @@ export async function getAmazonCacheMapForAsins(
 ): Promise<Map<string, AmazonProductForRender>> {
   const uniqueAsins = [...new Set([...asins].map((asin) => asin.trim().toUpperCase()).filter(Boolean))];
   if (uniqueAsins.length === 0) return new Map();
+  if (!(await amazonProductCacheTableExists())) return new Map();
 
   try {
     const rows = (await db.amazonProductCache.findMany({
@@ -152,6 +165,8 @@ export async function getAmazonCacheMapForUrls(
   }
 
   if (unresolvedUrls.length > 0) {
+    if (!(await amazonProductCacheTableExists())) return out;
+
     try {
       const rows = (await db.amazonProductCache.findMany({
         where: {
@@ -178,6 +193,7 @@ export async function getAmazonCacheMapForUrls(
 export async function getRawAmazonCacheMapForAsins(asins: Iterable<string>): Promise<Map<string, AmazonCachedProduct>> {
   const uniqueAsins = [...new Set([...asins].map((asin) => asin.trim().toUpperCase()).filter(Boolean))];
   if (uniqueAsins.length === 0) return new Map();
+  if (!(await amazonProductCacheTableExists())) return new Map();
 
   try {
     const rows = (await db.amazonProductCache.findMany({

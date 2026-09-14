@@ -33,7 +33,7 @@ export const ABOUT_BEFORE_AFTER = {
 };
 
 export const ABOUT_QUOTABLE =
-  'Taylor is a baby registry consultant and Gugu Guru certified baby gear specialist who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
+  'Taylor is a baby registry consultant and Gugu Concierge who helps expecting parents make confident decisions about strollers, car seats, nurseries, and registry strategy.';
 
 export const ABOUT_BIO = [
   'With hands-on experience across Strolleria, Pottery Barn Kids, and the Target Baby Concierge program, I have worked directly with 200+ families to build registries that actually fit their real homes, real routines, and real budgets.',
@@ -63,9 +63,9 @@ export const ABOUT_STATS = [
 
 export const ABOUT_CREDENTIALS: Array<{ name: string; body: string; link?: { label: string; href: string } }> = [
   {
-    name: 'Gugu Guru Certified Specialist',
-    body: 'A recognized baby registry and gear certification. Taylor is Gugu Guru certified, which brings a structured, up-to-date framework to every stroller, car seat, nursery, and registry recommendation.',
-    link: { label: 'Gugu Guru', href: 'https://gugu-guru.thinkific.com/courses/BabyConcierge' },
+    name: 'Gugu Concierge',
+    body: 'A recognized baby registry and gear certification. Taylor is Gugu Concierge, which brings a structured, up-to-date framework to every stroller, car seat, nursery, and registry recommendation.',
+    link: { label: 'Gugu Concierge', href: 'https://gugu-guru.thinkific.com/courses/BabyConcierge' },
   },
   {
     name: 'Strolleria Baby Gear Specialist',
@@ -187,7 +187,7 @@ export const ABOUT_FAQ = [
   {
     question: 'Who is Taylor?',
     answer:
-      'Taylor is a baby registry consultant and Gugu Guru certified specialist with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalized registries that fit their real homes, budgets, and routines.',
+      'Taylor is a baby registry consultant and Gugu Concierge with hands-on baby gear experience at Strolleria, Pottery Barn Kids, and the Target Baby Concierge program. She is the founder of Taylor-Made Baby Co., offering 1-hour virtual baby registry consultations for expecting parents across the United States, and has helped 200+ families build confident, personalized registries that fit their real homes, budgets, and routines.',
   },
   {
     question: 'What makes Taylor-Made Baby Co. different from other baby registry services?',
@@ -195,9 +195,9 @@ export const ABOUT_FAQ = [
       'Taylor-Made Baby Co. is fully independent. No brand sponsorships, no paid placements, no partnerships that influence recommendations, and no brand pays to be recommended. Some product links on this site are affiliate links, which means Taylor-Made Baby Co. may earn a small commission at no additional cost to you — that income never determines what gets recommended. Every piece of advice is based on what fits your specific home, vehicle, budget, and lifestyle, backed by real retail experience as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and a Target Baby Concierge specialist.',
   },
   {
-    question: 'Is Taylor a Gugu Guru certified baby gear specialist?',
+    question: 'Is Taylor a Gugu Concierge?',
     answer:
-      'Yes. Taylor is Gugu Guru certified. She has additionally worked as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and in Target’s Baby Concierge program, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
+      'Yes. Taylor is Gugu Concierge. She has additionally worked as a Baby Gear Specialist at Strolleria, a Nursery Advisor at Pottery Barn Kids, and in Target’s Baby Concierge program, and has been featured as a baby gear expert on the BabyQuip Tiny Travels Podcast.',
   },
   {
     question: 'How do I book a consultation with Taylor?',

@@ -18,7 +18,11 @@ export default function NewsletterCapture() {
       const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          source: 'blog_capture',
+          sourceDetail: typeof window !== 'undefined' ? window.location.pathname : null,
+        }),
       });
 
       const data = (await response.json()) as { success?: boolean; error?: string };

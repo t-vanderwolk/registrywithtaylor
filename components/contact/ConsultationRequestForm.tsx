@@ -534,7 +534,12 @@ export default function ConsultationRequestForm({
       await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: step0State.email, firstName: step0State.firstName }),
+        body: JSON.stringify({
+          email: step0State.email,
+          firstName: step0State.firstName,
+          source: 'consultation_intake',
+          sourceDetail: '/consultation',
+        }),
       });
     } catch {
       // Silently continue — newsletter subscribe failure should not block the intake

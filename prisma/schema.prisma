@@ -217,6 +217,45 @@ model BlogPollVote {
   @@index([slug, pollKey], map: "idx_blogpollvote_poll")
 }
 
+model NewsletterSubscriber {
+  id             String                     @id @default(cuid())
+  email          String                     @unique
+  firstName      String?
+  lastName       String?
+  status         NewsletterSubscriberStatus @default(SUBSCRIBED)
+  source         String?
+  sourceDetail   String?
+  tags           String[]                   @default([])
+  subscribedAt   DateTime                   @default(now())
+  unsubscribedAt DateTime?
+  createdAt      DateTime                   @default(now())
+  updatedAt      DateTime                   @updatedAt
+
+  @@index([status])
+  @@index([source])
+  @@index([createdAt])
+  @@index([subscribedAt])
+}
+
+model NewsletterIssue {
+  id           String                @id @default(cuid())
+  title        String
+  subject      String
+  previewText  String?
+  slug         String?               @unique
+  content      Json                  @default("{}")
+  status       NewsletterIssueStatus @default(DRAFT)
+  scheduledFor DateTime?
+  sentAt       DateTime?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  @@index([status])
+  @@index([scheduledFor])
+  @@index([sentAt])
+  @@index([updatedAt])
+}
+
 model Guide {
   id                           String           @id @default(cuid())
   title                        String
@@ -762,6 +801,22 @@ enum CompatibilityConfidence {
   HIGH
   MEDIUM
   LOW
+}
+
+enum NewsletterSubscriberStatus {
+  SUBSCRIBED
+  UNSUBSCRIBED
+  PENDING
+  CLEANED
+  ARCHIVED
+}
+
+enum NewsletterIssueStatus {
+  DRAFT
+  READY
+  SCHEDULED
+  SENT
+  ARCHIVED
 }
 
 // ─── Dashboard workbook notes ─────────────────────────────────────────────────
