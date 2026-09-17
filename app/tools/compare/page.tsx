@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { cache } from 'react';
+import { notFound, permanentRedirect } from 'next/navigation';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
@@ -8,31 +10,18 @@ import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import CheckIcon from '@/components/ui/CheckIcon';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
 import { getStrollerCompareCatalog, type StrollerCompareItem } from '@/lib/server/strollerCompareCatalog';
+import { comparePath, parseCompareIds, resolveCompareIds } from '@/lib/strollerCompareRouting';
 
 // No "zero affiliate commission" claim here — this tool carries affiliate buy
 // links, so that badge would contradict the disclosure used elsewhere on the site.
 const HERO_BADGES = ['Free', 'Instant results', 'No sign-up required'];
 
 export const dynamic = 'force-dynamic';
-
-function parseCompareIds(rawIds?: string | string[]) {
-  const seen = new Set<string>();
-  return (Array.isArray(rawIds) ? rawIds[0] : rawIds ?? '')
-    .split(',')
-    .map((id) => id.trim())
-    .filter((id) => {
-      if (!id || seen.has(id)) return false;
-      seen.add(id);
-      return true;
-    })
-    .slice(0, 3);
-}
-
-function comparePath(ids: string[]): `/${string}` {
-  if (ids.length === 0) return '/tools/compare';
-  const params = new URLSearchParams({ ids: ids.join(',') });
-  return `/tools/compare?${params.toString()}` as `/${string}`;
-}
+const getCompareCatalog = cache(async () => {
+  const catalog = await getStrollerCompareCatalog();
+  if (!catalog.length) throw new Error('The comparison catalog is unavailable.');
+  return catalog;
+});
 
 function baseCompareMetadata() {
   return buildMarketingMetadata({
@@ -62,9 +51,11 @@ export async function generateMetadata({
   const ids = parseCompareIds(params.ids);
   if (ids.length === 0) return baseCompareMetadata();
 
-  const catalog = await getStrollerCompareCatalog();
+  const catalog = await getCompareCatalog();
   const byId = new Map(catalog.map((item) => [item.id, item]));
-  const selected = ids
+  const resolvedIds = resolveCompareIds(ids, new Set(byId.keys()));
+  if (!resolvedIds) notFound();
+  const selected = resolvedIds
     .map((id) => byId.get(id))
     .filter((item): item is StrollerCompareItem => item != null);
   if (selected.length === 0) return baseCompareMetadata();
@@ -126,10 +117,15 @@ export default async function StrollerComparePage({
 }) {
   const params = searchParams ? await searchParams : {};
   const rawIds = Array.isArray(params.ids) ? params.ids[0] : params.ids;
-  const initialIds = parseCompareIds(rawIds);
+  const requestedIds = parseCompareIds(rawIds);
 
-  const catalog = await getStrollerCompareCatalog();
+  const catalog = await getCompareCatalog();
   const byId = new Map(catalog.map((item) => [item.id, item]));
+  const initialIds = resolveCompareIds(requestedIds, new Set(byId.keys()));
+  if (!initialIds) notFound();
+  if (initialIds.join(',') !== requestedIds.join(',')) {
+    permanentRedirect(comparePath(initialIds));
+  }
   const selected = initialIds
     .map((id) => byId.get(id))
     .filter((item): item is StrollerCompareItem => item != null);

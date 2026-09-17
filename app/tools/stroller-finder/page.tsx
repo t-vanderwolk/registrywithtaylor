@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { cache } from 'react';
+import { notFound, permanentRedirect } from 'next/navigation';
 import PageViewTracker from '@/components/analytics/PageViewTracker';
 import MarketingSection from '@/components/layout/MarketingSection';
 import SiteShell from '@/components/SiteShell';
@@ -8,17 +10,46 @@ import ToolContactPrompt from '@/components/tools/ToolContactPrompt';
 import SectionDivider from '@/components/ui/SectionDivider';
 import { Body, Eyebrow, H1 } from '@/components/ui/MarketingHeading';
 import { buildMarketingMetadata, SITE_URL } from '@/lib/marketing/metadata';
+import { canonicalBrand } from '@/lib/catalog/brandAliases';
+import { getPublicStrollerCatalogBrands } from '@/lib/server/publicStrollerCatalog';
 import {
   strollerCategories,
   strollerFinderCategoryHref,
   strollerFinderBrandHref,
 } from '@/lib/resources/knowBeforeYouBuy';
 
-// Popular brands surfaced as indexable ?brand= links so the base Finder page has
-// real crawlable content and internal links (the catalog itself loads client-side).
+export const dynamic = 'force-dynamic';
+const getFinderBrands = cache(getPublicStrollerCatalogBrands);
+
+type FinderSearchParams = {
+  brand?: string | string[];
+  category?: string | string[];
+  view?: string | string[];
+};
+
+async function getFinderSelection(params: FinderSearchParams) {
+  const brands = await getFinderBrands();
+  if (brands.length === 0) throw new Error('The public stroller catalog is unavailable.');
+  const requestedBrand = (Array.isArray(params.brand) ? params.brand[0] : params.brand)?.trim();
+  const requestedCategory = (Array.isArray(params.category) ? params.category[0] : params.category)?.trim();
+  const brand = requestedBrand
+    ? brands.find((entry) => entry.brand.toLowerCase() === canonicalBrand(requestedBrand).toLowerCase())
+    : null;
+  if (requestedBrand && !brand) notFound();
+  const category = !brand && requestedCategory
+    ? brands.flatMap((entry) => entry.types).find((type) => type.category === requestedCategory)
+    : null;
+  if (!brand && requestedCategory && !category) notFound();
+  const categoryEntry = category
+    ? { slug: category.category, name: strollerCategories.find((entry) => entry.slug === category.category)?.name ?? category.label }
+    : null;
+  return { brands, brandName: brand?.brand ?? null, categoryEntry, requestedBrand };
+}
+
+// Popular brands supplement the crawlable links in the server-rendered catalog.
 const POPULAR_FINDER_BRANDS = [
   'UPPAbaby', 'Nuna', 'Bugaboo', 'Cybex', 'Baby Jogger', 'Doona',
-  'Silver Cross', 'Mockingbird', 'Thule', 'Babyzen', 'Joolz', 'Peg Perego',
+  'Silver Cross', 'Mockingbird', 'Thule', 'Stokke', 'Joolz', 'Peg Perego',
 ];
 
 const FINDER_FAQS = [
@@ -57,11 +88,9 @@ const finderFaqSchema = {
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ brand?: string | string[]; category?: string | string[] }>;
+  searchParams: Promise<FinderSearchParams>;
 }) {
-  const { brand, category } = await searchParams;
-  const brandName = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
-  const categorySlug = (Array.isArray(category) ? category[0] : category)?.trim() || null;
+  const { brandName, categoryEntry } = await getFinderSelection(await searchParams);
 
   if (brandName) {
     return buildMarketingMetadata({
@@ -74,9 +103,6 @@ export async function generateMetadata({
     });
   }
 
-  const categoryEntry = categorySlug
-    ? strollerCategories.find((entry) => entry.slug === categorySlug)
-    : null;
   if (categoryEntry) {
     return buildMarketingMetadata({
       title: `${categoryEntry.name} Strollers — Browse Models, Prices & Compatibility | Taylor-Made Baby Co.`,
@@ -105,15 +131,17 @@ export async function generateMetadata({
 export default async function StrollerFinderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string | string[]; brand?: string | string[]; view?: string | string[] }>;
+  searchParams: Promise<FinderSearchParams>;
 }) {
-  const { category, brand, view } = await searchParams;
-  const initialCategory = (Array.isArray(category) ? category[0] : category)?.trim() || null;
-  const initialBrand = (Array.isArray(brand) ? brand[0] : brand)?.trim() || null;
-  const initialMode = (Array.isArray(view) ? view[0] : view)?.trim() === 'category' ? 'category' : null;
-  const categoryEntry = initialCategory
-    ? strollerCategories.find((entry) => entry.slug === initialCategory)
-    : null;
+  const params = await searchParams;
+  const { view } = params;
+  const { brands, brandName: initialBrand, categoryEntry, requestedBrand } = await getFinderSelection(params);
+  if (requestedBrand && initialBrand && requestedBrand !== initialBrand) {
+    permanentRedirect(strollerFinderBrandHref(initialBrand));
+  }
+  const initialCategory = categoryEntry?.slug ?? null;
+  const initialMode = !initialBrand && (Array.isArray(view) ? view[0] : view)?.trim() === 'category' ? 'category' : null;
+  const availableCategories = new Set<string>(brands.flatMap((brand) => brand.types.map((type) => type.category)));
   const pageTitle = initialBrand
     ? `${initialBrand} Strollers`
     : categoryEntry
@@ -153,15 +181,19 @@ export default async function StrollerFinderPage({
           </div>
 
           <div className="mt-10">
-            <StrollerCatalogFinder initialCategory={initialCategory} initialBrand={initialBrand} initialMode={initialMode} />
+            <StrollerCatalogFinder
+              key={`${initialBrand ?? ''}:${initialCategory ?? ''}:${initialMode ?? ''}`}
+              brands={brands}
+              initialCategory={initialCategory}
+              initialBrand={initialBrand}
+              initialMode={initialMode}
+            />
           </div>
         </MarketingSection>
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(finderFaqSchema) }} />
 
-        {/* Server-rendered SEO content: browse-by-type, popular brands, how-to, FAQ.
-            The catalog above is client-rendered, so this gives crawlers real content
-            and internal links to the indexable category/brand landing pages. */}
+        {/* Supporting navigation and FAQs accompany the server-rendered products. */}
         <MarketingSection tone="ivory" spacing="spacious" container="default">
           <div className="mx-auto max-w-4xl space-y-12">
             <div className="space-y-4">
@@ -190,7 +222,7 @@ export default async function StrollerFinderPage({
             <div className="space-y-4">
               <h2 className="font-serif text-[1.6rem] tracking-[-0.02em] text-neutral-900">Browse strollers by type</h2>
               <div className="flex flex-wrap gap-2.5">
-                {strollerCategories.map((cat) => (
+                {strollerCategories.filter((cat) => availableCategories.has(cat.slug)).map((cat) => (
                   <Link
                     key={cat.slug}
                     href={strollerFinderCategoryHref(cat.slug)}
@@ -205,7 +237,7 @@ export default async function StrollerFinderPage({
             <div className="space-y-4">
               <h2 className="font-serif text-[1.6rem] tracking-[-0.02em] text-neutral-900">Popular stroller brands</h2>
               <div className="flex flex-wrap gap-2.5">
-                {POPULAR_FINDER_BRANDS.map((b) => (
+                {POPULAR_FINDER_BRANDS.filter((name) => brands.some((brand) => brand.brand === name)).map((b) => (
                   <Link
                     key={b}
                     href={strollerFinderBrandHref(b)}

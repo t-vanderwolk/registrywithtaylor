@@ -13,7 +13,8 @@ describe('public tool SEO indexing', () => {
   it('does not block public tool pages from indexing', () => {
     const files = [
       ...walkFiles(join(process.cwd(), 'app/tools')),
-      join(process.cwd(), 'app/sitemap.ts'),
+      join(process.cwd(), 'app/sitemap.xml/route.ts'),
+      join(process.cwd(), 'app/sitemaps/[name]/route.ts'),
     ];
 
     const offenders = files.filter((file) => {

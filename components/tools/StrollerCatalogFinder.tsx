@@ -7,6 +7,8 @@ import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRou
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
+import { strollerFinderBrandHref, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
+import type { PublicStrollerBrand, PublicStrollerProduct } from '@/lib/server/publicStrollerCatalog';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -85,26 +87,7 @@ export const STROLLER_BRAND_SECTIONS: { label: string; match: string[] }[] = [
 ];
 
 type RetailerOffer = { price: number | null; url: string | null };
-type FinderProduct = {
-  name: string;
-  model: string;
-  displayModel?: string;
-  summary?: string | null;
-  price: number | null;
-  image: string | null;
-  affiliateUrl: string | null;
-  source?: 'babylist' | 'macrobaby' | 'bombi' | 'amazon';
-  retailers?: {
-    babylist?: RetailerOffer | null;
-    amazon?: RetailerOffer | null;
-    macrobaby?: RetailerOffer | null;
-    bombi?: RetailerOffer | null;
-    anb?: RetailerOffer | null;
-    goodbuygear?: RetailerOffer | null;
-  } | null;
-};
-type FinderType = { category: string; label: string; products: FinderProduct[] };
-type FinderBrand = { brand: string; count: number; types: FinderType[] };
+type FinderProduct = PublicStrollerProduct;
 type FlatProduct = FinderProduct & { brand: string; label: string };
 type CategoryGroup = { category: string; label: string; products: FlatProduct[] };
 type Mode = 'brand' | 'category';
@@ -421,10 +404,12 @@ function ProductCard({
 }
 
 export default function StrollerCatalogFinder({
+  brands,
   initialCategory = null,
   initialBrand = null,
   initialMode = null,
 }: {
+  brands: PublicStrollerBrand[];
   /** When set (from ?category=), open the finder in category view on that bucket. */
   initialCategory?: string | null;
   /** When set (from ?brand=), open the finder on that brand's page — used by the
@@ -433,10 +418,8 @@ export default function StrollerCatalogFinder({
   /** When 'category' (from ?view=category), open the type picker with nothing
    *  selected — used by the Compare tool's "Browse by type" link. */
   initialMode?: 'brand' | 'category' | null;
-} = {}) {
+}) {
   const kind: Kind = 'strollers'; // finder is strollers-only; car seats live in the checker
-  const [brands, setBrands] = useState<FinderBrand[]>([]);
-  const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState<Mode>(initialCategory || initialMode === 'category' ? 'category' : 'brand');
   const [selectedBrand, setSelectedBrand] = useState<string | null>(initialBrand);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategory);
@@ -444,17 +427,6 @@ export default function StrollerCatalogFinder({
 
   const noun = kind === 'strollers' ? 'stroller' : 'car seat';
   const nounPlural = kind === 'strollers' ? 'strollers' : 'car seats';
-
-  // Products come straight from the local affiliate catalog, bucketed by type.
-  // Strollers and car seats share the same response shape, so the UI is reused.
-  useEffect(() => {
-    setLoading(true);
-    fetch('/api/catalog/strollers')
-      .then((r) => (r.ok ? r.json() : { brands: [] }))
-      .then((d) => setBrands(Array.isArray(d.brands) ? d.brands : []))
-      .catch(() => setBrands([]))
-      .finally(() => setLoading(false));
-  }, []);
 
   // Fire once when the finder mounts.
   useEffect(() => {
@@ -531,13 +503,11 @@ export default function StrollerCatalogFinder({
         <span className="tool-eyebrow">{kind === 'strollers' ? 'Stroller finder' : 'Car seat finder'}</span>
         <h2 className="tool-title">Find your {noun} — by brand or by type</h2>
         <p className="tool-lead">
-          {loading
-            ? 'Loading the live catalog…'
-            : `${totalCount} ${nounPlural} across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of ${noun} you need.`}
+          {`${totalCount} ${nounPlural} across ${brands.length} brands — live prices and links from Babylist. Search a name, pick a brand, or browse by the kind of ${noun} you need.`}
         </p>
       </div>
 
-      {!loading && brands.length > 0 ? (
+      {brands.length > 0 ? (
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           {/* Mode toggle */}
           <div className="tool-segment w-full max-w-[22rem]">
@@ -578,15 +548,9 @@ export default function StrollerCatalogFinder({
 
       {/* Body */}
       <div className="mt-8">
-        {loading ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="tool-skeleton h-64" />
-            ))}
-          </div>
-        ) : brands.length === 0 ? (
+        {brands.length === 0 ? (
           <p className="text-[0.9rem] text-neutral-400">
-            No {nounPlural} available yet — the catalog import hasn’t run, or all matches are hidden.
+            The stroller catalog is temporarily unavailable. Please try again shortly.
           </p>
         ) : q ? (
           /* ── Search results (mode-independent) ── */
@@ -617,9 +581,10 @@ export default function StrollerCatalogFinder({
               <p className="tool-eyebrow-bar mb-4 text-[0.7rem]">Browse by type</p>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {categories.map((c) => (
-                  <button
+                  <Link
                     key={c.category}
-                    type="button"
+                    href={strollerFinderCategoryHref(c.category)}
+                    prefetch={false}
                     onClick={() => {
                       trackToolSelection('stroller-finder', 'category', c.category);
                       setSelectedCategory(c.category);
@@ -630,20 +595,21 @@ export default function StrollerCatalogFinder({
                     <span className="text-[0.72rem] text-neutral-400">
                       {c.products.length} {noun}{c.products.length === 1 ? '' : 's'}
                     </span>
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>
           ) : (
             <div className="tool-fade-up">
               <nav className="flex items-center gap-1.5 text-[0.78rem]">
-                <button
-                  type="button"
+                <Link
+                  href="/tools/stroller-finder?view=category"
+                  prefetch={false}
                   onClick={() => setSelectedCategory(null)}
                   className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
                 >
                   All types
-                </button>
+                </Link>
                 <span className="text-neutral-300">/</span>
                 <span className="text-neutral-500">{currentCategory.label}</span>
               </nav>
@@ -668,9 +634,10 @@ export default function StrollerCatalogFinder({
             <p className="tool-eyebrow-bar mb-4 text-[0.7rem]">Browse by brand</p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {brands.map((b) => (
-                <button
+                <Link
                   key={b.brand}
-                  type="button"
+                  href={strollerFinderBrandHref(b.brand)}
+                  prefetch={false}
                   onClick={() => {
                     trackToolSelection('stroller-finder', 'brand', b.brand);
                     setSelectedBrand(b.brand);
@@ -689,20 +656,21 @@ export default function StrollerCatalogFinder({
                   <span className="tool-brand-card__count">
                     {b.count} {noun}{b.count === 1 ? '' : 's'}
                   </span>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
         ) : (
           <div className="tool-fade-up">
             <nav className="flex items-center gap-1.5 text-[0.78rem]">
-              <button
-                type="button"
+              <Link
+                href="/tools/stroller-finder"
+                prefetch={false}
                 onClick={() => setSelectedBrand(null)}
                 className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
               >
                 All brands
-              </button>
+              </Link>
               <span className="text-neutral-300">/</span>
               <span className="text-neutral-500">{currentBrand.brand}</span>
             </nav>
