@@ -23,6 +23,7 @@ import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { AmazonMark, BabylistHeartIcon, CarSeatGlyph } from './StrollerCatalogFinder';
+import type { RetailerLink } from '@/lib/retailerLinks';
 
 type TravelSystemGeneratorProps = {
   strollers: TravelSystemStrollerOption[];
@@ -89,6 +90,7 @@ function BrowseCard({
   primaryLabel,
   primaryIsBabylist,
   amazonUrl,
+  extraRetailers,
 }: {
   option: { brand: string; model: string };
   image: string | null;
@@ -104,6 +106,8 @@ function BrowseCard({
   primaryLabel?: string;
   primaryIsBabylist?: boolean;
   amazonUrl?: string | null;
+  /** Admin-entered extra retailers; rendered as chips under the main CTAs. */
+  extraRetailers?: RetailerLink[];
 }) {
   const displayTitle = displayNameWithoutBrand(option.model, option.brand);
   const fullName = `${option.brand} ${displayTitle}`.trim();
@@ -160,6 +164,22 @@ function BrowseCard({
               <AmazonMark className="shrink-0 translate-y-[1px]" />
               <span aria-hidden="true">→</span>
             </a>
+          ) : null}
+          {extraRetailers?.length ? (
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              {extraRetailers.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  onClick={() => track(link.retailer.toLowerCase(), link.url)}
+                  className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-1.5 text-[0.72rem]"
+                >
+                  {link.retailer}
+                </a>
+              ))}
+            </div>
           ) : null}
           <div className="tool-card-secondary">
             <button
@@ -484,6 +504,7 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
         primaryLabel={primaryLabel}
         primaryIsBabylist={primaryKey === 'babylist'}
         amazonUrl={amazonUrl}
+        extraRetailers={'extraRetailers' in option ? option.extraRetailers : undefined}
       />
     );
   };

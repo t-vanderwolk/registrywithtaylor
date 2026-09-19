@@ -1,3 +1,4 @@
+import type { RetailerLink } from '@/lib/retailerLinks';
 export type CompatibilityType = 'DIRECT' | 'ADAPTER' | 'LIMITED' | 'LOCKED' | 'INCOMPATIBLE';
 export type CompatibilityConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 
@@ -39,6 +40,8 @@ export type TravelSystemCarSeatOption = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  /** Admin-entered extra retailers (Bloomingdale's, Nordstrom…), in order. */
+  extraRetailers?: RetailerLink[];
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
 };
@@ -84,6 +87,8 @@ export type CompatibleCarSeatResult = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  /** Admin-entered extra retailers on the curated CarSeat row. */
+  extraRetailers?: RetailerLink[];
   /** Sold only as a travel system with a stroller — no standalone buy link. */
   travelSystemOnly?: boolean;
 };

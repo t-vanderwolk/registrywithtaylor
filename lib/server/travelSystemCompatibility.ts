@@ -32,6 +32,7 @@ import {
   getAmazonCacheMapForUrls,
 } from '@/lib/server/amazonCreators/cache';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
+import { parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
 
 type StrollerRow = {
   id: string;
@@ -71,6 +72,7 @@ type CarSeatRow = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  retailerLinks?: unknown;
 };
 
 type CarSeatCompatibilityRow = {
@@ -163,6 +165,28 @@ const EMPTY_BOMBI: BombiFields = { bombiUrl: null, bombiPrice: null, bombiImage:
 const EMPTY_PUBLIC_RETAILERS: PublicRetailerFields = { ...EMPTY_BABYLIST, ...EMPTY_MACROBABY, ...EMPTY_BOMBI };
 
 const babylistKey = (brand: string, model: string) => `${brand.toLowerCase()}:::${model.toLowerCase()}`;
+
+/**
+ * Admin-entered extra retailers from the curated CarSeat rows, keyed by
+ * brand/model. The compatibility results are assembled from several different
+ * queries, so one lookup is cheaper and less invasive than threading the
+ * column through each of them. Returns an empty map before the migration lands.
+ */
+async function loadCarSeatRetailerLinks(): Promise<Map<string, RetailerLink[]>> {
+  try {
+    const rows = await prisma.$queryRaw<{ brand: string; model: string; retailerLinks: unknown }[]>`
+      SELECT "brand","model","retailerLinks" FROM "CarSeat" WHERE "retailerLinks" IS NOT NULL
+    `;
+    const map = new Map<string, RetailerLink[]>();
+    for (const row of rows) {
+      const links = parseRetailerLinks(row.retailerLinks);
+      if (links?.length) map.set(babylistKey(row.brand, row.model), links);
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
+}
 
 type PublicAvailabilityRow = {
   brand: string;
@@ -1004,7 +1028,7 @@ export async function getTravelSystemCarSeats() {
     let rows: CarSeatRow[];
     try {
       rows = await prisma.$queryRaw<CarSeatRow[]>`
-        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage","amazonUrl"
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage","amazonUrl","retailerLinks"
         FROM "CarSeat"
         WHERE "seatType" = 'INFANT'
         ORDER BY LOWER("brand"), LOWER("model")
@@ -1039,6 +1063,7 @@ export async function getTravelSystemCarSeats() {
         amazonUrl: row.amazonUrl ?? null,
         amazonImage: row.amazonImage ?? null,
         amazonPrice: row.amazonPrice ?? null,
+        extraRetailers: parseRetailerLinks(row.retailerLinks) ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       }));
   } catch (error) {
@@ -1314,6 +1339,8 @@ export async function getTravelSystemCompatibility(
   const sameBrandDefaults = await getSameBrandDefaultCarSeats(stroller, explicitSeatIds, carSeatRetailerMap);
   const inferredSeats = await getSharedAdapterInferredSeats(stroller, publicExplicitRows, carSeatRetailerMap);
 
+  const seatRetailerLinks = await loadCarSeatRetailerLinks();
+
   const compatibleCarSeats = [
     ...publicExplicitRows.map<CompatibleCarSeatResult>((row) => {
       const displayName = getDisplayName(row.brand, row.model, row.displayName);
@@ -1354,6 +1381,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
@@ -1388,6 +1416,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
@@ -1430,6 +1459,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
+        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),

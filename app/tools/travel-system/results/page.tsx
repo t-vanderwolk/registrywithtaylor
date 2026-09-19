@@ -29,6 +29,7 @@ import {
   getTravelSystemStrollers,
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
+import type { RetailerLink } from '@/lib/retailerLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
@@ -605,6 +606,12 @@ function ResultCard({
   // other non-authorized brands, and travel-system-only seats, never show one.
   const amazonUrl =
     isTravelSystemOnly || !isAmazonAllowedForBrand(item.brand) ? null : item.amazonUrl ?? null;
+  // Admin-entered retailers on the curated CarSeat row (Bloomingdale's etc).
+  // Strollers in this union have no such field, hence the guarded read.
+  const extraRetailers: RetailerLink[] =
+    'extraRetailers' in item && Array.isArray(item.extraRetailers)
+      ? (item.extraRetailers as RetailerLink[])
+      : [];
   // Brands with a direct program (Mima, Silver Cross) lead with their direct
   // affiliate link; Babylist drops to a secondary button.
   const directUrl = isTravelSystemOnly ? null : getDirectAffiliateLink(item.brand, item.model);
@@ -755,6 +762,19 @@ function ResultCard({
                   <AmazonMark />
                 </ToolAffiliateLink>
               ) : null}
+              {extraRetailers.map((link) => (
+                <ToolAffiliateLink
+                  key={link.url}
+                  tool="travel-system-checker"
+                  href={link.url}
+                  product={`${item.brand} ${displayTitle}`.trim()}
+                  retailer={link.retailer.toLowerCase()}
+                  brand={item.brand}
+                  className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-2 text-[0.68rem]"
+                >
+                  {link.retailer}
+                </ToolAffiliateLink>
+              ))}
             </>
           )}
         </div>
