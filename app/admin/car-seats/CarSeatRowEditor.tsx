@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { updateCarSeat, deleteCarSeat } from './actions';
+import { Fragment } from 'react';
+import { parseRetailerLinks } from '@/lib/retailerLinks';
 
 export type CarSeatRow = {
   id: string;
@@ -12,6 +14,7 @@ export type CarSeatRow = {
   summary: string | null;
   amazonUrl: string | null;
   manualBabylistUrl: string | null;
+  retailerLinks: unknown;
   imageUrl: string | null;
   babylistUrl: string | null;
   babylistImage: string | null;
@@ -82,6 +85,21 @@ export default function CarSeatRowEditor({ carSeat }: { carSeat: CarSeatRow }) {
               Babylist affiliate link
               <input name="manualBabylistUrl" defaultValue={c.manualBabylistUrl ?? ''} placeholder="https://www.babylist.com/gp/…" className={field} />
             </label>
+            {[0, 1, 2].map((i) => {
+              const extra = parseRetailerLinks(c.retailerLinks)?.[i];
+              return (
+                <Fragment key={`extra-${c.id}-${i}`}>
+                  <label className={labelCls}>
+                    Retailer {i + 1} name
+                    <input name={`extraRetailer${i + 1}`} defaultValue={extra?.retailer ?? ''} placeholder="Bloomingdale's, Nordstrom…" className={field} />
+                  </label>
+                  <label className={labelCls}>
+                    Retailer {i + 1} link
+                    <input name={`extraUrl${i + 1}`} defaultValue={extra?.url ?? ''} placeholder="https://…" className={field} />
+                  </label>
+                </Fragment>
+              );
+            })}
             <label className={`${labelCls} sm:col-span-2`}>
               Image URL
               <input name="imageUrl" defaultValue={c.imageUrl ?? ''} placeholder="https://…/product.jpg — overrides the Babylist image on the tools" className={field} />

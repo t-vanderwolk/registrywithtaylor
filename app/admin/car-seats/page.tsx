@@ -56,7 +56,7 @@ export default async function AdminCarSeatsPage({ searchParams }: { searchParams
     let count: number;
     try {
       [rows, count] = await Promise.all([
-        db.carSeat.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true } }),
+        db.carSeat.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true, retailerLinks: true } }),
         db.carSeat.count({ where }),
       ]);
     } catch {
@@ -75,6 +75,7 @@ export default async function AdminCarSeatsPage({ searchParams }: { searchParams
       summary: r.summary,
       amazonUrl: r.amazonUrl ?? null,
       manualBabylistUrl: r.manualBabylistUrl ?? null,
+      retailerLinks: r.retailerLinks ?? null,
       imageUrl: r.imageUrl ?? null,
       babylistUrl: r.babylistUrl ?? null,
       babylistImage: r.babylistImage ?? null,

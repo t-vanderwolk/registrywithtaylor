@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { updateStroller, deleteStroller } from './actions';
+import { Fragment } from 'react';
+import { parseRetailerLinks } from '@/lib/retailerLinks';
 
 export type StrollerSpec = {
   priceRange: string | null;
@@ -27,6 +29,7 @@ export type StrollerRow = {
   summary: string | null;
   amazonUrl: string | null;
   manualBabylistUrl: string | null;
+  retailerLinks: unknown;
   imageUrl: string | null;
   babylistUrl: string | null;
   babylistImage: string | null;
@@ -102,6 +105,21 @@ export default function StrollerRowEditor({ stroller }: { stroller: StrollerRow 
               Babylist affiliate link
               <input name="manualBabylistUrl" defaultValue={s.manualBabylistUrl ?? ''} placeholder="https://www.babylist.com/gp/…" className={field} />
             </label>
+            {[0, 1, 2].map((i) => {
+              const extra = parseRetailerLinks(s.retailerLinks)?.[i];
+              return (
+                <Fragment key={`extra-${s.id}-${i}`}>
+                  <label className={labelCls}>
+                    Retailer {i + 1} name
+                    <input name={`extraRetailer${i + 1}`} defaultValue={extra?.retailer ?? ''} placeholder="Bloomingdale's, Nordstrom…" className={field} />
+                  </label>
+                  <label className={labelCls}>
+                    Retailer {i + 1} link
+                    <input name={`extraUrl${i + 1}`} defaultValue={extra?.url ?? ''} placeholder="https://…" className={field} />
+                  </label>
+                </Fragment>
+              );
+            })}
 
             <label className={`${labelCls} sm:col-span-2`}>
               Image URL

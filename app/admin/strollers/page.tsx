@@ -57,7 +57,7 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
     let count: number;
     try {
       [rows, count] = await Promise.all([
-        db.stroller.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true } }),
+        db.stroller.findMany({ ...findArgs, select: { ...baseSelect, imageUrl: true, retailerLinks: true } }),
         db.stroller.count({ where }),
       ]);
     } catch {
@@ -76,6 +76,7 @@ export default async function AdminStrollersPage({ searchParams }: { searchParam
       summary: r.summary,
       amazonUrl: r.amazonUrl ?? null,
       manualBabylistUrl: r.manualBabylistUrl ?? null,
+      retailerLinks: r.retailerLinks ?? null,
       imageUrl: r.imageUrl ?? null,
       babylistUrl: r.babylistUrl ?? null,
       babylistImage: r.babylistImage ?? null,

@@ -1,4 +1,7 @@
-import { AFFILIATE_LINK_NEEDED, type ChecklistProduct, type RetailerLink } from './products';
+import { AFFILIATE_LINK_NEEDED, type ChecklistProduct } from './products';
+import { isHttpUrl, parseRetailerLinks, retailerUrlKey, type RetailerLink } from '@/lib/retailerLinks';
+
+export { parseRetailerLinks };
 
 /** Hard ceiling on how many shop links a single product card renders. */
 export const MAX_PRODUCT_LINKS = 5;
@@ -10,31 +13,6 @@ export type ResolvedProductLink = RetailerLink & {
   /** Drives the CTA styling variant. */
   kind: 'babylist' | 'amazon' | 'other';
 };
-
-const isHttpUrl = (value: unknown): value is string =>
-  typeof value === 'string' && /^https?:\/\//i.test(value.trim());
-
-/**
- * Normalise the `retailerLinks` JSON column into a typed array. The column is
- * free-form JSON, so anything malformed is dropped rather than thrown — a bad
- * row should cost one button, never the page.
- */
-export function parseRetailerLinks(value: unknown): RetailerLink[] | undefined {
-  if (!Array.isArray(value)) return undefined;
-  const links: RetailerLink[] = [];
-  for (const entry of value) {
-    if (!entry || typeof entry !== 'object') continue;
-    const { retailer, url } = entry as Record<string, unknown>;
-    if (!isHttpUrl(url)) continue;
-    const label = typeof retailer === 'string' ? retailer.trim() : '';
-    links.push({ retailer: label || 'Shop', url: url.trim() });
-  }
-  return links.length ? links : undefined;
-}
-
-/** Compare URLs ignoring case, trailing slash and the leading www. */
-const urlKey = (url: string) =>
-  url.trim().toLowerCase().replace(/^https?:\/\/(www\.)?/, '').replace(/\/+$/, '');
 
 /**
  * Build the ordered list of shop links for a card: Babylist first (when it has
@@ -66,7 +44,7 @@ export function resolveProductLinks(rec: ChecklistProduct): ResolvedProductLink[
   const seen = new Set<string>();
   const links: ResolvedProductLink[] = [];
   for (const link of candidates) {
-    const key = urlKey(link.url);
+    const key = retailerUrlKey(link.url);
     if (seen.has(key)) continue;
     seen.add(key);
     links.push(link);

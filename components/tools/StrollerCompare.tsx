@@ -436,6 +436,23 @@ export default function StrollerCompare({
                         Shop on Amazon
                       </ToolAffiliateLink>
                     ) : null}
+                    {item.extraRetailers.length ? (
+                      <div className="flex flex-wrap items-center justify-center gap-1.5">
+                        {item.extraRetailers.map((link) => (
+                          <ToolAffiliateLink
+                            key={link.url}
+                            tool="stroller-compare"
+                            href={link.url}
+                            product={item.displayName}
+                            retailer={link.retailer.toLowerCase()}
+                            brand={item.brand}
+                            className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-1.5 text-[0.72rem]"
+                          >
+                            {link.retailer}
+                          </ToolAffiliateLink>
+                        ))}
+                      </div>
+                    ) : null}
                     <Link
                       href={`/tools/travel-system/results?stroller=${encodeURIComponent(item.id)}`}
                       className="link-underline mt-1 text-center text-[0.74rem] font-semibold text-[var(--color-accent-dark)]"

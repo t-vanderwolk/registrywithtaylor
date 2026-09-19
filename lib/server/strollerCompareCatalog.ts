@@ -6,6 +6,7 @@ import {
   type StrollerCategory,
 } from '@/lib/guides/travelSystemCompatibility';
 import { resolveCompareAttributes, type BasketSize } from '@/lib/catalog/strollerCompareAttributes';
+import { parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
 
 /**
  * A single stroller row for the side-by-side Compare tool. Combines the public,
@@ -29,6 +30,8 @@ export type StrollerCompareItem = {
   bombiPrice: number | null;
   amazonUrl: string | null;
   amazonPrice: number | null;
+  /** Admin-entered extra retailers (Bloomingdale's, Nordstrom…), in order. */
+  extraRetailers: RetailerLink[];
   ownWeightLbs: number | null;
   maxWeightLbs: number | null;
   foldType: string | null;
@@ -77,6 +80,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
   // A stroller with at least one compatibility row is "travel system compatible".
   let specMap = new Map<string, SpecRow>();
   let compatibleKeys = new Set<string>();
+  let linksMap = new Map<string, RetailerLink[]>();
   try {
     // Cast to `any` for the select: the compare-spec columns land in the
     // generated client only after the Heroku build regenerates it (same pattern
@@ -87,6 +91,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       select: {
         brand: true,
         model: true,
+        retailerLinks: true,
         spec: {
           select: {
             ownWeightLbs: true,
@@ -101,7 +106,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
         },
         _count: { select: { compatibilities: true } },
       },
-    })) as Array<{ brand: string; model: string; spec: SpecRow | null; _count: { compatibilities: number } }>;
+    })) as Array<{ brand: string; model: string; retailerLinks: unknown; spec: SpecRow | null; _count: { compatibilities: number } }>;
     specMap = new Map(
       strollerRows
         .filter((row) => row.spec)
@@ -112,10 +117,16 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
         .filter((row) => row._count.compatibilities > 0)
         .map((row) => specKey(row.brand, row.model)),
     );
+    linksMap = new Map(
+      strollerRows
+        .map((row) => [specKey(row.brand, row.model), parseRetailerLinks(row.retailerLinks) ?? []] as const)
+        .filter(([, links]) => links.length > 0),
+    );
   } catch {
     // If the spec relation isn't available yet, fall back gracefully.
     specMap = new Map();
     compatibleKeys = new Set();
+    linksMap = new Map();
   }
 
   const seen = new Set<string>();
@@ -149,6 +160,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       bombiPrice: option.bombiPrice ?? null,
       amazonUrl: option.amazonUrl ?? null,
       amazonPrice: option.amazonPrice ?? null,
+      extraRetailers: linksMap.get(key) ?? [],
       ownWeightLbs: spec?.ownWeightLbs ?? null,
       maxWeightLbs: spec?.maxWeightLbs ?? null,
       foldType: spec?.foldType ?? null,

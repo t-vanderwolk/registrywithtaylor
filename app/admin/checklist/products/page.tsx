@@ -10,7 +10,7 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import { Fragment } from 'react';
-import { parseRetailerLinks } from '@/lib/checklist/productLinks';
+import { parseRetailerLinks } from '@/lib/retailerLinks';
 import {
   buildChecklistBlogUsage,
   checklistBlogProductKey,

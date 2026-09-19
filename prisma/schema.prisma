@@ -518,6 +518,10 @@ model Stroller {
   // manages `babylistUrl` below can null/overwrite it, so this human-owned field
   // is kept separate and is never touched by the sync.
   manualBabylistUrl String?
+  // Admin-entered extra retailers (Bloomingdale's, Nordstrom, Target…) as an
+  // ordered JSON array of { retailer, url }. Human-owned like manualBabylistUrl:
+  // no feed sync writes here.
+  retailerLinks     Json?
   // Admin-entered product image URL (manual override — wins over babylistImage
   // and is never touched by the feed sync).
   imageUrl        String?
@@ -578,6 +582,10 @@ model CarSeat {
   // manages `babylistUrl` below can null/overwrite it, so this human-owned field
   // is kept separate and is never touched by the sync.
   manualBabylistUrl String?
+  // Admin-entered extra retailers (Bloomingdale's, Nordstrom, Target…) as an
+  // ordered JSON array of { retailer, url }. Human-owned like manualBabylistUrl:
+  // no feed sync writes here.
+  retailerLinks     Json?
   // Admin-entered product image URL (manual override — wins over babylistImage
   // and is never touched by the feed sync).
   imageUrl        String?

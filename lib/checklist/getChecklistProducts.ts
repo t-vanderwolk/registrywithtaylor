@@ -1,7 +1,7 @@
 import 'server-only';
 import prismaBase from '@/lib/server/prisma';
 import { products as staticProducts, type ChecklistProduct } from '@/lib/checklist/products';
-import { parseRetailerLinks } from '@/lib/checklist/productLinks';
+import { parseRetailerLinks } from '@/lib/retailerLinks';
 import {
   bestAmazonImage,
   bestAmazonPrice,

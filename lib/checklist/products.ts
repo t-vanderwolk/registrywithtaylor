@@ -31,13 +31,8 @@ const BABYLIST_PARTNER = '7490466';
 export const babylist = (destUrl: string): string =>
   `${BABYLIST_TRACKER}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER}`;
 
-/** One "Shop <retailer>" destination on a product card. */
-export type RetailerLink = {
-  /** Button label, e.g. "Target", "Nordstrom", "Bloomingdale's". */
-  retailer: string;
-  /** Plain retailer product URL — ShopMy's auto-linker wraps it at runtime. */
-  url: string;
-};
+export type { RetailerLink } from '@/lib/retailerLinks';
+import type { RetailerLink } from '@/lib/retailerLinks';
 
 export type ChecklistProduct = {
   id: string;

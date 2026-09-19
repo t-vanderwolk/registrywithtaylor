@@ -16,6 +16,21 @@ const str = (formData: FormData, k: string) => {
 };
 
 /** Create a new car seat (brand + model required, unique together). */
+/**
+ * Collect the extra retailer field pairs (extraRetailer1/extraUrl1, …) into the
+ * ordered JSON array stored on retailerLinks. Record<string, string> keeps it
+ * assignable to Prisma's InputJsonValue, which needs an index signature.
+ */
+function retailerLinks(formData: FormData): Record<string, string>[] {
+  const links: Record<string, string>[] = [];
+  for (let i = 1; i <= 3; i += 1) {
+    const url = str(formData, `extraUrl${i}`);
+    if (!url) continue;
+    links.push({ retailer: str(formData, `extraRetailer${i}`) ?? '', url });
+  }
+  return links;
+}
+
 export async function createCarSeat(formData: FormData) {
   await requireAdminSession('/admin/car-seats');
   const brand = str(formData, 'brand');
@@ -41,6 +56,7 @@ export async function createCarSeat(formData: FormData) {
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
       manualBabylistUrl: str(formData, 'manualBabylistUrl'),
+      retailerLinks: retailerLinks(formData),
       imageUrl: str(formData, 'imageUrl'),
     },
   });
@@ -62,6 +78,7 @@ export async function updateCarSeat(formData: FormData) {
       summary: str(formData, 'summary'),
       amazonUrl: str(formData, 'amazonUrl'),
       manualBabylistUrl: str(formData, 'manualBabylistUrl'),
+      retailerLinks: retailerLinks(formData),
       imageUrl: str(formData, 'imageUrl'),
     },
   });
