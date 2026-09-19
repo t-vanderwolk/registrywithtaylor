@@ -139,15 +139,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </Script>
           </>
         ) : null}
-
-        {/* ShopMy Auto-Linking */}
-        <Script
-          id="shopmy-auto-linking"
-          async
-          src="https://static.shopmy.us/Auto/y5Etg8.js"
-          data-sms="y5Etg8"
-          strategy="afterInteractive"
-        />
       </head>
 
       <body className="min-h-screen bg-gradient-primary text-charcoal font-sans antialiased">
@@ -162,6 +153,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
         {/* Optional global script */}
         <Script src="/scripts/main.js" strategy="lazyOnload" />
+
+        {/* ShopMy Auto-Linking */}
+        <Script
+          id="shopmy-auto-linking"
+          async
+          src="https://static.shopmy.us/Auto/y5Etg8.js"
+          data-sms="y5Etg8"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
