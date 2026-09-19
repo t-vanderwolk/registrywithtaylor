@@ -9,6 +9,8 @@ import AdminKpiCard from '@/components/admin/ui/AdminKpiCard';
 import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
+import { Fragment } from 'react';
+import { parseRetailerLinks } from '@/lib/checklist/productLinks';
 import {
   buildChecklistBlogUsage,
   checklistBlogProductKey,
@@ -35,6 +37,11 @@ const lbl = 'flex flex-col gap-1 text-[0.78rem] text-neutral-500';
 
 type CatGroup = { id: string; title: string; items: { id: string; title: string }[] };
 
+/** Read the retailerLinks JSON column into the three editable field pairs. */
+function extraLinks(value: unknown): { retailer: string; url: string }[] {
+  return parseRetailerLinks(value) ?? [];
+}
+
 type Row = {
   id: string;
   brand: string;
@@ -46,6 +53,7 @@ type Row = {
   amazonUrl: string | null;
   secondaryUrl: string | null;
   secondaryRetailer: string | null;
+  retailerLinks: unknown;
   checklistItemId: string | null;
   price: number | null;
   priceSource: string | null;
@@ -180,6 +188,15 @@ function ProductRow({
         <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" defaultValue={r.amazonUrl ?? ''} className={field} /></label>
         <label className={lbl}>Other retailer name<input name="secondaryRetailer" defaultValue={r.secondaryRetailer ?? ''} placeholder="Target, Pottery Barn Kids…" className={field} /></label>
         <label className={lbl}>Other retailer link<input name="secondaryUrl" defaultValue={r.secondaryUrl ?? ''} placeholder="https://…" className={field} /></label>
+        {[0, 1, 2].map((i) => {
+          const extra = extraLinks(r.retailerLinks)[i];
+          return (
+            <Fragment key={`extra-${r.id}-${i}`}>
+              <label className={lbl}>Retailer {i + 3} name<input name={`extraRetailer${i + 1}`} defaultValue={extra?.retailer ?? ''} placeholder="Nordstrom, Bloomingdale's…" className={field} /></label>
+              <label className={lbl}>Retailer {i + 3} link<input name={`extraUrl${i + 1}`} defaultValue={extra?.url ?? ''} placeholder="https://…" className={field} /></label>
+            </Fragment>
+          );
+        })}
         <label className={lbl}>Price<input name="price" defaultValue={r.price ?? ''} className={field} /></label>
         <label className={lbl}>Price source<input name="priceSource" defaultValue={r.priceSource ?? ''} className={field} /></label>
         <label className={lbl}>Retailer<input name="retailer" defaultValue={r.retailer ?? ''} className={field} /></label>
@@ -322,6 +339,12 @@ export default async function AdminChecklistProductsPage() {
             <label className={`${lbl} sm:col-span-2`}>Amazon link (optional)<input name="amazonUrl" className={field} /></label>
             <label className={lbl}>Other retailer name (optional)<input name="secondaryRetailer" placeholder="Target, Pottery Barn Kids…" className={field} /></label>
             <label className={lbl}>Other retailer link (optional)<input name="secondaryUrl" placeholder="https://…" className={field} /></label>
+            {[0, 1, 2].map((i) => (
+              <Fragment key={`new-extra-${i}`}>
+                <label className={lbl}>Retailer {i + 3} name (optional)<input name={`extraRetailer${i + 1}`} placeholder="Nordstrom, Bloomingdale's…" className={field} /></label>
+                <label className={lbl}>Retailer {i + 3} link (optional)<input name={`extraUrl${i + 1}`} placeholder="https://…" className={field} /></label>
+              </Fragment>
+            ))}
             <label className={lbl}>Price<input name="price" placeholder="149" className={field} /></label>
             <label className={lbl}>Price source<input name="priceSource" placeholder="Babylist" className={field} /></label>
             <label className={lbl}>Retailer<input name="retailer" placeholder="Babylist" className={field} /></label>

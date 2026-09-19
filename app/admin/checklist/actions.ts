@@ -89,6 +89,23 @@ function revalidate() {
 }
 
 /** Create a new checklist product pick. */
+/**
+ * Collect the "extra retailer" field pairs (extraRetailer1/extraUrl1, …) into
+ * the ordered JSON array stored on ChecklistProduct.retailerLinks. Pairs with a
+ * blank URL are dropped; a link with no name falls back to "Shop" at render.
+ */
+function retailerLinks(formData: FormData): Record<string, string>[] {
+  // Record<string, string> (not a shaped object type) so this stays assignable
+  // to Prisma's InputJsonValue, which requires an index signature.
+  const links: Record<string, string>[] = [];
+  for (let i = 1; i <= 3; i += 1) {
+    const url = str(formData, `extraUrl${i}`);
+    if (!url) continue;
+    links.push({ retailer: str(formData, `extraRetailer${i}`) ?? '', url });
+  }
+  return links;
+}
+
 export async function createChecklistProduct(formData: FormData) {
   await requireAdminSession('/admin/checklist');
   const brand = str(formData, 'brand');
@@ -114,6 +131,7 @@ export async function createChecklistProduct(formData: FormData) {
       amazonUrl: str(formData, 'amazonUrl'),
       secondaryUrl: str(formData, 'secondaryUrl'),
       secondaryRetailer: str(formData, 'secondaryRetailer'),
+      retailerLinks: retailerLinks(formData),
       checklistItemId: str(formData, 'checklistItemId'),
       price: num(formData, 'price'),
       priceSource: str(formData, 'priceSource'),
@@ -144,6 +162,7 @@ export async function updateChecklistProduct(formData: FormData) {
       amazonUrl: str(formData, 'amazonUrl'),
       secondaryUrl: str(formData, 'secondaryUrl'),
       secondaryRetailer: str(formData, 'secondaryRetailer'),
+      retailerLinks: retailerLinks(formData),
       checklistItemId: str(formData, 'checklistItemId'),
       price: num(formData, 'price'),
       priceSource: str(formData, 'priceSource'),

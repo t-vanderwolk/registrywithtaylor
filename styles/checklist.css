@@ -743,6 +743,53 @@
   border-color: var(--ck-blush-dusty);
 }
 
+/* Retailers beyond the first two render as a compact chip row, so a pick
+   carried by four stores stays one glanceable card instead of a stack of
+   full-width buttons. */
+.tmbc-rec__more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.15rem;
+}
+.tmbc-rec__more-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-charcoal);
+  opacity: 0.55;
+  margin-right: 0.1rem;
+}
+.tmbc-rec__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  min-height: 32px;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ck-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ck-charcoal);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.tmbc-rec__chip:hover {
+  background: var(--ck-ivory);
+  border-color: var(--ck-blush-dusty);
+}
+.tmbc-rec__chip:focus-visible {
+  outline: 2px solid var(--ck-gold);
+  outline-offset: 2px;
+}
+.tmbc-rec__chip .tmbc-rec__cta-logo {
+  height: 14px;
+  max-width: 18px;
+}
+
 /* Related reading — a category-level "Baby gear guidance" strip that reuses the
    homepage JournalCard, framed as an intentional module at the top of a section. */
 .tmbc-related {

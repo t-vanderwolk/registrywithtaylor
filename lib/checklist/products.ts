@@ -31,6 +31,14 @@ const BABYLIST_PARTNER = '7490466';
 export const babylist = (destUrl: string): string =>
   `${BABYLIST_TRACKER}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER}`;
 
+/** One "Shop <retailer>" destination on a product card. */
+export type RetailerLink = {
+  /** Button label, e.g. "Target", "Nordstrom", "Bloomingdale's". */
+  retailer: string;
+  /** Plain retailer product URL — ShopMy's auto-linker wraps it at runtime. */
+  url: string;
+};
+
 export type ChecklistProduct = {
   id: string;
   brand: string;
@@ -49,6 +57,9 @@ export type ChecklistProduct = {
   secondaryUrl?: string;
   retailer?: string;
   secondaryRetailer?: string;
+  /** Extra retailers beyond Babylist / Amazon / secondary, in display order.
+   *  The card shows at most 5 links in total. */
+  retailerLinks?: RetailerLink[];
   imageUrl?: string;
   badge?: string;
   /** false = no affiliate relationship on this pick (kept for future use). */

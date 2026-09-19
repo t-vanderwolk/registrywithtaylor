@@ -24,9 +24,13 @@ import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
 import { getBlogCategoryLabel } from '@/lib/blogCategories';
 import {
   products as staticProducts,
-  hasLiveLink,
   type ChecklistProduct,
 } from '@/lib/checklist/products';
+import {
+  PRIMARY_LINK_COUNT,
+  resolveProductLinks,
+  type ResolvedProductLink,
+} from '@/lib/checklist/productLinks';
 import { checklistAnalytics } from '@/lib/checklist/analytics';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 
@@ -741,14 +745,22 @@ function Recommendation({
   retailerLogos: Record<string, string>;
   goodBuyGearOffer?: GoodBuyGearOffer;
 }) {
-  const babylistUrl = hasLiveLink(rec) ? rec.affiliateUrl : undefined;
-  // Only show the Amazon CTA when a real Amazon link is entered for this pick —
-  // no auto-generated Amazon search fallback.
-  const amazonUrl = rec.amazonUrl?.trim() ? rec.amazonUrl : undefined;
-  // Any other retailer (Target, brand-direct, etc.) when the pick isn't on
-  // Babylist or Amazon. Falls back to a generic "Shop" label if unnamed.
-  const otherUrl = rec.secondaryUrl;
-  const otherLabel = rec.secondaryRetailer?.trim() || 'Shop';
+  // Every shop destination for this pick, in display order and capped at five.
+  // Babylist and Amazon keep their dedicated styling; the rest render as chips
+  // so a pick carried by four retailers doesn't bury the card in buttons.
+  const links = resolveProductLinks(rec);
+  const primaryLinks = links.slice(0, PRIMARY_LINK_COUNT);
+  const extraLinks = links.slice(PRIMARY_LINK_COUNT);
+  const trackClick = (link: ResolvedProductLink) =>
+    checklistAnalytics.affiliateClicked({
+      checklistType,
+      itemId: item.id,
+      productId: rec.id,
+      product: rec.product,
+      brand: rec.brand,
+      retailer: link.retailer,
+      url: link.url,
+    });
   return (
     <div className="tmbc-rec">
       {rec.badge?.trim() ? (
@@ -789,71 +801,37 @@ function Recommendation({
           </div>
         ) : null}
         <div className="tmbc-rec__actions">
-          {babylistUrl ? (
+          {primaryLinks.map((link) => (
             <a
-              className="tmbc-rec__cta tmbc-rec__cta--babylist"
-              href={babylistUrl}
+              key={link.url}
+              className={`tmbc-rec__cta tmbc-rec__cta--${link.kind}`}
+              href={link.url}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
-              onClick={() =>
-                checklistAnalytics.affiliateClicked({
-                  checklistType,
-                  itemId: item.id,
-                  productId: rec.id,
-                  product: rec.product,
-                  brand: rec.brand,
-                  retailer: 'Babylist',
-                  url: babylistUrl,
-                })
-              }
+              onClick={() => trackClick(link)}
             >
-              <RetailerLogo retailer="Babylist" />
-              Babylist <span aria-hidden="true">→</span>
+              <RetailerLogo retailer={link.retailer} dynamic={retailerLogos} />
+              {link.kind === 'babylist' ? 'Babylist' : `Shop ${link.retailer}`}{' '}
+              <span aria-hidden="true">→</span>
             </a>
-          ) : null}
-          {amazonUrl ? (
-            <a
-              className="tmbc-rec__cta tmbc-rec__cta--amazon"
-              href={amazonUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() =>
-                checklistAnalytics.affiliateClicked({
-                  checklistType,
-                  itemId: item.id,
-                  productId: rec.id,
-                  product: rec.product,
-                  brand: rec.brand,
-                  retailer: 'Amazon',
-                  url: amazonUrl,
-                })
-              }
-            >
-              <RetailerLogo retailer="Amazon" />
-              Shop Amazon <span aria-hidden="true">→</span>
-            </a>
-          ) : null}
-          {otherUrl ? (
-            <a
-              className="tmbc-rec__cta tmbc-rec__cta--other"
-              href={otherUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() =>
-                checklistAnalytics.affiliateClicked({
-                  checklistType,
-                  itemId: item.id,
-                  productId: rec.id,
-                  product: rec.product,
-                  brand: rec.brand,
-                  retailer: otherLabel,
-                  url: otherUrl,
-                })
-              }
-            >
-              <RetailerLogo retailer={otherLabel} dynamic={retailerLogos} />
-              Shop {otherLabel} <span aria-hidden="true">→</span>
-            </a>
+          ))}
+          {extraLinks.length ? (
+            <div className="tmbc-rec__more">
+              <span className="tmbc-rec__more-label">Also at</span>
+              {extraLinks.map((link) => (
+                <a
+                  key={link.url}
+                  className="tmbc-rec__chip"
+                  href={link.url}
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  onClick={() => trackClick(link)}
+                >
+                  <RetailerLogo retailer={link.retailer} dynamic={retailerLogos} />
+                  {link.retailer}
+                </a>
+              ))}
+            </div>
           ) : null}
         </div>
       </div>

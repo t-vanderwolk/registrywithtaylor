@@ -1,6 +1,7 @@
 import 'server-only';
 import prismaBase from '@/lib/server/prisma';
 import { products as staticProducts, type ChecklistProduct } from '@/lib/checklist/products';
+import { parseRetailerLinks } from '@/lib/checklist/productLinks';
 import {
   bestAmazonImage,
   bestAmazonPrice,
@@ -62,6 +63,7 @@ export async function getChecklistProducts(): Promise<Record<string, ChecklistPr
         amazonUrl: r.amazonUrl ?? undefined,
         secondaryUrl: r.secondaryUrl ?? undefined,
         secondaryRetailer: r.secondaryRetailer ?? undefined,
+        retailerLinks: parseRetailerLinks(r.retailerLinks),
         price: r.price ?? undefined,
         priceSource: r.priceSource ?? undefined,
         retailer: r.retailer ?? undefined,
