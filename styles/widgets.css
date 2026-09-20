@@ -1318,6 +1318,54 @@
 
 .tool-btn--block { width: 100%; }
 
+/* Affiliate CTAs across the tools: retailer mark, label, trailing arrow — the
+   same treatment the product cards use, so a buy button reads the same
+   everywhere. --secondary previously had no rule at all and fell back to a
+   transparent base button. */
+.tool-btn--secondary {
+  background: #fff;
+  color: var(--color-ink, #2f2a2c);
+  border-color: #d9cdd1;
+}
+.tool-btn--secondary:hover {
+  background: #faf6f8;
+  border-color: #b98b9b;
+}
+.tool-btn--chip {
+  background: #fff;
+  color: var(--color-ink, #2f2a2c);
+  border-color: #e5dde0;
+  min-height: 2.1rem;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.tool-btn--chip:hover {
+  background: #faf6f8;
+  border-color: #b98b9b;
+}
+.tool-btn--retailer {
+  justify-content: flex-start;
+  text-align: left;
+}
+.tool-btn--retailer.tool-btn--chip { justify-content: center; }
+.tool-btn__logo {
+  flex: 0 0 auto;
+  height: 16px;
+  width: auto;
+  max-width: 22px;
+  object-fit: contain;
+  border-radius: 3px;
+}
+.tool-btn--primary .tool-btn__logo {
+  background: #fff;
+  padding: 2px;
+  border-radius: 4px;
+}
+.tool-btn__label { min-width: 0; flex: 1; }
+.tool-btn--chip .tool-btn__label { flex: 0 1 auto; }
+.tool-btn__arrow { flex: 0 0 auto; }
+
 .tool-utility-link {
   display: inline-flex;
   align-self: center;

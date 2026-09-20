@@ -34,6 +34,7 @@ import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateSh
 import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
 import { findTravelSystemOptionBySlug, travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
+import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 
 export const dynamic = 'force-dynamic';
 
@@ -215,31 +216,7 @@ export async function generateMetadata({
   });
 }
 
-function BabylistHeartIcon() {
-  return (
-    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true" className="shrink-0">
-      <path
-        d="M8 13S1 8.5 1 4.5A3.5 3.5 0 0 1 7.75 2.9 3.5 3.5 0 0 1 15 4.5C15 8.5 8 13 8 13Z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="0.5"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
-function AmazonMark() {
-  return (
-    <svg width="46" height="15" viewBox="0 0 62 20" fill="none" aria-hidden="true" className="shrink-0 translate-y-[1px]">
-      <text x="0" y="14" fontFamily="Arial, Helvetica, sans-serif" fontSize="15" fontWeight="700" letterSpacing="-0.5" fill="currentColor">
-        amazon
-      </text>
-      <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
-      <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    </svg>
-  );
-}
 
 /**
  * In-tool breadcrumb on the compatibility results page. For a stroller-first
@@ -412,30 +389,28 @@ function SelectedSummaryCard({
 
         {selectedPrimaryCta ? (
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <ToolAffiliateLink
+            <ToolRetailerCta
               tool="travel-system-checker"
               href={selectedPrimaryCta.url}
+              retailer={selectedPrimaryCta.label.replace(/^(Shop|Add to) (on |at )?/i, '')}
               product={`${option.brand} ${displayTitle}`.trim()}
-              retailer={selectedPrimaryCta.source}
               brand={option.brand}
-              className="tool-btn tool-btn--primary min-h-0 px-4 py-2.5 text-[0.72rem]"
-              ariaLabel={`Shop ${option.displayName} on ${selectedPrimaryCta.label}`}
+              variant="primary"
+              className="min-h-0 px-4 py-2.5 text-[0.72rem]"
             >
-              {selectedPrimaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
               {selectedPrimaryCta.label}
-            </ToolAffiliateLink>
+            </ToolRetailerCta>
             {selectedAmazonUrl ? (
-              <ToolAffiliateLink
+              <ToolRetailerCta
                 tool="travel-system-checker"
                 href={selectedAmazonUrl}
+                retailer="Amazon"
                 product={`${option.brand} ${displayTitle}`.trim()}
-                retailer="amazon"
                 brand={option.brand}
-                className="tool-btn tool-btn--secondary min-h-0 px-4 py-2.5 text-[0.72rem]"
-                ariaLabel={`Shop ${option.displayName} on Amazon`}
+                className="min-h-0 px-4 py-2.5 text-[0.72rem]"
               >
-                <AmazonMark />
-              </ToolAffiliateLink>
+                Shop on Amazon
+              </ToolRetailerCta>
             ) : null}
           </div>
         ) : null}
@@ -693,17 +668,17 @@ function ResultCard({
                 ? getPipaUrbnTravelSystemUrl(parentStroller.brand, parentStroller.model)
                 : null;
               return bundleUrl ? (
-                <ToolAffiliateLink
+                <ToolRetailerCta
                   tool="travel-system-checker"
                   href={bundleUrl}
+                  retailer="Babylist"
                   product={`${parentStroller?.brand ?? ''} ${parentStroller?.model ?? ''} + PIPA urbn travel system`.trim()}
-                  retailer="babylist"
                   brand={item.brand}
-                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                  variant="primary"
+                  className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
                 >
-                  <BabylistHeartIcon />
                   Shop travel system
-                </ToolAffiliateLink>
+                </ToolRetailerCta>
               ) : (
                 <span className="ml-auto rounded-full bg-[rgba(216,137,160,0.14)] px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-dark)]">
                   Travel system only
@@ -712,68 +687,69 @@ function ResultCard({
             })()
           ) : null}
           {urbnBundleUrl ? (
-            <ToolAffiliateLink
+            <ToolRetailerCta
               tool="travel-system-checker"
               href={urbnBundleUrl}
+              retailer="Babylist"
               product={`${item.brand} ${displayTitle} + PIPA urbn travel system`.trim()}
-              retailer="babylist"
               brand={item.brand}
-              className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+              variant="primary"
+              className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
             >
-              <BabylistHeartIcon />
               Shop travel system
-            </ToolAffiliateLink>
+            </ToolRetailerCta>
           ) : (
             <>
               {directUrl ? (
-                <ToolAffiliateLink
+                <ToolRetailerCta
                   tool="travel-system-checker"
                   href={directUrl}
+                  retailer={item.brand}
                   product={`${item.brand} ${displayTitle}`.trim()}
-                  retailer="direct"
                   brand={item.brand}
-                  className="tool-btn tool-btn--primary ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                  variant="primary"
+                  className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
                 >
                   Shop {item.brand}
-                </ToolAffiliateLink>
+                </ToolRetailerCta>
               ) : null}
               {primaryCta ? (
-                <ToolAffiliateLink
+                <ToolRetailerCta
                   tool="travel-system-checker"
                   href={primaryCta.url}
+                  retailer={primaryCta.label.replace(/^(Shop|Add to) (on |at )?/i, '')}
                   product={`${item.brand} ${displayTitle}`.trim()}
-                  retailer={primaryCta.source}
                   brand={item.brand}
-                  className={`tool-btn ${directUrl ? 'tool-btn--secondary' : 'tool-btn--primary ml-auto'} min-h-0 px-3 py-2 text-[0.68rem]`}
+                  variant={directUrl ? 'secondary' : 'primary'}
+                  className={directUrl ? 'min-h-0 px-3 py-2 text-[0.68rem]' : 'ml-auto min-h-0 px-3 py-2 text-[0.68rem]'}
                 >
-                  {primaryCta.source === 'babylist' ? <BabylistHeartIcon /> : null}
                   {primaryCta.label}
-                </ToolAffiliateLink>
+                </ToolRetailerCta>
               ) : null}
               {amazonUrl ? (
-                <ToolAffiliateLink
+                <ToolRetailerCta
                   tool="travel-system-checker"
                   href={amazonUrl}
+                  retailer="Amazon"
                   product={`${item.brand} ${displayTitle}`.trim()}
-                  retailer="amazon"
                   brand={item.brand}
-                  className="tool-btn tool-btn--secondary min-h-0 px-3 py-2 text-[0.68rem]"
+                  className="min-h-0 px-3 py-2 text-[0.68rem]"
                 >
-                  <AmazonMark />
-                </ToolAffiliateLink>
+                  Amazon
+                </ToolRetailerCta>
               ) : null}
               {extraRetailers.map((link) => (
-                <ToolAffiliateLink
+                <ToolRetailerCta
                   key={link.url}
                   tool="travel-system-checker"
                   href={link.url}
+                  retailer={link.retailer}
                   product={`${item.brand} ${displayTitle}`.trim()}
-                  retailer={link.retailer.toLowerCase()}
                   brand={item.brand}
-                  className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-2 text-[0.68rem]"
+                  variant="chip"
                 >
                   {link.retailer}
-                </ToolAffiliateLink>
+                </ToolRetailerCta>
               ))}
             </>
           )}

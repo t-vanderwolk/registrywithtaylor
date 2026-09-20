@@ -10,6 +10,7 @@ import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateSh
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { strollerFinderBrandHref, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
 import type { PublicStrollerBrand, PublicStrollerProduct } from '@/lib/server/publicStrollerCatalog';
+import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -117,15 +118,19 @@ function displayNameWithoutBrand(displayName: string, brand: string) {
 
 // Retailer CTAs, stacked on each card in priority order. Babylist is primary
 // when present, MacroBaby is the fallback primary, and Amazon is secondary only.
-const RETAILER_CTAS: Array<{
-  key: 'babylist' | 'macrobaby' | 'bombi' | 'amazon';
+type RetailerCtaMeta = {
+  key: string;
+  /** Display name, also used to look up the retailer's logo. */
+  name: string;
   shopLabel: string;
-  btnClass: string;
-}> = [
-  { key: 'babylist', shopLabel: 'Add to Babylist', btnClass: 'tool-btn--primary' },
-  { key: 'macrobaby', shopLabel: 'Shop MacroBaby', btnClass: 'tool-btn--secondary' },
-  { key: 'bombi', shopLabel: 'Shop Bombi', btnClass: 'tool-btn--primary' },
-  { key: 'amazon', shopLabel: 'Shop Amazon', btnClass: 'tool-btn--secondary' },
+  variant: 'primary' | 'secondary';
+};
+
+const RETAILER_CTAS: Array<RetailerCtaMeta & { key: 'babylist' | 'macrobaby' | 'bombi' | 'amazon' }> = [
+  { key: 'babylist', name: 'Babylist', shopLabel: 'Add to Babylist', variant: 'primary' },
+  { key: 'macrobaby', name: 'MacroBaby', shopLabel: 'Shop MacroBaby', variant: 'secondary' },
+  { key: 'bombi', name: 'Bombi', shopLabel: 'Shop Bombi', variant: 'primary' },
+  { key: 'amazon', name: 'Amazon', shopLabel: 'Shop Amazon', variant: 'secondary' },
 ];
 
 function formatOpenBoxPrice(price: number) {
@@ -242,7 +247,7 @@ function ProductCard({
   // Each retailer shows only when it actually carries this model. Babylist is
   // the visible product-card CTA; open-box stays separate as a sticker badge.
   const retailers = product.retailers ?? null;
-  const offers: Array<{ meta: { key: string; shopLabel: string; btnClass: string }; offer: RetailerOffer }> = [];
+  const offers: Array<{ meta: RetailerCtaMeta; offer: RetailerOffer }> = [];
   for (const meta of RETAILER_CTAS) {
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
@@ -272,7 +277,8 @@ function ProductCard({
   const directUrl = getDirectAffiliateLink(brand, product.model);
   if (directUrl) {
     offers.unshift({
-      meta: { key: 'direct', shopLabel: directShopLabel(brand), btnClass: 'tool-btn--secondary' },
+      // Brand-direct: the brand's own name drives both the label and the logo.
+      meta: { key: 'direct', name: brand, shopLabel: directShopLabel(brand), variant: 'secondary' },
       offer: { url: directUrl, price: null },
     });
   }
@@ -335,32 +341,18 @@ function ProductCard({
 
         <div className="tool-product-card__actions">
           {offers.map(({ meta, offer }, index) => (
-            <ProductShopLink
+            <ToolRetailerCta
               key={meta.key}
-              href={offer.url ?? undefined}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() =>
-                trackToolAffiliateClick('stroller-finder', {
-                  product: `${brand} ${displayTitle}`.trim(),
-                  retailer: meta.key,
-                  brand,
-                  url: offer.url,
-                })
-              }
-              className={`tool-btn ${index === 0 ? 'tool-btn--primary' : meta.btnClass} tool-btn--block flex items-center justify-center gap-2`}
+              tool="stroller-finder"
+              href={offer.url ?? ''}
+              retailer={meta.name}
+              product={`${brand} ${displayTitle}`.trim()}
+              brand={brand}
+              variant={index === 0 ? 'primary' : meta.variant}
+              block
             >
-              {meta.key === 'babylist' ? <BabylistHeartIcon className="shrink-0" /> : null}
-              {meta.key === 'amazon' ? (
-                <>
-                  <span>Shop on</span>
-                  <AmazonMark className="shrink-0 translate-y-[1px]" />
-                  <span aria-hidden="true">→</span>
-                </>
-              ) : (
-                <span>{meta.shopLabel} →</span>
-              )}
-            </ProductShopLink>
+              {meta.shopLabel}
+            </ToolRetailerCta>
           ))}
           {!hadRealOffers && openBoxOffer?.url ? (
             <ProductShopLink

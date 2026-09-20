@@ -2,10 +2,10 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
-import ProductShopLink from '@/components/affiliate/ProductShopLink';
+import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
-import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import { BRAND_LOGOS, STROLLER_BRAND_SECTIONS } from './StrollerCatalogFinder';
 import type {
   TravelSystemCarSeatOption,
@@ -23,7 +23,7 @@ import {
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
-import { AmazonMark, BabylistHeartIcon, CarSeatGlyph } from './StrollerCatalogFinder';
+import { CarSeatGlyph } from './StrollerCatalogFinder';
 import type { RetailerLink } from '@/lib/retailerLinks';
 
 type TravelSystemGeneratorProps = {
@@ -112,8 +112,6 @@ function BrowseCard({
 }) {
   const displayTitle = displayNameWithoutBrand(option.model, option.brand);
   const fullName = `${option.brand} ${displayTitle}`.trim();
-  const track = (retailer: string, url: string | null | undefined) =>
-    trackToolAffiliateClick('travel-system-checker', { product: fullName, retailer, brand: option.brand, url });
 
   return (
     <div className="tool-card tool-card--interactive tool-product-card tool-product-card--rich">
@@ -142,43 +140,44 @@ function BrowseCard({
         ) : null}
         <div className="tool-product-card__actions">
           {primaryUrl ? (
-            <ProductShopLink
+            <ToolRetailerCta
+              tool="travel-system-checker"
               href={primaryUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() => track('babylist', primaryUrl)}
-              className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
+              retailer={primaryIsBabylist ? 'Babylist' : (primaryLabel ?? 'Shop').replace(/^Shop (on |at )?/i, '')}
+              product={fullName}
+              brand={option.brand}
+              variant="primary"
+              block
             >
-              {primaryIsBabylist ? <BabylistHeartIcon className="shrink-0" /> : null}
-              <span>{primaryLabel ?? 'Add to Babylist'} →</span>
-            </ProductShopLink>
+              {primaryLabel ?? 'Add to Babylist'}
+            </ToolRetailerCta>
           ) : null}
           {amazonUrl ? (
-            <ProductShopLink
+            <ToolRetailerCta
+              tool="travel-system-checker"
               href={amazonUrl}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() => track('amazon', amazonUrl)}
-              className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
+              retailer="Amazon"
+              product={fullName}
+              brand={option.brand}
+              block
             >
-              <span>Shop on</span>
-              <AmazonMark className="shrink-0 translate-y-[1px]" />
-              <span aria-hidden="true">→</span>
-            </ProductShopLink>
+              Shop on Amazon
+            </ToolRetailerCta>
           ) : null}
           {extraRetailers?.length ? (
             <div className="flex flex-wrap items-center justify-center gap-1.5">
               {extraRetailers.map((link) => (
-                <ProductShopLink
+                <ToolRetailerCta
                   key={link.url}
+                  tool="travel-system-checker"
                   href={link.url}
-                  target="_blank"
-                  rel="sponsored nofollow noopener noreferrer"
-                  onClick={() => track(link.retailer.toLowerCase(), link.url)}
-                  className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-1.5 text-[0.72rem]"
+                  retailer={link.retailer}
+                  product={fullName}
+                  brand={option.brand}
+                  variant="chip"
                 >
                   {link.retailer}
-                </ProductShopLink>
+                </ToolRetailerCta>
               ))}
             </div>
           ) : null}

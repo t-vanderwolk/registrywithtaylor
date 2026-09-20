@@ -3,7 +3,7 @@
 import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import ToolAffiliateLink from '@/components/tools/ToolAffiliateLink';
+import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import type { StrollerCompareItem } from '@/lib/server/strollerCompareCatalog';
 
@@ -391,65 +391,68 @@ export default function StrollerCompare({
                 return (
                   <div key={item.id} className="flex flex-col gap-2">
                     {babylist ? (
-                      <ToolAffiliateLink
+                      <ToolRetailerCta
                         tool="stroller-compare"
                         href={babylist}
+                        retailer="Babylist"
                         product={item.displayName}
-                        retailer="babylist"
                         brand={item.brand}
-                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
+                        variant="primary"
+                        className="min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on Babylist
-                      </ToolAffiliateLink>
+                      </ToolRetailerCta>
                     ) : macro ? (
-                      <ToolAffiliateLink
+                      <ToolRetailerCta
                         tool="stroller-compare"
                         href={macro}
+                        retailer="MacroBaby"
                         product={item.displayName}
-                        retailer="macrobaby"
                         brand={item.brand}
-                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
+                        variant="primary"
+                        className="min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on MacroBaby
-                      </ToolAffiliateLink>
+                      </ToolRetailerCta>
                     ) : bombi ? (
-                      <ToolAffiliateLink
+                      <ToolRetailerCta
                         tool="stroller-compare"
                         href={bombi}
+                        retailer="Bombi"
                         product={item.displayName}
-                        retailer="bombi"
                         brand={item.brand}
-                        className="tool-btn tool-btn--primary min-h-0 px-4 py-2 text-[0.78rem]"
+                        variant="primary"
+                        className="min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on Bombi
-                      </ToolAffiliateLink>
+                      </ToolRetailerCta>
                     ) : null}
                     {amazon ? (
-                      <ToolAffiliateLink
+                      <ToolRetailerCta
                         tool="stroller-compare"
                         href={amazon}
+                        retailer="Amazon"
                         product={item.displayName}
-                        retailer="amazon"
                         brand={item.brand}
-                        className="tool-btn tool-btn--ghost min-h-0 px-4 py-2 text-[0.78rem]"
+                        className="min-h-0 px-4 py-2 text-[0.78rem]"
                       >
                         Shop on Amazon
-                      </ToolAffiliateLink>
+                      </ToolRetailerCta>
                     ) : null}
                     {item.extraRetailers.length ? (
                       <div className="flex flex-wrap items-center justify-center gap-1.5">
                         {item.extraRetailers.map((link) => (
-                          <ToolAffiliateLink
+                          <ToolRetailerCta
                             key={link.url}
                             tool="stroller-compare"
                             href={link.url}
+                            retailer={link.retailer}
                             product={item.displayName}
-                            retailer={link.retailer.toLowerCase()}
                             brand={item.brand}
-                            className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-1.5 text-[0.72rem]"
+                            variant="chip"
                           >
                             {link.retailer}
-                          </ToolAffiliateLink>
+                          </ToolRetailerCta>
                         ))}
                       </div>
                     ) : null}

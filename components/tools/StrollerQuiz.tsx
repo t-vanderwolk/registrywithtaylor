@@ -2,14 +2,14 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
-import BabylistShopLink from '@/components/affiliate/BabylistShopLink';
 import { useEffect, useState } from 'react';
-import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
-import { OpenBoxBadge, BabylistHeartIcon, AmazonMark } from './StrollerCatalogFinder';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
+import { OpenBoxBadge } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
+import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -942,29 +942,29 @@ export default function StrollerQuiz() {
                     ) : null}
                     <div className="tool-product-card__actions">
                       {babylistUrl ? (
-                        <BabylistShopLink
+                        <ToolRetailerCta
+                          tool="stroller-quiz"
                           href={babylistUrl}
-                          target="_blank"
-                          rel="sponsored nofollow noopener noreferrer"
-                          className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
-                          onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'babylist', brand: pick.brand, url: babylistUrl })}
-                        >
-                          <BabylistHeartIcon className="shrink-0" />
-                          <span>Add to Babylist →</span>
-                        </BabylistShopLink>
+                          retailer="Babylist"
+                          product={pick.name}
+                          brand={pick.brand}
+                          variant="primary"
+                          block
+                          >
+                            Add to Babylist
+                          </ToolRetailerCta>
                       ) : null}
                       {links.amazonUrl && isAmazonAllowedForBrand(pick.brand) ? (
-                        <a
+                        <ToolRetailerCta
+                          tool="stroller-quiz"
                           href={links.amazonUrl}
-                          target="_blank"
-                          rel="sponsored nofollow noopener noreferrer"
-                          className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
-                          onClick={() => trackToolAffiliateClick('stroller-quiz', { product: pick.name, retailer: 'amazon', brand: pick.brand, url: links.amazonUrl })}
-                        >
-                          <span>Shop on</span>
-                          <AmazonMark className="shrink-0 translate-y-[1px]" />
-                          <span aria-hidden="true">→</span>
-                        </a>
+                          retailer="Amazon"
+                          product={pick.name}
+                          brand={pick.brand}
+                          block
+                          >
+                            Shop on Amazon
+                          </ToolRetailerCta>
                       ) : null}
                     </div>
                     <Link
@@ -1042,28 +1042,28 @@ export default function StrollerQuiz() {
                           </p>
                         ) : null}
                         <div className="tool-product-card__actions">
-                          <BabylistShopLink
+                          <ToolRetailerCta
+                            tool="stroller-quiz"
                             href={babylistUrl}
-                            target="_blank"
-                            rel="sponsored nofollow noopener noreferrer"
-                            className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
-                            onClick={() => trackToolAffiliateClick('stroller-quiz', { product: `${s.brand} ${s.model}`, retailer: 'babylist', brand: s.brand, url: babylistUrl })}
+                            retailer="Babylist"
+                            product={`${s.brand} ${s.model}`}
+                            brand={s.brand}
+                            variant="primary"
+                            block
                           >
-                            <BabylistHeartIcon className="shrink-0" />
-                            <span>Add to Babylist →</span>
-                          </BabylistShopLink>
+                            Add to Babylist
+                          </ToolRetailerCta>
                           {links.amazonUrl && isAmazonAllowedForBrand(s.brand) && (
-                            <a
+                            <ToolRetailerCta
+                              tool="stroller-quiz"
                               href={links.amazonUrl}
-                              target="_blank"
-                              rel="sponsored nofollow noopener noreferrer"
-                              className="tool-btn tool-btn--secondary tool-btn--block flex items-center justify-center gap-2"
-                              onClick={() => trackToolAffiliateClick('stroller-quiz', { product: `${s.brand} ${s.model}`, retailer: 'amazon', brand: s.brand, url: links.amazonUrl })}
+                              retailer="Amazon"
+                              product={`${s.brand} ${s.model}`}
+                              brand={s.brand}
+                              block
                             >
-                              <span>Shop on</span>
-                              <AmazonMark className="shrink-0 translate-y-[1px]" />
-                              <span aria-hidden="true">→</span>
-                            </a>
+                              Shop on Amazon
+                            </ToolRetailerCta>
                           )}
                         </div>
                         <Link
