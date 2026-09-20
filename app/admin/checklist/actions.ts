@@ -3,6 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { requireAdminSession } from '@/lib/server/session';
 import prismaBase from '@/lib/server/prisma';
+import { checklistProductLinkError } from '@/lib/checklist/productLinkForm';
+import { checklistRetailersFromForm } from '@/lib/checklist/retailerPreferences';
 import {
   categories as staticCategories,
   checklistItems as staticItems,
@@ -89,25 +91,10 @@ function revalidate() {
 }
 
 /** Create a new checklist product pick. */
-/**
- * Collect the "extra retailer" field pairs (extraRetailer1/extraUrl1, …) into
- * the ordered JSON array stored on ChecklistProduct.retailerLinks. Pairs with a
- * blank URL are dropped; a link with no name falls back to "Shop" at render.
- */
-function retailerLinks(formData: FormData): Record<string, string>[] {
-  // Record<string, string> (not a shaped object type) so this stays assignable
-  // to Prisma's InputJsonValue, which requires an index signature.
-  const links: Record<string, string>[] = [];
-  for (let i = 1; i <= 3; i += 1) {
-    const url = str(formData, `extraUrl${i}`);
-    if (!url) continue;
-    links.push({ retailer: str(formData, `extraRetailer${i}`) ?? '', url });
-  }
-  return links;
-}
-
 export async function createChecklistProduct(formData: FormData) {
   await requireAdminSession('/admin/checklist');
+  const linkError = checklistProductLinkError(formData);
+  if (linkError) throw new Error(linkError);
   const brand = str(formData, 'brand');
   const product = str(formData, 'product');
   if (!brand || !product) return;
@@ -131,7 +118,7 @@ export async function createChecklistProduct(formData: FormData) {
       amazonUrl: str(formData, 'amazonUrl'),
       secondaryUrl: str(formData, 'secondaryUrl'),
       secondaryRetailer: str(formData, 'secondaryRetailer'),
-      retailerLinks: retailerLinks(formData),
+      retailerLinks: checklistRetailersFromForm(formData),
       checklistItemId: str(formData, 'checklistItemId'),
       price: num(formData, 'price'),
       priceSource: str(formData, 'priceSource'),
@@ -148,8 +135,11 @@ export async function createChecklistProduct(formData: FormData) {
 /** Update an existing pick. */
 export async function updateChecklistProduct(formData: FormData) {
   await requireAdminSession('/admin/checklist');
+  const linkError = checklistProductLinkError(formData);
+  if (linkError) throw new Error(linkError);
   const id = str(formData, 'id');
   if (!id) return;
+  const existing = await db.checklistProduct.findUnique({ where: { id }, select: { affiliateUrl: true, amazonUrl: true, secondaryUrl: true, retailerLinks: true } });
   await db.checklistProduct.update({
     where: { id },
     data: {
@@ -162,7 +152,7 @@ export async function updateChecklistProduct(formData: FormData) {
       amazonUrl: str(formData, 'amazonUrl'),
       secondaryUrl: str(formData, 'secondaryUrl'),
       secondaryRetailer: str(formData, 'secondaryRetailer'),
-      retailerLinks: retailerLinks(formData),
+      retailerLinks: checklistRetailersFromForm(formData, existing),
       checklistItemId: str(formData, 'checklistItemId'),
       price: num(formData, 'price'),
       priceSource: str(formData, 'priceSource'),

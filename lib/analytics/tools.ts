@@ -1,4 +1,5 @@
 import { trackEvent } from '@/lib/analytics';
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
 import { sendToolEventBeacon } from '@/lib/analytics/toolEventBeacon';
@@ -48,7 +49,7 @@ export function trackToolAffiliateClick(
     product: input.product ?? undefined,
     retailer: input.retailer ?? undefined,
     brand: input.brand ?? undefined,
-    url: input.url ?? undefined,
+    url: input.url ? babylistShopMyUrl(input.url) : undefined,
     label: input.product ?? input.brand ?? input.url ?? tool,
   });
 

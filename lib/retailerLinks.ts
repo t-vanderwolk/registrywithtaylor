@@ -8,10 +8,21 @@ export type RetailerLink = {
   retailer: string;
   /** Plain retailer product URL — ShopMy's auto-linker wraps it at runtime. */
   url: string;
+  displayOrder?: number;
+  preferred?: boolean;
+  price?: number;
+  salePrice?: number;
+  priceCheckedAt?: string;
+  priceVerified?: boolean;
 };
 
-export const isHttpUrl = (value: unknown): value is string =>
-  typeof value === 'string' && /^https?:\/\//i.test(value.trim());
+export function isHttpUrl(value: unknown): value is string {
+  if (typeof value !== 'string') return false;
+  try {
+    const url = new URL(value.trim());
+    return ['https:', 'http:'].includes(url.protocol) && Boolean(url.hostname) && !url.username && !url.password;
+  } catch { return false; }
+}
 
 /**
  * Normalise a `retailerLinks` JSON column into a typed array. The column is
@@ -26,11 +37,22 @@ export function parseRetailerLinks(value: unknown): RetailerLink[] | undefined {
     const { retailer, url } = entry as Record<string, unknown>;
     if (!isHttpUrl(url)) continue;
     const label = typeof retailer === 'string' ? retailer.trim() : '';
-    links.push({ retailer: label || 'Shop', url: url.trim() });
+    const record = entry as Record<string, unknown>;
+    const link: RetailerLink = { retailer: label || 'Shop', url: url.trim() };
+    for (const key of ['displayOrder', 'price', 'salePrice'] as const) {
+      const number = record[key];
+      if (typeof number === 'number' && Number.isFinite(number) && number >= 0) link[key] = number;
+    }
+    if (typeof record.preferred === 'boolean') link.preferred = record.preferred;
+    if (typeof record.priceVerified === 'boolean') link.priceVerified = record.priceVerified;
+    if (typeof record.priceCheckedAt === 'string' && Number.isFinite(Date.parse(record.priceCheckedAt))) link.priceCheckedAt = record.priceCheckedAt;
+    links.push(link);
   }
   return links.length ? links : undefined;
 }
 
-/** Compare URLs ignoring case, trailing slash and the leading www. */
-export const retailerUrlKey = (url: string) =>
-  url.trim().toLowerCase().replace(/^https?:\/\/(www\.)?/, '').replace(/\/+$/, '');
+/** Hosts are case-insensitive, but product paths and affiliate tokens are not. */
+export const retailerUrlKey = (value: string) => {
+  const url = new URL(value.trim());
+  return `${url.hostname.toLowerCase().replace(/^www\./, '')}${url.port ? `:${url.port}` : ''}${url.pathname.replace(/\/+$/, '')}${url.search}${url.hash}`;
+};

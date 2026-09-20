@@ -10,7 +10,9 @@ import AdminStack from '@/components/admin/ui/AdminStack';
 import AdminSurface from '@/components/admin/ui/AdminSurface';
 import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import { Fragment } from 'react';
-import { parseRetailerLinks } from '@/lib/retailerLinks';
+import ChecklistProductForm from '@/components/admin/ChecklistProductForm';
+import ChecklistRetailerPriority from '@/components/admin/ChecklistRetailerPriority';
+import { checklistExtraRetailers, checklistRetailerPreferences } from '@/lib/checklist/retailerPreferences';
 import {
   buildChecklistBlogUsage,
   checklistBlogProductKey,
@@ -36,11 +38,6 @@ const field = 'w-full rounded-md border border-neutral-200 px-3 py-1.5 text-sm t
 const lbl = 'flex flex-col gap-1 text-[0.78rem] text-neutral-500';
 
 type CatGroup = { id: string; title: string; items: { id: string; title: string }[] };
-
-/** Read the retailerLinks JSON column into the three editable field pairs. */
-function extraLinks(value: unknown): { retailer: string; url: string }[] {
-  return parseRetailerLinks(value) ?? [];
-}
 
 type Row = {
   id: string;
@@ -174,7 +171,7 @@ function ProductRow({
         </span>
       </summary>
 
-      <form action={updateChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
+      <ChecklistProductForm action={updateChecklistProduct} className="mt-4 grid gap-3 sm:grid-cols-2">
         <input type="hidden" name="id" value={r.id} />
         <ChecklistCatalogPicker />
         <ChecklistBlogProductPicker />
@@ -189,7 +186,7 @@ function ProductRow({
         <label className={lbl}>Other retailer name<input name="secondaryRetailer" defaultValue={r.secondaryRetailer ?? ''} placeholder="Target, Pottery Barn Kids…" className={field} /></label>
         <label className={lbl}>Other retailer link<input name="secondaryUrl" defaultValue={r.secondaryUrl ?? ''} placeholder="https://…" className={field} /></label>
         {[0, 1, 2].map((i) => {
-          const extra = extraLinks(r.retailerLinks)[i];
+          const extra = checklistExtraRetailers(r)[i];
           return (
             <Fragment key={`extra-${r.id}-${i}`}>
               <label className={lbl}>Retailer {i + 3} name<input name={`extraRetailer${i + 1}`} defaultValue={extra?.retailer ?? ''} placeholder="Nordstrom, Bloomingdale's…" className={field} /></label>
@@ -197,6 +194,7 @@ function ProductRow({
             </Fragment>
           );
         })}
+        <ChecklistRetailerPriority {...checklistRetailerPreferences(r)} />
         <label className={lbl}>Price<input name="price" defaultValue={r.price ?? ''} className={field} /></label>
         <label className={lbl}>Price source<input name="priceSource" defaultValue={r.priceSource ?? ''} className={field} /></label>
         <label className={lbl}>Retailer<input name="retailer" defaultValue={r.retailer ?? ''} className={field} /></label>
@@ -214,7 +212,7 @@ function ProductRow({
             Save
           </button>
         </div>
-      </form>
+      </ChecklistProductForm>
 
       <form action={deleteChecklistProduct} className="mt-3">
         <input type="hidden" name="id" value={r.id} />
@@ -324,7 +322,7 @@ export default async function AdminChecklistProductsPage() {
       <AdminSurface as="section" id="add-checklist-product" className="admin-stack gap-4">
         <details>
           <summary className="cursor-pointer font-semibold text-neutral-800">+ Add a checklist product</summary>
-          <form action={createChecklistProduct} className="mt-4 grid gap-3 border-t border-neutral-100 pt-4 sm:grid-cols-2">
+          <ChecklistProductForm action={createChecklistProduct} className="mt-4 grid gap-3 border-t border-neutral-100 pt-4 sm:grid-cols-2">
             <ChecklistCatalogPicker />
             <ChecklistBlogProductPicker />
             <label className={lbl}>Brand *<input name="brand" required className={field} /></label>
@@ -345,6 +343,7 @@ export default async function AdminChecklistProductsPage() {
                 <label className={lbl}>Retailer {i + 3} link (optional)<input name={`extraUrl${i + 1}`} placeholder="https://…" className={field} /></label>
               </Fragment>
             ))}
+            <ChecklistRetailerPriority />
             <label className={lbl}>Price<input name="price" placeholder="149" className={field} /></label>
             <label className={lbl}>Price source<input name="priceSource" placeholder="Babylist" className={field} /></label>
             <label className={lbl}>Retailer<input name="retailer" placeholder="Babylist" className={field} /></label>
@@ -365,7 +364,7 @@ export default async function AdminChecklistProductsPage() {
                 Add product
               </button>
             </div>
-          </form>
+          </ChecklistProductForm>
         </details>
       </AdminSurface>
 

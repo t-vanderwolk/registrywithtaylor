@@ -53,7 +53,7 @@ export type ChecklistProduct = {
   retailer?: string;
   secondaryRetailer?: string;
   /** Extra retailers beyond Babylist / Amazon / secondary, in display order.
-   *  The card shows at most 5 links in total. */
+   *  Admin saves accept at most 5 links in total; existing links are preserved. */
   retailerLinks?: RetailerLink[];
   imageUrl?: string;
   badge?: string;

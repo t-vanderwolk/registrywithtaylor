@@ -1,4 +1,5 @@
 import { getAnalyticsPageType } from '@/lib/analytics';
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
 
 /**
  * Fire-and-forget beacon that records a real outbound affiliate click on the
@@ -13,7 +14,7 @@ export function sendAffiliateClickBeacon(input: {
   source?: string | null;
 }) {
   if (typeof window === 'undefined') return;
-  const url = (input.url ?? '').trim();
+  const url = babylistShopMyUrl((input.url ?? '').trim());
   if (!url) return;
 
   try {

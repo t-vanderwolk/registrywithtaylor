@@ -47,6 +47,7 @@ import {
 import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import { enrichProductBlockWithCatalog } from '@/lib/blog/enrichCatalogProduct';
 import { renderTextWithInternalLinks } from '@/lib/internal-links/render';
+import BabylistShopLink from '@/components/affiliate/BabylistShopLink';
 import type { ContextualInternalLink } from '@/lib/internal-links/types';
 
 type PostContentProps = {
@@ -284,7 +285,7 @@ function renderInlineContent(
       );
     } else if (linkLabel && linkHref) {
       nodes.push(
-        <a
+        <BabylistShopLink
           key={key}
           href={linkHref}
           target={opensNewTab(linkHref) ? '_blank' : undefined}
@@ -292,7 +293,7 @@ function renderInlineContent(
           className="link-underline transition-colors duration-200 hover:text-neutral-900"
         >
           {highlightBrandWordmark ? renderBrandWordmarkText(linkLabel, `${key}-link`) : linkLabel}
-        </a>,
+        </BabylistShopLink>,
       );
     } else if (strongA || strongB) {
       nodes.push(

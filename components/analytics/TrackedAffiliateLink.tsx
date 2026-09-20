@@ -1,6 +1,9 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import BabylistShopLink from '@/components/affiliate/BabylistShopLink';
+import ProductShopLink from '@/components/affiliate/ProductShopLink';
+import { babylistShopMyUrl, shopMyProductUrl } from '@/lib/affiliateShopMy';
 import { GuideAnalyticsEvents } from '@/lib/guides/events';
 import { sendGuideTrackingEvent } from '@/lib/guides/clientTracking';
 import { getClientPageAnalyticsContext, trackEvent, type AnalyticsPayload } from '@/lib/analytics';
@@ -18,6 +21,7 @@ type TrackedAffiliateLinkProps = {
   target?: string;
   meta?: AnalyticsPayload & BlogAffiliateTrackingMeta;
   onClick?: () => void;
+  productShopLink?: boolean;
 };
 
 const getMetaText = (meta: AnalyticsPayload | undefined, ...keys: string[]) => {
@@ -45,7 +49,10 @@ export default function TrackedAffiliateLink({
   target,
   meta,
   onClick,
+  productShopLink = false,
 }: TrackedAffiliateLinkProps) {
+  const destination = productShopLink ? shopMyProductUrl(href) : babylistShopMyUrl(href);
+  const ShoppingLink = productShopLink ? ProductShopLink : BabylistShopLink;
   const blogTrackingContext = useBlogTrackingContext();
   const guideTrackingContext = useGuideTrackingContext();
   const affiliateMetadata = {
@@ -58,7 +65,7 @@ export default function TrackedAffiliateLink({
 
   const handleClick = () => {
     trackAffiliateClick({
-      url: href,
+      url: destination,
       ...affiliateMetadata,
     });
 
@@ -67,7 +74,7 @@ export default function TrackedAffiliateLink({
         postId: blogTrackingContext.postId,
         slug: blogTrackingContext.slug,
         title: blogTrackingContext.title,
-        destinationUrl: href,
+        destinationUrl: destination,
         ctaText,
         meta,
       });
@@ -84,7 +91,7 @@ export default function TrackedAffiliateLink({
         guideId: guideTrackingContext.guideId,
         slug: guideTrackingContext.slug,
         title: guideTrackingContext.title,
-        destination: href,
+        destination,
         destinationPageType: 'external',
         ctaLabel: ctaText,
         label: ctaText,
@@ -104,7 +111,7 @@ export default function TrackedAffiliateLink({
   };
 
   return (
-    <a
+    <ShoppingLink
       href={href}
       target={target ?? '_blank'}
       rel={rel ?? 'sponsored nofollow noopener noreferrer'}
@@ -116,6 +123,6 @@ export default function TrackedAffiliateLink({
       onClick={handleClick}
     >
       {children}
-    </a>
+    </ShoppingLink>
   );
 }

@@ -2,6 +2,7 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
+import ProductShopLink from '@/components/affiliate/ProductShopLink';
 import { useRouter } from 'next/navigation';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
@@ -141,7 +142,7 @@ function BrowseCard({
         ) : null}
         <div className="tool-product-card__actions">
           {primaryUrl ? (
-            <a
+            <ProductShopLink
               href={primaryUrl}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
@@ -150,10 +151,10 @@ function BrowseCard({
             >
               {primaryIsBabylist ? <BabylistHeartIcon className="shrink-0" /> : null}
               <span>{primaryLabel ?? 'Add to Babylist'} →</span>
-            </a>
+            </ProductShopLink>
           ) : null}
           {amazonUrl ? (
-            <a
+            <ProductShopLink
               href={amazonUrl}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
@@ -163,12 +164,12 @@ function BrowseCard({
               <span>Shop on</span>
               <AmazonMark className="shrink-0 translate-y-[1px]" />
               <span aria-hidden="true">→</span>
-            </a>
+            </ProductShopLink>
           ) : null}
           {extraRetailers?.length ? (
             <div className="flex flex-wrap items-center justify-center gap-1.5">
               {extraRetailers.map((link) => (
-                <a
+                <ProductShopLink
                   key={link.url}
                   href={link.url}
                   target="_blank"
@@ -177,7 +178,7 @@ function BrowseCard({
                   className="tool-btn tool-btn--ghost min-h-0 rounded-full px-3 py-1.5 text-[0.72rem]"
                 >
                   {link.retailer}
-                </a>
+                </ProductShopLink>
               ))}
             </div>
           ) : null}

@@ -1,12 +1,13 @@
 import { AFFILIATE_LINK_NEEDED, type ChecklistProduct } from './products';
 import { isHttpUrl, parseRetailerLinks, retailerUrlKey, type RetailerLink } from '@/lib/retailerLinks';
+import { orderedProductRetailers } from '@/lib/productRetailers';
 
 export { parseRetailerLinks };
 
-/** Hard ceiling on how many shop links a single product card renders. */
+/** Maximum unique shopping destinations accepted by the admin form. */
 export const MAX_PRODUCT_LINKS = 5;
 
-/** Number of links rendered as full-width buttons; the rest become chips. */
+/** Number of links rendered as full-width buttons; the rest expand on request. */
 export const PRIMARY_LINK_COUNT = 2;
 
 export type ResolvedProductLink = RetailerLink & {
@@ -15,10 +16,9 @@ export type ResolvedProductLink = RetailerLink & {
 };
 
 /**
- * Build the ordered list of shop links for a card: Babylist first (when it has
- * a real link), then Amazon, then the legacy secondary retailer, then any extra
- * retailers. Duplicate destinations are dropped and the list is capped at
- * MAX_PRODUCT_LINKS so a card can never sprout an unbounded wall of buttons.
+ * Preserve legacy field order unless the product has explicit retailer preferences.
+ * Duplicate destinations are dropped. Enforce limits when saving,
+ * not here: existing stored affiliate links must never silently disappear.
  */
 export function resolveProductLinks(rec: ChecklistProduct): ResolvedProductLink[] {
   const candidates: ResolvedProductLink[] = [];
@@ -38,17 +38,20 @@ export function resolveProductLinks(rec: ChecklistProduct): ResolvedProductLink[
   }
   for (const link of rec.retailerLinks ?? []) {
     if (!isHttpUrl(link.url)) continue;
-    candidates.push({ kind: 'other', retailer: link.retailer.trim() || 'Shop', url: link.url.trim() });
+    candidates.push({ ...link, kind: 'other', retailer: link.retailer.trim() || 'Shop', url: link.url.trim() });
   }
 
   const seen = new Set<string>();
   const links: ResolvedProductLink[] = [];
   for (const link of candidates) {
     const key = retailerUrlKey(link.url);
-    if (seen.has(key)) continue;
+    if (seen.has(key)) {
+      const existing = links.find((entry) => retailerUrlKey(entry.url) === key)!;
+      Object.assign(existing, link, { kind: existing.kind });
+      continue;
+    }
     seen.add(key);
     links.push(link);
-    if (links.length >= MAX_PRODUCT_LINKS) break;
   }
-  return links;
+  return orderedProductRetailers(links);
 }

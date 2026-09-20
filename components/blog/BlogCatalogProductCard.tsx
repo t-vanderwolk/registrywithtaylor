@@ -4,16 +4,11 @@ import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
-import { AmazonMark, BabylistHeartIcon, OpenBoxBadge } from '@/components/tools/StrollerCatalogFinder';
+import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
+import { orderedProductRetailers, productPricePresentation } from '@/lib/productRetailers';
+import { type RetailerLink } from '@/lib/retailerLinks';
 import { isAmazonAllowedForBrand, isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemSlug } from '@/lib/travelSystemRouting';
-
-type CatalogProductButton = {
-  key: 'direct' | 'babylist' | 'macrobaby' | 'shop' | 'shop2' | 'amazon';
-  url: string;
-  label: string;
-  variant: 'primary' | 'secondary';
-};
 
 type BlogCatalogProductCardProps = {
   brand: string;
@@ -29,6 +24,7 @@ type BlogCatalogProductCardProps = {
   shop2Url?: string | null;
   shop2Retailer?: string | null;
   amazonUrl?: string | null;
+  retailerLinks?: RetailerLink[];
   /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
   primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
   /** GoodBuy Gear open-box offer, if this product has a matching one. */
@@ -43,10 +39,6 @@ type BlogCatalogProductCardProps = {
   layout?: 'inline' | 'grid';
   position: number;
 };
-
-function formatPrice(price: number) {
-  return Number.isInteger(price) ? `$${price.toFixed(0)}` : `$${price.toFixed(2)}`;
-}
 
 // Fade-and-rise the card in once it scrolls into view (respects reduced motion).
 function useReveal<T extends HTMLElement>() {
@@ -83,7 +75,6 @@ export default function BlogCatalogProductCard({
   note,
   imageUrl,
   price,
-  priceSource,
   babylistUrl,
   macrobabyUrl,
   shopUrl,
@@ -91,9 +82,9 @@ export default function BlogCatalogProductCard({
   shop2Url,
   shop2Retailer,
   amazonUrl,
+  retailerLinks = [],
   primaryRetailer,
   openBoxUrl,
-  openBoxPrice,
   comingSoon = false,
   compatHref,
   compatStrollersHref,
@@ -102,35 +93,25 @@ export default function BlogCatalogProductCard({
 }: BlogCatalogProductCardProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
   const isInline = layout === 'inline';
-  // Show every retailer we have a link for, ordered so the chosen primary leads;
-  // otherwise Babylist > MacroBaby > Shop > Amazon. The first button is styled
-  // primary, the rest secondary.
-  const available: Array<Omit<CatalogProductButton, 'variant'>> = [];
-  if (babylistUrl) available.push({ key: 'babylist', url: babylistUrl, label: 'Add to Babylist' });
+  // Adapt legacy fields without changing URLs; explicit product preferences lead.
+  const available: RetailerLink[] = [];
+  if (babylistUrl) available.push({ url: babylistUrl, retailer: 'Babylist', preferred: primaryRetailer === 'babylist' });
   // Some brands (e.g. Silver Cross) aren't sold via MacroBaby — never show a MacroBaby CTA.
-  if (macrobabyUrl && isMacroBabyAllowedForBrand(brand)) available.push({ key: 'macrobaby', url: macrobabyUrl, label: 'Shop MacroBaby' });
-  if (shopUrl) available.push({ key: 'shop', url: shopUrl, label: shopRetailer ? `Shop ${shopRetailer}` : 'Shop now' });
-  if (shop2Url) available.push({ key: 'shop2', url: shop2Url, label: shop2Retailer ? `Shop ${shop2Retailer}` : 'Shop now' });
+  if (macrobabyUrl && isMacroBabyAllowedForBrand(brand)) available.push({ url: macrobabyUrl, retailer: 'MacroBaby', preferred: primaryRetailer === 'macrobaby' });
+  if (shopUrl) available.push({ url: shopUrl, retailer: shopRetailer || brand, preferred: primaryRetailer === 'shop' });
+  if (shop2Url) available.push({ url: shop2Url, retailer: shop2Retailer || brand });
   // Some brands (e.g. Nuna) don't authorize Amazon third-party sales — never show an Amazon CTA.
   const amazonAllowed = isAmazonAllowedForBrand(brand);
-  if (amazonUrl && amazonAllowed) available.push({ key: 'amazon', url: amazonUrl, label: 'Shop on Amazon' });
+  if (amazonUrl && amazonAllowed) available.push({ url: amazonUrl, retailer: 'Amazon', preferred: primaryRetailer === 'amazon' });
+  available.push(...retailerLinks);
+  if (openBoxUrl) available.push({ url: openBoxUrl, retailer: 'GoodBuy Gear (open box)' });
 
   // Only retailer links actually attached to this card render — no auto-generated
   // Babylist brand-store, Amazon search, or brand-direct fallbacks. A card with no
   // links entered shows no buy buttons.
 
-  const defaultOrder: Record<CatalogProductButton['key'], number> = { direct: -1, babylist: 0, macrobaby: 1, shop: 2, shop2: 3, amazon: 4 };
-  available.sort((a, b) => {
-    // A direct brand link always leads.
-    if (a.key === 'direct' && b.key !== 'direct') return -1;
-    if (b.key === 'direct' && a.key !== 'direct') return 1;
-    if (primaryRetailer) {
-      if (a.key === primaryRetailer && b.key !== primaryRetailer) return -1;
-      if (b.key === primaryRetailer && a.key !== primaryRetailer) return 1;
-    }
-    return defaultOrder[a.key] - defaultOrder[b.key];
-  });
-  const buttons: CatalogProductButton[] = available.map((b, i) => ({ ...b, variant: i === 0 ? 'primary' : 'secondary' }));
+  const buttons = orderedProductRetailers(available);
+  const displayPrice = productPricePresentation(price, buttons);
 
   // A card with no retailer yet still renders when it's flagged coming soon —
   // it shows the product with a badge instead of buy buttons.
@@ -161,9 +142,6 @@ export default function BlogCatalogProductCard({
       ) : null}
       <div className={`tool-card__media tool-product-card__media${isInline ? ' tool-product-card__media--compact' : ''}`}>
         {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
-        {!comingSoon && (openBoxUrl || openBoxPrice != null) ? (
-          <OpenBoxBadge offer={{ url: openBoxUrl ?? null, price: openBoxPrice ?? null }} />
-        ) : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img loading="lazy" decoding="async" src={imageUrl} alt={fullName} className="tool-product-card__image" />
@@ -174,10 +152,11 @@ export default function BlogCatalogProductCard({
       <div className="tool-product-card__body">
         {displayBrand ? <p className="tool-product-card__brand">{displayBrand}</p> : null}
         <p className="tool-product-card__title">{productName}</p>
-        {price != null ? (
+        {note ? <p className="text-sm leading-relaxed text-neutral-600">{note}</p> : null}
+        {displayPrice ? (
           <p className="tool-product-card__price">
-            {formatPrice(price)}
-            {priceSource ? <span>via {priceSource}</span> : null}
+            {displayPrice.label}
+            {displayPrice.reference ? <span>Reference price</span> : null}
           </p>
         ) : null}
 
@@ -187,33 +166,24 @@ export default function BlogCatalogProductCard({
               Retailer coming soon
             </span>
           ) : null}
-          {buttons.map((button) => (
+          <ProductRetailerActions links={buttons} productName={fullName} renderLink={(retailer, presentation) => (
             <TrackedAffiliateLink
-              key={button.key}
-              href={button.url}
-              ctaText={button.label}
-              ariaLabel={`${button.label} — ${fullName}`}
-              className={`tool-btn tool-btn--${button.variant} tool-btn--block flex items-center justify-center gap-2`}
+              productShopLink
+              href={retailer.url}
+              ctaText={`Shop at ${retailer.retailer}`}
+              ariaLabel={presentation.ariaLabel}
+              className={presentation.className}
               meta={{
                 product: fullName,
                 brand: displayBrand,
-                retailer: button.key,
+                retailer: retailer.retailer,
                 position,
                 context: 'blog-catalog-card',
               }}
             >
-              {button.key === 'babylist' ? <BabylistHeartIcon className="shrink-0" /> : null}
-              {button.key === 'amazon' ? (
-                <>
-                  <span>Shop on</span>
-                  <AmazonMark className="shrink-0 translate-y-[1px]" />
-                  <span aria-hidden="true">→</span>
-                </>
-              ) : (
-                <span>{button.label} →</span>
-              )}
+              {presentation.children}
             </TrackedAffiliateLink>
-          ))}
+          )} />
 
           {compatHref ? (
             <Link href={compatHref} className="blog-product-card__compat">

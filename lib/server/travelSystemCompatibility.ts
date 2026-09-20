@@ -72,7 +72,7 @@ type CarSeatRow = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
-  retailerLinks?: unknown;
+  extraRetailers?: RetailerLink[];
 };
 
 type CarSeatCompatibilityRow = {
@@ -158,7 +158,7 @@ type BombiFields = {
   bombiPrice: number | null;
   bombiImage: string | null;
 };
-type PublicRetailerFields = BabylistFields & MacroBabyFields & BombiFields;
+type PublicRetailerFields = BabylistFields & MacroBabyFields & BombiFields & { extraRetailers?: RetailerLink[] };
 
 const EMPTY_MACROBABY: MacroBabyFields = { macroBabyUrl: null, macroBabyPrice: null, macroBabyImage: null };
 const EMPTY_BOMBI: BombiFields = { bombiUrl: null, bombiPrice: null, bombiImage: null };
@@ -191,6 +191,7 @@ async function loadCarSeatRetailerLinks(): Promise<Map<string, RetailerLink[]>> 
 type PublicAvailabilityRow = {
   brand: string;
   model: string;
+  extraRetailers?: RetailerLink[];
   babylistUrl?: string | null;
   babylistPrice?: number | null;
   macroBabyUrl?: string | null;
@@ -205,7 +206,7 @@ function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
   // Travel-system-only seats (e.g. Nuna PIPA urbn) have no standalone retailer
   // but must still surface — they're purchased bundled with a Nuna stroller.
   if (isTravelSystemOnlySeat(row.brand, row.model)) return true;
-  return hasPublicCoreRetailer([
+  return Boolean(parseRetailerLinks(row.extraRetailers)?.length) || hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
     { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
     // Bombi sells direct-only (bombigear.com) — a first-class retailer like the
@@ -492,14 +493,15 @@ async function loadBombiDirectMap(table: 'Stroller' | 'CarSeat'): Promise<Map<st
 }
 
 async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, PublicRetailerFields>> {
-  const [babylistMap, babylistImpactMap, macroBabyMap, bombiMap] = await Promise.all([
+  const [babylistMap, babylistImpactMap, macroBabyMap, bombiMap, extraLinksMap] = await Promise.all([
     loadBabylistMap(table),
     loadBabylistImpactMap(table),
     loadMacroBabyMap(table),
     loadBombiDirectMap(table),
+    table === 'CarSeat' ? loadCarSeatRetailerLinks() : Promise.resolve(new Map<string, RetailerLink[]>()),
   ]);
   const out = new Map<string, PublicRetailerFields>();
-  const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys(), ...bombiMap.keys()]);
+  const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys(), ...bombiMap.keys(), ...extraLinksMap.keys()]);
   for (const key of keys) {
     const tableBabylist = babylistMap.get(key);
     // Prefer the synced Stroller/CarSeat babylist offer; fall back to the
@@ -512,6 +514,7 @@ async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map
       ...babylist,
       ...(macroBabyMap.get(key) ?? EMPTY_MACROBABY),
       ...(bombiMap.get(key) ?? EMPTY_BOMBI),
+      extraRetailers: extraLinksMap.get(key) ?? [],
     });
   }
   return out;
@@ -521,7 +524,7 @@ async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map
 async function enrichWithPublicRetailers<T extends { brand: string; model: string; imageUrl?: string | null }>(
   items: T[],
   map: Map<string, PublicRetailerFields>,
-): Promise<Array<T & { amazonUrl: string | null; amazonImage: string | null; amazonPrice: number | null }>> {
+): Promise<Array<T & { amazonUrl: string | null; amazonImage: string | null; amazonPrice: number | null; extraRetailers: RetailerLink[] }>> {
   const amazonUrls = items.map((item) => {
     const fields = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_PUBLIC_RETAILERS;
     // A manually-entered Amazon link (Stroller.amazonUrl / CarSeat.amazonUrl) wins;
@@ -544,6 +547,7 @@ async function enrichWithPublicRetailers<T extends { brand: string; model: strin
     return {
       ...item,
       ...fields,
+      extraRetailers: fields.extraRetailers ?? [],
       amazonUrl,
       amazonImage,
       amazonPrice,
@@ -1028,7 +1032,7 @@ export async function getTravelSystemCarSeats() {
     let rows: CarSeatRow[];
     try {
       rows = await prisma.$queryRaw<CarSeatRow[]>`
-        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage","amazonUrl","retailerLinks"
+        SELECT "id","brand","model","displayName","summary","babylistUrl","babylistPrice",COALESCE("imageUrl", "babylistImage") AS "babylistImage","amazonUrl"
         FROM "CarSeat"
         WHERE "seatType" = 'INFANT'
         ORDER BY LOWER("brand"), LOWER("model")
@@ -1063,7 +1067,7 @@ export async function getTravelSystemCarSeats() {
         amazonUrl: row.amazonUrl ?? null,
         amazonImage: row.amazonImage ?? null,
         amazonPrice: row.amazonPrice ?? null,
-        extraRetailers: parseRetailerLinks(row.retailerLinks) ?? [],
+        extraRetailers: row.extraRetailers,
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       }));
   } catch (error) {
@@ -1339,8 +1343,6 @@ export async function getTravelSystemCompatibility(
   const sameBrandDefaults = await getSameBrandDefaultCarSeats(stroller, explicitSeatIds, carSeatRetailerMap);
   const inferredSeats = await getSharedAdapterInferredSeats(stroller, publicExplicitRows, carSeatRetailerMap);
 
-  const seatRetailerLinks = await loadCarSeatRetailerLinks();
-
   const compatibleCarSeats = [
     ...publicExplicitRows.map<CompatibleCarSeatResult>((row) => {
       const displayName = getDisplayName(row.brand, row.model, row.displayName);
@@ -1381,7 +1383,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
-        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
+        extraRetailers: row.extraRetailers ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
@@ -1416,7 +1418,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
-        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
+        extraRetailers: row.extraRetailers ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),
@@ -1459,7 +1461,7 @@ export async function getTravelSystemCompatibility(
         amazonPrice: row.amazonPrice ?? null,
         imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? resolvedImage?.src ?? null,
         imageAlt: resolvedImage?.alt ?? null,
-        extraRetailers: seatRetailerLinks.get(babylistKey(row.brand, row.model)) ?? [],
+        extraRetailers: row.extraRetailers ?? [],
         travelSystemOnly: isTravelSystemOnlySeat(row.brand, row.model),
       };
     }),

@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import ProductShopLink from '@/components/affiliate/ProductShopLink';
 import { trackToolAffiliateClick, type ToolName } from '@/lib/analytics/tools';
 
 /**
@@ -28,7 +29,7 @@ export default function ToolAffiliateLink({
   children: ReactNode;
 }) {
   return (
-    <a
+    <ProductShopLink
       href={href}
       target="_blank"
       rel="sponsored nofollow noopener noreferrer"
@@ -38,6 +39,6 @@ export default function ToolAffiliateLink({
       onClick={() => trackToolAffiliateClick(tool, { product, retailer, brand, url: href })}
     >
       {children}
-    </a>
+    </ProductShopLink>
   );
 }

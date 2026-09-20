@@ -20,6 +20,9 @@ import {
   type RelatedReadingCard,
 } from '@/lib/checklist/data';
 import Image from 'next/image';
+import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
+import type { RetailerLink } from '@/lib/retailerLinks';
+import { productPricePresentation } from '@/lib/productRetailers';
 import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
 import { getBlogCategoryLabel } from '@/lib/blogCategories';
 import {
@@ -27,56 +30,12 @@ import {
   type ChecklistProduct,
 } from '@/lib/checklist/products';
 import {
-  PRIMARY_LINK_COUNT,
   resolveProductLinks,
-  type ResolvedProductLink,
 } from '@/lib/checklist/productLinks';
 import { checklistAnalytics } from '@/lib/checklist/analytics';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 
 type GoodBuyGearOffer = { url: string | null; price: number | null };
-
-/**
- * "Open Box … at GoodBuy Gear" badge, shown on a pick when the checklist page
- * finds a matching open-box offer. Reuses the shared `.tool-open-box-badge`
- * styles from the free tools so it looks identical site-wide.
- */
-function GoodBuyGearBadge({ offer }: { offer?: GoodBuyGearOffer | null }) {
-  if (!offer || (!offer.url && offer.price == null)) return null;
-  const priceLabel = offer.price != null ? `$${Math.round(offer.price)}` : null;
-  const label = priceLabel
-    ? `Open box from ${priceLabel} at GoodBuy Gear`
-    : 'Open box at GoodBuy Gear';
-  const inner = (
-    <>
-      <span className="tool-open-box-badge__eyebrow">Open Box</span>
-      {priceLabel ? <span className="tool-open-box-badge__price">from {priceLabel}</span> : null}
-      <span className="tool-open-box-badge__retailer">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" decoding="async" src="/assets/logos/goodbuygear2.png" alt="" className="tool-open-box-badge__logo" />
-      </span>
-      {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
-    </>
-  );
-  return offer.url ? (
-    <a
-      href={offer.url}
-      target="_blank"
-      rel="sponsored nofollow noopener noreferrer"
-      className="tool-open-box-badge"
-      aria-label={label}
-      title={label}
-    >
-      {inner}
-    </a>
-  ) : (
-    <span className="tool-open-box-badge" title={label}>
-      {inner}
-    </span>
-  );
-}
-
-const formatPrice = (n: number): string => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 
 const STORAGE_PREFIX = 'tmbc-checklist-';
 
@@ -694,44 +653,6 @@ function ChecklistRow({
   );
 }
 
-// Retailer → logo asset (public/assets/logos). Babylist + Amazon are always
-// available; the "other retailer" gets a logo only when we have one, otherwise
-// the button falls back to text. Keys are the lowercased, alphanumeric label.
-const RETAILER_LOGOS: Record<string, string> = {
-  babylist: '/assets/logos/babylist.png',
-  amazon: '/assets/logos/amazon.png',
-  macrobaby: '/assets/logos/macrobaby-logo.webp',
-  strolleria: '/assets/logos/strolleria.png',
-  myregistry: '/assets/logos/myregistry-logo.png',
-  babyquip: '/assets/logos/babyquip.png',
-};
-
-const retailerLogo = (
-  retailer?: string | null,
-  dynamic?: Record<string, string>,
-): string | null => {
-  if (!retailer) return null;
-  const key = retailer.toLowerCase().replace(/[^a-z0-9]+/g, '');
-  // Curated static logos first (Babylist/Amazon icons), then admin Affiliate
-  // Partner logos (from /admin/partners) for any other retailer.
-  return RETAILER_LOGOS[key] ?? dynamic?.[key] ?? null;
-};
-
-/** Small retailer logo rendered inside a shop CTA. Renders nothing if unknown.
- *  `dynamic` supplies partner logos keyed by normalized name/slug. */
-function RetailerLogo({
-  retailer,
-  dynamic,
-}: {
-  retailer?: string | null;
-  dynamic?: Record<string, string>;
-}) {
-  const src = retailerLogo(retailer, dynamic);
-  if (!src) return null;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt="" aria-hidden="true" className="tmbc-rec__cta-logo" />;
-}
-
 function Recommendation({
   rec,
   item,
@@ -745,13 +666,10 @@ function Recommendation({
   retailerLogos: Record<string, string>;
   goodBuyGearOffer?: GoodBuyGearOffer;
 }) {
-  // Every shop destination for this pick, in display order and capped at five.
-  // Babylist and Amazon keep their dedicated styling; the rest render as chips
-  // so a pick carried by four retailers doesn't bury the card in buttons.
-  const links = resolveProductLinks(rec);
-  const primaryLinks = links.slice(0, PRIMARY_LINK_COUNT);
-  const extraLinks = links.slice(PRIMARY_LINK_COUNT);
-  const trackClick = (link: ResolvedProductLink) =>
+  const links: RetailerLink[] = resolveProductLinks(rec);
+  if (goodBuyGearOffer?.url) links.push({ retailer: 'GoodBuy Gear (open box)', url: goodBuyGearOffer.url });
+  const price = productPricePresentation(rec.price, links);
+  const trackClick = (link: RetailerLink) =>
     checklistAnalytics.affiliateClicked({
       checklistType,
       itemId: item.id,
@@ -787,53 +705,14 @@ function Recommendation({
       <div className="tmbc-rec__body">
         <p className="tmbc-rec__brand">{rec.brand}</p>
         <p className="tmbc-rec__product">{rec.product}</p>
-        {typeof rec.price === 'number' ? (
+        {rec.standout ? <p className="tmbc-rec__review">{rec.standout}</p> : null}
+        {price ? (
           <p className="tmbc-rec__price">
-            {formatPrice(rec.price)}
-            {rec.priceSource ? <span> via {rec.priceSource}</span> : null}
+            {price.label}
+            {price.reference ? <span> Reference price</span> : null}
           </p>
         ) : null}
-        {/* GoodBuy Gear open-box match (if any) — stays visible even when the
-            "Taylor's take" detail is collapsed on mobile. */}
-        {goodBuyGearOffer ? (
-          <div className="tmbc-rec__openbox">
-            <GoodBuyGearBadge offer={goodBuyGearOffer} />
-          </div>
-        ) : null}
-        <div className="tmbc-rec__actions">
-          {primaryLinks.map((link) => (
-            <a
-              key={link.url}
-              className={`tmbc-rec__cta tmbc-rec__cta--${link.kind}`}
-              href={link.url}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() => trackClick(link)}
-            >
-              <RetailerLogo retailer={link.retailer} dynamic={retailerLogos} />
-              {link.kind === 'babylist' ? 'Babylist' : `Shop ${link.retailer}`}{' '}
-              <span aria-hidden="true">→</span>
-            </a>
-          ))}
-          {extraLinks.length ? (
-            <div className="tmbc-rec__more">
-              <span className="tmbc-rec__more-label">Also at</span>
-              {extraLinks.map((link) => (
-                <a
-                  key={link.url}
-                  className="tmbc-rec__chip"
-                  href={link.url}
-                  target="_blank"
-                  rel="sponsored nofollow noopener noreferrer"
-                  onClick={() => trackClick(link)}
-                >
-                  <RetailerLogo retailer={link.retailer} dynamic={retailerLogos} />
-                  {link.retailer}
-                </a>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <ProductRetailerActions links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} />
       </div>
     </div>
   );

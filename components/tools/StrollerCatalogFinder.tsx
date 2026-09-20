@@ -2,6 +2,7 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
+import ProductShopLink from '@/components/affiliate/ProductShopLink';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
@@ -189,7 +190,7 @@ export function OpenBoxBadge({
       href={offer.url}
       target="_blank"
       rel="sponsored nofollow noopener noreferrer"
-      className="tool-open-box-badge"
+      className="shopmyskip tool-open-box-badge"
       aria-label={label}
       title={label}
     >
@@ -334,7 +335,7 @@ function ProductCard({
 
         <div className="tool-product-card__actions">
           {offers.map(({ meta, offer }, index) => (
-            <a
+            <ProductShopLink
               key={meta.key}
               href={offer.url ?? undefined}
               target="_blank"
@@ -359,10 +360,10 @@ function ProductCard({
               ) : (
                 <span>{meta.shopLabel} →</span>
               )}
-            </a>
+            </ProductShopLink>
           ))}
           {!hadRealOffers && openBoxOffer?.url ? (
-            <a
+            <ProductShopLink
               href={openBoxOffer.url}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
@@ -377,7 +378,7 @@ function ProductCard({
               className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
             >
               <span>Shop open box at GoodBuy Gear →</span>
-            </a>
+            </ProductShopLink>
           ) : null}
           {product.model ? (
             <div className="tool-card-secondary">

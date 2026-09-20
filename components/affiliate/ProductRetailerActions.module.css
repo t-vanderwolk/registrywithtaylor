@@ -1,0 +1,44 @@
+.actions {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0.85rem;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #332c30;
+}
+.primaryGroup { border: 1px solid #d9cdd1; border-radius: 6px; overflow: hidden; }
+.primaryGroup > div + div { border-top: 1px solid #d9cdd1; }
+.actions .primary, .actions .row, .actions .toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 46px;
+  color: #332c30;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  letter-spacing: 0;
+  box-sizing: border-box;
+}
+.actions .primary { padding: 0.7rem 0.9rem; background: #faf6f8; font-weight: 600; }
+.actions .primary:hover { background: #f0e4e9; }
+.actions .toggle { justify-content: space-between; padding: 0.7rem 0; border: 0; background: transparent; cursor: pointer; }
+.actions .toggle:hover, .actions .row:hover { color: #713e50; }
+.actions .primary:focus-visible, .actions .row:focus-visible, .actions .toggle:focus-visible {
+  outline: 2px solid #713e50;
+  outline-offset: -3px;
+}
+.label { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.arrow { flex: 0 0 1rem; text-align: right; font-size: 1rem; }
+.panel { padding-bottom: 0.1rem; }
+.panel[hidden] { display: none; }
+.actions .heading { margin: 0.15rem 0 0.3rem; color: #62555b; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0; }
+.actions .list { list-style: none; padding: 0; margin: 0; }
+.list > li { margin: 0; padding: 0; border-top: 1px solid #e5dde0; }
+.actions .row { padding: 0.55rem 0; }
+.price { text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; font-size: 0.8rem; }
+.checked { display: block; color: #62555b; font-size: 0.7rem; }
+.sale { padding-left: 0.35rem; font-size: 0.7rem; color: #713e50; text-transform: uppercase; }

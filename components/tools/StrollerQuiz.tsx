@@ -2,6 +2,7 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
+import BabylistShopLink from '@/components/affiliate/BabylistShopLink';
 import { useEffect, useState } from 'react';
 import { trackToolOpened, trackToolSelection, trackToolResultViewed, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { OpenBoxBadge, BabylistHeartIcon, AmazonMark } from './StrollerCatalogFinder';
@@ -941,7 +942,7 @@ export default function StrollerQuiz() {
                     ) : null}
                     <div className="tool-product-card__actions">
                       {babylistUrl ? (
-                        <a
+                        <BabylistShopLink
                           href={babylistUrl}
                           target="_blank"
                           rel="sponsored nofollow noopener noreferrer"
@@ -950,7 +951,7 @@ export default function StrollerQuiz() {
                         >
                           <BabylistHeartIcon className="shrink-0" />
                           <span>Add to Babylist →</span>
-                        </a>
+                        </BabylistShopLink>
                       ) : null}
                       {links.amazonUrl && isAmazonAllowedForBrand(pick.brand) ? (
                         <a
@@ -1041,7 +1042,7 @@ export default function StrollerQuiz() {
                           </p>
                         ) : null}
                         <div className="tool-product-card__actions">
-                          <a
+                          <BabylistShopLink
                             href={babylistUrl}
                             target="_blank"
                             rel="sponsored nofollow noopener noreferrer"
@@ -1050,7 +1051,7 @@ export default function StrollerQuiz() {
                           >
                             <BabylistHeartIcon className="shrink-0" />
                             <span>Add to Babylist →</span>
-                          </a>
+                          </BabylistShopLink>
                           {links.amazonUrl && isAmazonAllowedForBrand(s.brand) && (
                             <a
                               href={links.amazonUrl}

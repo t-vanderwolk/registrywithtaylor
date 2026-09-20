@@ -23,6 +23,7 @@ const AFFILIATE_HOST_KEYWORDS = [
   'howl.me',
   'shopstyle',
   'ltkcoupons',
+  'go.shopmy.us',
 ] as const;
 
 const AFFILIATE_QUERY_KEYS = [

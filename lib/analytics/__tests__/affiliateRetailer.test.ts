@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
+import { isAffiliateLink } from '@/lib/analytics/isAffiliateLink';
 
 import {
   aggregateAffiliateRetailerCounts,
@@ -7,6 +9,16 @@ import {
 } from '@/lib/analytics/affiliateRetailer';
 
 describe('affiliate retailer canonicalization', () => {
+  it('attributes converted Babylist clicks to ShopMy without relabeling historical Impact clicks', () => {
+    const old = 'https://babylist.pxf.io/c/123?u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fproduct';
+    const converted = babylistShopMyUrl(old);
+    expect(canonicalizeAffiliateRetailer({ url: converted, retailer: 'babylist' })).toEqual({ retailer: 'Babylist', network: 'ShopMy' });
+    expect(canonicalizeAffiliateRetailer({ url: old })).toEqual({ retailer: 'Babylist', network: 'Impact' });
+    expect(isAffiliateLink(converted)).toBe(true);
+    expect(aggregateAffiliateRetailerCounts([{ url: old, count: 2 }, { url: converted, count: 3 }], [{ url: converted, count: 1 }])).toEqual([
+      { retailer: 'Babylist', network: 'Multiple networks', total: 5, last28: 1 },
+    ]);
+  });
   it.each([
     [{ retailer: 'Amazon' }, { retailer: 'Amazon', network: 'Amazon Associates' }],
     [{ retailer: 'amazon' }, { retailer: 'Amazon', network: 'Amazon Associates' }],

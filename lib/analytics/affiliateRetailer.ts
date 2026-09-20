@@ -63,6 +63,17 @@ function clean(value: string | null | undefined) {
 function retailerRuleFromUrl(url: string | null | undefined): AffiliateRetailer | null {
   const raw = clean(url);
   if (!raw) return null;
+  try {
+    const parsed = new URL(raw);
+    if (parsed.hostname === 'go.shopmy.us') {
+      const destination = parsed.searchParams.get('url');
+      const host = destination ? new URL(destination).hostname.replace(/^www\./, '') : null;
+      const retailer = host ? RULES.find((candidate) => candidate.test.test(host))?.retailer ?? host : 'ShopMy';
+      return { retailer, network: 'ShopMy' };
+    }
+  } catch {
+    // Historical URLs can be malformed; retain the existing fallback matching.
+  }
   const rule = RULES.find((candidate) => candidate.test.test(raw));
   return rule ? { retailer: rule.retailer, network: rule.network } : null;
 }
@@ -161,6 +172,7 @@ export function aggregateAffiliateRetailerCounts(
       };
       existing[field] += row.count;
       if (!existing.network && attribution.network) existing.network = attribution.network;
+      else if (attribution.network && existing.network !== attribution.network) existing.network = 'Multiple networks';
       merged.set(attribution.retailer, existing);
     }
   };
