@@ -668,7 +668,7 @@ function Recommendation({
 }) {
   const links: RetailerLink[] = resolveProductLinks(rec);
   if (goodBuyGearOffer?.url) links.push({ retailer: 'GoodBuy Gear (open box)', url: goodBuyGearOffer.url });
-  const price = productPricePresentation(rec.price, links);
+  const price = productPricePresentation(rec.price);
   const trackClick = (link: RetailerLink) =>
     checklistAnalytics.affiliateClicked({
       checklistType,
@@ -712,7 +712,7 @@ function Recommendation({
             {price.reference ? <span> Reference price</span> : null}
           </p>
         ) : null}
-        <ProductRetailerActions links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} />
+        <ProductRetailerActions links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} logos={retailerLogos} />
       </div>
     </div>
   );

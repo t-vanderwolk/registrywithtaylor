@@ -111,7 +111,7 @@ export default function BlogCatalogProductCard({
   // links entered shows no buy buttons.
 
   const buttons = orderedProductRetailers(available);
-  const displayPrice = productPricePresentation(price, buttons);
+  const displayPrice = productPricePresentation(price);
 
   // A card with no retailer yet still renders when it's flagged coming soon —
   // it shows the product with a badge instead of buy buttons.

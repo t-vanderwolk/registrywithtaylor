@@ -3,18 +3,21 @@
 import { useId, useState, type ReactNode } from 'react';
 import ProductShopLink from './ProductShopLink';
 import type { RetailerLink } from '@/lib/retailerLinks';
-import { currentRetailerPrice, formatRetailerPrice, MAX_CARD_RETAILERS, orderedProductRetailers } from '@/lib/productRetailers';
+import { MAX_CARD_RETAILERS, orderedProductRetailers } from '@/lib/productRetailers';
+import { retailerLogo } from '@/lib/retailerLogos';
 import styles from './ProductRetailerActions.module.css';
 
 type LinkPresentation = { className: string; ariaLabel: string; children: ReactNode };
 
 export default function ProductRetailerActions({
-  links, productName, onRetailerClick, renderLink,
+  links, productName, onRetailerClick, renderLink, logos,
 }: {
   links: RetailerLink[];
   productName: string;
   onRetailerClick?: (link: RetailerLink) => void;
   renderLink?: (link: RetailerLink, presentation: LinkPresentation) => ReactNode;
+  /** Admin partner logos, merged over the static retailer assets. */
+  logos?: Record<string, string>;
 }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -23,16 +26,18 @@ export default function ProductRetailerActions({
   if (!retailers.length) return null;
 
   function shopLink(link: RetailerLink, primary: boolean) {
-    const price = primary ? null : currentRetailerPrice(link);
+    // One price lives on the card itself; the retailers carry only their name
+    // and mark, so the list reads as "where to buy" rather than a price table.
+    const logo = retailerLogo(link.retailer, logos);
     const presentation: LinkPresentation = {
       className: primary ? styles.primary : styles.row,
       ariaLabel: `Shop at ${link.retailer} for ${productName}`,
       children: <>
+        {logo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={logo} alt="" aria-hidden="true" loading="lazy" decoding="async" className={styles.logo} />
+        ) : null}
         <span className={styles.label}>{primary ? `Shop at ${link.retailer}` : link.retailer}</span>
-        {price ? <span className={styles.price}>
-          <span>{formatRetailerPrice(price.value)}{price.sale ? <span className={styles.sale}>Sale</span> : null}</span>
-          <span className={styles.checked}>Checked <time dateTime={link.priceCheckedAt}>{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(price.checked)}</time></span>
-        </span> : null}
         <span className={styles.arrow} aria-hidden="true">&rarr;</span>
       </>,
     };

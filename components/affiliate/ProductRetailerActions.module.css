@@ -31,6 +31,7 @@
   outline: 2px solid #713e50;
   outline-offset: -3px;
 }
+.logo { flex: 0 0 auto; height: 16px; width: auto; max-width: 22px; object-fit: contain; border-radius: 3px; }
 .label { min-width: 0; flex: 1; overflow-wrap: anywhere; }
 .arrow { flex: 0 0 1rem; text-align: right; font-size: 1rem; }
 .panel { padding-bottom: 0.1rem; }

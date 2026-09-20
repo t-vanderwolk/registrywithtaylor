@@ -27,8 +27,9 @@ describe('editorial retailer actions', () => {
       expect(html).toContain('aria-expanded="false"');
       expect(html).toContain('hidden=""');
     } else expect(html).not.toContain('<button');
-    expect(html).not.toContain('<img');
     expect(html).not.toContain('<svg');
+    // Retailers carry a logo when we have the asset, and no price of their own.
+    expect(html).not.toContain('Checked');
     expect((html.match(/sponsored nofollow/g) ?? []).length).toBe(count);
   });
 
@@ -70,14 +71,15 @@ describe('verified retailer prices', () => {
     expect(currentRetailerPrice(priced, now)?.value).toBe(379);
     expect(currentRetailerPrice(priced, now)?.sale).toBe(true);
     expect(parseRetailerLinks([priced])?.[0]).toEqual(priced);
-    expect(productPricePresentation(419, [links[0], priced], now)).toEqual({ label: 'From $379', reference: false });
+    // Cards show one price only: the reference price, never a retailer's.
+    expect(productPricePresentation(419)).toEqual({ label: '$419', reference: true });
   });
   it('does not imply a current comparison for stale, unknown or unverified prices', () => {
     for (const link of [
       { ...priced, priceCheckedAt: undefined }, { ...priced, priceVerified: false },
       { ...priced, priceCheckedAt: '2026-09-18T11:00:00Z' }, { ...priced, priceCheckedAt: '2026-09-21T11:00:00Z' },
     ]) expect(currentRetailerPrice(link, now)).toBeNull();
-    expect(productPricePresentation(419, links, now)).toEqual({ label: '$419', reference: true });
+    expect(productPricePresentation(419)).toEqual({ label: '$419', reference: true });
   });
 });
 

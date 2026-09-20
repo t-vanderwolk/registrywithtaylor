@@ -38,9 +38,12 @@ export const formatRetailerPrice = (price: number) => new Intl.NumberFormat('en-
   style: 'currency', currency: 'USD', minimumFractionDigits: Number.isInteger(price) ? 0 : 2,
 }).format(price);
 
-export function productPricePresentation(reference: number | null | undefined, links: RetailerLink[], now = Date.now()) {
-  const prices = links.map((link) => currentRetailerPrice(link, now)?.value).filter((price): price is number => price !== undefined);
-  if (prices.length) return { label: `${links.length > 1 ? 'From ' : ''}${formatRetailerPrice(Math.min(...prices))}`, reference: false };
+/**
+ * Cards show a single price — the editorial reference price — never a
+ * per-retailer comparison. Retailer rows carry a name and logo only, so the
+ * card never implies a live price it hasn't verified.
+ */
+export function productPricePresentation(reference: number | null | undefined) {
   return typeof reference === 'number' && Number.isFinite(reference) && reference >= 0
     ? { label: formatRetailerPrice(reference), reference: true }
     : null;
