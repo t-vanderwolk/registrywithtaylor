@@ -1353,7 +1353,8 @@
   flex: 0 0 auto;
   height: 16px;
   width: auto;
-  max-width: 22px;
+  /* Wide enough for a wordmark (Bloomingdale's, Nordstrom) to stay readable. */
+  max-width: 96px;
   object-fit: contain;
   border-radius: 3px;
 }
