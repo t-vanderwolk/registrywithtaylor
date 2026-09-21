@@ -19,9 +19,10 @@ import {
 
 export const dynamic = 'force-dynamic';
 
-// Per-brand metadata so a ?carSeatBrand= (or ?strollerBrand=) view is a distinct,
-// indexable page with its own title + self-referencing canonical — the same
-// pattern as the Stroller Finder's brand pages.
+// Per-brand metadata still gives a ?carSeatBrand= / ?strollerBrand= view a useful
+// title and description, but these filtered states are NOT offered to Google as
+// separate indexable pages: they canonicalise to the clean /tools/travel-system
+// landing page and serve `noindex, follow` — same pattern as the Stroller Finder.
 export async function generateMetadata({
   searchParams,
 }: {
@@ -36,7 +37,8 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `${brand} Car Seat Compatibility — Which Strollers Fit | Taylor-Made Baby Co.`,
       description: `See which strollers work with ${brand} infant car seats — direct-fit and adapter-required — with live prices and where to buy.`,
-      path: `/tools/travel-system?carSeatBrand=${encodeURIComponent(brand)}`,
+      path: '/tools/travel-system',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${brand} car seat compatibility`,
       keywords: [`${brand} car seat compatibility`, `${brand} compatible strollers`, `${brand} travel system`],
@@ -48,7 +50,8 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `${brand} Stroller Compatibility — Which Car Seats Fit | Taylor-Made Baby Co.`,
       description: `See every infant car seat that works with ${brand} strollers — direct-fit and adapter-required — with live prices and where to buy.`,
-      path: `/tools/travel-system?strollerBrand=${encodeURIComponent(brand)}`,
+      path: '/tools/travel-system',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${brand} stroller compatibility`,
       keywords: [`${brand} stroller compatibility`, `${brand} compatible car seats`, `${brand} travel system`],

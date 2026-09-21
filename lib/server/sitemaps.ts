@@ -1,12 +1,6 @@
 import 'server-only';
 import type { MetadataRoute } from 'next';
 import { getPublicBlogIndexPosts } from '@/lib/server/publicBlog';
-import { getPublicStrollerCatalogBrands } from '@/lib/server/publicStrollerCatalog';
-import { getStrollerCompareCatalog } from '@/lib/server/strollerCompareCatalog';
-import { getTravelSystemCarSeats, getTravelSystemStrollers } from '@/lib/server/travelSystemCompatibility';
-import { strollerCategories, strollerFinderCategoryHref, strollerFinderBrandHref } from '@/lib/resources/knowBeforeYouBuy';
-import { travelSystemResultsHref } from '@/lib/travelSystemRouting';
-import { comparePath } from '@/lib/strollerCompareRouting';
 import { sitemapUrl, type SitemapName } from '@/lib/seo/sitemaps';
 
 // Hidden learning routes, retired URLs, and assets are deliberately absent.
@@ -46,48 +40,11 @@ export async function getSitemapEntries(name: SitemapName): Promise<MetadataRout
           priority: 0.7,
         }));
     }
-    case 'stroller-finder.xml': {
-      const brands = await getPublicStrollerCatalogBrands();
-      const categories = new Set<string>(brands.flatMap((brand) => brand.types.map((type) => type.category)));
-      return [
-        ...strollerCategories.filter((category) => categories.has(category.slug)).map((category) => ({
-          url: sitemapUrl(strollerFinderCategoryHref(category.slug)),
-          changeFrequency: 'weekly' as const,
-          priority: 0.7,
-        })),
-        ...brands.filter((brand) => brand.count > 0).map((brand) => ({
-          url: sitemapUrl(strollerFinderBrandHref(brand.brand)),
-          changeFrequency: 'weekly' as const,
-          priority: 0.7,
-        })),
-      ];
-    }
-    case 'comparisons.xml': {
-      const catalog = await getStrollerCompareCatalog();
-      return catalog.map((item) => ({
-        url: sitemapUrl(comparePath([item.id])),
-        changeFrequency: 'weekly',
-        priority: 0.6,
-      }));
-    }
-    case 'travel-systems.xml': {
-      const [strollers, carSeats] = await Promise.all([
-        getTravelSystemStrollers(), getTravelSystemCarSeats(),
-      ]);
-      // Neither half should disappear from a successful sitemap during an outage.
-      if (!strollers.length || !carSeats.length) throw new Error('Travel-system sitemap data is unavailable.');
-      return [
-        ...strollers.map((stroller) => ({
-          url: sitemapUrl(travelSystemResultsHref('stroller', stroller)),
-          changeFrequency: 'weekly' as const,
-          priority: 0.65,
-        })),
-        ...carSeats.map((carSeat) => ({
-          url: sitemapUrl(travelSystemResultsHref('carSeat', carSeat)),
-          changeFrequency: 'weekly' as const,
-          priority: 0.65,
-        })),
-      ];
-    }
+    // NOTE: `stroller-finder.xml`, `comparisons.xml` and `travel-systems.xml` were
+    // intentionally removed. They emitted one query-parameter URL per catalog entity
+    // (?brand=, ?category=, ?ids=, ?stroller=, ?carSeat=) — ~400 interactive tool
+    // states submitted as individually indexable pages. Those states now serve
+    // `noindex, follow` and canonicalise to their clean tool landing page, which
+    // remains listed in PAGE_ENTRIES above. Do not reintroduce parameterised URLs here.
   }
 }

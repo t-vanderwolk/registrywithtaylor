@@ -180,7 +180,10 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `Compatible Infant Car Seats for ${stroller.displayName} | Taylor-Made Baby Co.`,
       description: `See direct-fit and adapter-required infant car seats for ${stroller.displayName}.`,
-      path: travelSystemResultsHref('stroller', stroller),
+      // Interactive result state: canonicalise to the clean Travel System landing
+      // page and serve noindex,follow. Results stay fully usable and linkable.
+      path: '/tools/travel-system',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${stroller.displayName} travel system compatibility results`,
       keywords: [
@@ -196,7 +199,8 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `Compatible Strollers for ${carSeat.displayName} | Taylor-Made Baby Co.`,
       description: `See direct-fit and adapter-required strollers for ${carSeat.displayName}.`,
-      path: travelSystemResultsHref('carSeat', carSeat),
+      path: '/tools/travel-system',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${carSeat.displayName} travel system compatibility results`,
       keywords: [
@@ -210,7 +214,10 @@ export async function generateMetadata({
   return buildMarketingMetadata({
     title: 'Travel System Compatibility Checker | Taylor-Made Baby Co.',
     description: 'Choose a stroller or infant car seat to see travel-system compatibility results.',
+    // The whole /results route is an interactive surface, not a landing page — it
+    // already canonicalised here; noindex keeps the empty state out of the index too.
     path: '/tools/travel-system',
+    noindex: true,
     imagePath: '/assets/hero/hero-03.jpg',
     imageAlt: 'Travel system compatibility results',
   });

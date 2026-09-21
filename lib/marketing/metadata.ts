@@ -31,6 +31,13 @@ type BuildMarketingMetadataInput = {
   keywords?: string[];
   category?: string;
   type?: 'website' | 'article';
+  /**
+   * Force `noindex, follow` for an interactive/filtered state of an otherwise
+   * indexable route (e.g. `/tools/compare?ids=…`). Pass the CLEAN landing path
+   * as `path` so the state canonicalises to the page we do want indexed. Links
+   * are still followed, so internal equity keeps flowing.
+   */
+  noindex?: boolean;
 };
 
 const DEFAULT_SITE_KEYWORDS = [
@@ -144,6 +151,7 @@ export function buildMarketingMetadata({
   keywords,
   category,
   type = 'website',
+  noindex = false,
 }: BuildMarketingMetadataInput): Metadata {
   const canonicalUrl = path === '/' ? SITE_URL : `${SITE_URL}${path}`;
   const imageUrl = /^https?:\/\//i.test(imagePath) ? imagePath : `${SITE_URL}${imagePath}`;
@@ -164,7 +172,7 @@ export function buildMarketingMetadata({
     authors: [{ name: 'Taylor Vanderwolk', url: SITE_URL }],
     creator: 'Taylor Vanderwolk',
     publisher: SITE_NAME,
-    robots: isHiddenLearningPath(path) ? NOINDEX_FOLLOW_ROBOTS : INDEX_FOLLOW_ROBOTS,
+    robots: noindex || isHiddenLearningPath(path) ? NOINDEX_FOLLOW_ROBOTS : INDEX_FOLLOW_ROBOTS,
     alternates: {
       canonical: path,
     },

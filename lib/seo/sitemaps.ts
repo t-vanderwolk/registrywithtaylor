@@ -1,13 +1,18 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/marketing/metadata';
 
-export const SITEMAP_NAMES = [
-  'pages.xml',
-  'blog.xml',
-  'stroller-finder.xml',
-  'comparisons.xml',
-  'travel-systems.xml',
-] as const;
+/**
+ * Only sitemaps of genuinely indexable, canonical URLs.
+ *
+ * `stroller-finder.xml`, `comparisons.xml` and `travel-systems.xml` were removed:
+ * they emitted one query-parameter URL per catalog entity
+ * (`?brand=`, `?category=`, `?ids=`, `?stroller=`, `?carSeat=`) — ~400 interactive
+ * tool states submitted as individually indexable pages. Google discovered them
+ * all at once and crawled none ("Discovered – currently not indexed"). Those
+ * states now serve `noindex, follow` and canonicalise to their clean tool landing
+ * page, which stays in `pages.xml`.
+ */
+export const SITEMAP_NAMES = ['pages.xml', 'blog.xml'] as const;
 
 export type SitemapName = (typeof SITEMAP_NAMES)[number];
 

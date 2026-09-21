@@ -73,7 +73,11 @@ export async function generateMetadata({
       names.length === 1
         ? `Compare ${names[0]} side by side with other strollers on weight, fold, price, newborn readiness, jogging readiness, and where to buy.`
         : `Compare ${names.join(' vs ')} side by side on weight, fold, price, newborn readiness, jogging readiness, and where to buy.`,
-    path: comparePath(canonicalIds),
+    // Interactive comparison state: canonicalise to the clean /tools/compare
+    // landing page and serve noindex,follow. The selection is still fully usable;
+    // it just isn't offered to Google as its own indexable page.
+    path: '/tools/compare',
+    noindex: true,
     imagePath: selected[0].image ?? '/assets/hero/hero-03.jpg',
     imageAlt: `Compare ${names.join(' vs ')}`,
     keywords: [

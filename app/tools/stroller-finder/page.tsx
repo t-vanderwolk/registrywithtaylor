@@ -82,9 +82,10 @@ const finderFaqSchema = {
   })),
 };
 
-// Per-filter metadata so each ?brand= and ?category= view is a distinct,
-// indexable page with its own title + self-referencing canonical, instead of all
-// collapsing onto the base finder.
+// Per-filter metadata still gives each ?brand= / ?category= view a useful title and
+// description for humans and for link previews, but these filtered states are NOT
+// offered to Google as separate indexable pages: they canonicalise to the clean
+// /tools/stroller-finder landing page and serve `noindex, follow`.
 export async function generateMetadata({
   searchParams,
 }: {
@@ -96,7 +97,8 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `${brandName} Strollers — Compare Models, Prices & Compatibility | Taylor-Made Baby Co.`,
       description: `Every ${brandName} stroller in one place — models by type, live prices, photos, where to buy, and which infant car seats each one fits.`,
-      path: `/tools/stroller-finder?brand=${encodeURIComponent(brandName)}`,
+      path: '/tools/stroller-finder',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${brandName} strollers`,
       keywords: [`${brandName} strollers`, `${brandName} stroller comparison`, `${brandName} travel system`],
@@ -107,7 +109,8 @@ export async function generateMetadata({
     return buildMarketingMetadata({
       title: `${categoryEntry.name} Strollers — Browse Models, Prices & Compatibility | Taylor-Made Baby Co.`,
       description: `Browse ${categoryEntry.name.toLowerCase()} strollers by model, price, retailer availability, and travel-system compatibility.`,
-      path: strollerFinderCategoryHref(categoryEntry.slug),
+      path: '/tools/stroller-finder',
+      noindex: true,
       imagePath: '/assets/hero/hero-03.jpg',
       imageAlt: `${categoryEntry.name} strollers`,
       keywords: [
