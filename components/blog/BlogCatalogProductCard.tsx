@@ -7,7 +7,7 @@ import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
 import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
 import { orderedProductRetailers, productPricePresentation } from '@/lib/productRetailers';
 import { type RetailerLink } from '@/lib/retailerLinks';
-import { isAmazonAllowedForBrand, isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { isAmazonAllowedForBrand, isBlockedMacroBabyShopUrl, isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { travelSystemSlug } from '@/lib/travelSystemRouting';
 
 type BlogCatalogProductCardProps = {
@@ -110,7 +110,9 @@ export default function BlogCatalogProductCard({
   // Babylist brand-store, Amazon search, or brand-direct fallbacks. A card with no
   // links entered shows no buy buttons.
 
-  const buttons = orderedProductRetailers(available);
+  // MacroBaby shop links are switched off, whichever slot a post put one in.
+  // Its registry and welcome-box pages are not product pages and still render.
+  const buttons = orderedProductRetailers(available.filter((link) => !isBlockedMacroBabyShopUrl(link.url)));
   const displayPrice = productPricePresentation(price);
 
   // A card with no retailer yet still renders when it's flagged coming soon —

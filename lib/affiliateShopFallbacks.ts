@@ -63,6 +63,20 @@ export function isAmazonAllowedForBrand(brand: string | null | undefined): boole
 }
 
 /**
+ * MacroBaby shop links are switched off site-wide (Sep 2026).
+ *
+ * While this is false, no finder card, car-seat card, compare row, travel-system
+ * result, adapter pairing or blog product card links to a MacroBaby product
+ * page, and products MacroBaby alone sold drop out of the public lists (they
+ * need another store to appear). Nothing is deleted: the MacroBaby catalog rows
+ * stay in the database, and setting this back to true restores every button.
+ *
+ * MacroBaby's homepage and its registry / welcome-box pages are not shop links
+ * and stay linked (About page, Registry Academy, registry-perk posts).
+ */
+export const MACROBABY_SHOP_LINKS_ENABLED = false;
+
+/**
  * Brands we don't surface a MacroBaby CTA for, so their product cards never link
  * to MacroBaby (Silver Cross is sold via its own direct/Babylist links instead).
  */
@@ -70,5 +84,33 @@ const MACROBABY_SUPPRESSED_BRANDS = new Set(['silver cross']);
 
 /** True when a MacroBaby CTA is allowed for this brand. */
 export function isMacroBabyAllowedForBrand(brand: string | null | undefined): boolean {
+  if (!MACROBABY_SHOP_LINKS_ENABLED) return false;
   return !MACROBABY_SUPPRESSED_BRANDS.has((brand ?? '').trim().toLowerCase());
+}
+
+/**
+ * True for a MacroBaby product page (a shop link) — directly, or wrapped by
+ * ShopMy. Its homepage and /pages/ registry and welcome-box URLs are not
+ * product pages and return false.
+ */
+export function isMacroBabyProductUrl(url: string | null | undefined): boolean {
+  if (!url) return false;
+  try {
+    let target = new URL(url);
+    if (target.hostname === 'go.shopmy.us') {
+      const inner = target.searchParams.get('url');
+      if (!inner) return false;
+      target = new URL(inner);
+    }
+    const host = target.hostname.toLowerCase();
+    if (host !== 'macrobaby.com' && !host.endsWith('.macrobaby.com')) return false;
+    return /(^|\/)products\//i.test(target.pathname);
+  } catch {
+    return false;
+  }
+}
+
+/** True when this URL is a MacroBaby shop link that must not render right now. */
+export function isBlockedMacroBabyShopUrl(url: string | null | undefined): boolean {
+  return !MACROBABY_SHOP_LINKS_ENABLED && isMacroBabyProductUrl(url);
 }

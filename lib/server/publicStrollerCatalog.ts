@@ -18,7 +18,7 @@ import { gbgBadgeKey, applyGbgBadge } from '@/lib/catalog/gbgBadge';
 import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
-import { isMacroBabyAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import { isMacroBabyAllowedForBrand, MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
 import {
   bestAmazonImage,
@@ -125,7 +125,10 @@ function isPublicBabylistOffer(offer: Offer | null) {
 }
 
 function isPublicMacroBabyOffer(offer: Offer | null) {
+  // Checked here as well as at the buy-button gate so duplicate-variant picking
+  // never keeps a MacroBaby-only variant over one another store still sells.
   return Boolean(
+    MACROBABY_SHOP_LINKS_ENABLED &&
     offer &&
       hasPublicCoreRetailer({
         provider: PROVIDER_MACROBABY,

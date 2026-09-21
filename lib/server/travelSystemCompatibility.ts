@@ -3,6 +3,7 @@ import {
   resolveCompatibilityCarSeatImage,
   resolveProductCardImage,
 } from '@/lib/blog/productCardImages';
+import { isBlockedMacroBabyShopUrl, MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
 import { adapterTitleMatchesStrollerModel } from '@/lib/catalog/adapterModelMatching';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { canonicalStrollerBrand, isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
@@ -361,11 +362,11 @@ async function loadMacroBabyMap(table: 'Stroller' | 'CarSeat'): Promise<Map<stri
       }
       const brand = canonicalBrand(row.enrichment?.canonicalBrand ?? row.brand);
       if (!brand) continue;
-      const offer: MacroBabyFields = {
-        macroBabyUrl: row.affiliateUrl,
-        macroBabyPrice: row.price,
-        macroBabyImage: row.imageUrl,
-      };
+      // With MacroBaby shop links switched off, keep only the photo: no buy link
+      // and no MacroBaby price, so the product needs another store to show.
+      const offer: MacroBabyFields = MACROBABY_SHOP_LINKS_ENABLED
+        ? { macroBabyUrl: row.affiliateUrl, macroBabyPrice: row.price, macroBabyImage: row.imageUrl }
+        : { macroBabyUrl: null, macroBabyPrice: null, macroBabyImage: row.imageUrl };
       const keys = new Set<string>();
       const canonicalName = modelLikeCanonicalName(row.enrichment?.canonicalName);
       if (canonicalName) keys.add(babylistKey(brand, canonicalName));
@@ -1119,6 +1120,9 @@ async function getCatalogAdapters(): Promise<CatalogAdapter[]> {
     });
     return rows
       .filter((r) => /adapter/i.test(r.title || '') && !isAnbAdapterUrl(r.affiliateUrl))
+      // MacroBaby shop links are switched off: skip MacroBaby adapters (catalog or
+      // hand-added) so the pairing falls to Babylist, manual, or the Amazon search.
+      .filter((r) => MACROBABY_SHOP_LINKS_ENABLED || (r.provider !== 'shopify_macrobaby' && !isBlockedMacroBabyShopUrl(r.affiliateUrl)))
       .sort((a, b) => (ADAPTER_PROVIDER_RANK[a.provider] ?? 9) - (ADAPTER_PROVIDER_RANK[b.provider] ?? 9));
   } catch {
     return [];
@@ -1208,6 +1212,14 @@ async function fillAdapterProducts<
     if (!row.adapterRequired) continue;
     const stroller = strollerOf(row);
     const carSeatBrand = carSeatBrandOf(row);
+
+    // A stored MacroBaby adapter link is dropped while MacroBaby shop links are
+    // off, so the row refills from the remaining adapters below.
+    if (isBlockedMacroBabyShopUrl(row.adapterUrl)) {
+      row.adapterUrl = null;
+      row.adapterImage = null;
+      row.adapterPrice = null;
+    }
 
     if (!row.adapterUrl && !row.adapterImage) {
       const key = `${stroller.brand.toLowerCase().trim()}:::${stroller.model.toLowerCase().trim()}`;

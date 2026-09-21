@@ -9,6 +9,7 @@
  *
  * Read-only. Degrades to {} if the catalog tables aren't reachable.
  */
+import { isBlockedMacroBabyShopUrl, MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
@@ -123,6 +124,9 @@ export async function resolveBlogProductCatalogLinks(
 
     const primaryCandidates = candidates
       .filter((r) => r.affiliateUrl && !isGoodBuyGearUrl(r.affiliateUrl) && !isAmazonUrl(r.affiliateUrl))
+      // MacroBaby shop links are switched off: a MacroBaby row can't supply the
+      // card's link or its price, so a Babylist or hand-added row leads instead.
+      .filter((r) => MACROBABY_SHOP_LINKS_ENABLED || (r.provider !== 'shopify_macrobaby' && !isBlockedMacroBabyShopUrl(r.affiliateUrl)))
       .sort(
         (a, b) =>
           (PROVIDER_RANK[a.provider] ?? 9) - (PROVIDER_RANK[b.provider] ?? 9) ||

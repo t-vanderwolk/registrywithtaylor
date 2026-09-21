@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
 import prisma from '@/lib/server/prisma';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { isExcludedStrollerFinderProduct } from '@/lib/catalog/strollerFinderRules';
@@ -220,8 +221,9 @@ export async function GET(request: NextRequest) {
       openBoxUrl: ob?.url ?? null,
       anbPrice: ab?.price ?? null,
       anbUrl: ab?.url ?? null,
-      macroBabyPrice: mb?.price ?? null,
-      macroBabyUrl: mb?.url ?? null,
+      // No MacroBaby link or price is served while MacroBaby shop links are off.
+      macroBabyPrice: MACROBABY_SHOP_LINKS_ENABLED ? mb?.price ?? null : null,
+      macroBabyUrl: MACROBABY_SHOP_LINKS_ENABLED ? mb?.url ?? null : null,
     };
   }
 
