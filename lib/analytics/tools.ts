@@ -1,5 +1,5 @@
 import { trackEvent } from '@/lib/analytics';
-import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
+import { shopMyProductUrl } from '@/lib/affiliateShopMy';
 import { AnalyticsEvents } from '@/lib/analytics/events';
 import { sendAffiliateClickBeacon } from '@/lib/analytics/affiliateClickBeacon';
 import { sendToolEventBeacon } from '@/lib/analytics/toolEventBeacon';
@@ -44,19 +44,26 @@ export function trackToolAffiliateClick(
   tool: ToolName,
   input: { product?: string | null; retailer?: string | null; brand?: string | null; url?: string | null },
 ) {
+  // Every tool buy link renders through ProductShopLink, which opens
+  // shopMyProductUrl(href). Record that same destination rather than the raw
+  // href, so a Target or Bloomingdale's click keeps its ShopMy attribution.
+  // Babylist product links wrap exactly as before; Amazon and the other
+  // preserved networks pass through unchanged.
+  const destination = input.url ? shopMyProductUrl(input.url) : undefined;
+
   trackEvent(AnalyticsEvents.TOOL_AFFILIATE_CLICK, {
     tool,
     product: input.product ?? undefined,
     retailer: input.retailer ?? undefined,
     brand: input.brand ?? undefined,
-    url: input.url ? babylistShopMyUrl(input.url) : undefined,
+    url: destination,
     label: input.product ?? input.brand ?? input.url ?? tool,
   });
 
   // Also persist the outbound click server-side so the admin dashboard can show
   // a real by-retailer breakdown (GA alone never reaches the DB).
   sendAffiliateClickBeacon({
-    url: input.url,
+    url: destination,
     retailer: input.retailer,
     brand: input.brand,
     product: input.product,

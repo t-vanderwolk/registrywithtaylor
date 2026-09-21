@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
+import { babylistShopMyUrl, shopMyProductUrl } from '@/lib/affiliateShopMy';
 import { isAffiliateLink } from '@/lib/analytics/isAffiliateLink';
 
 import {
@@ -109,5 +109,33 @@ describe('affiliate retailer analytics aggregation', () => {
       { retailer: 'Babylist', network: 'Impact', total: 12, last28: 3 },
       { retailer: 'MacroBaby', network: 'Shopify', total: 2, last28: 1 },
     ]);
+  });
+});
+
+describe('ShopMy department-store attribution', () => {
+  const target = 'https://www.target.com/p/uppababy-vista-v3-full-size-stroller-greyson/-/A-95019221';
+  const bloomingdales = 'https://www.bloomingdales.com/shop/product/uppababy-cruz-v3-stroller?ID=5664009';
+
+  it.each([
+    [target, 'Target'],
+    [bloomingdales, "Bloomingdale's"],
+    ['https://www.nordstrom.com/s/example-stroller/1234567', 'Nordstrom'],
+  ])('credits a ShopMy-wrapped %s click to %s via ShopMy', (url, retailer) => {
+    expect(canonicalizeAffiliateRetailer({ url: shopMyProductUrl(url), retailer })).toEqual({ retailer, network: 'ShopMy' });
+  });
+
+  it('labels an unwrapped Target URL as Target with no network', () => {
+    expect(canonicalizeAffiliateRetailer({ url: target })).toEqual({ retailer: 'Target', network: null });
+  });
+
+  it('does not treat Nordstrom Rack as Nordstrom', () => {
+    expect(canonicalizeAffiliateRetailer({ url: 'https://www.nordstromrack.com/s/example/1' }).retailer).toBe('nordstromrack.com');
+  });
+
+  it('merges raw and ShopMy-wrapped Target clicks into one report row', () => {
+    expect(aggregateAffiliateRetailerCounts(
+      [{ retailer: 'Target', url: target, count: 3 }, { url: shopMyProductUrl(target), count: 2 }],
+      [{ retailer: 'Target', url: target, count: 1 }],
+    )).toEqual([{ retailer: 'Target', network: 'ShopMy', total: 5, last28: 1 }]);
   });
 });

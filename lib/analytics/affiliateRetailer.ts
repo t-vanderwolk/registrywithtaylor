@@ -34,6 +34,11 @@ const RULES: Array<{ test: RegExp; retailer: string; network: string | null }> =
   { test: /silvercross/i, retailer: 'Silver Cross', network: 'UAP' },
   { test: /goodbuygear/i, retailer: 'GoodBuyGear', network: 'Impact' },
   { test: /anbbaby/i, retailer: 'ANB Baby', network: 'Awin' },
+  // Linked through ShopMy. A go.shopmy.us click is credited to ShopMy and takes
+  // its retailer label from these rules, so "Target" and "target.com" stay one row.
+  { test: /(^|\.)target\.com/i, retailer: 'Target', network: null },
+  { test: /(^|\.)bloomingdales\.com/i, retailer: "Bloomingdale's", network: null },
+  { test: /(^|\.)nordstrom\.com/i, retailer: 'Nordstrom', network: null },
   // CJ (Commission Junction) + its redirect domains.
   { test: /(^|\.)cj\.com|dpbolvw\.net|tkqlhce\.com|jdoqocy\.com|anrdoezrs\.net|kqzyfj\.com|qksrv\.net|lduhtrp\.net|ftjcfx\.com/i, retailer: 'CJ', network: 'CJ' },
   { test: /awin1\.com|zenaps\.com|awin\./i, retailer: 'Awin', network: 'Awin' },
