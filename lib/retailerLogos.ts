@@ -13,6 +13,8 @@ const RETAILER_LOGOS: Record<string, string> = {
   babylist: '/assets/logos/babylist.png',
   amazon: '/assets/logos/amazon.png',
   target: '/assets/logos/target.png',
+  bloomingdales: '/assets/logos/bloomingdales.png',
+  nordstrom: '/assets/logos/nordstrom.png',
   macrobaby: '/assets/logos/macrobaby-logo.webp',
   strolleria: '/assets/logos/strolleria.png',
   myregistry: '/assets/logos/myregistry-logo.png',

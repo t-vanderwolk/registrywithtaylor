@@ -43,3 +43,4 @@
 .price { text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; font-size: 0.8rem; }
 .checked { display: block; color: #62555b; font-size: 0.7rem; }
 .sale { padding-left: 0.35rem; font-size: 0.7rem; color: #713e50; text-transform: uppercase; }
+@media print { .actions { display: none; } }

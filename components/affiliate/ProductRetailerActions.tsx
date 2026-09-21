@@ -2,6 +2,7 @@
 
 import { useId, useState, type ReactNode } from 'react';
 import ProductShopLink from './ProductShopLink';
+import { shopMyProductUrl } from '@/lib/affiliateShopMy';
 import type { RetailerLink } from '@/lib/retailerLinks';
 import { MAX_CARD_RETAILERS, orderedProductRetailers } from '@/lib/productRetailers';
 import { retailerLogo } from '@/lib/retailerLogos';
@@ -43,7 +44,7 @@ export default function ProductRetailerActions({
     };
     return renderLink ? renderLink(link, presentation) : (
       <ProductShopLink href={link.url} className={presentation.className} aria-label={presentation.ariaLabel}
-        onClick={() => onRetailerClick?.(link)}>
+        onClick={() => onRetailerClick?.({ ...link, url: shopMyProductUrl(link.url) })}>
         {presentation.children}
       </ProductShopLink>
     );
@@ -57,7 +58,7 @@ export default function ProductRetailerActions({
       {extra.length ? <>
         <button type="button" className={styles.toggle} aria-expanded={open} aria-controls={panelId}
           onClick={() => setOpen((value) => !value)}>
-          <span>Compare {extra.length} other {extra.length === 1 ? 'retailer' : 'retailers'}</span>
+          <span>View All Retailers</span>
           <span className={styles.arrow} aria-hidden="true">{open ? '-' : '+'}</span>
         </button>
         <div id={panelId} hidden={!open} className={styles.panel}>

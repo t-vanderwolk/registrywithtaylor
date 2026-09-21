@@ -23,7 +23,7 @@ describe('editorial retailer actions', () => {
     const primary = html.split('<button')[0];
     expect((primary.match(/<a /g) ?? []).length).toBe(Math.min(2, count));
     if (count > 2) {
-      expect(html).toContain(`Compare ${count - 2} other retailer`);
+      expect(html).toContain('View All Retailers');
       expect(html).toContain('aria-expanded="false"');
       expect(html).toContain('hidden=""');
     } else expect(html).not.toContain('<button');
@@ -54,7 +54,7 @@ describe('editorial retailer actions', () => {
   it('applies the same commerce layout to blog catalog cards', () => {
     const html = renderToStaticMarkup(<BlogCatalogProductCard brand="Test" productName="Model" price={419} priceSource="Babylist"
       retailerLinks={links} position={1} />);
-    expect(html).toContain('Compare 3 other retailers');
+    expect(html).toContain('View All Retailers');
     expect(html).toContain('Shop at Amazon');
     expect(html).not.toContain('via Babylist');
     expect(html).toContain('Reference price');
