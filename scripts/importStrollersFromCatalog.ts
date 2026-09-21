@@ -2,9 +2,16 @@
  * Import strollers from the affiliate catalog into the Stroller table so the
  * Travel-System checker offers the same strollers the finder does.
  *
- *   npx tsx scripts/importStrollersFromCatalog.ts --dry-run   # preview, no writes
- *   npx tsx scripts/importStrollersFromCatalog.ts             # apply
- *   npx tsx scripts/importStrollersFromCatalog.ts --limit=50
+ *   npm run strollers:import-dry     # preview, no writes
+ *   npm run strollers:import         # apply
+ *
+ * Run it through the npm scripts, or repeat their flags — this script reaches
+ * `lib/server/amazonCreators/cache.ts`, which is marked `import 'server-only'`.
+ * Under plain `tsx` that marker throws, so the invocation is
+ * `node --conditions=react-server --import tsx …`, which resolves `server-only`
+ * to its empty build. Same pattern as the `amazon:sync*` scripts. Nothing else
+ * in this script's import graph declares a `react-server` condition, so the flag
+ * changes that one resolution and nothing more.
  *
  * New strollers pick up compatibility automatically via the engine's same-brand
  * + shared-adapter inference. Curated strollers (with explicit Compatibility

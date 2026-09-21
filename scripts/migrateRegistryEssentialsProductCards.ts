@@ -30,12 +30,12 @@
  *   • Nameless CTA groups (e.g. inline links under a heading) are left alone.
  *   • Orphaned CTA buttons (no longer referenced by any slot) are pruned.
  *
- *   npx tsx scripts/migrateRegistryEssentialsProductCards.ts            # dry run
- *   npx tsx scripts/migrateRegistryEssentialsProductCards.ts --apply    # writes
+ *   node --conditions=react-server --import tsx scripts/migrateRegistryEssentialsProductCards.ts            # dry run
+ *   node --conditions=react-server --import tsx scripts/migrateRegistryEssentialsProductCards.ts --apply    # writes
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" \
- *     npx tsx scripts/migrateRegistryEssentialsProductCards.ts --apply
+ *     node --conditions=react-server --import tsx scripts/migrateRegistryEssentialsProductCards.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
 import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';

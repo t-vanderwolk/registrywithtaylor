@@ -17,12 +17,12 @@
  *   • News-headline sections (e.g. "… Officially Launches …") are skipped.
  *   • Orphaned CTA buttons (no longer referenced by any slot) are pruned.
  *
- *   npx tsx scripts/migrateReleased2026ProductCards.ts            # dry run
- *   npx tsx scripts/migrateReleased2026ProductCards.ts --apply    # writes
+ *   node --conditions=react-server --import tsx scripts/migrateReleased2026ProductCards.ts            # dry run
+ *   node --conditions=react-server --import tsx scripts/migrateReleased2026ProductCards.ts --apply    # writes
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" \
- *     npx tsx scripts/migrateReleased2026ProductCards.ts --apply
+ *     node --conditions=react-server --import tsx scripts/migrateReleased2026ProductCards.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
 import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';

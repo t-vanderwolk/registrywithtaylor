@@ -11,12 +11,12 @@
  *
  * Idempotent: skips if a VIAA CABN card already exists. Dry-run by default.
  *
- *   npx tsx scripts/addViaaCabnProductCard.ts            # dry run
- *   npx tsx scripts/addViaaCabnProductCard.ts --apply    # writes
+ *   node --conditions=react-server --import tsx scripts/addViaaCabnProductCard.ts            # dry run
+ *   node --conditions=react-server --import tsx scripts/addViaaCabnProductCard.ts --apply    # writes
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" \
- *     npx tsx scripts/addViaaCabnProductCard.ts --apply
+ *     node --conditions=react-server --import tsx scripts/addViaaCabnProductCard.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
 import { resolveBlogProductCatalogLinks } from '@/lib/server/blogCatalogLinks';

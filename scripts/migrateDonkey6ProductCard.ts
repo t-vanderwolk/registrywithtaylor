@@ -12,12 +12,12 @@
  *
  * Idempotent: skips if a Donkey 6 card already exists. Dry-run by default.
  *
- *   npx tsx scripts/migrateDonkey6ProductCard.ts            # dry run
- *   npx tsx scripts/migrateDonkey6ProductCard.ts --apply    # writes
+ *   node --conditions=react-server --import tsx scripts/migrateDonkey6ProductCard.ts            # dry run
+ *   node --conditions=react-server --import tsx scripts/migrateDonkey6ProductCard.ts --apply    # writes
  *
  *   DB="$(heroku config:get DATABASE_URL -a registrywithtaylor)" \
  *     PRISMA_DATABASE_URL="$DB" DATABASE_URL="$DB" \
- *     npx tsx scripts/migrateDonkey6ProductCard.ts --apply
+ *     node --conditions=react-server --import tsx scripts/migrateDonkey6ProductCard.ts --apply
  */
 import prismaBase from '@/lib/server/prisma';
 import { extractStoredCtaButtons, parseCtaSlotLine, serializeCtaButtons, type CtaButton } from '@/lib/blog/ctaButtons';
