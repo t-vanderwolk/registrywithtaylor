@@ -11,6 +11,8 @@
  * affiliate-tracked) link to that brand's stroller listing.
  */
 
+import { isStoreUrlOn } from '@/lib/catalog/storeRetailers';
+
 const norm = (value: string) =>
   value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -61,6 +63,36 @@ export function getDirectAffiliateLink(
   if (b === 'mima') return MIMA_LINKS[m] ?? MIMA_FALLBACK;
   if (b === 'silver cross' || b === 'silvercross') return SILVER_CROSS_LINKS[m] ?? SILVER_CROSS_FALLBACK;
   return null;
+}
+
+/**
+ * The exact per-model direct link, or null. Unlike getDirectAffiliateLink this
+ * never falls back to the brand's stroller listing, so it can decide whether a
+ * product is buyable on its own.
+ */
+export function getExactDirectAffiliateLink(
+  brand: string | null | undefined,
+  model: string | null | undefined,
+): string | null {
+  const b = norm(brand ?? '');
+  const m = norm(model ?? '');
+  if (b === 'mima') return MIMA_LINKS[m] ?? null;
+  if (b === 'silver cross' || b === 'silvercross') return SILVER_CROSS_LINKS[m] ?? null;
+  return null;
+}
+
+// The brands' own shops. A hand-added link to one of these is the direct link
+// the tools already render (with its tracking), not a separate store.
+const DIRECT_PROGRAM_DOMAINS: Record<string, string[]> = {
+  mima: ['mimakidsusa.com'],
+  'silver cross': ['silvercrossus.com'],
+  silvercross: ['silvercrossus.com'],
+};
+
+/** True when `url` is on the direct-program shop of `brand` (Mima, Silver Cross). */
+export function isDirectProgramUrl(brand: string | null | undefined, url: string | null | undefined): boolean {
+  const domains = DIRECT_PROGRAM_DOMAINS[norm(brand ?? '')];
+  return Boolean(domains && isStoreUrlOn(url, domains));
 }
 
 /** The shop-button label for a direct brand link. */

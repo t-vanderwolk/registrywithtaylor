@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { STROLLER_CATEGORY_LABELS, type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import { strollerCategoryFromProductType } from '@/lib/catalog/strollerCategoryMap';
 import { parseStrollerModel } from '@/lib/catalog/strollerModel';
@@ -19,6 +20,9 @@ import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
 import prisma from '@/lib/server/prisma';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { isMacroBabyAllowedForBrand, MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
+import { getExactDirectAffiliateLink, isDirectProgramUrl } from '@/lib/catalog/directAffiliateLinks';
+import { isStoreUrlOn, storeRetailerName } from '@/lib/catalog/storeRetailers';
+import { isHttpUrl, type RetailerLink } from '@/lib/retailerLinks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
 import {
   bestAmazonImage,
@@ -63,6 +67,7 @@ type CatalogProductRow = {
 
 type RetailerOffer = { price: number | null; url: string | null };
 type Offer = RetailerOffer & { image: string | null; title: string };
+type StoreOffer = Offer & { retailer: string };
 
 export type PublicStrollerProduct = {
   name: string;
@@ -73,7 +78,9 @@ export type PublicStrollerProduct = {
   price: number | null;
   image: string | null;
   affiliateUrl: string | null;
-  source: 'babylist' | 'macrobaby' | 'bombi' | 'amazon' | 'goodbuygear';
+  /** 'store' = a hand-added store link (Target, a brand site…); 'direct' = the
+   *  brand's own affiliate program (Mima, Silver Cross), which the cards render. */
+  source: 'babylist' | 'macrobaby' | 'bombi' | 'amazon' | 'store' | 'direct' | 'goodbuygear';
   retailers: {
     babylist: RetailerOffer | null;
     amazon: RetailerOffer | null;
@@ -82,6 +89,9 @@ export type PublicStrollerProduct = {
     anb: RetailerOffer | null;
     goodbuygear: RetailerOffer | null;
   };
+  /** Hand-added store links (Target, Nordstrom, a brand's own site), each named
+   *  for its store. Buy links in their own right, never filed under Amazon. */
+  extraRetailers?: RetailerLink[];
   /** Raw (ungated) open-box match, regardless of any admin badge override — used
    *  by the admin GoodBuy Gear audit. `retailers.goodbuygear` is the *displayed*
    *  (override-gated) value. */
@@ -181,7 +191,7 @@ async function loadStrollerCompatibilityCounts() {
   }
 }
 
-export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
+async function loadPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = prisma as any;
 
@@ -241,6 +251,12 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     /** A hand-added (manual_tmbc) GoodBuy Gear open-box link — shoppable as its
      *  own primary CTA, unlike bulk-imported GBG offers which are badge-only. */
     gbgShop: Offer | null;
+    /** Hand-added links to any other store, named for the store. */
+    stores: StoreOffer[];
+    /** A hand-added link on the brand's own direct-program shop. */
+    direct: Offer | null;
+    /** First title/photo seen for the model, for cards whose buy link carries none. */
+    fallback: { title: string; image: string | null } | null;
   };
 
   const groups = new Map<string, Group>();
@@ -277,11 +293,13 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
 
     let group = groups.get(key);
     if (!group) {
-      group = { category, brand, model, babylist: null, macrobaby: null, bombi: null, amazon: null, anb: null, gbg: null, gbgShop: null };
+      group = { category, brand, model, babylist: null, macrobaby: null, bombi: null, amazon: null, anb: null, gbg: null, gbgShop: null, stores: [], direct: null, fallback: null };
       groups.set(key, group);
     }
 
     const offer: Offer = { price: row.price, url: row.affiliateUrl, image: row.imageUrl, title: row.title };
+    if (!group.fallback) group.fallback = { title: row.title, image: row.imageUrl ?? null };
+    else if (!group.fallback.image && row.imageUrl) group.fallback.image = row.imageUrl;
     const cheaper = (current: Offer | null) =>
       !current || (offer.price != null && (current.price == null || offer.price < current.price));
     const isGoodBuyGear = isGoodBuyGearOffer({
@@ -323,9 +341,22 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
         if (!group.babylist) { group.babylist = offer; group.category = category; }
       } else if (/macrobaby/i.test(row.affiliateUrl ?? '')) {
         if (cheaper(group.macrobaby)) group.macrobaby = offer;
-      } else if (row.affiliateUrl?.trim() && !group.amazon) {
-        // Unknown host — surface it under the generic Amazon-style CTA.
-        group.amazon = offer;
+      } else if (isStoreUrlOn(row.affiliateUrl, ['bombigear.com'])) {
+        // A hand-added Bombi link is Bombi's own button.
+        if (cheaper(group.bombi)) group.bombi = offer;
+      } else if (isDirectProgramUrl(brand, row.affiliateUrl)) {
+        // The brand's own direct program (Mima, Silver Cross). The cards add the
+        // tracked direct link themselves, so this row keeps the product listed
+        // and supplies its photo.
+        if (!group.direct) group.direct = offer;
+      } else if (isHttpUrl(row.affiliateUrl)) {
+        // Any other store (Target, Nordstrom, a brand site): its own button,
+        // named for the store. These used to fall under "Shop Amazon".
+        const retailer = storeRetailerName(row.affiliateUrl);
+        const url = row.affiliateUrl.trim();
+        if (retailer && !group.stores.some((store) => store.url === url)) {
+          group.stores.push({ ...offer, url, retailer });
+        }
       }
     }
   }
@@ -333,11 +364,20 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
   const compatibilityCounts = await loadStrollerCompatibilityCounts();
   const groupCompatibilityCount = (group: Group) =>
     compatibilityCounts.get(productModelKey(group.brand, group.model)) ?? 0;
+  const directOffer = (group: Group): Offer | null => {
+    if (group.direct) return group.direct;
+    const url = getExactDirectAffiliateLink(group.brand, group.model);
+    return url
+      ? { price: null, url, image: group.fallback?.image ?? null, title: group.fallback?.title ?? `${group.brand} ${group.model}`.trim() }
+      : null;
+  };
   const coreOfferCount = (group: Group) =>
     Number(isPublicBabylistOffer(group.babylist)) +
     Number(isPublicMacroBabyOffer(group.macrobaby)) +
     Number(isPublicBombiOffer(group.bombi)) +
-    Number(isPublicAmazonOffer(group.amazon));
+    Number(isPublicAmazonOffer(group.amazon)) +
+    Number(group.stores.length > 0) +
+    Number(directOffer(group) != null);
   const duplicateVariantKey = (group: Group) => {
     const normalized = normalizeStrollerVariantModel(group.model, group.brand);
     return productModelKey(group.brand, normalized || group.model);
@@ -395,13 +435,30 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     const amazon = rawAmazon && amazonOffer ? amazonOffer : null;
     // A hand-added open-box product surfaces on its GoodBuy Gear link alone.
     const gbgShop = group.gbgShop && (group.gbgShop.url || group.gbgShop.price != null) ? group.gbgShop : null;
+    // A verified store link (Target, a brand site…) or the brand's own direct
+    // program also keeps a stroller listed on its own.
+    const store = group.stores[0] ?? null;
+    const direct = directOffer(group);
     // Babylist / MacroBaby / Bombi are preferred; a stroller with only an Amazon
-    // link (e.g. a hand-added product) still surfaces on Amazon alone; an
-    // open-box-only product surfaces on GoodBuy Gear.
-    const primary = babylist ?? macrobaby ?? bombi ?? amazon ?? gbgShop;
+    // link (e.g. a hand-added product) still surfaces on Amazon alone; then a
+    // store link, the brand's direct link, and finally an open-box-only product
+    // surfaces on GoodBuy Gear.
+    const primary = babylist ?? macrobaby ?? bombi ?? amazon ?? store ?? direct ?? gbgShop;
     if (!primary) continue;
 
-    const source: PublicStrollerProduct['source'] = babylist ? 'babylist' : macrobaby ? 'macrobaby' : bombi ? 'bombi' : amazon ? 'amazon' : 'goodbuygear';
+    const source: PublicStrollerProduct['source'] = babylist
+      ? 'babylist'
+      : macrobaby
+        ? 'macrobaby'
+        : bombi
+          ? 'bombi'
+          : amazon
+            ? 'amazon'
+            : store
+              ? 'store'
+              : direct
+                ? 'direct'
+                : 'goodbuygear';
     // Raw open-box match, then gate the *badge* by the admin override. An
     // open-box-only card (source === 'goodbuygear') keeps its link — that's its
     // primary CTA, not a badge — so overrides only affect supplemental badges.
@@ -418,7 +475,18 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
       displayModel: strollerPublicDisplayModel(group.model, group.brand),
       summary: getStrollerProfile(group.brand, group.model)?.description ?? null,
       price: primary.price,
-      image: babylist?.image ?? macrobaby?.image ?? bombi?.image ?? amazonOffer?.image ?? group.anb?.image ?? group.gbg?.image ?? gbgShop?.image ?? null,
+      image:
+        babylist?.image ??
+        macrobaby?.image ??
+        bombi?.image ??
+        amazonOffer?.image ??
+        store?.image ??
+        direct?.image ??
+        group.anb?.image ??
+        group.gbg?.image ??
+        gbgShop?.image ??
+        group.fallback?.image ??
+        null,
       affiliateUrl: primary.url,
       source,
       retailers: {
@@ -429,6 +497,7 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
         anb: null,
         goodbuygear: showGbg ? rawGbg : null,
       },
+      extraRetailers: group.stores.map((link) => ({ retailer: link.retailer, url: link.url as string })),
       gbgMatch: rawGbg,
     };
 
@@ -454,6 +523,12 @@ export async function getPublicStrollerCatalogBrands(): Promise<PublicStrollerBr
     .sort((a, b) => a.brand.localeCompare(b.brand));
 }
 
+/**
+ * The public stroller catalog, loaded once per request: the finder, Compare and
+ * every travel-system lookup in a request read the same result.
+ */
+export const getPublicStrollerCatalogBrands = cache(loadPublicStrollerCatalogBrands);
+
 export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<TravelSystemStrollerOption[]> {
   const brands = await getPublicStrollerCatalogBrands();
   return brands.flatMap((brandRow) =>
@@ -477,6 +552,9 @@ export async function getPublicStrollerCatalogTravelSystemOptions(): Promise<Tra
         amazonImage: product.source === 'amazon' ? product.image : null,
         amazonPrice: product.retailers.amazon?.price ?? null,
         amazonUrl: product.retailers.amazon?.url ?? null,
+        extraRetailers: product.extraRetailers ?? [],
+        // Photo for a card sold only through a store or direct link.
+        fallbackImage: product.source === 'store' || product.source === 'direct' ? product.image : null,
       })),
     ),
   );

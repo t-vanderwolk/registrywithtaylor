@@ -34,6 +34,8 @@ import {
 } from '@/lib/server/amazonCreators/cache';
 import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
+import { orderedProductRetailers } from '@/lib/productRetailers';
+import { getExactDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 
 type StrollerRow = {
   id: string;
@@ -53,6 +55,9 @@ type StrollerRow = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  /** Set once enriched with public retailers. */
+  extraRetailers?: RetailerLink[];
+  imageUrl?: string | null;
 };
 
 type CarSeatRow = {
@@ -207,6 +212,8 @@ function hasPublicTravelSystemRetailer(row: PublicAvailabilityRow) {
   // Travel-system-only seats (e.g. Nuna PIPA urbn) have no standalone retailer
   // but must still surface — they're purchased bundled with a Nuna stroller.
   if (isTravelSystemOnlySeat(row.brand, row.model)) return true;
+  // The brand's own direct program (Mima, Silver Cross) sells the exact model.
+  if (getExactDirectAffiliateLink(row.brand, row.model)) return true;
   return Boolean(parseRetailerLinks(row.extraRetailers)?.length) || hasPublicCoreRetailer([
     { source: 'Babylist', url: row.babylistUrl ?? null, price: row.babylistPrice ?? null },
     { source: 'MacroBaby', url: row.macroBabyUrl ?? null, price: row.macroBabyPrice ?? null },
@@ -493,13 +500,37 @@ async function loadBombiDirectMap(table: 'Stroller' | 'CarSeat'): Promise<Map<st
   }
 }
 
+/**
+ * The finder's buy links for each stroller, keyed by the finder identity. The
+ * finder reads every catalog provider, including hand-added Babylist, Amazon
+ * and store links, while the Stroller-row maps here only see the Babylist feed.
+ * Without this a stroller the finder sells through a hand-added link would drop
+ * out of the by-car-seat results. Attached to the stroller retailer map so the
+ * helpers that take that map pick it up without new parameters.
+ */
+const finderStrollerOptions = new WeakMap<Map<string, PublicRetailerFields>, Map<string, TravelSystemStrollerOption>>();
+
+async function loadFinderStrollerOptions(): Promise<Map<string, TravelSystemStrollerOption>> {
+  try {
+    const map = new Map<string, TravelSystemStrollerOption>();
+    for (const option of await getPublicStrollerCatalogTravelSystemOptions()) {
+      const key = finderStrollerKey(option.brand, option.model);
+      if (!map.has(key)) map.set(key, option);
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
+}
+
 async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map<string, PublicRetailerFields>> {
-  const [babylistMap, babylistImpactMap, macroBabyMap, bombiMap, extraLinksMap] = await Promise.all([
+  const [babylistMap, babylistImpactMap, macroBabyMap, bombiMap, extraLinksMap, finderOptions] = await Promise.all([
     loadBabylistMap(table),
     loadBabylistImpactMap(table),
     loadMacroBabyMap(table),
     loadBombiDirectMap(table),
     table === 'CarSeat' ? loadCarSeatRetailerLinks() : Promise.resolve(new Map<string, RetailerLink[]>()),
+    table === 'Stroller' ? loadFinderStrollerOptions() : Promise.resolve(null),
   ]);
   const out = new Map<string, PublicRetailerFields>();
   const keys = new Set([...babylistMap.keys(), ...babylistImpactMap.keys(), ...macroBabyMap.keys(), ...bombiMap.keys(), ...extraLinksMap.keys()]);
@@ -518,19 +549,48 @@ async function loadPublicRetailerMap(table: 'Stroller' | 'CarSeat'): Promise<Map
       extraRetailers: extraLinksMap.get(key) ?? [],
     });
   }
+  if (finderOptions) finderStrollerOptions.set(out, finderOptions);
   return out;
+}
+
+/** Stroller-row fields, filled in from the finder where the row maps have none. */
+function publicFieldsFor(
+  map: Map<string, PublicRetailerFields>,
+  brand: string,
+  model: string,
+): { fields: PublicRetailerFields; finder: TravelSystemStrollerOption | null } {
+  const fields = map.get(babylistKey(brand, model)) ?? EMPTY_PUBLIC_RETAILERS;
+  const finder = finderStrollerOptions.get(map)?.get(finderStrollerKey(brand, model)) ?? null;
+  if (!finder) return { fields, finder };
+  const babylist = fields.babylistUrl
+    ? { babylistUrl: fields.babylistUrl, babylistPrice: fields.babylistPrice, babylistImage: fields.babylistImage }
+    : { babylistUrl: finder.babylistUrl ?? null, babylistPrice: finder.babylistPrice ?? fields.babylistPrice, babylistImage: fields.babylistImage ?? finder.babylistImage ?? null };
+  const bombi = fields.bombiUrl
+    ? { bombiUrl: fields.bombiUrl, bombiPrice: fields.bombiPrice, bombiImage: fields.bombiImage }
+    : { bombiUrl: finder.bombiUrl ?? null, bombiPrice: finder.bombiPrice ?? fields.bombiPrice, bombiImage: fields.bombiImage ?? finder.bombiImage ?? null };
+  return {
+    fields: {
+      ...fields,
+      ...babylist,
+      ...bombi,
+      extraRetailers: orderedProductRetailers([...(fields.extraRetailers ?? []), ...(finder.extraRetailers ?? [])]),
+    },
+    finder,
+  };
 }
 
 /** Attach public retailer url/price/image to each result; prefer core retailer photos. */
 async function enrichWithPublicRetailers<T extends { brand: string; model: string; imageUrl?: string | null }>(
   items: T[],
   map: Map<string, PublicRetailerFields>,
-): Promise<Array<T & { amazonUrl: string | null; amazonImage: string | null; amazonPrice: number | null; extraRetailers: RetailerLink[] }>> {
-  const amazonUrls = items.map((item) => {
-    const fields = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_PUBLIC_RETAILERS;
-    // A manually-entered Amazon link (Stroller.amazonUrl / CarSeat.amazonUrl) wins;
-    // otherwise fall back to the static per-model Amazon map when the item is public.
-    const manualAmazon = (item as { amazonUrl?: string | null }).amazonUrl ?? null;
+): Promise<Array<T & { amazonUrl: string | null; amazonImage: string | null; amazonPrice: number | null; extraRetailers: RetailerLink[]; imageUrl: string | null }>> {
+  const resolved = items.map((item) => publicFieldsFor(map, item.brand, item.model));
+  const amazonUrls = items.map((item, index) => {
+    const { fields, finder } = resolved[index];
+    // A manually-entered Amazon link (Stroller.amazonUrl / CarSeat.amazonUrl) wins,
+    // then the finder's catalog Amazon link; otherwise fall back to the static
+    // per-model Amazon map when the item is public.
+    const manualAmazon = (item as { amazonUrl?: string | null }).amazonUrl ?? finder?.amazonUrl ?? null;
     return (
       manualAmazon ??
       (hasPublicTravelSystemRetailer({ ...item, ...fields, amazonUrl: manualAmazon }) ? getAffiliateLinks(item.brand, item.model).amazonUrl ?? null : null)
@@ -539,7 +599,7 @@ async function enrichWithPublicRetailers<T extends { brand: string; model: strin
   const amazonCacheMap = await getAmazonCacheMapForUrls(amazonUrls);
 
   return items.map((item, index) => {
-    const fields = map.get(babylistKey(item.brand, item.model)) ?? EMPTY_PUBLIC_RETAILERS;
+    const { fields, finder } = resolved[index];
     const rawAmazonUrl = amazonUrls[index] ?? null;
     const amazonProduct = rawAmazonUrl ? amazonCacheMap.get(rawAmazonUrl) : null;
     const amazonUrl = bestAmazonUrl(rawAmazonUrl, amazonProduct);
@@ -552,7 +612,7 @@ async function enrichWithPublicRetailers<T extends { brand: string; model: strin
       amazonUrl,
       amazonImage,
       amazonPrice,
-      imageUrl: fields.babylistImage ?? fields.macroBabyImage ?? fields.bombiImage ?? amazonImage ?? item.imageUrl ?? null,
+      imageUrl: fields.babylistImage ?? fields.macroBabyImage ?? fields.bombiImage ?? amazonImage ?? item.imageUrl ?? finder?.fallbackImage ?? null,
     };
   });
 }
@@ -1518,6 +1578,8 @@ export async function getTravelSystemCompatibility(
       amazonUrl: stroller.amazonUrl ?? null,
       amazonImage: stroller.amazonImage ?? null,
       amazonPrice: stroller.amazonPrice ?? null,
+      extraRetailers: stroller.extraRetailers ?? [],
+      fallbackImage: stroller.imageUrl ?? null,
     },
     compatibleCarSeats: compatibleCarSeats.filter(hasPublicTravelSystemRetailer),
   };
@@ -1680,7 +1742,8 @@ export async function getTravelSystemCompatibilityByCarSeat(
         amazonUrl: row.amazonUrl ?? null,
         amazonImage: row.amazonImage ?? null,
         amazonPrice: row.amazonPrice ?? null,
-        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
+        extraRetailers: row.extraRetailers ?? [],
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? row.imageUrl ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),
@@ -1714,7 +1777,8 @@ export async function getTravelSystemCompatibilityByCarSeat(
         amazonUrl: row.amazonUrl ?? null,
         amazonImage: row.amazonImage ?? null,
         amazonPrice: row.amazonPrice ?? null,
-        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
+        extraRetailers: row.extraRetailers ?? [],
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? row.imageUrl ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),
@@ -1757,7 +1821,8 @@ export async function getTravelSystemCompatibilityByCarSeat(
         amazonUrl: row.amazonUrl ?? null,
         amazonImage: row.amazonImage ?? null,
         amazonPrice: row.amazonPrice ?? null,
-        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
+        extraRetailers: row.extraRetailers ?? [],
+        imageUrl: row.babylistImage ?? row.macroBabyImage ?? row.bombiImage ?? row.amazonImage ?? row.imageUrl ?? (resolvedImage && !resolvedImage.isFallback ? resolvedImage.src : null),
         imageAlt: resolvedImage && !resolvedImage.isFallback ? resolvedImage.alt : null,
       };
     }),

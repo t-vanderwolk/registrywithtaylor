@@ -252,6 +252,15 @@ function ProductCard({
     const offer = retailers?.[meta.key] ?? null;
     if (offer && (offer.url || offer.price != null)) offers.push({ meta, offer });
   }
+  // Hand-added store links (Target, Nordstrom, a brand's own site) are exact
+  // buy links, each named for its store: after Babylist/MacroBaby/Bombi, ahead
+  // of Amazon.
+  const storeOffers: Array<{ meta: RetailerCtaMeta; offer: RetailerOffer }> = (product.extraRetailers ?? []).map((link) => ({
+    meta: { key: `store:${link.url}`, name: link.retailer, shopLabel: `Shop ${link.retailer}`, variant: 'secondary' },
+    offer: { url: link.url, price: null },
+  }));
+  const amazonAt = offers.findIndex((o) => o.meta.key === 'amazon');
+  offers.splice(amazonAt < 0 ? offers.length : amazonAt, 0, ...storeOffers);
   const hadRealOffers = offers.length > 0;
   // Guarantee every card shows a shoppable primary (Babylist/MacroBaby/Bombi) AND
   // an Amazon button. When an exact retailer link is missing, fall back to an
@@ -268,7 +277,8 @@ function ProductCard({
   const hasPrimaryOffer = offers.some((o) => o.meta.key === 'babylist' || o.meta.key === 'macrobaby' || o.meta.key === 'bombi');
   const babylistMeta = RETAILER_CTAS.find((m) => m.key === 'babylist')!;
   if (!hasPrimaryOffer) {
-    offers.unshift({ meta: babylistMeta, offer: { url: babylistBrandShopUrl(brand, fallbackKind), price: null } });
+    // An exact store link leads; the Babylist brand shop follows it.
+    offers.splice(storeOffers.length, 0, { meta: babylistMeta, offer: { url: babylistBrandShopUrl(brand, fallbackKind), price: null } });
   }
   // No Amazon search fallback: a card only shows an Amazon button when a real
   // Amazon link exists for the product. If it's not on Amazon, we don't fake it.

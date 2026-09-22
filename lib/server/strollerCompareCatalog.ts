@@ -7,6 +7,7 @@ import {
 } from '@/lib/guides/travelSystemCompatibility';
 import { resolveCompareAttributes, type BasketSize } from '@/lib/catalog/strollerCompareAttributes';
 import { parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
+import { orderedProductRetailers } from '@/lib/productRetailers';
 
 /**
  * A single stroller row for the side-by-side Compare tool. Combines the public,
@@ -139,7 +140,7 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
 
     const key = specKey(option.brand, option.model);
     const spec = specMap.get(key) ?? null;
-    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? null;
+    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? option.fallbackImage ?? null;
     const attrs = resolveCompareAttributes(option.brand, option.model, option.strollerCategory ?? null);
     const fitsOverheadBin = canUseOverheadBinFlag(option.strollerCategory)
       ? (spec?.fitsOverheadBin ?? attrs.fitsOverheadBin)
@@ -160,7 +161,8 @@ export async function getStrollerCompareCatalog(): Promise<StrollerCompareItem[]
       bombiPrice: option.bombiPrice ?? null,
       amazonUrl: option.amazonUrl ?? null,
       amazonPrice: option.amazonPrice ?? null,
-      extraRetailers: linksMap.get(key) ?? [],
+      // Curated Stroller-row links first, then hand-added catalog store links.
+      extraRetailers: orderedProductRetailers([...(linksMap.get(key) ?? []), ...(option.extraRetailers ?? [])]),
       ownWeightLbs: spec?.ownWeightLbs ?? null,
       maxWeightLbs: spec?.maxWeightLbs ?? null,
       foldType: spec?.foldType ?? null,

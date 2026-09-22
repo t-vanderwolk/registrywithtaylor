@@ -31,7 +31,7 @@ import {
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import type { RetailerLink } from '@/lib/retailerLinks';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
-import { getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
+import { directShopLabel, getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
 import { findTravelSystemOptionBySlug, travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
@@ -346,8 +346,9 @@ function SelectedSummaryCard({
     kind === 'stroller'
       ? resolveProductCardImage({ brand: option.brand, productName: option.displayName })
       : resolveCompatibilityCarSeatImage({ brand: option.brand, productName: option.displayName });
-  const imageSrc = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? resolvedImage?.src ?? null;
-  const imageAlt = option.babylistImage || option.macroBabyImage || option.bombiImage || option.amazonImage ? option.displayName : resolvedImage?.alt;
+  const fallbackImage = 'fallbackImage' in option ? option.fallbackImage ?? null : null;
+  const imageSrc = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? fallbackImage ?? resolvedImage?.src ?? null;
+  const imageAlt = option.babylistImage || option.macroBabyImage || option.bombiImage || option.amazonImage || fallbackImage ? option.displayName : resolvedImage?.alt;
   const displayTitle = displayNameWithoutBrand(option.displayName, option.brand);
 
   // The selected product keeps its own affiliate CTA right next to its summary,
@@ -356,16 +357,29 @@ function SelectedSummaryCard({
     option.babylistUrl || option.babylistPrice != null
       ? babylistAffiliateUrl(option.brand, option.model, kind, option.babylistUrl)
       : null;
+  // A product sold only through its brand's direct program (Mima, Silver Cross),
+  // a hand-added store link, or Amazon still gets its own buy button here.
+  const isTravelSystemOnlySeat = kind === 'carSeat' && Boolean((option as TravelSystemCarSeatOption).travelSystemOnly);
+  const selectedDirectUrl = isTravelSystemOnlySeat ? null : getDirectAffiliateLink(option.brand, option.model);
+  const selectedStore: RetailerLink | null =
+    'extraRetailers' in option && Array.isArray(option.extraRetailers) ? option.extraRetailers[0] ?? null : null;
+  const amazonAllowed = !isTravelSystemOnlySeat && isAmazonAllowedForBrand(option.brand);
   const selectedPrimaryCta = selectedBabylistUrl
     ? { label: 'Babylist', url: selectedBabylistUrl, source: 'babylist' as const }
     : option.macroBabyUrl
       ? { label: 'MacroBaby', url: option.macroBabyUrl, source: 'macrobaby' as const }
       : option.bombiUrl
         ? { label: 'Shop Bombi', url: option.bombiUrl, source: 'bombi' as const }
-        : null;
+        : selectedDirectUrl
+          ? { label: directShopLabel(option.brand), url: selectedDirectUrl, source: 'direct' as const }
+          : selectedStore
+            ? { label: `Shop ${selectedStore.retailer}`, url: selectedStore.url, source: 'store' as const }
+            : amazonAllowed && option.amazonUrl
+              ? { label: 'Shop on Amazon', url: option.amazonUrl, source: 'amazon' as const }
+              : null;
   // Nuna and other brands that don't authorize Amazon third-party sales get no Amazon CTA.
   const selectedAmazonUrl =
-    selectedPrimaryCta && isAmazonAllowedForBrand(option.brand) ? option.amazonUrl ?? null : null;
+    selectedPrimaryCta && selectedPrimaryCta.source !== 'amazon' && isAmazonAllowedForBrand(option.brand) ? option.amazonUrl ?? null : null;
 
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">

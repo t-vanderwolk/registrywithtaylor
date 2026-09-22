@@ -430,7 +430,8 @@ export default function TravelSystemGenerator({ strollers, carSeats }: TravelSys
   ) => {
     const value = buildOptionValue(option);
     const babylist = browseLookup[`${option.brand}:::${option.model}`];
-    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? babylist?.babylistImage ?? null;
+    const fallbackImage = 'fallbackImage' in option ? option.fallbackImage ?? null : null;
+    const image = option.babylistImage ?? option.macroBabyImage ?? option.bombiImage ?? option.amazonImage ?? babylist?.babylistImage ?? fallbackImage ?? null;
     const price = option.babylistPrice ?? option.macroBabyPrice ?? option.bombiPrice ?? option.amazonPrice ?? babylist?.babylistPrice ?? null;
     const priceSource =
       option.babylistPrice != null || babylist?.babylistPrice != null

@@ -37,6 +37,26 @@ describe('stroller finder initial HTML', () => {
     expect(html).toContain('A rotating stroller seat.');
   });
 
+  it('leads with an exact store link, named for the store, ahead of the Babylist brand shop', () => {
+    const storeOnly: PublicStrollerProduct = {
+      name: 'Chicco Cortina Together Double Stroller', model: 'Cortina Together Double', displayModel: 'Cortina Together Double',
+      summary: null, price: null, image: 'https://example.com/cortina.jpg',
+      affiliateUrl: 'https://www.target.com/p/cortina/-/A-75558344', source: 'store',
+      retailers: { babylist: null, amazon: null, macrobaby: null, bombi: null, anb: null, goodbuygear: null },
+      extraRetailers: [{ retailer: 'Target', url: 'https://www.target.com/p/cortina/-/A-75558344' }],
+    };
+    const html = renderToStaticMarkup(
+      <StrollerCatalogFinder
+        brands={[{ brand: 'Chicco', count: 1, types: [{ category: 'double', label: 'Double', products: [storeOnly] }] }]}
+        initialBrand="Chicco"
+      />,
+    );
+    expect(html).toContain('Shop Target');
+    expect(html).toContain(encodeURIComponent('https://www.target.com/p/cortina/-/A-75558344'));
+    expect(html.indexOf('Shop Target')).toBeLessThan(html.indexOf('Add to Babylist'));
+    expect(html).not.toContain('Shop Amazon');
+  });
+
   it('gives crawlers real brand and category navigation links', () => {
     const brandHtml = renderToStaticMarkup(<StrollerCatalogFinder brands={brands} />);
     const categoryHtml = renderToStaticMarkup(<StrollerCatalogFinder brands={brands} initialMode="category" />);

@@ -21,6 +21,10 @@ export type TravelSystemStrollerOption = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  /** Hand-added store links (Target, a brand site…), named for the store. */
+  extraRetailers?: RetailerLink[];
+  /** Photo for a stroller sold only through a store or direct link. */
+  fallbackImage?: string | null;
 };
 
 export type TravelSystemCarSeatOption = {
@@ -125,6 +129,8 @@ export type CompatibleStrollerResult = {
   amazonUrl?: string | null;
   amazonImage?: string | null;
   amazonPrice?: number | null;
+  /** Hand-added store links (Target, a brand site…), named for the store. */
+  extraRetailers?: RetailerLink[];
 };
 
 export type TravelSystemCompatibilityByCarSeatResponse = {
