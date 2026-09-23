@@ -184,8 +184,14 @@ export default async function StrollerFinderPage({
           </div>
 
           <div className="mt-10">
+            {/* No `key` here on purpose. Keying this on the active brand/category
+                remounted the whole finder on every tile click: it replayed every
+                entrance animation, cleared the search box and re-fired the tool's
+                "opened" analytics, which read as a full page reload. Tile clicks
+                are now applied inside the component, which pushes the URL itself
+                (see `selectInPlace`), so no server round trip happens at all.
+                These props only carry a cold load or a real navigation. */}
             <StrollerCatalogFinder
-              key={`${initialBrand ?? ''}:${initialCategory ?? ''}:${initialMode ?? ''}`}
               brands={brands}
               initialCategory={initialCategory}
               initialBrand={initialBrand}

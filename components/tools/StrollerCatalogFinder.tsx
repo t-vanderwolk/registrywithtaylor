@@ -3,14 +3,28 @@
 import '@/styles/widgets.css';
 import Link from 'next/link';
 import ProductShopLink from '@/components/affiliate/ProductShopLink';
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent as ReactMouseEvent,
+} from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { strollerFinderBrandHref, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
+import { finderSelectionFromSearch, type FinderSelection } from '@/lib/catalog/finderSelection';
 import type { PublicStrollerBrand, PublicStrollerProduct } from '@/lib/server/publicStrollerCatalog';
 import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
+
+// The finder's own two landing URLs, shared by the links and by the in-place
+// selection below so they can never drift apart.
+const FINDER_HREF = '/tools/stroller-finder';
+const CATEGORY_PICKER_HREF = '/tools/stroller-finder?view=category';
 
 // Brand logos. Brands listed here show their logo; the rest show the brand name.
 // Keys must match the catalog brand string exactly. Drop a file in
@@ -436,6 +450,65 @@ export default function StrollerCatalogFinder({
     trackToolOpened('stroller-finder', initialCategory ? { entryCategory: initialCategory } : {});
   }, [initialCategory]);
 
+  const shellRef = useRef<HTMLElement | null>(null);
+  const brandNames = useMemo(() => brands.map((b) => b.brand), [brands]);
+
+  const applySelection = useCallback((next: FinderSelection) => {
+    setSelectedBrand(next.brand);
+    setSelectedCategory(next.category);
+    setMode(next.mode);
+  }, []);
+
+  // A real navigation — a deep link, the "back to <brand>" breadcrumb on the
+  // results page, a link from another page — arrives as new props. The page
+  // deliberately does NOT remount this component per selection any more, so
+  // `useState(initialBrand)` alone would only ever read the first value.
+  useEffect(() => {
+    applySelection({
+      brand: initialBrand,
+      category: initialCategory,
+      mode: initialCategory || initialMode === 'category' ? 'category' : 'brand',
+    });
+  }, [applySelection, initialBrand, initialCategory, initialMode]);
+
+  // Selections made inside the finder only push the URL (see `selectInPlace`),
+  // so Back / Forward — and a history restore that hands this component the
+  // props of a different entry — have to be read back off the URL.
+  useEffect(() => {
+    const sync = () => applySelection(finderSelectionFromSearch(window.location.search, brandNames));
+    sync();
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, [applySelection, brandNames]);
+
+  /**
+   * Apply a tile's selection immediately, and keep the URL shareable.
+   *
+   * The tiles keep real hrefs — crawlers, middle-click and "open in new tab"
+   * still work — but a plain left click no longer navigates. Every product of
+   * every brand is already in `brands`, so the new view is a state change, not
+   * a server round trip: navigating re-ran the whole page (it is force-dynamic,
+   * so it re-queried the entire catalog), rebuilt the finder, replayed every
+   * entrance animation and scrolled the page back to the top — which read as a
+   * full reload. `history.pushState` is understood by the App Router, so the
+   * URL stays shareable and `?brand=` still server-renders on a cold load.
+   */
+  const selectInPlace = useCallback(
+    (event: ReactMouseEvent<HTMLAnchorElement>, href: string, next: FinderSelection) => {
+      // Leave new-tab, new-window and middle clicks to the browser.
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      applySelection(next);
+      window.history.pushState(null, '', href);
+      // Only scroll when the finder's own header has scrolled off the top;
+      // otherwise the page stays exactly where it was.
+      const top = shellRef.current?.getBoundingClientRect().top ?? 0;
+      if (top < 0) window.scrollTo({ top: window.scrollY + top - 16, behavior: 'smooth' });
+    },
+    [applySelection],
+  );
+
   const totalCount = useMemo(() => brands.reduce((n, b) => n + b.count, 0), [brands]);
   const q = query.trim().toLowerCase();
 
@@ -472,9 +545,8 @@ export default function StrollerCatalogFinder({
   }, [q, brands]);
 
   function switchMode(next: Mode) {
-    setMode(next);
-    setSelectedBrand(null);
-    setSelectedCategory(null);
+    applySelection({ brand: null, category: null, mode: next });
+    window.history.replaceState(null, '', next === 'category' ? CATEGORY_PICKER_HREF : FINDER_HREF);
   }
 
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
@@ -500,7 +572,7 @@ export default function StrollerCatalogFinder({
       : currentBrand.types.map((t) => ({ label: t.label, products: t.products }));
 
   return (
-    <section className="tool-shell">
+    <section ref={shellRef} className="tool-shell">
       {/* Header */}
       <div className="flex flex-col gap-3">
         <span className="tool-eyebrow">{kind === 'strollers' ? 'Stroller finder' : 'Car seat finder'}</span>
@@ -588,9 +660,13 @@ export default function StrollerCatalogFinder({
                     key={c.category}
                     href={strollerFinderCategoryHref(c.category)}
                     prefetch={false}
-                    onClick={() => {
+                    onClick={(event) => {
                       trackToolSelection('stroller-finder', 'category', c.category);
-                      setSelectedCategory(c.category);
+                      selectInPlace(event, strollerFinderCategoryHref(c.category), {
+                        brand: null,
+                        category: c.category,
+                        mode: 'category',
+                      });
                     }}
                     className="tool-card tool-card--interactive items-start gap-1 px-5 py-4 text-left"
                   >
@@ -606,9 +682,11 @@ export default function StrollerCatalogFinder({
             <div className="tool-fade-up">
               <nav className="flex items-center gap-1.5 text-[0.78rem]">
                 <Link
-                  href="/tools/stroller-finder?view=category"
+                  href={CATEGORY_PICKER_HREF}
                   prefetch={false}
-                  onClick={() => setSelectedCategory(null)}
+                  onClick={(event) =>
+                    selectInPlace(event, CATEGORY_PICKER_HREF, { brand: null, category: null, mode: 'category' })
+                  }
                   className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
                 >
                   All types
@@ -641,9 +719,13 @@ export default function StrollerCatalogFinder({
                   key={b.brand}
                   href={strollerFinderBrandHref(b.brand)}
                   prefetch={false}
-                  onClick={() => {
+                  onClick={(event) => {
                     trackToolSelection('stroller-finder', 'brand', b.brand);
-                    setSelectedBrand(b.brand);
+                    selectInPlace(event, strollerFinderBrandHref(b.brand), {
+                      brand: b.brand,
+                      category: null,
+                      mode: 'brand',
+                    });
                   }}
                   className="tool-card tool-card--interactive tool-brand-card"
                 >
@@ -667,9 +749,9 @@ export default function StrollerCatalogFinder({
           <div className="tool-fade-up">
             <nav className="flex items-center gap-1.5 text-[0.78rem]">
               <Link
-                href="/tools/stroller-finder"
+                href={FINDER_HREF}
                 prefetch={false}
-                onClick={() => setSelectedBrand(null)}
+                onClick={(event) => selectInPlace(event, FINDER_HREF, { brand: null, category: null, mode: 'brand' })}
                 className="font-semibold text-[var(--color-accent-dark)] transition hover:underline"
               >
                 All brands
