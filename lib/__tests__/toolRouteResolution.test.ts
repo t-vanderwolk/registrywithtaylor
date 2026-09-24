@@ -12,6 +12,12 @@ vi.mock('next/navigation', () => ({
 import ComparePage, { generateMetadata as compareMetadata } from '@/app/tools/compare/page';
 import FinderPage, { generateMetadata as finderMetadata } from '@/app/tools/stroller-finder/page';
 
+// Since 79f60fd, a selected/filtered tool state canonicalises to its clean
+// landing page (and serves noindex, follow — see toolIndexingSeo.test.ts).
+// Redirects, 404s and outage handling are what this file guards.
+const COMPARE_CANONICAL = '/tools/compare';
+const FINDER_CANONICAL = '/tools/stroller-finder';
+
 beforeEach(() => {
   sources.comparisons.mockResolvedValue([
     { id: 'silver-cross-reef', brand: 'Silver Cross', model: 'Reef', displayName: 'Silver Cross Reef' },
@@ -27,7 +33,8 @@ describe('comparison route identity', () => {
     await expect(ComparePage({ searchParams: Promise.resolve({ ids: 'silver-cross-reef-2' }) }))
       .rejects.toThrow('308:/tools/compare?ids=silver-cross-reef');
     const metadata = await compareMetadata({ searchParams: Promise.resolve({ ids: 'silver-cross-reef-2' }) });
-    expect(metadata.alternates?.canonical).toBe('/tools/compare?ids=silver-cross-reef');
+    expect(metadata.title).toContain('Silver Cross Reef');
+    expect(metadata.alternates?.canonical).toBe(COMPARE_CANONICAL);
   });
 
   it('retains other products during an alias redirect', async () => {
@@ -35,9 +42,9 @@ describe('comparison route identity', () => {
       .rejects.toThrow('308:/tools/compare?ids=silver-cross-reef%2Cuppababy-vista-v3');
   });
 
-  it('keeps valid product pages self-canonical and renders the base tool', async () => {
+  it('points a valid selection at the compare landing page and renders the base tool', async () => {
     const metadata = await compareMetadata({ searchParams: Promise.resolve({ ids: 'silver-cross-reef' }) });
-    expect(metadata.alternates?.canonical).toBe('/tools/compare?ids=silver-cross-reef');
+    expect(metadata.alternates?.canonical).toBe(COMPARE_CANONICAL);
     await expect(ComparePage({})).resolves.toBeTruthy();
   });
 
@@ -57,7 +64,9 @@ describe('comparison route identity', () => {
 describe('finder route identity', () => {
   it('uses the actual catalog brand for metadata and redirects spelling variants', async () => {
     const props = { searchParams: Promise.resolve({ brand: 'orbit baby' }) };
-    expect((await finderMetadata(props)).alternates?.canonical).toBe('/tools/stroller-finder?brand=Orbit%20Baby');
+    const metadata = await finderMetadata(props);
+    expect(metadata.title).toContain('Orbit Baby');
+    expect(metadata.alternates?.canonical).toBe(FINDER_CANONICAL);
     await expect(FinderPage(props)).rejects.toThrow('308:/tools/stroller-finder?brand=Orbit%20Baby');
   });
 
@@ -69,7 +78,7 @@ describe('finder route identity', () => {
   it('keeps real brand and category pages accessible', async () => {
     await expect(FinderPage({ searchParams: Promise.resolve({ brand: 'Orbit Baby' }) })).resolves.toBeTruthy();
     const metadata = await finderMetadata({ searchParams: Promise.resolve({ category: 'full-size' }) });
-    expect(metadata.alternates?.canonical).toBe('/tools/stroller-finder?category=full-size');
+    expect(metadata.alternates?.canonical).toBe(FINDER_CANONICAL);
   });
 
   it('does not publish an empty catalog after an outage', async () => {
