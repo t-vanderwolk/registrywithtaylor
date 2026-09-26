@@ -392,6 +392,7 @@ export default function StrollerCompare({
                   <div key={item.id} className="flex flex-col gap-2">
                     {babylist ? (
                       <ToolRetailerCta
+                        mark
                         tool="stroller-compare"
                         href={babylist}
                         retailer="Babylist"
@@ -404,6 +405,7 @@ export default function StrollerCompare({
                       </ToolRetailerCta>
                     ) : macro ? (
                       <ToolRetailerCta
+                        mark
                         tool="stroller-compare"
                         href={macro}
                         retailer="MacroBaby"
@@ -416,6 +418,7 @@ export default function StrollerCompare({
                       </ToolRetailerCta>
                     ) : bombi ? (
                       <ToolRetailerCta
+                        mark
                         tool="stroller-compare"
                         href={bombi}
                         retailer="Bombi"
@@ -429,6 +432,7 @@ export default function StrollerCompare({
                     ) : null}
                     {amazon ? (
                       <ToolRetailerCta
+                        mark
                         tool="stroller-compare"
                         href={amazon}
                         retailer="Amazon"
@@ -443,6 +447,7 @@ export default function StrollerCompare({
                       <div className="flex flex-wrap items-center justify-center gap-1.5">
                         {item.extraRetailers.map((link) => (
                           <ToolRetailerCta
+                            mark
                             key={link.url}
                             tool="stroller-compare"
                             href={link.url}

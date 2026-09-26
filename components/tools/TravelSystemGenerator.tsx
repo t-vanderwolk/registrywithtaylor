@@ -141,6 +141,7 @@ function BrowseCard({
         <div className="tool-product-card__actions">
           {primaryUrl ? (
             <ToolRetailerCta
+              mark
               tool="travel-system-checker"
               href={primaryUrl}
               retailer={primaryIsBabylist ? 'Babylist' : (primaryLabel ?? 'Shop').replace(/^Shop (on |at )?/i, '')}
@@ -154,6 +155,7 @@ function BrowseCard({
           ) : null}
           {amazonUrl ? (
             <ToolRetailerCta
+              mark
               tool="travel-system-checker"
               href={amazonUrl}
               retailer="Amazon"
@@ -168,6 +170,7 @@ function BrowseCard({
             <div className="flex flex-wrap items-center justify-center gap-1.5">
               {extraRetailers.map((link) => (
                 <ToolRetailerCta
+                  mark
                   key={link.url}
                   tool="travel-system-checker"
                   href={link.url}
@@ -185,7 +188,7 @@ function BrowseCard({
             <button
               type="button"
               onClick={onSelect}
-              className="tool-card-secondary__action tool-card-secondary__action--compat w-full"
+              className="tool-card-secondary__action tool-card-secondary__action--compat"
               aria-label={`${cta} for ${fullName}`}
             >
               <span className="tool-card-secondary__icon" aria-hidden="true">
@@ -193,7 +196,6 @@ function BrowseCard({
               </span>
               <span className="tool-card-secondary__text">
                 <span className="tool-card-secondary__title">{cta}</span>
-                <span className="tool-card-secondary__hint">See what clicks in</span>
               </span>
               <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
             </button>

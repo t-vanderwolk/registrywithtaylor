@@ -412,23 +412,23 @@ function SelectedSummaryCard({
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <ToolRetailerCta
               tool="travel-system-checker"
+              mark
               href={selectedPrimaryCta.url}
               retailer={selectedPrimaryCta.label.replace(/^(Shop|Add to) (on |at )?/i, '')}
               product={`${option.brand} ${displayTitle}`.trim()}
               brand={option.brand}
               variant="primary"
-              className="min-h-0 px-4 py-2.5 text-[0.72rem]"
             >
               {selectedPrimaryCta.label}
             </ToolRetailerCta>
             {selectedAmazonUrl ? (
               <ToolRetailerCta
                 tool="travel-system-checker"
+                mark
                 href={selectedAmazonUrl}
                 retailer="Amazon"
                 product={`${option.brand} ${displayTitle}`.trim()}
                 brand={option.brand}
-                className="min-h-0 px-4 py-2.5 text-[0.72rem]"
               >
                 Shop on Amazon
               </ToolRetailerCta>
@@ -691,12 +691,13 @@ function ResultCard({
               return bundleUrl ? (
                 <ToolRetailerCta
                   tool="travel-system-checker"
+                  mark
                   href={bundleUrl}
                   retailer="Babylist"
                   product={`${parentStroller?.brand ?? ''} ${parentStroller?.model ?? ''} + PIPA urbn travel system`.trim()}
                   brand={item.brand}
                   variant="primary"
-                  className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                  className="ml-auto"
                 >
                   Shop travel system
                 </ToolRetailerCta>
@@ -710,12 +711,13 @@ function ResultCard({
           {urbnBundleUrl ? (
             <ToolRetailerCta
               tool="travel-system-checker"
+              mark
               href={urbnBundleUrl}
               retailer="Babylist"
               product={`${item.brand} ${displayTitle} + PIPA urbn travel system`.trim()}
               brand={item.brand}
               variant="primary"
-              className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+              className="ml-auto"
             >
               Shop travel system
             </ToolRetailerCta>
@@ -724,12 +726,13 @@ function ResultCard({
               {directUrl ? (
                 <ToolRetailerCta
                   tool="travel-system-checker"
+                  mark
                   href={directUrl}
                   retailer={item.brand}
                   product={`${item.brand} ${displayTitle}`.trim()}
                   brand={item.brand}
                   variant="primary"
-                  className="ml-auto min-h-0 px-3 py-2 text-[0.68rem]"
+                  className="ml-auto"
                 >
                   Shop {item.brand}
                 </ToolRetailerCta>
@@ -737,12 +740,13 @@ function ResultCard({
               {primaryCta ? (
                 <ToolRetailerCta
                   tool="travel-system-checker"
+                  mark
                   href={primaryCta.url}
                   retailer={primaryCta.label.replace(/^(Shop|Add to) (on |at )?/i, '')}
                   product={`${item.brand} ${displayTitle}`.trim()}
                   brand={item.brand}
                   variant={directUrl ? 'secondary' : 'primary'}
-                  className={directUrl ? 'min-h-0 px-3 py-2 text-[0.68rem]' : 'ml-auto min-h-0 px-3 py-2 text-[0.68rem]'}
+                  className={directUrl ? undefined : 'ml-auto'}
                 >
                   {primaryCta.label}
                 </ToolRetailerCta>
@@ -750,11 +754,11 @@ function ResultCard({
               {amazonUrl ? (
                 <ToolRetailerCta
                   tool="travel-system-checker"
+                  mark
                   href={amazonUrl}
                   retailer="Amazon"
                   product={`${item.brand} ${displayTitle}`.trim()}
                   brand={item.brand}
-                  className="min-h-0 px-3 py-2 text-[0.68rem]"
                 >
                   Amazon
                 </ToolRetailerCta>
@@ -763,6 +767,7 @@ function ResultCard({
                 <ToolRetailerCta
                   key={link.url}
                   tool="travel-system-checker"
+                  mark
                   href={link.url}
                   retailer={link.retailer}
                   product={`${item.brand} ${displayTitle}`.trim()}

@@ -23,6 +23,7 @@ export default function ToolRetailerCta({
   brand,
   variant = 'secondary',
   block = false,
+  mark = false,
   className,
   children,
 }: {
@@ -34,16 +35,29 @@ export default function ToolRetailerCta({
   brand?: string | null;
   variant?: 'primary' | 'secondary' | 'chip';
   block?: boolean;
+  /**
+   * Show the retailer's mark alone, in an evenly sized pill, with the arrow
+   * revealed on hover. The accessible name still comes from `ariaLabel`, and a
+   * retailer with no logo asset falls back to its name set as a wordmark so a
+   * row of pills stays visually even.
+   */
+  mark?: boolean;
   className?: string;
   /** Label content; defaults to "Shop at <retailer>". */
   children?: ReactNode;
 }) {
   const logo = retailerLogo(retailer);
+  // A mark is always the neutral pill. Normalising every affiliate CTA to one
+  // treatment is the whole point, and a pink fill fought the retailers' own
+  // brand colours — so `variant` only still decides chip vs full size here.
+  const resolved = mark ? (variant === 'chip' ? 'chip' : 'secondary') : variant;
   const classes = [
     'tool-btn',
-    variant === 'chip' ? 'tool-btn--chip' : `tool-btn--${variant}`,
-    block ? 'tool-btn--block' : null,
+    resolved === 'chip' ? 'tool-btn--chip' : `tool-btn--${resolved}`,
+    // A mark is sized to its logo, so full width would strand it in dead space.
+    block && !mark ? 'tool-btn--block' : null,
     'tool-btn--retailer',
+    mark ? 'tool-btn--mark' : null,
     className,
   ]
     .filter(Boolean)
@@ -63,7 +77,19 @@ export default function ToolRetailerCta({
         // eslint-disable-next-line @next/next/no-img-element
         <img src={logo} alt="" aria-hidden="true" loading="lazy" decoding="async" className="tool-btn__logo" />
       ) : null}
-      <span className="tool-btn__label">{children ?? `Shop at ${retailer}`}</span>
+      <span
+        className={[
+          'tool-btn__label',
+          // With a mark, the visible label goes; the anchor's aria-label already
+          // carries the full "Shop at X for Y". Without one, the retailer's name
+          // becomes the mark so the button is never empty.
+          mark ? (logo ? 'tool-btn__label--sr' : 'tool-btn__wordmark') : null,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
+        {mark && !logo ? retailer : children ?? `Shop at ${retailer}`}
+      </span>
       <span className="tool-btn__arrow" aria-hidden="true">&rarr;</span>
     </ToolAffiliateLink>
   );

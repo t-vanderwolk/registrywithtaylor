@@ -943,6 +943,7 @@ export default function StrollerQuiz() {
                     <div className="tool-product-card__actions">
                       {babylistUrl ? (
                         <ToolRetailerCta
+                          mark
                           tool="stroller-quiz"
                           href={babylistUrl}
                           retailer="Babylist"
@@ -956,6 +957,7 @@ export default function StrollerQuiz() {
                       ) : null}
                       {links.amazonUrl && isAmazonAllowedForBrand(pick.brand) ? (
                         <ToolRetailerCta
+                          mark
                           tool="stroller-quiz"
                           href={links.amazonUrl}
                           retailer="Amazon"
@@ -1043,6 +1045,7 @@ export default function StrollerQuiz() {
                         ) : null}
                         <div className="tool-product-card__actions">
                           <ToolRetailerCta
+                            mark
                             tool="stroller-quiz"
                             href={babylistUrl}
                             retailer="Babylist"
@@ -1055,6 +1058,7 @@ export default function StrollerQuiz() {
                           </ToolRetailerCta>
                           {links.amazonUrl && isAmazonAllowedForBrand(s.brand) && (
                             <ToolRetailerCta
+                              mark
                               tool="stroller-quiz"
                               href={links.amazonUrl}
                               retailer="Amazon"

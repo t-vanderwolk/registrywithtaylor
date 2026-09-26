@@ -2,7 +2,6 @@
 
 import '@/styles/widgets.css';
 import Link from 'next/link';
-import ProductShopLink from '@/components/affiliate/ProductShopLink';
 import {
   useCallback,
   useEffect,
@@ -13,7 +12,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
-import { trackToolOpened, trackToolSelection, trackToolAffiliateClick } from '@/lib/analytics/tools';
+import { trackToolOpened, trackToolSelection } from '@/lib/analytics/tools';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { strollerFinderBrandHref, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
@@ -26,54 +25,10 @@ import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
 const FINDER_HREF = '/tools/stroller-finder';
 const CATEGORY_PICKER_HREF = '/tools/stroller-finder?view=category';
 
-// Brand logos. Brands listed here show their logo; the rest show the brand name.
-// Keys must match the catalog brand string exactly. Drop a file in
-// /public/assets/logos and add the brand to extend this.
-export const BRAND_LOGOS: Record<string, string> = {
-  BOB: '/assets/logos/bob.png',
-  'BOB Gear': '/assets/logos/bob.png',
-  'Baby Jogger': '/assets/logos/babyjogger.png',
-  'Baby Trend': '/assets/logos/babytrend.png',
-  Bellini: '/assets/logos/bellini.png',
-  Bombi: '/assets/logos/bombi.png',
-  Britax: '/assets/logos/britax.png',
-  Bugaboo: '/assets/logos/bugaboo.png',
-  Bumbleride: '/assets/logos/bumbleride.png',
-  Chicco: '/assets/logos/chicco.png',
-  Clek: '/assets/logos/clek.png',
-  Cybex: '/assets/logos/cybex.png',
-  'Delta Children': '/assets/logos/deltachildren2.png',
-  DFY: '/assets/logos/dfy2.png',
-  Ergobaby: '/assets/logos/ergobabylogo.png',
-  Evenflo: '/assets/logos/evenflo.png',
-  Graco: '/assets/logos/graco.png',
-  'Guava Family': '/assets/logos/guava.png',
-  Ingenuity: '/assets/logos/ingenuity.png',
-  Inglesina: '/assets/logos/inglesinalogo.png',
-  Joie: '/assets/logos/joie.png',
-  Joolz: '/assets/logos/joolz.png',
-  Larktale: '/assets/logos/larktale.png',
-  'Maxi-Cosi': '/assets/logos/maxi-cosi.png',
-  Mercedes: '/assets/logos/mercedes.png',
-  Mima: '/assets/logos/mimalogo.png',
-  Mockingbird: '/assets/logos/mockingbird.png',
-  Momcozy: '/assets/logos/momcozy.png',
-  Mompush: '/assets/logos/mompush.png',
-  Nuna: '/assets/logos/nuna.png',
-  'Orbit Baby': '/assets/logos/orbitbaby.png',
-  'Peg Perego': '/assets/logos/pegperego.png',
-  'Radio Flyer': '/assets/logos/radioflyer.png',
-  Romer: '/assets/logos/romer.png',
-  'Safety 1st': '/assets/logos/safetyfirst.png',
-  'Silver Cross': '/assets/logos/silver-cross-logo-1.webp',
-  Stokke: '/assets/logos/stokke.png',
-  Thule: '/assets/logos/thule.png',
-  UPPAbaby: '/assets/logos/uppababy.png',
-  Veer: '/assets/logos/veer.png',
-  WonderFold: '/assets/logos/wonderfold2.png',
-  'WonderFold Wagon': '/assets/logos/wonderfold2.png',
-  Zoe: '/assets/logos/zoe.png',
-};
+// Brand marks now live in lib/catalog/brandLogos.ts so non-component code can
+// use them too; re-exported here because the tools import it from this module.
+export { BRAND_LOGOS } from '@/lib/catalog/brandLogos';
+import { BRAND_LOGOS } from '@/lib/catalog/brandLogos';
 
 // Everyday → specialty ordering for the category view (matches the API).
 const CATEGORY_ORDER = [
@@ -275,7 +230,6 @@ function ProductCard({
   }));
   const amazonAt = offers.findIndex((o) => o.meta.key === 'amazon');
   offers.splice(amazonAt < 0 ? offers.length : amazonAt, 0, ...storeOffers);
-  const hadRealOffers = offers.length > 0;
   // Guarantee every card shows a shoppable primary (Babylist/MacroBaby/Bombi) AND
   // an Amazon button. When an exact retailer link is missing, fall back to an
   // affiliate-tracked Babylist brand-store link and/or a tagged Amazon search.
@@ -373,29 +327,14 @@ function ProductCard({
               product={`${brand} ${displayTitle}`.trim()}
               brand={brand}
               variant={index === 0 ? 'primary' : meta.variant}
-              block
+              mark
             >
               {meta.shopLabel}
             </ToolRetailerCta>
           ))}
-          {!hadRealOffers && openBoxOffer?.url ? (
-            <ProductShopLink
-              href={openBoxOffer.url}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              onClick={() =>
-                trackToolAffiliateClick('stroller-finder', {
-                  product: `${brand} ${displayTitle}`.trim(),
-                  retailer: 'goodbuygear',
-                  brand,
-                  url: openBoxOffer.url,
-                })
-              }
-              className="tool-btn tool-btn--primary tool-btn--block flex items-center justify-center gap-2"
-            >
-              <span>Shop open box at GoodBuy Gear →</span>
-            </ProductShopLink>
-          ) : null}
+          {/* GoodBuy Gear is open-box resale, not a retail channel for a new
+              product, so it never stands in as a card's buy button. Its only
+              public surface is the dedicated OpenBoxBadge on the card image. */}
           {product.model ? (
             <div className="tool-card-secondary">
               <Link
@@ -408,7 +347,6 @@ function ProductCard({
                 </span>
                 <span className="tool-card-secondary__text">
                   <span className="tool-card-secondary__title">Compatible car seats</span>
-                  <span className="tool-card-secondary__hint">See what clicks in</span>
                 </span>
                 <span className="tool-card-secondary__arrow" aria-hidden="true">→</span>
               </Link>
