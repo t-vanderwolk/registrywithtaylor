@@ -22,7 +22,7 @@ import { getAffiliateLinks } from '@/lib/travelSystemAffiliateLinks';
 import { isMacroBabyAllowedForBrand, MACROBABY_SHOP_LINKS_ENABLED } from '@/lib/affiliateShopFallbacks';
 import { getExactDirectAffiliateLink, isDirectProgramUrl } from '@/lib/catalog/directAffiliateLinks';
 import { isStoreUrlOn, storeRetailerName } from '@/lib/catalog/storeRetailers';
-import { isHttpUrl, type RetailerLink } from '@/lib/retailerLinks';
+import { isHttpUrl, parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
 import { getStrollerProfile } from '@/lib/resources/strollerProfiles';
 import {
   bestAmazonImage,
@@ -191,6 +191,70 @@ async function loadStrollerCompatibilityCounts() {
   }
 }
 
+type StrollerRetailerLinkRow = { brand: string; model: string; retailerLinks: unknown };
+
+/**
+ * Admin-entered store links from `Stroller.retailerLinks` — Bloomingdale's,
+ * Nordstrom, Target, a brand's own site — keyed like every other lookup here.
+ *
+ * This catalog previously built store buttons only from feed rows whose
+ * affiliate URL happened to be a known store domain, so hand-added links were
+ * invisible to the finder and quiz while Compare (which reads the column
+ * directly) showed them. That asymmetry is the bug this closes.
+ *
+ * Read with $queryRaw rather than the typed client on purpose: `retailerLinks`
+ * only lands in the generated client once a build regenerates it, and a stale
+ * client throws "Unknown field `retailerLinks`" instead of returning rows.
+ */
+async function loadStrollerRetailerLinks() {
+  try {
+    const rows = await prisma.$queryRaw<StrollerRetailerLinkRow[]>`
+      SELECT "brand", "model", "retailerLinks"
+      FROM "Stroller"
+      WHERE "retailerLinks" IS NOT NULL
+    `;
+
+    return new Map(
+      rows
+        .map(
+          (row) =>
+            [
+              productModelKey(canonicalStrollerBrand(row.brand), row.model),
+              parseRetailerLinks(row.retailerLinks) ?? [],
+            ] as const,
+        )
+        .filter(([, links]) => links.length > 0),
+    );
+  } catch {
+    return new Map<string, RetailerLink[]>();
+  }
+}
+
+/**
+ * Feed-derived store offers first (they carry a price and photo), then the
+ * admin's hand-added links, deduped by URL so a store present in both sources
+ * renders one button rather than two.
+ */
+function mergeExtraRetailers(
+  group: { brand: string; model: string; stores: StoreOffer[] },
+  adminLinks: Map<string, RetailerLink[]>,
+): RetailerLink[] {
+  const merged: RetailerLink[] = group.stores.map((store) => ({
+    retailer: store.retailer,
+    url: store.url as string,
+  }));
+  const seen = new Set(merged.map((link) => link.url));
+
+  const key = productModelKey(canonicalStrollerBrand(group.brand), group.model);
+  for (const link of adminLinks.get(key) ?? []) {
+    if (!isHttpUrl(link.url) || seen.has(link.url)) continue;
+    seen.add(link.url);
+    merged.push(link);
+  }
+
+  return merged;
+}
+
 async function loadPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = prisma as any;
@@ -237,6 +301,7 @@ async function loadPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]>
 
   // Per-product admin overrides for the GoodBuy Gear open-box badge.
   const gbgOverrides = await getGbgBadgeOverrides();
+  const adminStoreLinks = await loadStrollerRetailerLinks();
 
   type Group = {
     category: StrollerCategory;
@@ -497,7 +562,7 @@ async function loadPublicStrollerCatalogBrands(): Promise<PublicStrollerBrand[]>
         anb: null,
         goodbuygear: showGbg ? rawGbg : null,
       },
-      extraRetailers: group.stores.map((link) => ({ retailer: link.retailer, url: link.url as string })),
+      extraRetailers: mergeExtraRetailers(group, adminStoreLinks),
       gbgMatch: rawGbg,
     };
 

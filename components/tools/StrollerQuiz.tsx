@@ -7,6 +7,7 @@ import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/li
 import { OpenBoxBadge } from './StrollerCatalogFinder';
 import { getAffiliateLinks, babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import { isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
+import type { RetailerLink } from '@/lib/retailerLinks';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
 import { type StrollerCategory } from '@/lib/guides/travelSystemCompatibility';
 import ToolRetailerCta from '@/components/tools/ToolRetailerCta';
@@ -649,6 +650,9 @@ type CatalogProduct = {
     anb?: RetailerOffer | null;
     goodbuygear?: RetailerOffer | null;
   } | null;
+  /** Hand-added store links (Bloomingdale's, Nordstrom, Target…) — already in
+   *  the /api/catalog/strollers payload; this type just never declared them. */
+  extraRetailers?: RetailerLink[];
 };
 type CatalogType = { category: StrollerCategory; label: string; products: CatalogProduct[] };
 type CatalogBrand = { brand: string; count: number; types: CatalogType[] };
@@ -1069,6 +1073,19 @@ export default function StrollerQuiz() {
                               Shop on Amazon
                             </ToolRetailerCta>
                           )}
+                          {(s.extraRetailers ?? []).map((link) => (
+                            <ToolRetailerCta
+                              key={link.url}
+                              mark
+                              tool="stroller-quiz"
+                              href={link.url}
+                              retailer={link.retailer}
+                              product={`${s.brand} ${s.model}`}
+                              brand={s.brand}
+                            >
+                              {link.retailer}
+                            </ToolRetailerCta>
+                          ))}
                         </div>
                         <Link
                           href={travelSystemResultsHref('stroller', { brand: s.brand, model: s.model })}
