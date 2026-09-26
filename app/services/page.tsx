@@ -432,7 +432,7 @@ export default function ServicesPage() {
                     className="h-5 w-auto opacity-80"
                   />
                   <Image
-                    src="/images/partners/target.png"
+                    src="/assets/logos/target2.png"
                     alt="Target Baby Concierge, where Taylor guided expecting parents"
                     width={1065}
                     height={228}

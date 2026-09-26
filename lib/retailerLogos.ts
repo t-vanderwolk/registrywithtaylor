@@ -21,8 +21,8 @@ const BRAND_LOGOS_BY_KEY: Record<string, string> = Object.fromEntries(
 
 const RETAILER_LOGOS: Record<string, string> = {
   babylist: '/assets/logos/babylist2.png',
-  amazon: '/assets/logos/amazon.png',
-  target: '/assets/logos/target.png',
+  amazon: '/assets/logos/amazon2.png',
+  target: '/assets/logos/target2.png',
   bloomingdales: '/assets/logos/bloomingdales.png',
   nordstrom: '/assets/logos/nordstrom.png',
   // Both assets already shipped but were never mapped, so these two rendered as

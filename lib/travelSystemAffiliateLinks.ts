@@ -4,7 +4,7 @@
  * Keys match the `brand:::model` format used in TravelSystemGenerator
  * (same as `buildOptionValue`).
  *
- * babylistUrl: confirmed Babylist product page (affiliate traffic via TMBC partner agreement)
+ * babylistUrl: confirmed Babylist product page (affiliate traffic via ShopMy)
  * amazonUrl:   EXACT Amazon product page (/dp/<ASIN>) with affiliate tag taylormadebab-20.
  *              Only added when the exact product was verified on amazon.com. Products we
  *              could not confirm — and every Nuna product (Nuna is not sold on Amazon) —
@@ -22,20 +22,9 @@ function amazonDp(asin: string): string {
   return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_TAG}`;
 }
 
-// ─── Babylist Impact affiliate tracking ───────────────────────────────────────
-// All babylist.com destination URLs are routed through the Impact tracker so
-// clicks are attributed to the TMBC publisher account.
-//
-// Tracking base:  https://babylist.pxf.io/c/6560395/1056628/13580
-// Destination:    ?u=<URL-encoded babylist.com path>
-// Partner ID:     &partnerpropertyid=7490466
-
-const BABYLIST_TRACKER_BASE = 'https://babylist.pxf.io/c/6560395/1056628/13580';
-const BABYLIST_PARTNER_ID   = '7490466';
-
-function babylistTracked(destUrl: string): string {
-  return `${BABYLIST_TRACKER_BASE}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER_ID}`;
-}
+// Use the shared ShopMy route for every curated Babylist destination.
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
+const babylistTracked = babylistShopMyUrl;
 
 /**
  * Affiliate-tracked link to any babylist.com page (product or store category).

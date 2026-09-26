@@ -1,3 +1,4 @@
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
 type AcademyProductExampleLike = {
   name: string;
   brand: string;
@@ -497,7 +498,7 @@ const ACADEMY_PRODUCT_OVERRIDES: Partial<Record<string, Record<string, AcademyPr
       name: 'MIXX next',
       brand: 'Nuna',
       affiliateUrl:
-        'https://babylist.pxf.io/c/6560395/1160375/13580?prodsku=2072845&u=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fnuna-mixx-next%2F21607%2F2072845&intsrc=CATF_8981',
+        babylistShopMyUrl('https://www.babylist.com/gp/nuna-mixx-next/21607/2072845'),
       imageSrc: '/assets/strollers/mixxnext.png',
       imageAlt: 'Nuna MIXX next stroller.',
     },

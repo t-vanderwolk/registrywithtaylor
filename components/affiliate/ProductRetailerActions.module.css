@@ -8,42 +8,66 @@
   letter-spacing: 0;
   color: #332c30;
 }
-.primaryGroup { border: 1px solid #d9cdd1; border-radius: 6px; overflow: hidden; }
-.primaryGroup > div + div { border-top: 1px solid #d9cdd1; }
-.actions .primary, .actions .row, .actions .toggle {
+
+/* This was a bordered box of stacked, full-width "Shop at X →" rows. The
+   retailers are `.tool-btn--mark` pills now — the same ones the finder, checker,
+   compare and quiz use — so all this has to do is lay them out in a row.
+   Their own styling (size, hover lift, arrow reveal, touch targets) lives in
+   styles/widgets.css so every surface stays in step. */
+.primaryGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions .toggle {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
   width: 100%;
-  min-height: 46px;
+  min-height: 2.6rem;
+  padding: 0.6rem 0;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
   color: #332c30;
   font: inherit;
   text-align: left;
-  text-decoration: none;
   letter-spacing: 0;
-  box-sizing: border-box;
+  cursor: pointer;
 }
-.actions .primary { padding: 0.7rem 0.9rem; background: #faf6f8; font-weight: 600; }
-.actions .primary:hover { background: #f0e4e9; }
-.actions .toggle { justify-content: space-between; padding: 0.7rem 0; border: 0; background: transparent; cursor: pointer; }
-.actions .toggle:hover, .actions .row:hover { color: #713e50; }
-.actions .primary:focus-visible, .actions .row:focus-visible, .actions .toggle:focus-visible {
-  outline: 2px solid #713e50;
-  outline-offset: -3px;
-}
-/* Retailer marks are a mix of square bugs (Target) and wide wordmarks
-   (Bloomingdale's is 6.5:1, Nordstrom 8:1), so the cap has to be wide enough
-   for a wordmark to stay readable at this height. */
-.logo { flex: 0 0 auto; height: 16px; width: auto; max-width: 96px; object-fit: contain; border-radius: 3px; }
-.label { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.actions .toggle:hover { color: #713e50; }
+.actions .toggle:focus-visible { outline: 2px solid #713e50; outline-offset: 2px; }
+
 .arrow { flex: 0 0 1rem; text-align: right; font-size: 1rem; }
+
 .panel { padding-bottom: 0.1rem; }
 .panel[hidden] { display: none; }
-.actions .heading { margin: 0.15rem 0 0.3rem; color: #62555b; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0; }
-.actions .list { list-style: none; padding: 0; margin: 0; }
-.list > li { margin: 0; padding: 0; border-top: 1px solid #e5dde0; }
-.actions .row { padding: 0.55rem 0; }
+.actions .heading {
+  margin: 0.15rem 0 0.4rem;
+  color: #62555b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+/* The overflow retailers are the same pills, wrapped — not a divided list. */
+.actions .list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list > li { margin: 0; padding: 0; }
+
 .price { text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; font-size: 0.8rem; }
 .checked { display: block; color: #62555b; font-size: 0.7rem; }
 .sale { padding-left: 0.35rem; font-size: 0.7rem; color: #713e50; text-transform: uppercase; }
+
 @media print { .actions { display: none; } }

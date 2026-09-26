@@ -15,6 +15,13 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
+// Keep the single-camera BM01 as the checklist's one Momcozy monitor pick.
+// Previously seeded variants remain in admin history but are not public picks.
+const EXCLUDED_CHECKLIST_PRODUCT_IDS = new Set([
+  'amzcc-momcozy-bm01-baby-monitor-2-cameras-no-wifi',
+  'amzcc-momcozy-bm04-smart-wifi-baby-monitor-2-cameras',
+]);
+
 async function enrichWithAmazonCache(products: Record<string, ChecklistProduct>) {
   const cacheMap = await getAmazonCacheMapForUrls(Object.values(products).map((product) => product.amazonUrl));
   if (cacheMap.size === 0) return products;
@@ -52,6 +59,7 @@ export async function getChecklistProducts(): Promise<Record<string, ChecklistPr
 
     const map: Record<string, ChecklistProduct> = {};
     for (const r of rows) {
+      if (EXCLUDED_CHECKLIST_PRODUCT_IDS.has(r.id)) continue;
       map[r.id] = {
         id: r.id,
         brand: r.brand,

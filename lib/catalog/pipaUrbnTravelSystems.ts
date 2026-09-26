@@ -8,8 +8,8 @@
  * Keyed by a lowercased token that appears in the Nuna stroller's model name.
  * Client-safe (no server imports).
  */
-const babylistAffiliate = (productUrl: string) =>
-  `https://babylist.pxf.io/c/6560395/1056628/13580?u=${encodeURIComponent(productUrl)}&partnerpropertyid=7490466`;
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
+const babylistAffiliate = babylistShopMyUrl;
 
 // Order matters: more specific tokens first (e.g. "trvl lx" before any "trvl").
 const PIPA_URBN_BUNDLES: Array<{ token: string; url: string }> = [

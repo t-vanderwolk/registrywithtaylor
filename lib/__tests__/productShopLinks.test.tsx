@@ -9,7 +9,10 @@ import { babylistShopMyUrl, shopMyProductUrl } from '@/lib/affiliateShopMy';
 import { parseRetailerLinks } from '@/lib/retailerLinks';
 import { resolveProductLinks } from '@/lib/checklist/productLinks';
 import { checklistProductLinkError } from '@/lib/checklist/productLinkForm';
-import type { ChecklistProduct } from '@/lib/checklist/products';
+import { babylist, type ChecklistProduct } from '@/lib/checklist/products';
+import { babylistShopLink, TRAVEL_SYSTEM_AFFILIATE_LINKS } from '@/lib/travelSystemAffiliateLinks';
+import { babylistBrandShopUrl } from '@/lib/affiliateShopFallbacks';
+import { getPipaUrbnTravelSystemUrl } from '@/lib/catalog/pipaUrbnTravelSystems';
 
 describe('ShopMy product links', () => {
   it.each(['target.com', 'nordstrom.com', 'bloomingdales.com', 'potterybarnkids.com', 'crateandbarrel.com'])(
@@ -100,6 +103,31 @@ describe('Babylist to ShopMy', () => {
     expect(html).toContain('shopmyskip');
     expect(html).toContain('referrerPolicy="no-referrer-when-downgrade"');
     expect(renderToStaticMarkup(<BabylistShopLink href="/contact">Contact</BabylistShopLink>)).toBe('<a href="/contact">Contact</a>');
+  });
+
+  it('generates ShopMy links at the source across curated shopping surfaces', () => {
+    const cases = [
+      [babylist(product), product],
+      [babylistShopLink(product), product],
+      [babylistBrandShopUrl('Baby Jogger'), 'https://www.babylist.com/store/strollers?brand=baby-jogger'],
+      [getPipaUrbnTravelSystemUrl('Nuna', 'MIXX next'), 'https://www.babylist.com/gp/nuna-mixx-next-pipa-urbn/36335/1925316'],
+      [TRAVEL_SYSTEM_AFFILIATE_LINKS['Bugaboo:::Butterfly'].babylistUrl, 'https://www.babylist.com/gp/bugaboo-butterfly-complete-stroller/25163/1154565'],
+    ];
+    for (const [href, expected] of cases) {
+      const url = new URL(href!);
+      expect(url.origin + url.pathname).toBe('https://go.shopmy.us/apx/y5Etg8');
+      expect(url.searchParams.get('url')).toBe(expected);
+      expect(shopMyProductUrl(href!)).toBe(href);
+    }
+  });
+
+  it('keeps tracking attributes when the source already supplies a ShopMy link', () => {
+    const html = renderToStaticMarkup(<BabylistShopLink href={babylist(product)} rel="noreferrer">Babylist</BabylistShopLink>);
+    expect(html).toContain('shopmyskip');
+    expect(html).toContain('sponsored nofollow noopener');
+    expect(html).toContain('referrerPolicy="no-referrer-when-downgrade"');
+    expect(html).not.toContain('noreferrer');
+    expect(html).not.toContain('pxf.io');
   });
 
   it('covers both tracked blog cards and tool result buttons', () => {

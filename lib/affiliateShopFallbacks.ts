@@ -4,7 +4,7 @@
  * exact retailer URL. These are last-resort links: they scope to the product's
  * brand/category, carry our affiliate tracking, and always resolve to a real page.
  *
- *  - Babylist: the pxf.io tracker wrapping a real Babylist store URL filtered to
+ *  - Babylist: ShopMy wrapping a real Babylist store URL filtered to
  *    the brand + category (e.g. /store/strollers?brand=bumbleride).
  *  - Amazon: a keyword search for the exact "brand model", with the affiliate tag.
  *
@@ -12,14 +12,11 @@
  */
 
 const AMAZON_TAG = 'taylormadebab-20';
-const BABYLIST_TRACKER_BASE = 'https://babylist.pxf.io/c/6560395/1056628/13580';
-const BABYLIST_PARTNER_ID = '7490466';
+import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
 
 export type ShopFallbackKind = 'stroller' | 'carseat';
 
-function babylistAffiliate(destUrl: string) {
-  return `${BABYLIST_TRACKER_BASE}?u=${encodeURIComponent(destUrl)}&partnerpropertyid=${BABYLIST_PARTNER_ID}`;
-}
+const babylistAffiliate = babylistShopMyUrl;
 
 /** brand → Babylist store brand-filter slug ("Baby Jogger" → "baby-jogger"). */
 export function babylistBrandSlug(brand: string): string {

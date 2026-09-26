@@ -117,7 +117,7 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   },
   {
     title: 'Target Baby Concierge',
-    logoSrc: '/images/partners/target.png',
+    logoSrc: '/assets/logos/target2.png',
     logoAlt: 'Target Baby Concierge consultant experience',
     width: 1065,
     height: 228,
@@ -234,7 +234,7 @@ const authorityStripLogos = [
     className: 'max-h-5',
   },
   {
-    src: '/images/partners/target.png',
+    src: '/assets/logos/target2.png',
     alt: 'Target Baby Concierge, where Taylor guided expecting parents',
     width: 1065,
     height: 228,
