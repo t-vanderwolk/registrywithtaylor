@@ -25,6 +25,8 @@ const RETAILER_LOGOS: Record<string, string> = {
   target: '/assets/logos/target2.png',
   bloomingdales: '/assets/logos/bloomingdales.png',
   nordstrom: '/assets/logos/nordstrom.png',
+  oilo: '/assets/logos/oilo.png',
+  oilostudio: '/assets/logos/oilo.png',
   // Both assets already shipped but were never mapped, so these two rendered as
   // bare text next to everyone else's mark.
   bombi: '/assets/logos/bombi.png',

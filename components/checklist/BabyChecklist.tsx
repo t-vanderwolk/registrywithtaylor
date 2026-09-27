@@ -39,16 +39,6 @@ type GoodBuyGearOffer = { url: string | null; price: number | null };
 
 const STORAGE_PREFIX = 'tmbc-checklist-';
 
-// Curated, branded print / save-as-PDF files by version (served from /public).
-// When a version has one, the "Print / Save as PDF" button opens that PDF;
-// versions without one fall back to printing the live, personalized checklist.
-const CHECKLIST_PDFS: Partial<Record<ChecklistType, string>> = {
-  girl: '/checklists/TMBC_Baby_Girl_Registry_Checklist.pdf',
-  boy: '/checklists/TMBC_Baby_Boy_Registry_Checklist.pdf',
-  neutral: '/checklists/TMBC_Gender_Neutral_Registry_Checklist.pdf',
-  twins: '/checklists/TMBC_Twins_Registry_Checklist.pdf',
-};
-
 const isChecklistType = (value: string | null | undefined): value is ChecklistType =>
   Boolean(value) && CHECKLIST_TYPES.some((t) => t.id === value);
 
@@ -307,13 +297,7 @@ export default function BabyChecklist({
 
   const print = useCallback(() => {
     checklistAnalytics.printed(type);
-    // If this version has a curated, branded PDF, open it (view / save / print
-    // from there). Otherwise print the live, personalized checklist.
-    const pdf = CHECKLIST_PDFS[type];
-    if (pdf) {
-      window.open(pdf, '_blank', 'noopener,noreferrer');
-      return;
-    }
+    // Print the current rows, version, filters, and saved progress.
     window.print();
   }, [type]);
 

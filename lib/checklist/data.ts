@@ -104,7 +104,7 @@ export const CHECKLIST_TIMING_FILTERS: { id: ChecklistTimingFilter; label: strin
 ];
 
 export const CHECKLIST_TAKE_FILTERS: { id: ChecklistTakeFilter; label: string }[] = [
-  { id: 'all', label: "All Taylor's Takes" },
+  { id: 'all', label: 'All Taylor\'s Takes' },
   { id: 'essential', label: CHECKLIST_TAKE_LABELS.essential },
   { id: 'try-first', label: CHECKLIST_TAKE_LABELS['try-first'] },
   { id: 'register-early', label: CHECKLIST_TAKE_LABELS['register-early'] },
@@ -130,7 +130,7 @@ export type RelatedReadingCard = {
 };
 
 /**
- * "Related reading" links shown per checklist category — every relevant live
+ * 'Related reading' links shown per checklist category — every relevant live
  * post (verified against the sitemap), not a capped subset. Slugs with no live
  * post are silently skipped at render. Categories without a match are omitted
  * rather than padded.
@@ -273,6 +273,10 @@ const CLOTHING_STYLE: StyleCollection = {
 };
 
 const CONDENSED_OUT_ITEM_IDS = new Set<string>([
+  'bath-toy-storage',
+  'outing-disposal-bags',
+  'outing-first-aid-pouch',
+  'postpartum-nipple-care',
   // Sleep + Nursery
   'safe-sleep-boundaries',
   'bassinet-if-using',
@@ -290,15 +294,12 @@ const CONDENSED_OUT_ITEM_IDS = new Set<string>([
   'snack-food-storage',
   'placemat-splash-mat',
   // Diapering
-  'size-one-diapers',
   'changing-liners',
   'disposal-bags',
   'wet-dry-bag',
   // Bath
-  'washcloths',
   'bath-toys-storage',
   // Health + Grooming
-  'brush-comb',
   'humidifier-care',
   'sunscreen-guidance',
   'health-tracker',
@@ -328,11 +329,8 @@ const CONDENSED_OUT_ITEM_IDS = new Set<string>([
   'travel-feeding-kit',
   'portable-changing-kit',
   // Home + Safety
-  'outlet-covers',
   'window-guards-stops',
-  'door-toilet-stove-safety',
   // Postpartum
-  'peri-bottle-cold-packs',
   'nursing-pumping-bras',
   'feeding-comfort',
   // Support + Services
@@ -382,8 +380,8 @@ export const checklistItems: ChecklistItem[] = [
     recommendationId: 'playard-pick',
     twins: { title: 'Twin-friendly portable sleep plan', note: 'Plan for two safe surfaces away from the cribs.' },
   }),
-  ck('sleep', 'bassinet-if-using', 'Bassinet + fitted sheets, if using', 'lifestyle-dependent', 'before-baby', {
-    note: 'Helpful near your bed, but not required if your crib or playard setup works.',
+  ck('sleep', 'bassinet-if-using', 'Bassinet, if using', 'lifestyle-dependent', 'before-baby', {
+    note: 'Helpful near your bed if your primary sleep setup does not already meet that need. Track fitted sheets on the sheets row.',
   }),
   ck('sleep', 'swaddles', 'Swaddle trial set', 'try-first', 'before-baby', {
     note: 'Try a few styles before buying a full stack.',
@@ -419,8 +417,27 @@ export const checklistItems: ChecklistItem[] = [
   ck('sleep', 'humidifier', 'Cool-mist humidifier', 'nice-to-have', 'before-baby', {
     note: 'Useful in dry rooms or during congestion season.',
   }),
-  ck('sleep', 'nursery-landing-zone', 'Nursery chair, side table, and small caddy', 'nice-to-have', 'before-baby', {
-    note: 'A comfortable feeding/change landing zone if your space allows.',
+  ck('sleep', 'air-purifier', 'Air purifier', 'nice-to-have', 'before-baby', {
+    note: 'Optional for your nursery setup. Choose one sized for the room and plan for replacement filters.',
+  }),
+  ck('sleep', 'nursery-landing-zone', 'Nursery chair', 'nice-to-have', 'before-baby', {
+    note: 'A comfortable place for feeding and settling, if your space allows.',
+  }),
+  ck('sleep', 'nursery-side-table', 'Nursery side table', 'nice-to-have', 'before-baby', {
+    note: 'A spot within reach for the things you use during feeds.',
+  }),
+  ck('sleep', 'nursery-dresser', 'Nursery dresser', 'nice-to-have', 'before-baby', {
+    note: 'Clothing storage if your space needs it; secure furniture according to its instructions.',
+  }),
+
+  ck('sleep', 'nursery-drawer-organizers', 'Drawer organizers', 'nice-to-have', 'before-baby', {
+    note: 'Optional dividers to keep small clothes easy to find. Measure your drawers before choosing a set.',
+  }),
+  ck('sleep', 'nursery-closet-organizers', 'Closet organizers', 'nice-to-have', 'before-baby', {
+    note: 'Choose an organizer that fits your closet and the way you want to sort baby clothes.',
+  }),
+  ck('sleep', 'nursery-storage-bins', 'Storage baskets or bins', 'nice-to-have', 'before-baby', {
+    note: 'A home for spare linens or the next clothing size. Start with the storage you already have.',
   }),
 
   // Feeding + Pumping
@@ -437,9 +454,11 @@ export const checklistItems: ChecklistItem[] = [
   ck('feeding', 'slow-flow-nipples', 'Slow-flow or appropriate nipples', 'try-first', 'before-baby', {
     note: 'Flow preference and feeding needs vary by baby.',
   }),
-  ck('feeding', 'bottle-brush', 'Bottle cleaning basics', 'essential', 'before-baby', {
-    note: 'Think bottle brush, drying space, and a small-parts plan based on how you will clean bottles and pump parts.',
-    twins: { title: 'Bottle cleaning station', note: 'Brush, drying space, and a half-asleep routine.' },
+  ck('feeding', 'bottle-brush', 'Bottle brush', 'essential', 'before-baby', {
+    note: 'Choose a brush that reaches inside your bottles and small parts. Track drying space separately.',
+  }),
+  ck('feeding', 'bottle-washer-detergent', 'Bottle washer detergent', 'nice-to-have', 'before-baby', {
+    note: 'Use detergent approved for your bottle washer.',
   }),
   ck('feeding', 'bottle-drying-rack', 'Bottle drying rack or drying mat', 'nice-to-have', 'before-baby', {
     note: 'Gives bottles and small parts a dedicated drying spot.',
@@ -482,8 +501,11 @@ export const checklistItems: ChecklistItem[] = [
   ck('feeding', 'pumping-bra', 'Pumping bra', 'nice-to-have', 'first-8-weeks', {
     note: 'Worth it if you pump regularly; portable pump bags and cleaning wipes can wait until work, travel, or pumping away from home is real.',
   }),
-  ck('feeding', 'pump-bag-cleaning', 'Portable pump bag and cleaning supplies', 'lifestyle-dependent', 'first-8-weeks', {
-    note: 'For work, travel, or pumping away from home.',
+  ck('feeding', 'pump-bag-cleaning', 'Portable pump bag', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'For carrying your pump away from home.',
+  }),
+  ck('feeding', 'portable-pump-cleaning', 'Portable pump cleaning supplies', 'lifestyle-dependent', 'first-8-weeks', {
+    note: 'For cleaning pump parts away from home, following the pump instructions.',
   }),
   ck('feeding', 'nursing-pillow', 'Nursing pillow', 'try-first', 'before-baby', {
     note: 'Parent body shape, chair setup, and baby preference matter.',
@@ -491,8 +513,14 @@ export const checklistItems: ChecklistItem[] = [
   ck('feeding', 'nursing-bras-tanks', 'Nursing bras or tanks', 'nice-to-have', 'before-baby', {
     note: 'Start small until you know your postpartum size and feeding routine.',
   }),
-  ck('feeding', 'nursing-pads-balm', 'Nursing pads and nipple balm', 'nice-to-have', 'before-baby', {
-    note: 'Comfort supplies if breastfeeding or pumping.',
+  ck('feeding', 'nursing-pads-balm', 'Nursing pads', 'nice-to-have', 'before-baby', {
+    note: 'For leaks if breastfeeding or pumping.',
+  }),
+  ck('feeding', 'lactation-massager', 'Lactation massager', 'nice-to-have', 'before-baby', {
+    note: 'Optional if it fits your feeding routine.',
+  }),
+  ck('feeding', 'nipple-balm', 'Nipple balm', 'nice-to-have', 'before-baby', {
+    note: 'Optional comfort care if it suits your feeding routine.',
   }),
   ck('feeding', 'nursing-cover', 'Nursing cover', 'lifestyle-dependent', 'first-8-weeks', {
     note: 'Only if it fits your privacy preferences and routine.',
@@ -534,11 +562,17 @@ export const checklistItems: ChecklistItem[] = [
   ck('solids', 'first-spoons', 'First spoons', 'wait', '3-6-months', {
     note: 'Small, soft spoons for the first food stage.',
   }),
-  ck('solids', 'bowls-plates', 'First spoons, bowls, plates, and cups', 'wait', '3-6-months', {
-    note: 'Register now, open when solids are on the horizon; a small set of spoons plus an open cup or straw cup is plenty.',
+  ck('solids', 'bowls-plates', 'Baby bowls', 'wait', '3-6-months', {
+    note: 'A small set for the solids stage. Spoons and cups have their own rows.',
   }),
-  ck('solids', 'open-straw-cups', 'Open cup and straw cup', 'wait', '3-6-months', {
-    note: 'Useful skill-building cups for the solids stage.',
+  ck('solids', 'baby-plates', 'Baby plates', 'wait', '3-6-months', {
+    note: 'Add when plates suit the way your baby eats.',
+  }),
+  ck('solids', 'open-straw-cups', 'Open cup', 'wait', '3-6-months', {
+    note: 'A small cup for practicing at meals.',
+  }),
+  ck('solids', 'straw-cup', 'Straw cup', 'wait', '3-6-months', {
+    note: 'An option to introduce during the solids stage.',
   }),
   ck('solids', 'snack-food-storage', 'Snack and food storage containers', 'nice-to-have', '6-12-months', {
     note: 'Handy once meals and snacks leave the house.',
@@ -551,12 +585,11 @@ export const checklistItems: ChecklistItem[] = [
   }),
 
   // Diapering
-  ck('diapering', 'newborn-diapers', 'Diapers in newborn and size 1', 'essential', 'before-baby', {
-    note: 'Start modest and spread sizes; fit, skin, leaks, and growth can change quickly.',
+  ck('diapering', 'newborn-diapers', 'Newborn diapers', 'essential', 'before-baby', {
+    note: 'Start with a small supply; baby may move through this size quickly.',
   }),
   ck('diapering', 'size-one-diapers', 'Size 1 diapers', 'essential', 'before-baby', {
     note: 'A practical next size to have ready.',
-    twins: { title: 'Diapers across sizes, not a newborn stockpile' },
   }),
   ck('diapering', 'diaper-trial', 'Diaper brand trial or small packs', 'try-first', 'before-baby', {
     note: 'Fit, skin, and leaks vary by baby.',
@@ -576,10 +609,13 @@ export const checklistItems: ChecklistItem[] = [
   ck('diapering', 'portable-changing-mat', 'Portable changing mat', 'essential', 'before-baby', {
     note: 'Turns any outing surface into a workable changing spot; keep disposal bags with it if changes away from home are frequent.',
   }),
-  ck('diapering', 'diaper-pail', 'Diaper pail and liners, if required', 'nice-to-have', 'before-baby', {
+  ck('diapering', 'diaper-pail', 'Diaper pail', 'nice-to-have', 'before-baby', {
     note: 'Worth it where diapers happen most often.',
     recommendationId: 'diaper-pail-pick',
     twins: { title: '1 large-capacity diaper pail', label: 'SHARE' },
+  }),
+  ck('diapering', 'diaper-pail-liners', 'Diaper pail liners, if required', 'nice-to-have', 'before-baby', {
+    note: 'Check which bags your chosen pail uses before stocking up.',
   }),
   ck('diapering', 'disposal-bags', 'Portable diaper disposal bags', 'nice-to-have', 'before-baby', {
     note: 'Small and useful for changes away from home.',
@@ -600,16 +636,19 @@ export const checklistItems: ChecklistItem[] = [
   ck('bath', 'bath-stand', 'Bath stand', 'nice-to-have', 'before-baby', {
     note: 'Optional back-saver depending on where you bathe baby.',
   }),
-  ck('bath', 'hooded-towels', 'Hooded towels + washcloths', 'essential', 'before-baby', {
-    note: 'A few soft towels and washcloths cover baths and quick cleanups.',
+  ck('bath', 'hooded-towels', 'Hooded towels', 'essential', 'before-baby', {
+    note: 'A few soft towels for after baths.',
     styleCollection: NURSERY_STYLE,
     twins: { title: '4-6 hooded towels', label: 'BUY 2' },
   }),
   ck('bath', 'washcloths', '6-8 washcloths', 'essential', 'before-baby', {
     note: 'Useful for baths and quick cleanups.',
   }),
-  ck('bath', 'baby-wash', 'Gentle baby wash + shampoo', 'essential', 'before-baby', {
-    note: 'One fragrance-free, tear-free bottle is enough.',
+  ck('bath', 'baby-wash', 'Gentle baby wash', 'essential', 'before-baby', {
+    note: 'A combined wash and shampoo can cover both rows; two bottles are not necessary.',
+  }),
+  ck('bath', 'baby-shampoo', 'Gentle baby shampoo', 'nice-to-have', 'before-baby', {
+    note: 'Skip a separate bottle if your baby wash is also a shampoo.',
   }),
   ck('bath', 'baby-lotion', 'Fragrance-free moisturizer', 'nice-to-have', 'before-baby', {
     note: 'Simple skin care if baby needs it.',
@@ -617,22 +656,37 @@ export const checklistItems: ChecklistItem[] = [
   ck('bath', 'bath-thermometer', 'Rinsing cup or bath thermometer', 'nice-to-have', 'first-8-weeks', {
     note: 'Useful if it makes bath time calmer.',
   }),
-  ck('bath', 'kneeler', 'Kneeler + elbow rest', 'wait', '6-12-months', {
-    note: 'More useful once baths move to the big tub.',
+  ck('bath', 'kneeler', 'Bath kneeler', 'wait', '6-12-months', {
+    note: 'More useful once baths move to the big tub. A set may include an elbow rest.',
   }),
-  ck('bath', 'spout-cover', 'Spout cover and non-slip bath mat', 'wait', '6-12-months', {
-    note: 'Later-stage big-tub safety, not a newborn need.',
+  ck('bath', 'bath-elbow-rest', 'Bath elbow rest', 'wait', '6-12-months', {
+    note: 'Optional comfort at the tub edge; it may come with your kneeler.',
   }),
-  ck('bath', 'bath-toys-storage', 'Bath toys and draining storage', 'wait', '6-12-months', {
-    note: 'Choose easy-to-clean toys once baby can actually play in the bath.',
+  ck('bath', 'spout-cover', 'Bath spout cover', 'wait', '6-12-months', {
+    note: 'For the big-tub stage, if needed for your setup.',
+  }),
+  ck('bath', 'bath-water-filter', 'Bath water filter', 'nice-to-have', '6-12-months', {
+    note: 'An optional addition if it suits your bath setup.',
+  }),
+  ck('bath', 'non-slip-bath-mat', 'Non-slip bath mat', 'wait', '6-12-months', {
+    note: 'Choose one suited to your tub and follow its care instructions.',
+  }),
+  ck('bath', 'bath-toys-storage', 'Bath toys', 'wait', '6-12-months', {
+    note: 'Choose easy-to-clean toys once baby can play in the bath.',
+  }),
+  ck('bath', 'bath-toy-storage', 'Draining bath toy storage', 'wait', '6-12-months', {
+    note: 'A place for bath toys to dry between uses.',
   }),
 
   // Health + Grooming
   ck('health', 'thermometer', 'Digital infant thermometer', 'essential', 'before-baby', {
     note: 'One reliable thermometer belongs in the house before baby arrives.',
   }),
-  ck('health', 'nasal-saline', 'Nasal aspirator + saline', 'essential', 'before-baby', {
-    note: 'Basic congestion help for the first cold or stuffy night.',
+  ck('health', 'nasal-saline', 'Nasal aspirator', 'essential', 'before-baby', {
+    note: 'For your congestion-care supplies.',
+  }),
+  ck('health', 'nasal-saline-drops', 'Infant saline drops', 'essential', 'before-baby', {
+    note: 'Choose an infant product and follow its directions.',
   }),
   ck('health', 'nail-care', 'Nail file or baby nail clippers', 'essential', 'before-baby', {
     note: 'Tiny nails get sharp quickly.',
@@ -649,8 +703,8 @@ export const checklistItems: ChecklistItem[] = [
   ck('health', 'humidifier-care', 'Humidifier cleaning supplies, if using', 'lifestyle-dependent', 'before-baby', {
     note: 'A humidifier only helps if you can keep it clean.',
   }),
-  ck('health', 'toothbrush-teethers', 'Baby toothbrush and teethers', 'wait', '3-6-months', {
-    note: 'Later oral-care and teething items.',
+  ck('health', 'toothbrush-teethers', 'Baby toothbrush', 'wait', '3-6-months', {
+    note: 'An oral-care item for the next stage. Teethers have their own row under Play + Development.',
   }),
   ck('health', 'sunscreen-guidance', 'Baby sunscreen plan', 'wait', '6-12-months', {
     note: 'Ask your pediatrician and follow age guidance before using sunscreen.',
@@ -660,11 +714,11 @@ export const checklistItems: ChecklistItem[] = [
   }),
 
   // Getting Around
-  ck('getting-around', 'rear-facing-car-seat', "A rear-facing car seat appropriate for baby's size and your vehicle", 'essential', 'before-baby', {
+  ck('getting-around', 'rear-facing-car-seat', 'A rear-facing car seat appropriate for baby\'s size and your vehicle', 'essential', 'before-baby', {
     note: 'This is the real day-one car-seat requirement; infant seats are one possible solution.',
     taylorsTake:
       'A rear-facing-only infant seat, a convertible seat, or an all-in-one may work for a newborn when used according to the manufacturer and installed correctly.',
-    twins: { title: "2 rear-facing car seats appropriate for each baby's size and your vehicle", label: 'BUY 2' },
+    twins: { title: '2 rear-facing car seats appropriate for each baby\'s size and your vehicle', label: 'BUY 2' },
   }),
   ck('getting-around', 'infant-car-seat', 'Infant car seat', 'lifestyle-dependent', 'before-baby', {
     note: 'A click-in infant seat is a travel-system choice, not the only safe newborn option; confirm the included base fits your vehicle.',
@@ -738,8 +792,11 @@ export const checklistItems: ChecklistItem[] = [
   ck('diaper-bag', 'small-diaper-pouch', 'Small diaper pouch', 'nice-to-have', 'before-baby', {
     note: 'Keeps the change setup easy to move between bags.',
   }),
-  ck('diaper-bag', 'travel-wipes-disposal', 'Travel wipe case and disposal bags', 'nice-to-have', 'before-baby', {
-    note: 'Small refills for changes away from home.',
+  ck('diaper-bag', 'travel-wipes-disposal', 'Travel wipe case', 'nice-to-have', 'before-baby', {
+    note: 'A small refillable case for outings.',
+  }),
+  ck('diaper-bag', 'outing-disposal-bags', 'Outing disposal bags', 'nice-to-have', 'before-baby', {
+    note: 'Keep a small supply in your changing kit.',
   }),
   ck('diaper-bag', 'baby-change-clothes', 'Change of clothes for baby', 'essential', 'before-baby', {
     note: 'The outing item you will be happiest to have packed.',
@@ -747,11 +804,17 @@ export const checklistItems: ChecklistItem[] = [
   ck('diaper-bag', 'parent-spare-shirt', 'Spare shirt for parent', 'nice-to-have', 'first-8-weeks', {
     note: 'For spit-up days when baby is not the only one who needs changing.',
   }),
-  ck('diaper-bag', 'feeding-pacifier-kit', 'Feeding supplies and pacifier case as needed', 'lifestyle-dependent', 'before-baby', {
-    note: 'Pack based on how baby actually eats and soothes; add sanitizer or a tiny first-aid pouch only if it earns space.',
+  ck('diaper-bag', 'feeding-pacifier-kit', 'Outing feeding supplies', 'lifestyle-dependent', 'before-baby', {
+    note: 'Pack for the way your baby eats.',
   }),
-  ck('diaper-bag', 'adult-sanitizer-firstaid', 'Hand sanitizer and small first-aid pouch', 'nice-to-have', 'before-baby', {
-    note: 'Adult sanitizer and basic outing supplies, kept simple.',
+  ck('diaper-bag', 'pacifier-case', 'Pacifier case, if using', 'lifestyle-dependent', 'before-baby', {
+    note: 'A clean place for a spare pacifier.',
+  }),
+  ck('diaper-bag', 'adult-sanitizer-firstaid', 'Hand sanitizer for adults', 'nice-to-have', 'before-baby', {
+    note: 'An optional addition to the diaper bag.',
+  }),
+  ck('diaper-bag', 'outing-first-aid-pouch', 'Small outing first-aid pouch', 'nice-to-have', 'before-baby', {
+    note: 'Keep the contents practical for your family.',
   }),
 
   // Clothing
@@ -780,8 +843,11 @@ export const checklistItems: ChecklistItem[] = [
     styleCollection: NURSERY_STYLE,
     twins: { title: '4-6 lightweight muslin blankets', label: 'BUY 2' },
   }),
-  ck('clothing', 'laundry-care', 'Fragrance-free detergent and gentle stain remover', 'essential', 'before-baby', {
-    note: 'Simple laundry basics for sensitive newborn skin and inevitable stains.',
+  ck('clothing', 'laundry-care', 'Fragrance-free detergent', 'essential', 'before-baby', {
+    note: 'Choose a detergent that fits your household laundry routine.',
+  }),
+  ck('clothing', 'gentle-stain-remover', 'Gentle stain remover', 'nice-to-have', 'before-baby', {
+    note: 'For the inevitable laundry surprises.',
   }),
   ck('clothing', 'special-outfit', 'Special occasion or coming-home outfit', 'nice-to-have', 'before-baby', {
     note: 'Keep it comfortable and weather-appropriate.',
@@ -851,8 +917,14 @@ export const checklistItems: ChecklistItem[] = [
   ck('travel', 'stroller-car-seat-travel-bags', 'Stroller or car-seat travel bag', 'nice-to-have', '6-12-months', {
     note: 'Useful for flights or checking gear.',
   }),
-  ck('travel', 'travel-sleep-kit', 'Travel sound, blackout, and monitor kit', 'nice-to-have', 'first-8-weeks', {
-    note: 'Build this only if travel or overnight visits are likely.',
+  ck('travel', 'travel-sleep-kit', 'Travel sound machine', 'nice-to-have', 'first-8-weeks', {
+    note: 'Pack your existing portable sound machine if you have one.',
+  }),
+  ck('travel', 'travel-blackout', 'Travel blackout solution', 'nice-to-have', 'first-8-weeks', {
+    note: 'Pack your existing portable blackout solution if it works for the trip.',
+  }),
+  ck('travel', 'travel-monitor', 'Travel baby monitor', 'nice-to-have', 'first-8-weeks', {
+    note: 'Bring your usual monitor if it suits your destination; a second one is optional.',
   }),
   ck('travel', 'travel-feeding-kit', 'Travel bottle drying or portable warmer setup', 'lifestyle-dependent', 'first-8-weeks', {
     note: 'Only if feeding away from home is part of the routine.',
@@ -865,17 +937,35 @@ export const checklistItems: ChecklistItem[] = [
   }),
 
   // Home + Safety
-  ck('home-safety', 'smoke-co-detectors', 'Working smoke and carbon-monoxide detectors', 'essential', 'before-baby', {
-    note: 'Confirm alarms are present, working, and placed appropriately.',
+  ck('home-safety', 'smoke-co-detectors', 'Working smoke detectors', 'essential', 'before-baby', {
+    note: 'Check the alarms in your home. A combination alarm may cover smoke and carbon monoxide.',
   }),
-  ck('home-safety', 'furniture-tv-anchoring', 'Furniture and TV anchoring', 'register-early', '3-6-months', {
-    note: 'Plan before baby pulls to stand.',
+  ck('home-safety', 'carbon-monoxide-detectors', 'Working carbon-monoxide detectors', 'essential', 'before-baby', {
+    note: 'Check whether your existing combination alarms already cover this.',
+  }),
+  ck('home-safety', 'furniture-tv-anchoring', 'Furniture anchors', 'register-early', '3-6-months', {
+    note: 'Plan before baby starts pulling up.',
+  }),
+  ck('home-safety', 'tv-anchoring', 'TV anchors', 'register-early', '3-6-months', {
+    note: 'Include the television in your anchoring plan.',
   }),
   ck('home-safety', 'outlet-covers', 'Outlet covers', 'wait', '6-12-months', {
-    note: 'Babyproofing for the mobile stage.',
+    note: 'Choose protection suited to the outlets in your home.',
   }),
-  ck('home-safety', 'cabinet-latches', 'Cabinet, drawer, outlet, and room-specific babyproofing', 'wait', '6-12-months', {
-    note: 'Install where baby can reach hazards; doors, toilets, stove knobs, and appliance locks depend on your actual home.',
+  ck('home-safety', 'cabinet-latches', 'Cabinet latches', 'wait', '6-12-months', {
+    note: 'Fit latches to the cabinets baby can reach.',
+  }),
+  ck('home-safety', 'drawer-latches', 'Drawer latches', 'wait', '6-12-months', {
+    note: 'Fit latches to drawers that hold hazards.',
+  }),
+  ck('home-safety', 'toilet-locks', 'Toilet locks', 'wait', '6-12-months', {
+    note: 'Add where needed for your home.',
+  }),
+  ck('home-safety', 'stove-safety', 'Stove safety solutions', 'wait', '6-12-months', {
+    note: 'Choose safeguards suited to your stove.',
+  }),
+  ck('home-safety', 'appliance-locks', 'Appliance locks', 'wait', '6-12-months', {
+    note: 'Add only where an appliance creates an accessible hazard.',
   }),
   ck('home-safety', 'baby-gates', 'Baby gates and stair gates', 'wait', '6-12-months', {
     note: 'Match gates to the actual openings and stairs in your home.',
@@ -886,19 +976,25 @@ export const checklistItems: ChecklistItem[] = [
   ck('home-safety', 'window-guards-stops', 'Window guards or stops where appropriate', 'wait', '6-12-months', {
     note: 'Home-specific safety for accessible windows.',
   }),
-  ck('home-safety', 'door-toilet-stove-safety', 'Door, toilet, stove, and appliance safety solutions', 'wait', '6-12-months', {
-    note: 'Buy for the hazards your home actually has.',
+  ck('home-safety', 'door-toilet-stove-safety', 'Door safety solutions', 'wait', '6-12-months', {
+    note: 'Address the doors that create a risk in your home.',
   }),
   ck('home-safety', 'pool-safety-review', 'Pool safety review, where applicable', 'lifestyle-dependent', 'before-baby', {
     note: 'A true essential if a pool is part of the home or regular care environment.',
   }),
 
   // Postpartum
-  ck('postpartum', 'postpartum-underwear-pads', 'Postpartum recovery basics', 'essential', 'before-baby', {
-    note: 'Parent recovery belongs on the registry too: comfortable underwear, pads, peri bottle, and cold packs if they fit your care plan.',
+  ck('postpartum', 'postpartum-underwear-pads', 'Postpartum underwear', 'essential', 'before-baby', {
+    note: 'Choose comfortable recovery underwear; a recovery kit may include it.',
   }),
-  ck('postpartum', 'peri-bottle-cold-packs', 'Peri bottle and cold packs', 'nice-to-have', 'before-baby', {
-    note: 'General comfort supplies; follow your clinician for specific recovery needs.',
+  ck('postpartum', 'postpartum-pads', 'Postpartum pads', 'essential', 'before-baby', {
+    note: 'Choose supplies that fit your care plan; check what your recovery kit includes.',
+  }),
+  ck('postpartum', 'postpartum-cold-packs', 'Postpartum cold packs', 'nice-to-have', 'before-baby', {
+    note: 'Optional comfort supplies if they fit your care plan.',
+  }),
+  ck('postpartum', 'peri-bottle-cold-packs', 'Peri bottle', 'nice-to-have', 'before-baby', {
+    note: 'Follow your care team’s recovery guidance.',
   }),
   ck('postpartum', 'lounge-clothes', 'Comfortable lounge clothes or pajamas', 'nice-to-have', 'before-baby', {
     note: 'Soft, washable, and easy for feeding if needed.',
@@ -906,11 +1002,20 @@ export const checklistItems: ChecklistItem[] = [
   ck('postpartum', 'nursing-pumping-bras', 'Nursing or pumping bras, if needed', 'nice-to-have', 'before-baby', {
     note: 'Start with a few until sizing and feeding plans settle.',
   }),
-  ck('postpartum', 'feeding-comfort', 'Breast pads and nipple care, if needed', 'nice-to-have', 'before-baby', {
-    note: 'Comfort basics for breastfeeding or pumping.',
+  ck('postpartum', 'feeding-comfort', 'Breast pads, if needed', 'nice-to-have', 'before-baby', {
+    note: 'Comfort supplies if breastfeeding or pumping.',
   }),
-  ck('postpartum', 'parent-station', 'Large water bottle, snacks, and long charging cable', 'nice-to-have', 'before-baby', {
-    note: 'A practical bedside or feeding-station setup for the parent.',
+  ck('postpartum', 'postpartum-nipple-care', 'Nipple care, if needed', 'nice-to-have', 'before-baby', {
+    note: 'Check your feeding supplies before buying extras.',
+  }),
+  ck('postpartum', 'parent-station', 'Large water bottle', 'nice-to-have', 'before-baby', {
+    note: 'Keep it within reach during feeds or rest.',
+  }),
+  ck('postpartum', 'parent-snacks', 'Easy snacks for the parent', 'nice-to-have', 'before-baby', {
+    note: 'Stock a few things you can eat one-handed.',
+  }),
+  ck('postpartum', 'long-charging-cable', 'Long charging cable', 'nice-to-have', 'before-baby', {
+    note: 'One that reaches your bedside or feeding chair.',
   }),
   ck('postpartum', 'c-section-recovery-support', 'C-section recovery support, if relevant', 'lifestyle-dependent', 'before-baby', {
     note: 'Keep this personal and clinician-guided.',
@@ -990,7 +1095,7 @@ export type ResolvedItem = {
   take?: ChecklistTake;
   takeLabel?: string;
   badge?: string;
-  /** Twins quantity pill, e.g. "BUY 2" — only present on the twins version. */
+  /** Twins quantity pill, e.g. 'BUY 2' — only present on the twins version. */
   label?: string;
   recommendationId?: string;
   recommendationIds?: string[];

@@ -15,6 +15,14 @@ export type ResolvedProductLink = RetailerLink & {
   kind: 'babylist' | 'amazon' | 'other';
 };
 
+/** Resolve unnamed Oilo links so saved nursery-chair picks show the brand mark. */
+function retailerLabel(label: string | undefined, url: string): string {
+  const name = label?.trim();
+  if (name && name.toLowerCase() !== 'shop') return name;
+  const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
+  return host === 'oilostudio.com' ? 'Oilo' : name || 'Shop';
+}
+
 /**
  * Preserve legacy field order unless the product has explicit retailer preferences.
  * Duplicate destinations are dropped. Enforce limits when saving,
@@ -32,13 +40,13 @@ export function resolveProductLinks(rec: ChecklistProduct): ResolvedProductLink[
   if (isHttpUrl(rec.secondaryUrl)) {
     candidates.push({
       kind: 'other',
-      retailer: rec.secondaryRetailer?.trim() || 'Shop',
+      retailer: retailerLabel(rec.secondaryRetailer, rec.secondaryUrl),
       url: rec.secondaryUrl.trim(),
     });
   }
   for (const link of rec.retailerLinks ?? []) {
     if (!isHttpUrl(link.url)) continue;
-    candidates.push({ ...link, kind: 'other', retailer: link.retailer.trim() || 'Shop', url: link.url.trim() });
+    candidates.push({ ...link, kind: 'other', retailer: retailerLabel(link.retailer, link.url), url: link.url.trim() });
   }
 
   const seen = new Set<string>();

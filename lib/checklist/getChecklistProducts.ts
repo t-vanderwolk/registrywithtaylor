@@ -15,11 +15,14 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db = prismaBase as any;
 
-// Keep the single-camera BM01 as the checklist's one Momcozy monitor pick.
-// Previously seeded variants remain in admin history but are not public picks.
+// Removed picks remain in admin history but are excluded from the public checklist.
+// Keep only the single-camera BM01 for Momcozy and remove all Mompush picks.
 const EXCLUDED_CHECKLIST_PRODUCT_IDS = new Set([
   'amzcc-momcozy-bm01-baby-monitor-2-cameras-no-wifi',
   'amzcc-momcozy-bm04-smart-wifi-baby-monitor-2-cameras',
+  'amzcc-mompush-nexis-carbon-fiber-travel-stroller',
+  'amzcc-mompush-lithe-v2-travel-stroller',
+  'amzcc-mompush-meteor2-bassinet-stroller',
 ]);
 
 async function enrichWithAmazonCache(products: Record<string, ChecklistProduct>) {
@@ -59,7 +62,7 @@ export async function getChecklistProducts(): Promise<Record<string, ChecklistPr
 
     const map: Record<string, ChecklistProduct> = {};
     for (const r of rows) {
-      if (EXCLUDED_CHECKLIST_PRODUCT_IDS.has(r.id)) continue;
+      if (EXCLUDED_CHECKLIST_PRODUCT_IDS.has(r.id) || r.brand.trim().toLowerCase() === 'mompush') continue;
       map[r.id] = {
         id: r.id,
         brand: r.brand,

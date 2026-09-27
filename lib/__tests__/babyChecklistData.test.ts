@@ -14,8 +14,8 @@ import { products } from '@/lib/checklist/products';
 
 describe('comprehensive baby checklist data', () => {
   it('keeps the public checklist curated while preserving the full static source list', () => {
-    expect(checklistItems).toHaveLength(175);
-    expect(itemsForType('neutral')).toHaveLength(123);
+    expect(checklistItems).toHaveLength(211);
+    expect(itemsForType('neutral')).toHaveLength(161);
     expect(categories.map((category) => category.title)).toEqual([
       'Sleep + Nursery',
       'Feeding + Pumping',
@@ -34,6 +34,48 @@ describe('comprehensive baby checklist data', () => {
       'Support + Services',
       'Registry Strategy',
     ]);
+  });
+
+  it('separates bundled items in every version without duplicating existing rows', () => {
+    const separateIds = [
+      'nursery-landing-zone', 'nursery-side-table', 'diaper-caddy',
+      'nursery-drawer-organizers', 'nursery-closet-organizers', 'nursery-storage-bins',
+      'first-spoons', 'bowls-plates', 'baby-plates', 'open-straw-cups', 'straw-cup',
+      'newborn-diapers', 'size-one-diapers', 'hooded-towels', 'washcloths',
+      'nursing-pads-balm', 'nipple-balm', 'nasal-saline', 'nasal-saline-drops',
+      'postpartum-underwear-pads', 'postpartum-pads', 'peri-bottle-cold-packs',
+      'postpartum-cold-packs', 'parent-station', 'parent-snacks', 'long-charging-cable',
+    ];
+    for (const type of ['girl', 'boy', 'neutral', 'twins'] as const) {
+      const items = itemsForType(type);
+      for (const id of separateIds) {
+        expect(items.filter((item) => item.id === id), `${type}: ${id}`).toHaveLength(1);
+      }
+      expect(items.find((item) => item.id === 'bottle-brush')?.title).toBe('Bottle brush');
+      expect(items.find((item) => item.id === 'air-purifier')).toMatchObject({
+        category: 'sleep', title: 'Air purifier', take: 'nice-to-have', timing: 'before-baby',
+      });
+    }
+  });
+
+  it('keeps alternative choices together', () => {
+    const items = itemsForType('neutral');
+    expect(items.find((item) => item.id === 'warm-water-dispenser')?.title)
+      .toBe('Bottle warmer or warm-water dispenser');
+    expect(items.find((item) => item.id === 'travel-crib')?.title)
+      .toBe('Portable playard / travel crib');
+    expect(items.find((item) => item.id === 'bottle-washer')?.title)
+      .toBe('Bottle washer or countertop sterilizer');
+  });
+
+  it('places individual picks under the separated item while keeping sets intact', () => {
+    expect(products['amzcc-evolur-aurora-7-drawer-double-dresser'].checklistItemId).toBe('nursery-dresser');
+    expect(products['amzcc-haakaa-silicone-shampoo-cradle-cap-brush'].checklistItemId).toBe('brush-comb');
+    expect(products['amzcc-momcozy-nipple-cream-lanolin-free'].checklistItemId).toBe('nipple-balm');
+    expect(products['amzcc-momcozy-a1pro-lactation-massager-with-heat'].checklistItemId).toBe('lactation-massager');
+    expect(products['amzcc-papablic-bottle-washer-tablets-120ct'].checklistItemId).toBe('bottle-washer-detergent');
+    expect(products['amzcc-momcozy-7-in-1-bottle-brush-set-with-drying-rack'].checklistItemId).toBe('bottle-brush');
+    expect(Object.values(products).filter((product) => product.id === 'amzcc-grownsy-postpartum-recovery-kit')).toHaveLength(1);
   });
 
   it('has unique ids, valid categories, and filter metadata on every static row', () => {
