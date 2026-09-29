@@ -117,7 +117,7 @@ const advisorExperienceCards: AdvisorExperienceCard[] = [
   },
   {
     title: 'Target Baby Concierge',
-    logoSrc: '/assets/logos/target2.png',
+    logoSrc: '/assets/logos/babyconcierge.png',
     logoAlt: 'Target Baby Concierge consultant experience',
     width: 1065,
     height: 228,
