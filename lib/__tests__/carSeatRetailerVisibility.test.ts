@@ -10,7 +10,7 @@ vi.mock('@/lib/server/amazonCreators/cache', () => ({
 }));
 vi.mock('@/lib/server/publicStrollerCatalog', () => ({ getPublicStrollerCatalogTravelSystemOptions: async () => [] }));
 vi.mock('@/lib/travelSystemAffiliateLinks', () => ({ getAffiliateLinks: () => ({}) }));
-import { getTravelSystemCarSeats, getTravelSystemCompatibility } from '@/lib/server/travelSystemCompatibility';
+import { getTravelSystemCarSeats, getTravelSystemCompatibility, getTravelSystemCompatibilityByCarSeat } from '@/lib/server/travelSystemCompatibility';
 
 const links = [{ retailer: 'Target', url: 'https://www.target.com/p/exact-seat' }];
 const seat = { id: 'seat', brand: 'Nuna', model: 'PIPA rx', displayName: 'Nuna PIPA rx', summary: null, babylistUrl: null, babylistPrice: null, babylistImage: null, amazonUrl: null };
@@ -31,6 +31,10 @@ beforeEach(() => {
 });
 
 describe('extra-only infant car seat visibility', () => {
+  it('preserves the selected seat retailer links in car-seat-first results', async () => {
+    const result = await getTravelSystemCompatibilityByCarSeat('Nuna', 'PIPA rx');
+    expect(result?.carSeat.extraRetailers).toEqual(links);
+  });
   it('includes an extra-only seat in the browse catalog', async () => {
     const options = await getTravelSystemCarSeats();
     expect(options).toHaveLength(1);

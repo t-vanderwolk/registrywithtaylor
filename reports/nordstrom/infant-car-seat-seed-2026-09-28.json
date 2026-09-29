@@ -1,0 +1,125 @@
+{
+  "verifiedAt": "2026-09-28",
+  "scope": "Existing exact available infant CarSeat records only",
+  "matches": [
+    {
+      "id": "cmqx4qp4e00023835j1p6ghf9",
+      "brand": "Bugaboo",
+      "model": "Turtle Air Shield by Nuna",
+      "url": "https://www.nordstrom.com/s/turtle-air-shield-by-nuna-infant-car-seat-and-base/7995949",
+      "note": "Seat and recline base; not Turtle Air or Turtle One."
+    },
+    {
+      "id": "cmqx4qpc50005383512d994gn",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearLux",
+      "url": "https://www.nordstrom.com/s/chicco-keyfit-max-zip-clearlux-extended-use-infant-car-seat/8990337",
+      "note": "ClearLux, not ClearTex or non-Zip."
+    },
+    {
+      "id": "cmqx4qpgs00073835wm1de2we",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "url": "https://www.nordstrom.com/s/aton-g2-infant-car-seat-with-load-leg-base/8828004",
+      "note": "Standard load-leg base, not Swivel."
+    },
+    {
+      "id": "cmrdwvbsy000u7tmavhnk64ww",
+      "brand": "Cybex",
+      "model": "Aton G2 Swivel",
+      "url": "https://www.nordstrom.com/s/cybex-aton-g2-infant-car-seat-with-swivel-load-leg-base/8827995",
+      "note": "Swivel load-leg base."
+    },
+    {
+      "id": "cmqx4qpj400083835htva49ii",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "url": "https://www.nordstrom.com/s/cloud-g-pro-with-load-leg-base/8630173",
+      "note": "Cloud G Pro and base, not Cloud G Lux."
+    },
+    {
+      "id": "cybex-cloud-t",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "url": "https://www.nordstrom.com/s/cloud-t-infant-car-seat-with-leg-load-base/8059966",
+      "note": "Cloud T Comfort Extend SensorSafe; public model uses the longer name."
+    },
+    {
+      "id": "cmqx4qpnw000a3835ebidrs9t",
+      "brand": "Doona",
+      "model": "Doona",
+      "url": "https://www.nordstrom.com/s/doona-convertible-infant-car-seat-compact-stroller-system-with-base/9136882",
+      "note": "Standard integrated seat/stroller with base; use one standard listing only."
+    },
+    {
+      "id": "cmrdwvbwc000v7tmajufgdt7k",
+      "brand": "Doona",
+      "model": "X",
+      "url": "https://www.nordstrom.com/s/doona-x-car-seat-stroller/9192604",
+      "note": "Doona X, separate from standard Doona."
+    },
+    {
+      "id": "cmqx4qqbg000k3835k8b3mf6l",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "url": "https://www.nordstrom.com/s/ambra-infant-car-seat/8945714",
+      "note": "Exact Ambra; absent from current infant finder snapshot."
+    },
+    {
+      "id": "maxi-cosi-peri",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "url": "https://www.nordstrom.com/s/peri-180o-rotating-infant-car-seat/7809401",
+      "note": "Standard Peri 180; keep Kindred Collection separate."
+    },
+    {
+      "id": "nuna-pipa-aire-rx",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "url": "https://www.nordstrom.com/s/pipa-aire-rx-pipa-relx-base-infant-car-seat/7574714",
+      "note": "Aire RX plus RELX base, not Aire without RX."
+    },
+    {
+      "id": "nuna-pipa-rx",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "url": "https://www.nordstrom.com/s/pipa-rx-car-seat-base/5518435",
+      "note": "PIPA RX seat and base."
+    },
+    {
+      "id": "cmqx4qqdv000l3835x5pi9onc",
+      "brand": "Orbit Baby",
+      "model": "G5",
+      "url": "https://www.nordstrom.com/s/g5-infant-car-seat-base/7741848",
+      "note": "Database displayName explicitly says Orbit Baby G5+ despite G5 model key. Matches that display identity, not an unverified older G5."
+    },
+    {
+      "id": "cmqx4qqkp000o38351izn0hlv",
+      "brand": "Romer",
+      "model": "Juni",
+      "url": "https://www.nordstrom.com/s/romer-juni-infant-car-seat/7947915",
+      "note": "Juni seat and base, not Juni/Tura stroller bundle."
+    },
+    {
+      "id": "uppababy-aria",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "url": "https://www.nordstrom.com/s/uppababy-aria-infant-car-seat/7777404",
+      "note": "Original Aria, not V2."
+    },
+    {
+      "id": "uppababy-aria-v2",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "url": "https://www.nordstrom.com/s/uppababy-aria-v2-infant-car-seat/8573250",
+      "note": "Aria V2."
+    },
+    {
+      "id": "uppababy-mesa-v3",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "url": "https://www.nordstrom.com/s/mesa-v3-infant-car-seat/8471127",
+      "note": "Mesa V3, not Mesa Max or base only."
+    }
+  ]
+}

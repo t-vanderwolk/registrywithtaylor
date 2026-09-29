@@ -8,6 +8,9 @@
  * per-product override; `gbgMatch` carries the raw (ungated) match for the audit.
  */
 import prisma from '@/lib/server/prisma';
+import { carSeatRetailerIdentity } from '@/lib/catalog/carSeatRetailerIdentity';
+import { parseRetailerLinks, type RetailerLink } from '@/lib/retailerLinks';
+import { orderedProductRetailers } from '@/lib/productRetailers';
 import { parseCarSeatModel } from '@/lib/catalog/strollerModel';
 import { canonicalBrand } from '@/lib/catalog/brandAliases';
 import { productModelKey } from '@/lib/catalog/modelIdentity';
@@ -55,6 +58,7 @@ export type PublicCarSeatProduct = {
     anb: CarSeatRetailerOffer | null;
     goodbuygear: CarSeatRetailerOffer | null;
   };
+  extraRetailers?: RetailerLink[];
   /** Raw (ungated) open-box match for the admin audit. */
   gbgMatch?: CarSeatRetailerOffer | null;
 };
@@ -70,6 +74,21 @@ function modelLikeCanonicalName(value: string | null | undefined) {
   if (/\b(infant|car seat|adapter|accessory|base|cover|canopy|insert|mirror|net)\b/i.test(v)) return null;
   if (/[,(]/.test(v)) return null;
   return v;
+}
+
+async function loadCarSeatRetailerLinks() {
+  const rows = await prisma.$queryRaw<Array<{ brand: string; model: string; retailerLinks: unknown }>>`
+    SELECT "brand", "model", "retailerLinks" FROM "CarSeat"
+    WHERE "seatType" = 'INFANT' AND "retailerLinks" IS NOT NULL
+  `;
+  const links = new Map<string, RetailerLink[]>();
+  for (const row of rows) {
+    const key = carSeatRetailerIdentity(canonicalBrand(row.brand), row.model);
+    if (key) links.set(key, orderedProductRetailers([
+      ...(links.get(key) ?? []), ...(parseRetailerLinks(row.retailerLinks) ?? []),
+    ]));
+  }
+  return links;
 }
 
 export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
@@ -103,7 +122,7 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
     })
     .catch(() => [] as CatalogProductRow[]);
 
-  const gbgOverrides = await getGbgBadgeOverrides();
+  const [gbgOverrides, extraLinks] = await Promise.all([getGbgBadgeOverrides(), loadCarSeatRetailerLinks()]);
 
   type Offer = { price: number | null; url: string | null; image: string | null; title: string };
   type Group = {
@@ -202,6 +221,7 @@ export async function getPublicCarSeatBrands(): Promise<PublicCarSeatBrand[]> {
         anb: null,
         goodbuygear: showGbg ? rawGbg : null,
       },
+      extraRetailers: extraLinks.get(carSeatRetailerIdentity(g.brand, g.model, primary.title) ?? '') ?? [],
       gbgMatch: rawGbg,
     });
   }

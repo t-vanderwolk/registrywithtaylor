@@ -1,0 +1,531 @@
+{
+  "auditedAt": "2026-09-28",
+  "mode": "read-only",
+  "categoryUrl": "https://www.nordstrom.com/browse/kids/baby-gear/car-seats/infant-car-seats",
+  "coverage": {
+    "databaseInfantRecords": 47,
+    "publicFinderCards": 37,
+    "distinctCategoryListings": 57
+  },
+  "counts": {
+    "NO_EXACT_FOUND": 20,
+    "NEAR_DO_NOT_SEED": 7,
+    "EXACT_SOLD_OUT": 2,
+    "EXACT_AVAILABLE": 17,
+    "HOLD_IDENTITY": 1
+  },
+  "records": [
+    {
+      "id": "baby-jogger-city-go-2",
+      "brand": "Baby Jogger",
+      "model": "City GO 2",
+      "displayName": "Baby Jogger City GO 2",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qowc000038356zwhetli",
+      "brand": "Baby Trend",
+      "model": "EZ-Lift Pro",
+      "displayName": "Baby Trend EZ-Lift Pro",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qp1700013835r8xduy8t",
+      "brand": "Baby Trend",
+      "model": "Secure-Lift 35",
+      "displayName": "Baby Trend Secure-Lift 35",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "britax-cypress-s",
+      "brand": "Britax",
+      "model": "Cypress S",
+      "displayName": "Britax Cypress",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "britax-willow-s",
+      "brand": "Britax",
+      "model": "Willow S",
+      "displayName": "Britax Willow S",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Willow/Brook S+ stroller travel system is not a standalone Willow S.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqt1dq4e00043u44vihpznhm",
+      "brand": "Britax",
+      "model": "Willow SC",
+      "displayName": null,
+      "status": "EXACT_SOLD_OUT",
+      "url": "https://www.nordstrom.com/s/willow-sc-infant-car-seat-with-alpine-base/8796766",
+      "note": "Live detail page says Sold Out. Hold pending availability recheck.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qp4e00023835j1p6ghf9",
+      "brand": "Bugaboo",
+      "model": "Turtle Air Shield by Nuna",
+      "displayName": "Bugaboo Turtle Air Shield by Nuna",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/turtle-air-shield-by-nuna-infant-car-seat-and-base/7995949",
+      "note": "Seat and recline base; not Turtle Air or Turtle One.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "chicco-keyfit-30",
+      "brand": "Chicco",
+      "model": "KeyFit 30",
+      "displayName": "Chicco KeyFit 30",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qp6y00033835pgtlizxk",
+      "brand": "Chicco",
+      "model": "KeyFit 30 ClearTex",
+      "displayName": "Chicco KeyFit 30 ClearTex",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qp9s00043835h85g6sl0",
+      "brand": "Chicco",
+      "model": "KeyFit Max ClearTex",
+      "displayName": "Chicco KeyFit Max ClearTex",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "ClearLux Zip differs in trim/fabric; no exact standalone found.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpc50005383512d994gn",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearLux",
+      "displayName": "Chicco KeyFit Max Zip ClearLux",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/chicco-keyfit-max-zip-clearlux-extended-use-infant-car-seat/8990337",
+      "note": "ClearLux, not ClearTex or non-Zip.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpeg00063835eten1p5s",
+      "brand": "Chicco",
+      "model": "KeyFit Max Zip ClearTex",
+      "displayName": "Chicco KeyFit Max Zip ClearTex",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Stroller bundles found; standalone ClearLux is a different variant.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "clek-liing",
+      "brand": "Clek",
+      "model": "Liing",
+      "displayName": "Clek Liing",
+      "status": "EXACT_SOLD_OUT",
+      "url": "https://www.nordstrom.com/s/clek-liing-infant-car-seat/8661855",
+      "note": "Live detail page says Sold Out. Hold pending availability recheck.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "clek-liingo",
+      "brand": "Clek",
+      "model": "Liingo",
+      "displayName": "Clek Liingo",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Liing is a different model; no exact Liingo listing verified.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpgs00073835wm1de2we",
+      "brand": "Cybex",
+      "model": "Aton G2",
+      "displayName": "Cybex Aton G2",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/aton-g2-infant-car-seat-with-load-leg-base/8828004",
+      "note": "Standard load-leg base, not Swivel.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/cybex-aton-g2-infant-car-seat-with-load-leg-base?ID=5931417",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "cmrdwvbsy000u7tmavhnk64ww",
+      "brand": "Cybex",
+      "model": "Aton G2 Swivel",
+      "displayName": "CYBEX Aton G2 Swivel",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/cybex-aton-g2-infant-car-seat-with-swivel-load-leg-base/8827995",
+      "note": "Swivel load-leg base.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpj400083835htva49ii",
+      "brand": "Cybex",
+      "model": "Cloud G Pro Comfort Extend",
+      "displayName": "Cybex Cloud G Pro",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/cloud-g-pro-with-load-leg-base/8630173",
+      "note": "Cloud G Pro and base, not Cloud G Lux.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/cybex-cloud-g-pro-comfort-extend-infant-car-seat?ID=5776361",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "cybex-cloud-t",
+      "brand": "Cybex",
+      "model": "Cloud T",
+      "displayName": "CYBEX Cloud T",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/cloud-t-infant-car-seat-with-leg-load-base/8059966",
+      "note": "Cloud T Comfort Extend SensorSafe; public model uses the longer name.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/cybex-cloud-t-comfort-extend-infant-car-seat-with-sensorsafe?ID=5130410",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "cmqx4qpnw000a3835ebidrs9t",
+      "brand": "Doona",
+      "model": "Doona",
+      "displayName": "Doona",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/doona-convertible-infant-car-seat-compact-stroller-system-with-base/9136882",
+      "note": "Standard integrated seat/stroller with base; use one standard listing only.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmrdwvbwc000v7tmajufgdt7k",
+      "brand": "Doona",
+      "model": "X",
+      "displayName": "Doona X",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/doona-x-car-seat-stroller/9192604",
+      "note": "Doona X, separate from standard Doona.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpsh000c3835q2cpm0f5",
+      "brand": "Evenflo",
+      "model": "LiteMax NXT",
+      "displayName": "Evenflo LiteMax NXT",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpuv000d3835u7w79rhg",
+      "brand": "Evenflo",
+      "model": "Revolve180 LiteMax NXT Rotational",
+      "displayName": "Evenflo Revolve180 LiteMax NXT Rotational",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpx8000e3835nvrnxr0i",
+      "brand": "Graco",
+      "model": "GoMax",
+      "displayName": "Graco GoMax",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qpzp000f3835i6cp9pth",
+      "brand": "Graco",
+      "model": "SnugRide Lite LX",
+      "displayName": "Graco SnugRide Lite LX",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qq4h000h3835n8ni2r9m",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit",
+      "displayName": "Graco SnugRide SnugFit",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qq26000g3835g3mh924j",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit DLX",
+      "displayName": "Graco SnugRide SnugFit DLX",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qq6u000i3835j7t2euy8",
+      "brand": "Graco",
+      "model": "SnugRide SnugFit LX",
+      "displayName": "Graco SnugRide SnugFit LX",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qq94000j3835te5r5f6g",
+      "brand": "Joie",
+      "model": "Mint Latch",
+      "displayName": "Joie Mint Latch",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "joie-rue",
+      "brand": "Joie",
+      "model": "Rue",
+      "displayName": "Joie Rue",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqbg000k3835k8b3mf6l",
+      "brand": "Maxi-Cosi",
+      "model": "Ambra",
+      "displayName": "Maxi-Cosi Ambra",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/ambra-infant-car-seat/8945714",
+      "note": "Exact Ambra; absent from current infant finder snapshot.",
+      "existingRetailerLinks": []
+    },
+    {
+      "id": "maxi-cosi-mico-luxe",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Luxe",
+      "displayName": "Maxi-Cosi Mico Luxe",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Gia XP/Mico Luxe listing is a stroller bundle.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "maxi-cosi-mico-pro",
+      "brand": "Maxi-Cosi",
+      "model": "Mico Pro",
+      "displayName": "Maxi-Cosi Mico Pro",
+      "status": "HOLD_IDENTITY",
+      "url": "https://www.nordstrom.com/s/mico-pro-infant-car-seat/8600169",
+      "note": "Database model/displayName say Mico Pro; public product title says Mico Pro+. Both are separate available Nordstrom products. Pro+ URL: https://www.nordstrom.com/s/mico-pro-infant-car-seat-base/8600172 . Resolve identity first.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmry6pa5o001ovblfjcngmv5n",
+      "brand": "Maxi-Cosi",
+      "model": "Mico XP",
+      "displayName": "Maxi-Cosi Mico XP Max",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "maxi-cosi-peri",
+      "brand": "Maxi-Cosi",
+      "model": "Peri 180",
+      "displayName": "Maxi-Cosi Peri 180",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/peri-180o-rotating-infant-car-seat/7809401",
+      "note": "Standard Peri 180; keep Kindred Collection separate.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "nuna-pipa-lite-rx",
+      "brand": "Nuna",
+      "model": "PIPA Aire",
+      "displayName": "Nuna PIPA Aire",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Aire RX plus base is a different model/package.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "nuna-pipa-aire-rx",
+      "brand": "Nuna",
+      "model": "PIPA Aire rx",
+      "displayName": "Nuna PIPA Aire rx",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/pipa-aire-rx-pipa-relx-base-infant-car-seat/7574714",
+      "note": "Aire RX plus RELX base, not Aire without RX.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/nuna-pipa-aire-rx-infant-car-seat?ID=5038320",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "nuna-pipa-rx",
+      "brand": "Nuna",
+      "model": "PIPA RX",
+      "displayName": "Nuna PIPA RX",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/pipa-rx-car-seat-base/5518435",
+      "note": "PIPA RX seat and base.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/nuna-pipa-rx-baby-car-seat?ID=5596822",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "nuna-pipa-urbn",
+      "brand": "Nuna",
+      "model": "PIPA urbn",
+      "displayName": "Nuna PIPA urbn",
+      "status": "NEAR_DO_NOT_SEED",
+      "url": null,
+      "note": "Current verified matches were stroller bundles. An older Nordstrom pop-up announcement mentions standalone availability, but no current standalone URL was verified.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqdv000l3835x5pi9onc",
+      "brand": "Orbit Baby",
+      "model": "G5",
+      "displayName": "Orbit Baby G5+",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/g5-infant-car-seat-base/7741848",
+      "note": "Database displayName explicitly says Orbit Baby G5+ despite G5 model key. Matches that display identity, not an unverified older G5.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "peg-perego-primo-viaggio-4-35",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio 4-35",
+      "displayName": "Peg Perego Primo Viaggio 4-35",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqg6000m3835m0yyofjb",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Lounge",
+      "displayName": "Peg Perego Primo Viaggio Lounge",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqif000n3835uubq8mpy",
+      "brand": "Peg Perego",
+      "model": "Primo Viaggio Nido",
+      "displayName": "Peg Perego Primo Viaggio Nido",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqkp000o38351izn0hlv",
+      "brand": "Romer",
+      "model": "Juni",
+      "displayName": "Romer Juni",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/romer-juni-infant-car-seat/7947915",
+      "note": "Juni seat and base, not Juni/Tura stroller bundle.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "cmqx4qqn2000p3835rq4c68z0",
+      "brand": "Safety 1st",
+      "model": "onBoard FLX",
+      "displayName": "Safety 1st onBoard FLX",
+      "status": "NO_EXACT_FOUND",
+      "url": null,
+      "note": "No exact standalone match verified in reviewed category and supplemental searches; not a claim Nordstrom never carries it.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "uppababy-aria",
+      "brand": "UPPAbaby",
+      "model": "Aria",
+      "displayName": "UPPAbaby Aria",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/uppababy-aria-infant-car-seat/7777404",
+      "note": "Original Aria, not V2.",
+      "existingRetailerLinks": null
+    },
+    {
+      "id": "uppababy-aria-v2",
+      "brand": "UPPAbaby",
+      "model": "Aria V2",
+      "displayName": "UPPAbaby Aria V2",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/uppababy-aria-v2-infant-car-seat/8573250",
+      "note": "Aria V2.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/uppababy-aria-v2-infant-car-seat?ID=5724333",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    },
+    {
+      "id": "uppababy-mesa-v3",
+      "brand": "UPPAbaby",
+      "model": "Mesa V3",
+      "displayName": "UPPAbaby Mesa V3",
+      "status": "EXACT_AVAILABLE",
+      "url": "https://www.nordstrom.com/s/mesa-v3-infant-car-seat/8471127",
+      "note": "Mesa V3, not Mesa Max or base only.",
+      "existingRetailerLinks": [
+        {
+          "url": "https://www.bloomingdales.com/shop/product/uppababy-mesa-v3-infant-car-seat?ID=5664014",
+          "retailer": "Bloomingdale's"
+        }
+      ]
+    }
+  ],
+  "additionalPublicMatch": {
+    "brand": "Maxi-Cosi",
+    "model": "The Kindred Collection Peri 180",
+    "url": "https://www.nordstrom.com/s/kindred-collection-peri-180o-rotating-infant-car-seat/7938995",
+    "status": "EXACT_PUBLIC_ONLY",
+    "note": "Available exact public-feed match, but no separate curated CarSeat row. Do not attach to standard Peri 180."
+  }
+}

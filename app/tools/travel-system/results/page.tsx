@@ -30,6 +30,7 @@ import {
 } from '@/lib/server/travelSystemCompatibility';
 import { babylistAffiliateUrl } from '@/lib/travelSystemAffiliateLinks';
 import type { RetailerLink } from '@/lib/retailerLinks';
+import { orderedProductRetailers } from '@/lib/productRetailers';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { directShopLabel, getDirectAffiliateLink } from '@/lib/catalog/directAffiliateLinks';
 import { compatibilityResultBucket } from '@/lib/compatibilityResultBuckets';
@@ -381,6 +382,11 @@ function SelectedSummaryCard({
   const selectedAmazonUrl =
     selectedPrimaryCta && selectedPrimaryCta.source !== 'amazon' && isAmazonAllowedForBrand(option.brand) ? option.amazonUrl ?? null : null;
 
+  const selectedExtraRetailers = kind === 'carSeat'
+    ? orderedProductRetailers(option.extraRetailers ?? []).filter((link) =>
+        link.url !== selectedPrimaryCta?.url && link.url !== selectedAmazonUrl)
+    : [];
+
   return (
     <section className="grid gap-5 rounded-[1.8rem] border border-[rgba(215,161,175,0.22)] bg-white/95 p-5 shadow-[0_18px_42px_rgba(72,49,56,0.08)] md:grid-cols-[12rem_1fr] md:p-6">
       <div className="tool-product-card__media min-h-[11rem] rounded-[1.2rem] border border-[rgba(215,161,175,0.14)]">
@@ -421,6 +427,19 @@ function SelectedSummaryCard({
             >
               {selectedPrimaryCta.label}
             </ToolRetailerCta>
+            {selectedExtraRetailers.map((link) => (
+              <ToolRetailerCta
+                key={link.url}
+                tool="travel-system-checker"
+                mark
+                href={link.url}
+                retailer={link.retailer}
+                product={`${option.brand} ${displayTitle}`.trim()}
+                brand={option.brand}
+              >
+                Shop at {link.retailer}
+              </ToolRetailerCta>
+            ))}
             {selectedAmazonUrl ? (
               <ToolRetailerCta
                 tool="travel-system-checker"

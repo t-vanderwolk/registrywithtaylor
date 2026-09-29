@@ -1863,6 +1863,7 @@ export async function getTravelSystemCompatibilityByCarSeat(
       amazonUrl: carSeat.amazonUrl ?? null,
       amazonImage: carSeat.amazonImage ?? null,
       amazonPrice: carSeat.amazonPrice ?? null,
+      extraRetailers: carSeat.extraRetailers ?? [],
     },
     compatibleStrollers: cleanCompatibleStrollers(
       compatibleStrollers.filter(hasPublicTravelSystemRetailer),
