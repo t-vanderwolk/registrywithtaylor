@@ -234,7 +234,7 @@ const authorityStripLogos = [
     className: 'max-h-5',
   },
   {
-    src: '/assets/logos/target2.png',
+    src: '/assets/logos/babyconcierge.png',
     alt: 'Target Baby Concierge, where Taylor guided expecting parents',
     width: 1065,
     height: 228,

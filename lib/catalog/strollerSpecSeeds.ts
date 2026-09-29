@@ -350,8 +350,8 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
   ],
 
   // ─────────────────────────────────────────────────────────────────────────
-  // BUGABOO — bugaboo.com + Bugaboo service articles. Note the Butterfly and Ant
-  // seats start at 6 months, so neither is a from-birth stroller on its own.
+  // BUGABOO — bugaboo.com + Bugaboo service articles. The original Butterfly and Ant
+  // seats start at 6 months; Butterfly 2 Plus has its own newborn-ready specs.
   // ─────────────────────────────────────────────────────────────────────────
   Bugaboo: [
     {
@@ -362,6 +362,16 @@ export const STROLLER_SPEC_SEEDS: Record<string, StrollerSpecSeed[]> = {
       maxWeightLbs: 48, ownWeightLbs: 33.3, budgetMin: 1300, budgetMax: 1600,
       isExpandable: true, suitableFromBirth: true, suitableForJogging: false,
       modular: true, fitsOverheadBin: false,
+    },
+    {
+      // Babylist 86187/3571867 and Nordstrom 9114247, verified 2026-09-28.
+      match: /butterfly 2 plus/,
+      summary:
+        'A 16.2 lb travel stroller with a newborn-ready lay-flat seat, built-in foot cover and one-second fold. Holds up to 50 lb, with a 17.6 lb storage basket.',
+      priceRange: 'premium', foldType: 'compact', lifestyle: ['travel', 'city'],
+      maxWeightLbs: 50, ownWeightLbs: 16.2, budgetMin: 579, budgetMax: 579,
+      isExpandable: false, suitableFromBirth: true, suitableForJogging: false,
+      modular: false, fitsOverheadBin: true, basketCapacityLbs: 17.6,
     },
     {
       match: /butterfly/,

@@ -44,6 +44,8 @@ const EXCLUDED_STROLLER_PRODUCT_RULES: Array<{ brandKey: string; title: RegExp }
 // "Traveler", "Twin³ Double", etc.
 const EXCLUDED_STROLLER_MODEL_RULES: Array<{ brandKey: string; model: RegExp }> = [
   { brandKey: 'zoe', model: /^single$/i },
+  // Retired original; Butterfly 2 and Butterfly 2 Plus remain separate models.
+  { brandKey: 'bugaboo', model: /^butterfly$/i },
 ];
 
 const STROLLER_PRODUCT_NOISE_RE =

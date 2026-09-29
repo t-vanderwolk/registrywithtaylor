@@ -19,6 +19,10 @@ const row = (r: Row) => ({
 });
 const TARGET = 'https://www.target.com/p/chicco-cortina-together-double-stroller-minerale/-/A-75558344';
 rows.push(
+  ...['Butterfly', 'Butterfly 2', 'Butterfly 2 Plus'].map((model) => row({
+    brand: 'Bugaboo', title: `Bugaboo ${model} Stroller`, name: model,
+    type: 'travel stroller', url: `https://www.nordstrom.com/s/${model.toLowerCase().replaceAll(' ', '-')}/123`,
+  })),
   row({ brand: 'Chicco', title: 'Chicco - Cortina Together Double Stroller, Minerale', type: 'double stroller', url: 'https://www.macrobaby.com/products/chicco-cortina', provider: 'shopify_macrobaby' }),
   row({ brand: 'Chicco', title: 'Chicco Cortina Together Double Stroller', type: 'Double Stroller', url: TARGET, image: 'https://example.com/cortina.jpg' }),
   row({ brand: 'Silver Cross', title: 'Silver Cross Reef Stroller', type: 'Travel Stroller', url: 'https://silvercrossus.com/product/silver-cross-reef-2-foldable-stroller/' }),
@@ -34,6 +38,14 @@ async function product(brand: string, model: string) {
 }
 
 describe('public stroller catalog: store and direct links', () => {
+  it('retires the original Butterfly while keeping 2 and 2 Plus distinct in both tools', async () => {
+    const models = (await getPublicStrollerCatalogBrands()).find((b) => b.brand === 'Bugaboo')
+      ?.types.flatMap((t) => t.products.map((p) => p.model)).sort();
+    expect(models).toEqual(['Butterfly 2', 'Butterfly 2 Plus']);
+    const options = (await getPublicStrollerCatalogTravelSystemOptions()).filter((p) => p.brand === 'Bugaboo');
+    expect(options.map((p) => p.model).sort()).toEqual(models);
+    expect(options.find((p) => p.model === 'Butterfly 2 Plus')?.summary).toContain('newborn');
+  });
   it('lists a stroller sold only through a hand-added Target link, under a Target button', async () => {
     const cortina = await product('Chicco', 'Cortina Together Double');
     expect(cortina?.source).toBe('store');

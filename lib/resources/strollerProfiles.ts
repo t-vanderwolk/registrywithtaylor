@@ -453,6 +453,31 @@ const PROFILES: StrollerProfile[] = [
   },
   {
     brand: 'Bugaboo',
+    match: /\bbutterfly 2 plus\b/,
+    description:
+      'A compact travel stroller with a lay-flat seat and built-in newborn foot cover. The one-second fold, 16.2 lb frame and 17.6 lb basket make it a practical option for trips and everyday errands.',
+    bestFor: 'Travel and city errands from the newborn stage onward.',
+    priceTier: 'premium',
+    valueScore: 85,
+    specs: [
+      { label: 'Weight', value: '16.2 lb' },
+      { label: 'Folded', value: '21.26 × 17.72 × 9.06 in' },
+      { label: 'Seat limit', value: 'Up to 50 lb' },
+      { label: 'From birth', value: 'Lay-flat seat with built-in foot cover' },
+      { label: 'Basket', value: 'Up to 17.6 lb' },
+    ],
+    pros: [
+      'Newborn-ready seat',
+      'Compact one-second fold',
+      'Full suspension and adjustable footrest',
+    ],
+    cons: [
+      'Car seat adapters sold separately',
+      'Check your airline’s cabin baggage limits before flying',
+    ],
+  },
+  {
+    brand: 'Bugaboo',
     match: /\bbutterfly\b/,
     description:
       'Bugaboo’s cabin-size travel stroller: a genuinely compact one-hand fold that still reclines and holds a real toddler. The go-to for flying when full-size is overkill.',
