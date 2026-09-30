@@ -12,7 +12,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { travelSystemResultsHref, travelSystemSlug } from '@/lib/travelSystemRouting';
-import { trackToolOpened, trackToolSelection } from '@/lib/analytics/tools';
+import { trackToolOpened, trackToolSelection, trackToolResultViewed } from '@/lib/analytics/tools';
 import { babylistBrandShopUrl, isAmazonAllowedForBrand } from '@/lib/affiliateShopFallbacks';
 import { getDirectAffiliateLink, directShopLabel } from '@/lib/catalog/directAffiliateLinks';
 import { strollerFinderBrandHref, strollerFinderCategoryHref } from '@/lib/resources/knowBeforeYouBuy';
@@ -489,6 +489,16 @@ export default function StrollerCatalogFinder({
 
   const currentBrand = brands.find((b) => b.brand === selectedBrand) ?? null;
   const currentCategory = categories.find((c) => c.category === selectedCategory) ?? null;
+
+  const loggedResults = useRef(new Set<string>());
+  useEffect(() => {
+    const value = mode === 'brand' ? currentBrand?.brand : currentCategory?.category;
+    if (!value) return;
+    const key = `${mode}:${value}`;
+    if (loggedResults.current.has(key)) return;
+    loggedResults.current.add(key);
+    trackToolResultViewed('stroller-finder', { value: key });
+  }, [mode, currentBrand?.brand, currentCategory?.category]);
 
   // Strollers: render the category sections in this fixed order, skipping any the
   // brand has nothing in; leftover buckets (e.g. Wagon) with products are appended.

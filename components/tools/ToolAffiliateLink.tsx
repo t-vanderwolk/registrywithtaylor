@@ -36,6 +36,7 @@ export default function ToolAffiliateLink({
       className={className}
       aria-label={ariaLabel}
       data-analytics-managed="true"
+      data-affiliate-track-source="manual"
       onClick={() => trackToolAffiliateClick(tool, { product, retailer, brand, url: href })}
     >
       {children}

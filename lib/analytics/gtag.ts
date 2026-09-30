@@ -73,7 +73,9 @@ export const config = (url?: string) => {
   }
 
   analyticsWindow.__tmbcLastTrackedPageview = resolvedPath;
-  analyticsWindow.gtag('config', GA_ID, pruneParams({
+  analyticsWindow.gtag('event', 'page_view', pruneParams({
+    send_to: GA_ID,
+    page_location: new URL(resolvedPath, analyticsWindow.location.origin).href,
     page_path: resolvedPath,
     page_title: analyticsWindow.document.title || undefined,
   }));

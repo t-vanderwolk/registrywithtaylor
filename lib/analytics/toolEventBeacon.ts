@@ -22,8 +22,7 @@ export function sendToolEventBeacon(input: {
     const endpoint = '/api/tools/event';
 
     if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-      navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }));
-      return;
+      if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return;
     }
 
     void fetch(endpoint, {

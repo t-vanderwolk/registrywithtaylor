@@ -52,7 +52,7 @@ export default function ProductRetailerActions({
       </>,
     };
     return renderLink ? renderLink(link, presentation) : (
-      <ProductShopLink href={link.url} className={presentation.className} aria-label={presentation.ariaLabel}
+      <ProductShopLink data-affiliate-track-source={onRetailerClick ? "manual" : undefined} data-analytics-managed={onRetailerClick ? "true" : undefined} href={link.url} className={presentation.className} aria-label={presentation.ariaLabel}
         onClick={() => onRetailerClick?.({ ...link, url: shopMyProductUrl(link.url) })}>
         {presentation.children}
       </ProductShopLink>

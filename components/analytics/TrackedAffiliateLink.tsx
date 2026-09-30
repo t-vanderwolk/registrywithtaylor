@@ -67,7 +67,7 @@ export default function TrackedAffiliateLink({
     trackAffiliateClick({
       url: destination,
       ...affiliateMetadata,
-    });
+    }, { persistOutbound: !blogTrackingContext });
 
     if (blogTrackingContext) {
       sendBlogAffiliateTrackingEvent({

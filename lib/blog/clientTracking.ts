@@ -64,8 +64,9 @@ export function sendBlogAffiliateTrackingEvent(input: BlogAffiliateTrackingInput
   // Unified outbound-click log (feeds the dashboard's by-retailer breakdown).
   sendAffiliateClickBeacon({
     url: input.destinationUrl,
-    brand: (input.meta?.brandName ?? input.meta?.partnerName) as string | undefined,
-    product: input.meta?.productName as string | undefined,
+    brand: (input.meta?.brand ?? input.meta?.brandName ?? input.meta?.partnerName) as string | undefined,
+    product: (input.meta?.product ?? input.meta?.productName) as string | undefined,
+    retailer: input.meta?.retailer as string | undefined,
     source: 'blog',
   });
 

@@ -36,8 +36,7 @@ export function sendGuideTrackingEvent({
 
   if (typeof window.navigator.sendBeacon === 'function') {
     const beacon = new Blob([payload], { type: 'application/json' });
-    window.navigator.sendBeacon(url, beacon);
-    return;
+    if (window.navigator.sendBeacon(url, beacon)) return;
   }
 
   void fetch(url, {

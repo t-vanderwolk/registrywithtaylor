@@ -54,33 +54,32 @@ export async function POST(req: NextRequest) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const db = prisma as any;
   try {
-    // Light de-dup: a single click can fire twice (React re-invoke, GA + beacon).
-    // Skip a duplicate of the same visitor+url within a few seconds.
-    if (visitorHash) {
-      const recent = await db.outboundClick
-        .findFirst({
+    const counted = await db.$transaction(async (tx: typeof prisma) => {
+      if (visitorHash) {
+        // Serialize simultaneous emitters for this visitor/destination across all app processes.
+        await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${visitorHash + '|' + url}, 0))`;
+        const recent = await tx.outboundClick.findFirst({
           where: { visitorHash, url, createdAt: { gte: new Date(Date.now() - 5_000) } },
           select: { id: true },
-        })
-        .catch(() => null);
-      if (recent) {
-        return NextResponse.json({ ok: true, counted: false, reason: 'dup' });
+        });
+        if (recent) return false;
       }
-    }
-
-    await db.outboundClick.create({
-      data: {
-        retailer: attribution.retailer,
-        network: attribution.network,
-        brand: str(b.brand, 128),
-        product: str(b.product, 256),
-        url,
-        source: attribution.source,
-        pageType: str(b.pageType, 32),
-        path: str(b.path, 256),
-        visitorHash,
-      },
+      await tx.outboundClick.create({
+        data: {
+          retailer: attribution.retailer,
+          network: attribution.network,
+          brand: str(b.brand, 128),
+          product: str(b.product, 256),
+          url,
+          source: attribution.source,
+          pageType: str(b.pageType, 32),
+          path: str(b.path, 256),
+          visitorHash,
+        },
+      });
+      return true;
     });
+    if (!counted) return NextResponse.json({ ok: true, counted: false, reason: 'dup' });
     return NextResponse.json({ ok: true, counted: true, retailer: attribution.retailer });
   } catch {
     // Table not migrated yet or transient error — never block the beacon.

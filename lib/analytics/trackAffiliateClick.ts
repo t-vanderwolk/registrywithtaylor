@@ -58,7 +58,7 @@ export function getAffiliateTrackingDataAttributes(
   };
 }
 
-export function trackAffiliateClick(input: AffiliateClickInput) {
+export function trackAffiliateClick(input: AffiliateClickInput, options: { persistOutbound?: boolean } = {}) {
   const url = normalizeAffiliateValue(input.url);
   if (!url) {
     return;
@@ -73,6 +73,7 @@ export function trackAffiliateClick(input: AffiliateClickInput) {
     timestamp: new Date().toISOString(),
   });
 
+  if (options.persistOutbound === false) return;
   sendAffiliateClickBeacon({
     url,
     brand: metadata.brand,

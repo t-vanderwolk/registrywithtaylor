@@ -1,4 +1,5 @@
 import { getAnalyticsPageType } from '@/lib/analytics';
+import { outboundSource } from './outboundSource';
 import { babylistShopMyUrl } from '@/lib/affiliateShopMy';
 
 /**
@@ -24,15 +25,14 @@ export function sendAffiliateClickBeacon(input: {
       retailer: input.retailer ?? undefined,
       brand: input.brand ?? undefined,
       product: input.product ?? undefined,
-      source: input.source ?? undefined,
+      source: outboundSource(input.source, path),
       pageType: getAnalyticsPageType(path),
       path,
     });
     const endpoint = '/api/affiliate/click';
 
     if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-      navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }));
-      return;
+      if (navigator.sendBeacon(endpoint, new Blob([payload], { type: 'application/json' }))) return;
     }
 
     void fetch(endpoint, {

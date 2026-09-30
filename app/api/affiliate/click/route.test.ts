@@ -3,13 +3,17 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   create: vi.fn(),
+  findFirst: vi.fn(),
+  lock: vi.fn(),
+  visitor: vi.fn(),
 }));
 
 vi.mock('@/lib/server/prisma', () => ({
   default: {
+    $transaction: async (callback: (tx: unknown) => unknown) => callback({ outboundClick: { create: mocks.create, findFirst: mocks.findFirst }, $executeRaw: mocks.lock }),
     outboundClick: {
       create: mocks.create,
-      findFirst: vi.fn(),
+      findFirst: mocks.findFirst,
     },
   },
 }));
@@ -21,7 +25,7 @@ vi.mock('@/lib/server/rateLimit', () => ({
 vi.mock('@/lib/server/viewTracking', () => ({
   getRequestIp: () => null,
   isLikelyBot: () => false,
-  visitorHashFrom: () => null,
+  visitorHashFrom: mocks.visitor,
 }));
 
 import { POST } from '@/app/api/affiliate/click/route';
@@ -40,6 +44,10 @@ function clickRequest(body: Record<string, unknown>) {
 describe('affiliate click API normalization', () => {
   beforeEach(() => {
     mocks.create.mockReset();
+    mocks.findFirst.mockReset();
+    mocks.lock.mockReset();
+    mocks.visitor.mockReset();
+    mocks.visitor.mockReturnValue(null);
     mocks.create.mockResolvedValue({ id: 'click-1' });
   });
 
@@ -82,4 +90,15 @@ describe('affiliate click API normalization', () => {
       data: expect.objectContaining({ retailer: 'MacroBaby', network: 'Shopify' }),
     });
   });
+});
+
+it('locks before checking for a concurrent duplicate and does not insert it', async () => {
+  mocks.visitor.mockReturnValue('visitor');
+  mocks.findFirst.mockResolvedValue({ id: 'existing' });
+  mocks.create.mockClear();
+  const response = await POST(clickRequest({ url: 'https://amzn.to/test' }));
+  expect(mocks.lock).toHaveBeenCalled();
+  expect(mocks.lock.mock.invocationCallOrder.at(-1)).toBeLessThan(mocks.findFirst.mock.invocationCallOrder.at(-1)!);
+  expect(mocks.create).not.toHaveBeenCalled();
+  expect(await response.json()).toMatchObject({ counted: false, reason: 'dup' });
 });

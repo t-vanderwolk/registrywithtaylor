@@ -1,3 +1,4 @@
+import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import ProductShopLink from '@/components/affiliate/ProductShopLink';
@@ -178,4 +179,14 @@ describe('checklist link limits', () => {
     expect(resolveProductLinks(product)).toHaveLength(6);
     expect(resolveProductLinks(product)[5].url).toBe(entries.extraUrl3);
   });
+});
+
+// Managed shopping buttons must not also trigger the global affiliate listener.
+it('gives tool and checklist buttons one outbound tracking owner', () => {
+  const links = [{ retailer: 'Babylist', url: 'https://www.babylist.com/gp/example/1/2' }];
+  for (const element of [
+    <ToolAffiliateLink href={links[0].url} tool="stroller-compare">Shop</ToolAffiliateLink>,
+    <ProductRetailerActions links={links} productName="Example" onRetailerClick={() => undefined} />,
+  ]) expect(renderToStaticMarkup(element)).toContain('data-affiliate-track-source="manual"');
+  expect(renderToStaticMarkup(<ProductRetailerActions links={links} productName="Example" />)).not.toContain('data-affiliate-track-source="manual"');
 });

@@ -81,15 +81,14 @@ export default async function AffiliateDashboardPage() {
         <section className="rounded-[2rem] border border-[rgba(215,161,175,0.18)] bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(253,247,248,0.96)_48%,rgba(249,241,236,0.98)_100%)] p-6 shadow-[0_24px_60px_rgba(58,36,43,0.08)] sm:p-8">
           <p className="text-[0.72rem] uppercase tracking-[0.28em] text-[var(--color-accent-dark)]/68">Affiliate Analytics</p>
           <h1 className="mt-4 max-w-3xl font-serif text-[2.4rem] leading-[0.98] tracking-[-0.05em] text-charcoal sm:text-[3.2rem]">
-            Revenue signals, without the shrug.
+            Affiliate click activity
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-charcoal/72 sm:text-[1.05rem]">
             This dashboard standardizes affiliate click tracking across the site, then rolls it into product, brand,
             and guide-level summaries you can actually use.
           </p>
           <div className="mt-6 inline-flex rounded-full border border-[rgba(215,161,175,0.2)] bg-white/88 px-4 py-2 text-sm text-charcoal/70 shadow-[0_10px_24px_rgba(58,36,43,0.05)]">
-            Using the mock aggregation layer for now. The data contract is ready to swap to GA4, Supabase, or
-            Postgres-backed events later.
+            Live first-party outbound clicks, all time. Duplicate events within five seconds are counted once.
           </div>
         </section>
 
@@ -129,7 +128,7 @@ export default async function AffiliateDashboardPage() {
             />
 
             <section className="grid gap-5 xl:grid-cols-3">
-              <DashboardTable title="Top products" eyebrow="Products" columns={['Product', 'Clicks', 'Conversion Proxy']}>
+              <DashboardTable title="Top products" eyebrow="Products" columns={['Product', 'Clicks', 'Share of clicks']}>
                 {analytics.topProducts.slice(0, 8).map((row) => (
                   <tr key={row.product} className="border-t border-[rgba(215,161,175,0.12)]">
                     <td className="px-5 py-4 text-sm font-medium text-charcoal sm:px-6">{row.product}</td>
@@ -139,7 +138,7 @@ export default async function AffiliateDashboardPage() {
                 ))}
               </DashboardTable>
 
-              <DashboardTable title="Top guides" eyebrow="Guides" columns={['Guide', 'Clicks', 'Avg Clicks / Session']}>
+              <DashboardTable title="Top guides" eyebrow="Guides" columns={['Guide', 'Clicks', 'Clicks / identified visitor']}>
                 {analytics.topGuides.slice(0, 8).map((row) => (
                   <tr key={row.guide} className="border-t border-[rgba(215,161,175,0.12)]">
                     <td className="px-5 py-4 text-sm font-medium text-charcoal sm:px-6">{row.guide}</td>

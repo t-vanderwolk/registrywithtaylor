@@ -242,7 +242,7 @@ export default async function ReviewerDashboardPage() {
             <AdminKpiCard label="Academy actions" value={guideAnalytics.summary.totalEngagement.toLocaleString()} />
             <AdminKpiCard label="Academy conversions" value={guideAnalytics.summary.totalConsultationClicks.toLocaleString()} />
             <AdminKpiCard label="Academy conversion rate" value={academyConversionRate} />
-            <AdminKpiCard label="Estimated revenue" value={`$${Math.round(revenueAnalytics.summary.totalEstimatedRevenue).toLocaleString()}`} />
+            <AdminKpiCard label="Revenue connection" value="Not connected" />
           </section>
           <AdminButton asChild variant="secondary">
             <Link href="/admin/analytics">Open analytics summary</Link>

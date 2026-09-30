@@ -16,24 +16,23 @@ import AdminSurface from '@/components/admin/ui/AdminSurface';
 type RevenueChartsProps = {
   topEarningPosts: Array<{
     label: string;
-    estimatedRevenue: number;
+    affiliateClicks: number;
+    estimatedRevenue: number | null;
   }>;
   revenueOverTime: Array<{
     date: string;
     affiliateClicks: number;
-    estimatedRevenue: number;
+    estimatedRevenue: number | null;
   }>;
 };
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
+const countFormatter = new Intl.NumberFormat('en-US', {
+  style: 'decimal',
   maximumFractionDigits: 0,
 });
 
-const compactCurrencyFormatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
+const compactCountFormatter = new Intl.NumberFormat('en-US', {
+  style: 'decimal',
   notation: 'compact',
   maximumFractionDigits: 1,
 });
@@ -43,10 +42,10 @@ const tickStyle = {
   fontSize: 12,
 };
 
-const formatTooltipCurrency = (value: number | string | ReadonlyArray<number | string> | undefined) => {
+const formatTooltipCount = (value: number | string | ReadonlyArray<number | string> | undefined) => {
   const rawValue = Array.isArray(value) ? value[0] : value;
   const numericValue = typeof rawValue === 'number' ? rawValue : Number(rawValue ?? 0);
-  return currencyFormatter.format(Number.isFinite(numericValue) ? numericValue : 0);
+  return countFormatter.format(Number.isFinite(numericValue) ? numericValue : 0);
 };
 
 export default function BlogRevenueCharts({
@@ -67,8 +66,8 @@ export default function BlogRevenueCharts({
     <section className="grid gap-4 xl:grid-cols-2">
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
-          <p className="admin-eyebrow">Top Earning Posts</p>
-          <h2 className="admin-h2">Estimated revenue leaders</h2>
+          <p className="admin-eyebrow">Blog Click Leaders</p>
+          <h2 className="admin-h2">Posts with the most affiliate clicks</h2>
         </div>
 
         {barData.length === 0 ? (
@@ -89,10 +88,10 @@ export default function BlogRevenueCharts({
                 <YAxis
                   tick={tickStyle}
                   width={84}
-                  tickFormatter={(value: number) => compactCurrencyFormatter.format(value)}
+                  tickFormatter={(value: number) => compactCountFormatter.format(value)}
                 />
                 <Tooltip
-                  formatter={(value) => formatTooltipCurrency(value)}
+                  formatter={(value) => formatTooltipCount(value)}
                   labelFormatter={(_label, payload) => payload?.[0]?.payload?.label ?? 'Post'}
                   contentStyle={{
                     borderRadius: '18px',
@@ -100,7 +99,7 @@ export default function BlogRevenueCharts({
                     boxShadow: '0 18px 44px rgba(0,0,0,0.10)',
                   }}
                 />
-                <Bar dataKey="estimatedRevenue" fill="#c97455" radius={[10, 10, 0, 0]} />
+                <Bar dataKey="affiliateClicks" name="Affiliate clicks" fill="#c97455" radius={[10, 10, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -109,12 +108,12 @@ export default function BlogRevenueCharts({
 
       <AdminSurface className="admin-stack gap-4">
         <div className="admin-stack gap-1">
-          <p className="admin-eyebrow">Revenue Over Time</p>
-          <h2 className="admin-h2">Estimated affiliate revenue trend</h2>
+          <p className="admin-eyebrow">Clicks Over Time</p>
+          <h2 className="admin-h2">Blog affiliate click activity</h2>
         </div>
 
         {lineData.length === 0 ? (
-          <p className="admin-body">No revenue timeline is available yet.</p>
+          <p className="admin-body">No click timeline is available yet.</p>
         ) : (
           <div className="h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -124,10 +123,10 @@ export default function BlogRevenueCharts({
                 <YAxis
                   tick={tickStyle}
                   width={84}
-                  tickFormatter={(value: number) => compactCurrencyFormatter.format(value)}
+                  tickFormatter={(value: number) => compactCountFormatter.format(value)}
                 />
                 <Tooltip
-                  formatter={(value) => formatTooltipCurrency(value)}
+                  formatter={(value) => formatTooltipCount(value)}
                   labelFormatter={(_label, payload) => payload?.[0]?.payload?.date ?? 'Date'}
                   contentStyle={{
                     borderRadius: '18px',
@@ -137,7 +136,8 @@ export default function BlogRevenueCharts({
                 />
                 <Line
                   type="monotone"
-                  dataKey="estimatedRevenue"
+                  dataKey="affiliateClicks"
+                  name="Affiliate clicks"
                   stroke="#1e434c"
                   strokeWidth={3}
                   dot={false}
