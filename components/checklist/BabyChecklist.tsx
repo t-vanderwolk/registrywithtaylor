@@ -696,7 +696,7 @@ function Recommendation({
             {price.reference ? <span> Reference price</span> : null}
           </p>
         ) : null}
-        <ProductRetailerActions links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} logos={retailerLogos} />
+        <ProductRetailerActions showAllRetailers links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} logos={retailerLogos} />
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import styles from './ProductRetailerActions.module.css';
 type LinkPresentation = { className: string; ariaLabel: string; children: ReactNode };
 
 export default function ProductRetailerActions({
-  links, productName, onRetailerClick, renderLink, logos,
+  links, productName, onRetailerClick, renderLink, logos, showAllRetailers = false,
 }: {
   links: RetailerLink[];
   productName: string;
@@ -20,11 +20,15 @@ export default function ProductRetailerActions({
   renderLink?: (link: RetailerLink, presentation: LinkPresentation) => ReactNode;
   /** Admin partner logos, merged over the static retailer assets. */
   logos?: Record<string, string>;
+  /** Show every available destination together, including legacy extra links. */
+  showAllRetailers?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
-  const retailers = orderedProductRetailers(links).slice(0, MAX_CARD_RETAILERS);
-  const extra = retailers.slice(2);
+  const ordered = orderedProductRetailers(links);
+  const retailers = showAllRetailers ? ordered : ordered.slice(0, MAX_CARD_RETAILERS);
+  const visible = showAllRetailers ? retailers : retailers.slice(0, 2);
+  const extra = showAllRetailers ? [] : retailers.slice(2);
   if (!retailers.length) return null;
 
   function shopLink(link: RetailerLink) {
@@ -62,7 +66,7 @@ export default function ProductRetailerActions({
   return (
     <div className={styles.actions} data-retailer-actions>
       <div className={styles.primaryGroup}>
-        {retailers.slice(0, 2).map((link) => <div key={link.url}>{shopLink(link)}</div>)}
+        {visible.map((link) => <div key={link.url}>{shopLink(link)}</div>)}
       </div>
       {extra.length ? <>
         <button type="button" className={styles.toggle} aria-expanded={open} aria-controls={panelId}

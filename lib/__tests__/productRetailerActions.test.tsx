@@ -41,6 +41,19 @@ describe('editorial retailer actions', () => {
     expect(JSON.stringify(six)).toBe(original);
   });
 
+  it('shows all checklist destinations, including legacy extras, with routing and tracking intact', () => {
+    const six = [...links, { retailer: 'Target', url: 'https://www.target.com/p/test', preferred: true }];
+    const html = renderToStaticMarkup(<ProductRetailerActions showAllRetailers links={six} productName="Test" onRetailerClick={() => {}} />);
+    expect((html.match(/<a /g) ?? []).length).toBe(6);
+    expect(html).not.toContain('<button');
+    expect(html).not.toContain('hidden=""');
+    expect(html.indexOf('Shop at Target')).toBeLessThan(html.indexOf('Shop at Amazon'));
+    expect(html).toContain('amazon.com/dp/TEST?tag=keep');
+    expect(html).toContain('go.shopmy.us/apx/y5Etg8');
+    expect((html.match(/data-affiliate-track-source="manual"/g) ?? []).length).toBe(6);
+    expect((html.match(/sponsored nofollow/g) ?? []).length).toBe(6);
+  });
+
   it('uses product-specific preferences, not a retailer hierarchy or commission rate', () => {
     const custom = links.map((link, index) => ({ ...link, preferred: index === 3, displayOrder: index === 2 ? 1 : index + 2 }));
     expect(orderedProductRetailers(custom).slice(0, 2).map((link) => link.retailer)).toEqual(["Bloomingdale's", 'Nordstrom']);
