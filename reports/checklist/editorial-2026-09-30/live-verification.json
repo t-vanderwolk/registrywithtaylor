@@ -1,0 +1,752 @@
+{
+  "auditedProductsVerified": 118,
+  "liveCards": 184,
+  "allRetailerLinksOrderAndRelUnchanged": true,
+  "checks": [
+    {
+      "id": "amzcc-dream-on-me-synergy-flex-foldable-full-size-crib",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "dadada-spirit-8-in-1-convertible-crib",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "evolur-puresprout-light-2-in-1-crib-mattress",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "davinci-deluxe-coil-waterproof-mini-crib-mattress",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "babyletto-babyletto-x-avocado-mini-crib-size-organic-mattress",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-muslin-crib-sheets-2-pack-52-x-28",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-muslin-mini-crib-pack-and-play-sheets-2-pack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "kyte-baby-crib-sheet",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "newton-baby-2-pack-organic-cotton-breathable-crib-sheets",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "bugaboo-stardust-playard",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "graco-pack-n-play-day2dream-travel-bassinet-playard",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "angelbliss-pack-and-play-with-bassinet-changing-station",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "evolur-zane-portable-playard",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-quiet-fastener-swaddle-0-3m",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-muslin-swaddle-blankets-4-pack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-sleep-sack-1-5-tog",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-baby-shusher-firefly-soother-with-nightlight",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-hiccapop-blackout-tent-for-pack-and-play",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "oilo-james-a-chair-and-a-half-gliding-swivel-nursery-recliner",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "oilo-flynn-gliding-swivel-nursery-recliner",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-tommee-tippee-natural-start-perfect-latch-trial-kit",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-7-in-1-bottle-brush-set-with-drying-rack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-push-press-foam-bottle-brush-kit",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-papablic-bottle-washer-tablets-120ct",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-portable-foldable-bottle-drying-rack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "momcozy-vertical-bottle-drying-rack-for-18-bottles",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "munchkin-dishwasher-basket",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-22oz-portable-breastmilk-cooler",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "grownsy-portable-breast-milk-cooler",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-wellness-1-warm-massage-wearable-pump",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-mommed-s33-wearable-breast-pump",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-cozypro-nursing-pillow",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-a1pro-lactation-massager-with-heat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-kleanpal-pro-bottle-washer-sterilizer-dryer",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-papablic-safeguardplus-bottle-washer-sterilizer-dryer",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-eufy-bottle-washer-s1-non-pro",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "bugaboo-giraffe",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "momcozy-dinerpal",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "lalo-the-chair-ii",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "bellini-parma-3-in-1-high-chair",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "evolur-step-and-savor-baby-highchair",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "mockingbird-high-chair",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-silicone-training-open-cup-5oz",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "skip-hop-nursery-style-light-up-changing-pad",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "munchkin-changing-pad-for-dresser",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "papablic-baby-changing-pad",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-woddle-smart-changing-pad-with-scale",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "evolur-eva-changing-pad",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "jool-baby-smartwave-plus-touch-free-diaper-pail",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-grownsy-odor-locking-diaper-pail",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "momcozy-diaper-pail",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "skip-hop-diaper-caddy",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "haakaa-nestside-hanging-diaper-organizer",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "stokke-flexi-bath-stand-bundle",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "lalo-bathtime-starter-kit",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "babu-baby-bathtub-with-wooden-stand",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-stokke-flexi-bath-x-large-tub",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "ingenuity-tuckaway-toddler-tub",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "grownsy-baby-bath-stand",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-baby-hooded-towels",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "the-honest-company-bathtime-gift-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "coterie-baby-bath-skincare-essentials-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "coterie-skincare-essentials-gift-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "haakaa-baby-bath-thermometer",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "lalo-knee-and-elbow-saver",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "milou-modern-elbow-knee-rest",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "canopy-bath-tub-filter",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-silicone-nasal-aspirator-bulb",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-swan-neck-nasal-aspirator",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-medicine-dispenser-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-penguin-dual-feeding-syringe-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "lifevac-home-travel-kit-bundle",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-mommy-s-bliss-infants-acetaminophen-dye-free",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-silicone-finger-toothbrush",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-training-toothbrush-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "cybex-callisto-g-360",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "nuna-revv-maxx-rotating-convertible-car-seat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "silver-cross-breez",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "bugaboo-dragonfly-plus",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "uppababy-kona",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "cybex-priam-comfort-collection",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "silver-cross-cove-2",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "silver-cross-nia",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "inglesina-quid-3",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "nuna-viaa-cabn",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-bugaboo-butterfly-2-plus-travel-stroller",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "cybex-libelle",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "wildbird-aerial-buckle-wrap",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "sukura-bloom-scout",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-wildbird-ring-sling-linen",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-baby-wrap-carrier-2-piece",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "sakura-bloom-venice-ring-sling",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-diaper-bag-backpack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "kyte-baby-first-favorites-bodysuit-bundle-3-pack",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "burt-s-bees-baby-unisex-bodysuits",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "magnetic-me-organic-cotton-magnetic-bodysuit-5-pack-bundle",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "honest-baby-clothing-50-piece-organic-cotton-oh-baby-gift-set",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "bright-starts-tummy-time-prop-play-mat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "infantino-foldable-foam-mat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "etta-loves-x-liberty-reversible-sensory-playmat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "toddlekind-wander-grande-indoor-outdoor-portable-playmat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "crane-baby-cotton-quilted-activity-mat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "baby-einstein-opus-s-ocean-of-discovery-water-play-mat-sensory-toy",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "toddlekind-haven-foam-play-mat-amira-collection",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "nuby-reversible-baby-floor-mat",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "dream-on-me-pogo-3-in-1-baby-activity-center",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-dream-on-me-curio-sit-n-seek-activity-center",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-silicone-clover-teether",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-haakaa-silicone-palm-teether",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "haakaa-twisty-tilly-silicone-sheep-teether",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "haakaa-vehicle-crew-silicone-baby-teething-toys",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "haakaa-freezer-teether-with-lovey-blanket",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "grownsy-wooden-baby-walker",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "grownsy-baby-bouncer",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-grownsy-dual-motion-baby-swing",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-momcozy-2-in-1-electric-baby-swing",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "playard-pick",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    },
+    {
+      "id": "amzcc-grownsy-postpartum-recovery-kit",
+      "badgeVerified": true,
+      "standoutVerified": true,
+      "cardOccurrences": 1
+    }
+  ],
+  "responsiveChecks": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "visibleCards": 184,
+      "cardOverflow": 0,
+      "standoutOverflow": 0
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "visibleCards": 184,
+      "cardOverflow": 0,
+      "standoutOverflow": 0,
+      "pageHorizontalOverflow": false
+    }
+  ],
+  "tests": {
+    "editorialSafety": 8,
+    "retailerAndTracking": 18,
+    "passed": 26
+  },
+  "repeatDryRunUpdates": 0,
+  "liveClickVerification": {
+    "date": "2026-10-01",
+    "retailers": [
+      "Babylist",
+      "Amazon"
+    ],
+    "outboundRecords": 2,
+    "resultEvents": 2,
+    "duplicates": 0,
+    "product": "bugaboo-giraffe",
+    "details": "live-click-verification-2026-10-01.json",
+    "testEventsRetained": true,
+    "externalGA4ReceiptVerified": false
+  }
+}

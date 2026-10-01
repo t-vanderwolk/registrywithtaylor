@@ -1,0 +1,1417 @@
+diff --git a/scripts/enrichChecklistEditorial.cjs b/scripts/enrichChecklistEditorial.cjs
+new file mode 100644
+index 0000000..7df90ca
+--- /dev/null
++++ b/scripts/enrichChecklistEditorial.cjs
+@@ -0,0 +1,159 @@
++/**
++ * Controlled editorial update. No generic seed/upsert and no fuzzy matching.
++ * node scripts/enrichChecklistEditorial.cjs --dry-run --report /tmp/editorial.json
++ * Review that JSON + Markdown, then:
++ * node scripts/enrichChecklistEditorial.cjs --apply --reviewed /tmp/editorial.json --report /tmp/applied.json
++ * DATABASE_URL must point at the intended database. No credentials are written.
++ */
++const fs = require('node:fs');
++const path = require('node:path');
++const { createHash } = require('node:crypto');
++const { isDeepStrictEqual } = require('node:util');
++const approved = require('./data/checklistEditorialEnrichment-2026-09-30.json');
++const REPLACEMENT_ID = 'amzcc-momcozy-baby-wrap-carrier-2-piece';
++const fields = ['badge', 'standout'];
++const normalize = (s) => (s ?? '').trim().replaceAll('’', "'");
++const digest = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
++const plain = (value) => JSON.parse(JSON.stringify(value));
++
++function buildPlan(rows, products = approved.products) {
++  const byId = new Map(rows.map((r) => [r.id, r]));
++  const counts = { productsUpdated: 0, badgesAdded: 0, badgesReplaced: 0, standoutsAdded: 0, standoutsReplaced: 0, existingBadges: 0, existingStandouts: 0, conflicts: 0, unmatched: 0, unchangedProducts: 0 };
++  const entries = Object.entries(products).map(([id, copy]) => {
++    const row = byId.get(id);
++    const entry = { id, auditProduct: copy.auditProduct, brand: copy.brand, product: copy.product, identityNote: copy.identityNote, source: 'DB-backed (verified on live checklist in read-only preflight)', before: row ?? null, changes: {}, conflicts: [], fields: {} };
++    if (!row || row.brand !== copy.brand || row.product !== copy.product || row.checklistItemId !== copy.checklistItemId) {
++      counts.unmatched++;
++      entry.source = 'Identity missing or changed; not eligible';
++      entry.identityError = 'Exact ID, brand, product or checklist assignment does not match the reviewed identity.';
++      return entry;
++    }
++    if (normalize(row.badge)) counts.existingBadges++;
++    if (normalize(row.standout)) counts.existingStandouts++;
++    for (const field of fields) {
++      if (typeof copy[field] !== 'string' || !copy[field].trim()) throw new Error(`Missing approved ${field}: ${id}`);
++      const old = row[field];
++      const proposed = copy[field];
++      let action = 'already-present';
++      let next = old;
++      if (!normalize(old)) { action = 'add'; next = proposed; }
++      else if (normalize(old) !== normalize(proposed)) {
++        if (id === REPLACEMENT_ID && copy.allowReplacement === true) { action = 'replace'; next = proposed; }
++        else { action = 'conflict-preserved'; entry.conflicts.push(field); }
++      }
++      if (next !== old) {
++        entry.changes[field] = next;
++        counts[`${field === 'badge' ? 'badges' : 'standouts'}${action === 'add' ? 'Added' : 'Replaced'}`]++;
++      }
++      entry.fields[field] = { old, proposed, new: next, action, wouldOverwriteExisting: Boolean(normalize(old) && old !== proposed), willOverwriteExisting: action === 'replace' };
++    }
++    if (entry.conflicts.length) counts.conflicts++;
++    if (Object.keys(entry.changes).length) counts.productsUpdated++;
++    else counts.unchangedProducts++;
++    return entry;
++  });
++  return { counts, entries };
++}
++
++async function snapshot(db) {
++  return plain({
++    products: await db.checklistProduct.findMany({ orderBy: { id: 'asc' } }),
++    categories: await db.checklistCategory.findMany({ orderBy: { id: 'asc' } }),
++    items: await db.checklistItem.findMany({ orderBy: { id: 'asc' } }),
++  });
++}
++
++function verify(before, after, entries) {
++  if (!isDeepStrictEqual(before.categories, after.categories) || !isDeepStrictEqual(before.items, after.items)) throw new Error('Checklist structure changed; verification failed.');
++  if (before.products.length !== after.products.length) throw new Error('Product count changed.');
++  const updates = new Map(entries.filter((e) => Object.keys(e.changes).length).map((e) => [e.id, e.changes]));
++  for (const row of before.products) {
++    const actual = after.products.find((r) => r.id === row.id);
++    if (!actual) throw new Error(`Missing product ${row.id}`);
++    const expected = { ...row, ...(updates.get(row.id) ?? {}) };
++    if (updates.has(row.id)) expected.updatedAt = actual.updatedAt;
++    if (!isDeepStrictEqual(expected, actual)) throw new Error(`Unexpected product-field change: ${row.id}`);
++  }
++  return { verifiedProducts: before.products.length, updatedProducts: updates.size, reviewUnchanged: true, commerceUnchanged: true, productIdentityUnchanged: true, categoriesAndLinesUnchanged: true, onlyAllowedFieldsChanged: ['badge', 'standout', 'updatedAt (automatic timestamp)'] };
++}
++
++async function applyReviewed(db, reviewed, products = approved.products) {
++  if (reviewed.mode !== 'dry-run' || reviewed.mapDigest !== digest(products)) throw new Error('A matching reviewed dry-run report is required.');
++  return db.$transaction(async (tx) => {
++    const before = await snapshot(tx);
++    if (!isDeepStrictEqual(before, reviewed.snapshot)) throw new Error('Database changed after dry run. Run and review a fresh dry run.');
++    const plan = buildPlan(before.products, products);
++    if (!isDeepStrictEqual(plan, reviewed.plan)) throw new Error('Reviewed plan differs.');
++    if (plan.counts.unmatched) throw new Error('Unmatched identity: write mode refused.');
++    for (const entry of plan.entries) {
++      if (!Object.keys(entry.changes).length) continue;
++      if (Object.keys(entry.changes).some((key) => !fields.includes(key))) throw new Error('Forbidden field.');
++      const result = await tx.checklistProduct.updateMany({
++        where: { id: entry.id, brand: entry.brand, product: entry.product, updatedAt: new Date(entry.before.updatedAt), badge: entry.before.badge, standout: entry.before.standout },
++        data: entry.changes,
++      });
++      if (result.count !== 1) throw new Error(`Concurrent change: ${entry.id}`);
++    }
++    const after = await snapshot(tx);
++    return { before, after, plan, verification: verify(before, after, plan.entries) };
++  }, { isolationLevel: 'Serializable', timeout: 60000 });
++}
++
++function markdown(report) {
++  const cell = (v) => JSON.stringify(v ?? null).replaceAll('|', '\\|');
++  const lines = ['# Checklist editorial enrichment — 2026-09-30', '', `Mode: ${report.mode}. Generated: ${report.generatedAt}.`, '', '## Counts', '', ...Object.entries(report.plan.counts).map(([k,v]) => `- ${k}: ${v}`), '', '## Source and identity', '', '118 audited products were individually matched to unique DB IDs and found on the live neutral checklist before writing. The short labels in the source audit were resolved to the full stored names below, preserving sizes, generations, bundles, counts, and colors. The Guava / BabyBjörn label is an existing combined-label DB row, not a merge performed by this script. Static recommendation wiring can select a DB product; it does not mean static product content is used.', '', 'Existing non-empty content is preserved, including apostrophe typography. Two substantive differences are retained: Evolur PureSprout badge and playard-pick standout. The Momcozy wrap is the only authorized replacement and already contains the requested copy. Review is never an update target.', '', '## Every audited product', ''];
++  for (const e of report.plan.entries) {
++    lines.push(`### ${e.auditProduct}`, '', `- ID: \`${e.id}\``, `- Brand / product: ${e.brand} / ${e.product}`, `- Source: ${e.source}`, `- Current review (preserved): ${cell(e.before?.review)}`);
++    if (e.identityError) lines.push(`- UNMATCHED: ${e.identityError}`);
++    for (const field of fields) {
++      const f = e.fields[field]; if (!f) continue;
++      lines.push(`- ${field}: ${cell(f.old)} → ${cell(f.new)} (${f.action})`, `- Proposed ${field}: ${cell(f.proposed)}; would overwrite existing: ${f.wouldOverwriteExisting}; actual overwrite: ${f.willOverwriteExisting}`);
++    }
++    lines.push('');
++  }
++  if (report.verification) lines.push('## Verification', '', '```json', JSON.stringify(report.verification,null,2), '```', '');
++  return lines.join('\n');
++}
++
++async function main(args = process.argv.slice(2)) {
++  const known = new Set(['--dry-run','--apply','--report','--reviewed']);
++  const opts = {};
++  for (let i=0;i<args.length;i++) {
++    const arg=args[i]; if(!known.has(arg)) throw new Error(`Unknown option: ${arg}`);
++    if(arg==='--report'||arg==='--reviewed') { if(!args[i+1]||args[i+1].startsWith('--')) throw new Error(`Missing value: ${arg}`); opts[arg]=args[++i]; }
++    else opts[arg]=true;
++  }
++  if(opts['--dry-run']&&opts['--apply']) throw new Error('Choose dry-run or apply, not both.');
++  if(opts['--apply']&&(!opts['--reviewed']||!opts['--report'])) throw new Error('Apply requires --reviewed and --report.');
++  if (opts['--report']) {
++    const output = path.resolve(opts['--report']);
++    if (opts['--reviewed'] && output === path.resolve(opts['--reviewed'])) throw new Error('Report must not overwrite reviewed dry run.');
++    fs.accessSync(path.dirname(output), fs.constants.W_OK);
++  }
++  const { PrismaClient } = require('@prisma/client');
++  const db = new PrismaClient();
++  try {
++    let report;
++    if(opts['--apply']) {
++      const reviewed=JSON.parse(fs.readFileSync(opts['--reviewed'],'utf8'));
++      const result=await applyReviewed(db,reviewed);
++      const persisted=await snapshot(db);
++      const persistedVerification=verify(result.before,persisted,result.plan.entries);
++      report={ mode:'applied',generatedAt:new Date().toISOString(),mapDigest:digest(approved.products),snapshot:result.before,plan:result.plan,after:persisted,verification:persistedVerification };
++    } else {
++      // PostgreSQL itself enforces zero database writes in the entire dry run.
++      const before=await db.$transaction(async(tx)=>{ await tx.$executeRawUnsafe('SET TRANSACTION READ ONLY'); return snapshot(tx); }, { isolationLevel:'RepeatableRead',timeout:30000 });
++      report={mode:'dry-run',generatedAt:new Date().toISOString(),mapDigest:digest(approved.products),snapshot:before,plan:buildPlan(before.products)};
++    }
++    for(const e of report.plan.entries) console.log(`${e.id}\n${e.brand} | ${e.product}\nBadge: ${JSON.stringify(e.fields.badge?.old)} → ${JSON.stringify(e.fields.badge?.new)}\nStandout: ${JSON.stringify(e.fields.standout?.old)} → ${JSON.stringify(e.fields.standout?.new)}${e.identityError?'\nUNMATCHED: '+e.identityError:''}${e.conflicts.length?'\nPRESERVED CONFLICT: '+e.conflicts.join(', '):''}\n`);
++    console.log(JSON.stringify(report.plan.counts,null,2));
++    if(opts['--report']) {
++      const output=path.resolve(opts['--report']);
++      if(opts['--reviewed']&&output===path.resolve(opts['--reviewed'])) throw new Error('Report must not overwrite reviewed dry run.');
++      fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');
++      fs.writeFileSync(output.replace(/\.json$/, '')+'.md',markdown(report));
++    }
++  } finally { await db.$disconnect(); }
++}
++if(require.main===module) main().catch((error)=>{console.error(error.message);process.exitCode=1;});
++module.exports={buildPlan,applyReviewed,verify,digest};
+diff --git a/scripts/data/checklistEditorialEnrichment-2026-09-30.json b/scripts/data/checklistEditorialEnrichment-2026-09-30.json
+new file mode 100644
+index 0000000..b095cc2
+--- /dev/null
++++ b/scripts/data/checklistEditorialEnrichment-2026-09-30.json
+@@ -0,0 +1,1185 @@
++{
++  "source": "Approved missing-content audit supplied by Taylor, 2026-09-30; revised Momcozy wrap copy from the current request.",
++  "products": {
++    "amzcc-dream-on-me-synergy-flex-foldable-full-size-crib": {
++      "auditProduct": "Dream On Me Synergy Flex Foldable Full-Size Crib",
++      "brand": "Dream On Me",
++      "product": "Synergy Flex Foldable Full-Size Crib",
++      "checklistItemId": "crib",
++      "badge": "Full-Size Foldaway",
++      "standout": "A foldable full-size crib that gives you traditional crib space with the flexibility to move or store it when needed.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "dadada-spirit-8-in-1-convertible-crib": {
++      "auditProduct": "dadada Spirit 8-in-1 Convertible Crib",
++      "brand": "dadada",
++      "product": "Spirit 8-in-1 Convertible Crib",
++      "checklistItemId": "crib",
++      "badge": "Grow-Up-With-Me Crib",
++      "standout": "A highly convertible nursery centerpiece designed to evolve well beyond the baby stage.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "evolur-puresprout-light-2-in-1-crib-mattress": {
++      "auditProduct": "Evolur PureSprout Light 2-in-1 Crib Mattress",
++      "brand": "Evolur",
++      "product": "PureSprout Light 2-in-1 Crib Mattress",
++      "checklistItemId": "crib-mattress",
++      "badge": "Dual-Sided Value",
++      "standout": "A two-stage mattress with separate infant and toddler sides at a more approachable price point.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "davinci-deluxe-coil-waterproof-mini-crib-mattress": {
++      "auditProduct": "DaVinci Deluxe Coil Waterproof Mini Crib Mattress",
++      "brand": "DaVinci",
++      "product": "Deluxe Coil Waterproof MINI Crib Mattress",
++      "checklistItemId": "crib-mattress",
++      "badge": "Budget Mini Mattress",
++      "standout": "A straightforward waterproof mini-crib mattress for families who want a traditional coil construction.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "babyletto-babyletto-x-avocado-mini-crib-size-organic-mattress": {
++      "auditProduct": "babyletto x Avocado Mini Crib Organic Mattress",
++      "brand": "babyletto",
++      "product": "babyletto x Avocado Mini Crib Size Organic Mattress",
++      "checklistItemId": "crib-mattress",
++      "badge": "Organic Mini Upgrade",
++      "standout": "Premium organic construction sized specifically for mini cribs and smaller sleep spaces.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-muslin-crib-sheets-2-pack-52-x-28": {
++      "auditProduct": "Momcozy Muslin Crib Sheets",
++      "brand": "Momcozy",
++      "product": "Muslin Crib Sheets",
++      "checklistItemId": "crib-sheets",
++      "badge": "Soft Muslin Basics",
++      "standout": "Breathable muslin sheets with a soft, relaxed feel for everyday crib rotation.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-muslin-mini-crib-pack-and-play-sheets-2-pack": {
++      "auditProduct": "Momcozy Muslin Mini Crib Sheets",
++      "brand": "Momcozy",
++      "product": "Muslin Mini Crib Sheets",
++      "checklistItemId": "crib-sheets",
++      "badge": "Mini-Crib Muslin",
++      "standout": "The same soft muslin feel scaled specifically for mini-crib mattresses.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "kyte-baby-crib-sheet": {
++      "auditProduct": "Kyte Baby Crib Sheet",
++      "brand": "Kyte Baby",
++      "product": "Crib Sheet",
++      "checklistItemId": "crib-sheets",
++      "badge": "Softest Sheet Swap",
++      "standout": "Silky-soft bamboo fabric makes this an elevated sheet option for parents who prioritize feel.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "newton-baby-2-pack-organic-cotton-breathable-crib-sheets": {
++      "auditProduct": "Newton Organic Cotton Crib Sheets",
++      "brand": "Newton Baby",
++      "product": "2-Pack Organic Cotton Breathable Crib Sheets",
++      "checklistItemId": "crib-sheets",
++      "badge": "Breathable Sheet Stack",
++      "standout": "Breathable organic cotton sheets designed to complement a washable Newton sleep setup.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "bugaboo-stardust-playard": {
++      "auditProduct": "Bugaboo Stardust Playard",
++      "brand": "Bugaboo",
++      "product": "Stardust Playard",
++      "checklistItemId": "travel-crib",
++      "badge": "One-Second Sleep Spot",
++      "standout": "A premium playard built around an exceptionally fast unfold for travel and second-space sleep.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "graco-pack-n-play-day2dream-travel-bassinet-playard": {
++      "auditProduct": "Graco Day2Dream Travel Bassinet Playard",
++      "brand": "Graco",
++      "product": "Pack 'n Play Day2Dream Travel Bassinet Playard",
++      "checklistItemId": "travel-crib",
++      "badge": "Downstairs Sleep Station",
++      "standout": "A multi-piece setup that combines a portable bassinet and full playard for flexible newborn use around the house.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "angelbliss-pack-and-play-with-bassinet-changing-station": {
++      "auditProduct": "Angelbliss Pack and Play",
++      "brand": "Angelbliss",
++      "product": "Pack and Play with Bassinet + Changing Station",
++      "checklistItemId": "travel-crib",
++      "badge": "Pack-and-Play Shortcut",
++      "standout": "An all-in-one playard with bassinet and changing functionality at an approachable price.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "evolur-zane-portable-playard": {
++      "auditProduct": "Evolur Zane Portable Playard",
++      "brand": "Evolur",
++      "product": "Zane Portable Playard",
++      "checklistItemId": "travel-crib",
++      "badge": "Travel Sleep Backup",
++      "standout": "A practical portable playard for grandparents, trips, or an occasional second sleep space.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-quiet-fastener-swaddle-0-3m": {
++      "auditProduct": "Momcozy Quiet Fastener Swaddle",
++      "brand": "Momcozy",
++      "product": "Quiet Fastener Swaddle",
++      "checklistItemId": "swaddles",
++      "badge": "Quiet-Change Swaddle",
++      "standout": "A secure swaddle designed to make adjustments quieter during sleepy nighttime changes.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-muslin-swaddle-blankets-4-pack": {
++      "auditProduct": "Momcozy Muslin Swaddle Blankets",
++      "brand": "Momcozy",
++      "product": "Muslin Swaddle Blankets",
++      "checklistItemId": "swaddles",
++      "badge": "Muslin Multi-Taskers",
++      "standout": "Lightweight muslin blankets that work for swaddling, stroller coverage, burping, and everyday cleanup.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-sleep-sack-1-5-tog": {
++      "auditProduct": "Momcozy Sleep Sack",
++      "brand": "Momcozy",
++      "product": "Sleep Sack",
++      "checklistItemId": "sleep-sacks",
++      "badge": "Easy Sleep Transition",
++      "standout": "A wearable blanket for the stage after swaddling when baby still benefits from cozy sleep coverage.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-baby-shusher-firefly-soother-with-nightlight": {
++      "auditProduct": "Baby Shusher Firefly Soother",
++      "brand": "Baby Shusher",
++      "product": "Firefly Soother with Nightlight",
++      "checklistItemId": "night-light",
++      "badge": "Bedside Glow + Shush",
++      "standout": "Combines soothing sound and a gentle night-light in one compact nursery helper.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-hiccapop-blackout-tent-for-pack-and-play": {
++      "auditProduct": "Hiccapop Blackout Tent",
++      "brand": "Hiccapop",
++      "product": "Blackout Tent",
++      "checklistItemId": "blackout",
++      "badge": "Portable Dark Room",
++      "standout": "A portable blackout solution for creating a darker sleep environment away from home.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "oilo-james-a-chair-and-a-half-gliding-swivel-nursery-recliner": {
++      "auditProduct": "Oilo James Chair and a Half",
++      "brand": "Oilo",
++      "product": "James: a Chair and a Half - Gliding Swivel Nursery Recliner",
++      "checklistItemId": "nursery-landing-zone",
++      "badge": "Roomy Nursery Splurge",
++      "standout": "An oversized gliding swivel recliner with extra room for feeds, cuddles, and long nursery sessions.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "oilo-flynn-gliding-swivel-nursery-recliner": {
++      "auditProduct": "Oilo Flynn Recliner",
++      "brand": "Oilo",
++      "product": "Flynn – Gliding Swivel Nursery Recliner",
++      "checklistItemId": "nursery-landing-zone",
++      "badge": "Modern Nursery Glider",
++      "standout": "A streamlined gliding swivel recliner that brings comfort without the oversized nursery-chair look.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-tommee-tippee-natural-start-perfect-latch-trial-kit": {
++      "auditProduct": "Tommee Tippee Natural Start Perfect Latch Trial Kit",
++      "brand": "Tommee Tippee",
++      "product": "Natural Start Perfect Latch Trial Kit",
++      "checklistItemId": "bottle-trial",
++      "badge": "Latch Trial Kit",
++      "standout": "A small starter set for trying Tommee Tippee’s breast-like nipple shape before committing to a larger bottle collection.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-7-in-1-bottle-brush-set-with-drying-rack": {
++      "auditProduct": "Momcozy 7-in-1 Bottle Brush Set",
++      "brand": "Momcozy",
++      "product": "7-in-1 Bottle Brush Set with Drying Rack",
++      "checklistItemId": "bottle-brush",
++      "badge": "All-in-One Cleaning Kit",
++      "standout": "Combines bottle and small-parts cleaning tools with drying storage in one countertop set.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-push-press-foam-bottle-brush-kit": {
++      "auditProduct": "Momcozy Push-Press Foam Bottle Brush Kit",
++      "brand": "Momcozy",
++      "product": "Push-Press Foam Bottle Brush Kit",
++      "checklistItemId": "bottle-brush",
++      "badge": "Soap-on-Demand Brush",
++      "standout": "A push-dispensing brush system that keeps soap and bottle cleaning together at the sink.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-papablic-bottle-washer-tablets-120ct": {
++      "auditProduct": "Papablic Bottle Washer Tablets 120ct",
++      "brand": "Papablic",
++      "product": "Bottle Washer Tablets 120ct",
++      "checklistItemId": "bottle-washer-detergent",
++      "badge": "Washer Refill Stock-Up",
++      "standout": "Premeasured detergent tablets made for the daily bottle-washer routine without pouring or measuring.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-haakaa-portable-foldable-bottle-drying-rack": {
++      "auditProduct": "Haakaa Foldable Bottle Drying Rack",
++      "brand": "haakaa",
++      "product": "Portable Foldable Bottle Drying Rack",
++      "checklistItemId": "bottle-drying-rack",
++      "badge": "Packable Drying Rack",
++      "standout": "A foldable drying solution that is especially handy for travel or kitchens short on counter space.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "momcozy-vertical-bottle-drying-rack-for-18-bottles": {
++      "auditProduct": "Momcozy Vertical Drying Rack",
++      "brand": "Momcozy",
++      "product": "Vertical Bottle Drying Rack for 18 Bottles",
++      "checklistItemId": "bottle-drying-rack",
++      "badge": "Countertop Bottle Tower",
++      "standout": "Vertical storage creates substantial drying capacity without spreading bottles across the counter.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "munchkin-dishwasher-basket": {
++      "auditProduct": "Munchkin Dishwasher Basket",
++      "brand": "Munchkin",
++      "product": "Dishwasher Basket",
++      "checklistItemId": "dishwasher-basket",
++      "badge": "Nipple Rescue Basket",
++      "standout": "Keeps tiny bottle and feeding pieces contained instead of letting them disappear around the dishwasher.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-22oz-portable-breastmilk-cooler": {
++      "auditProduct": "Momcozy 22oz Breastmilk Cooler",
++      "brand": "Momcozy",
++      "product": "22oz Portable Breastmilk Cooler",
++      "checklistItemId": "insulated-bottle-cooler",
++      "badge": "High-Capacity Milk Cooler",
++      "standout": "A larger portable cooler for carrying pumped milk through longer outings, workdays, or childcare drop-offs.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "grownsy-portable-breast-milk-cooler": {
++      "auditProduct": "Grownsy Breast Milk Cooler",
++      "brand": "Grownsy",
++      "product": "Portable Breast Milk Cooler",
++      "checklistItemId": "insulated-bottle-cooler",
++      "badge": "Outing Milk Vault",
++      "standout": "A compact insulated solution for transporting breastmilk when a full cooler bag feels excessive.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-wellness-1-warm-massage-wearable-pump": {
++      "auditProduct": "Momcozy Wellness 1 Wearable Pump",
++      "brand": "Momcozy",
++      "product": "Wellness 1 Warm-Massage Wearable Pump",
++      "checklistItemId": "wearable-pump",
++      "badge": "Warm-Massage Pump",
++      "standout": "Adds warming and massage to a wearable pumping setup for parents who value comfort alongside portability.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-mommed-s33-wearable-breast-pump": {
++      "auditProduct": "MomMed S33 Wearable Pump",
++      "brand": "MomMed",
++      "product": "S33 Wearable Breast Pump",
++      "checklistItemId": "wearable-pump",
++      "badge": "Budget Wearable Pump",
++      "standout": "A lower-cost wearable option for hands-free pumping without stepping into premium-pump pricing.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-cozypro-nursing-pillow": {
++      "auditProduct": "CozyPro Nursing Pillow",
++      "brand": "Momcozy",
++      "product": "CozyPro Nursing Pillow",
++      "checklistItemId": "nursing-pillow",
++      "badge": "Wraparound Feeding Support",
++      "standout": "Structured wraparound support helps bring baby closer while reducing how much you have to hold with your arms.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-a1pro-lactation-massager-with-heat": {
++      "auditProduct": "Momcozy A1Pro Lactation Massager",
++      "brand": "Momcozy",
++      "product": "A1Pro Lactation Massager with Heat",
++      "checklistItemId": "lactation-massager",
++      "badge": "Heated Feeding Helper",
++      "standout": "Combines warmth and massage in a compact tool for parents who want extra comfort during pumping or feeding.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-kleanpal-pro-bottle-washer-sterilizer-dryer": {
++      "auditProduct": "KleanPal Pro Bottle Washer",
++      "brand": "Momcozy",
++      "product": "KleanPal Pro Bottle Washer, Sterilizer & Dryer",
++      "checklistItemId": "bottle-washer",
++      "badge": "All-in-One Bottle Station",
++      "standout": "Automated washing, sterilizing and drying for families who want to hand off more of the daily bottle routine.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-papablic-safeguardplus-bottle-washer-sterilizer-dryer": {
++      "auditProduct": "Papablic SafeguardPlus Bottle Washer",
++      "brand": "Papablic",
++      "product": "SafeguardPlus Bottle Washer, Sterilizer & Dryer",
++      "checklistItemId": "bottle-washer",
++      "badge": "Bottle-Care Workhorse",
++      "standout": "A countertop washer that consolidates washing, sterilizing and drying into one automated cycle.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-eufy-bottle-washer-s1-non-pro": {
++      "auditProduct": "eufy Bottle Washer S1",
++      "brand": "eufy",
++      "product": "Bottle Washer S1 (non-Pro)",
++      "checklistItemId": "bottle-washer",
++      "badge": "Streamlined Eufy Pick",
++      "standout": "The simpler S1 alternative for families who want automated bottle care without stepping up to the Pro model.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "bugaboo-giraffe": {
++      "auditProduct": "Bugaboo Giraffe High Chair",
++      "brand": "Bugaboo",
++      "product": "Giraffe High Chair",
++      "checklistItemId": "high-chair",
++      "badge": "Taylor’s Pick",
++      "standout": "A premium grow-with-me high chair with tool-free adjustments and a clean design that works long past the baby stage.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "momcozy-dinerpal": {
++      "auditProduct": "Momcozy DinerPal High Chair",
++      "brand": "Momcozy",
++      "product": "DinerPal High Chair",
++      "checklistItemId": "high-chair",
++      "badge": "Grows-With-Me Seat",
++      "standout": "A versatile high chair designed to adapt through multiple feeding and seating stages.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "lalo-the-chair-ii": {
++      "auditProduct": "Lalo The Chair II",
++      "brand": "Lalo",
++      "product": "The Chair II",
++      "checklistItemId": "high-chair",
++      "badge": "Kitchen-Pretty Pick",
++      "standout": "A streamlined high chair that prioritizes easy cleaning and a design you will not mind leaving at the table.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "bellini-parma-3-in-1-high-chair": {
++      "auditProduct": "Bellini Parma 3-in-1 High Chair",
++      "brand": "Bellini",
++      "product": "Parma 3-in-1 High Chair",
++      "checklistItemId": "high-chair",
++      "badge": "Hidden Highchair Gem",
++      "standout": "A polished convertible high chair with multiple modes for families who want longevity without the usual bulky look.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "evolur-step-and-savor-baby-highchair": {
++      "auditProduct": "Evolur Step and Savor Highchair",
++      "brand": "Evolur",
++      "product": "Step and Savor Baby Highchair",
++      "checklistItemId": "high-chair",
++      "badge": "Compact Convertible",
++      "standout": "A multi-stage high chair that delivers convertible functionality at a comparatively approachable price.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "mockingbird-high-chair": {
++      "auditProduct": "Mockingbird High Chair",
++      "brand": "Mockingbird",
++      "product": "High Chair",
++      "checklistItemId": "high-chair",
++      "badge": "Easy-Clean Modernist",
++      "standout": "A modern high chair built around simple adjustments and surfaces designed for everyday cleanup.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-haakaa-silicone-training-open-cup-5oz": {
++      "auditProduct": "Haakaa Silicone Training Open Cup",
++      "brand": "haakaa",
++      "product": "Silicone Training Open Cup 5oz",
++      "checklistItemId": "open-straw-cups",
++      "badge": "First-Sips Cup",
++      "standout": "A small soft-silicone cup sized for practicing open-cup drinking during the first solids stage.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "skip-hop-nursery-style-light-up-changing-pad": {
++      "auditProduct": "Skip Hop Light-Up Changing Pad",
++      "brand": "Skip Hop",
++      "product": "Nursery Style Light-Up Changing Pad",
++      "checklistItemId": "changing-pad",
++      "badge": "Midnight Change Helper",
++      "standout": "A wipe-clean changing surface with built-in light for easier overnight diaper changes.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "munchkin-changing-pad-for-dresser": {
++      "auditProduct": "Munchkin Changing Pad for Dresser",
++      "brand": "Munchkin",
++      "product": "Changing Pad for Dresser",
++      "checklistItemId": "changing-pad",
++      "badge": "Dresser-Top Basic",
++      "standout": "A traditional contoured changing pad for parents who want a simple, affordable dresser setup.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "papablic-baby-changing-pad": {
++      "auditProduct": "Papablic Baby Changing Pad",
++      "brand": "Papablic",
++      "product": "Baby Changing Pad",
++      "checklistItemId": "changing-pad",
++      "badge": "Wipe-Clean Workhorse",
++      "standout": "A solid wipe-clean changing surface that skips fabric covers and simplifies everyday cleanup.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-woddle-smart-changing-pad-with-scale": {
++      "auditProduct": "Woddle Smart Changing Pad with Scale",
++      "brand": "Woddle",
++      "product": "Smart Changing Pad with Scale",
++      "checklistItemId": "changing-pad",
++      "badge": "Change + Weigh Station",
++      "standout": "Combines a wipeable changing surface with an integrated scale for parents who want weight tracking built in.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "evolur-eva-changing-pad": {
++      "auditProduct": "Evolur Eva Changing Pad",
++      "brand": "Evolur",
++      "product": "Eva Changing Pad",
++      "checklistItemId": "changing-pad",
++      "badge": "Clean-Look Changing Pad",
++      "standout": "A streamlined wipe-clean pad that gives a dresser-top changing station a more finished look.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "jool-baby-smartwave-plus-touch-free-diaper-pail": {
++      "auditProduct": "Jool Baby SmartWave Plus Diaper Pail",
++      "brand": "Jool Baby",
++      "product": "SmartWave Plus Touch-Free Diaper Pail",
++      "checklistItemId": "diaper-pail",
++      "badge": "Hands-Free Odor Control",
++      "standout": "Touch-free opening makes diaper disposal easier when both hands are already occupied.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-grownsy-odor-locking-diaper-pail": {
++      "auditProduct": "GROWNSY Odor-Locking Diaper Pail",
++      "brand": "GROWNSY",
++      "product": "Odor-Locking Diaper Pail",
++      "checklistItemId": "diaper-pail",
++      "badge": "Budget Odor Blocker",
++      "standout": "A straightforward odor-control pail for families who want containment without premium-pail pricing.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "momcozy-diaper-pail": {
++      "auditProduct": "Momcozy Diaper Pail",
++      "brand": "Momcozy",
++      "product": "Diaper Pail",
++      "checklistItemId": "diaper-pail",
++      "badge": "Nursery Smell Shield",
++      "standout": "A streamlined diaper pail designed to contain odors without making the nursery feel industrial.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "skip-hop-diaper-caddy": {
++      "auditProduct": "Skip Hop Diaper Caddy",
++      "brand": "Skip Hop",
++      "product": "Diaper Caddy",
++      "checklistItemId": "diaper-caddy",
++      "badge": "Downstairs Diaper Station",
++      "standout": "A structured portable caddy for keeping the everyday changing essentials together wherever you need them.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "haakaa-nestside-hanging-diaper-organizer": {
++      "auditProduct": "Haakaa NestSide Organizer",
++      "brand": "Haakaa",
++      "product": "NestSide Hanging Diaper Organizer",
++      "checklistItemId": "diaper-caddy",
++      "badge": "Nursery Command Pocket",
++      "standout": "Hanging bedside storage keeps diapers and small essentials accessible without adding another piece of furniture.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "stokke-flexi-bath-stand-bundle": {
++      "auditProduct": "Stokke Flexi Bath + Stand",
++      "brand": "Stokke",
++      "product": "Flexi Bath + Stand Bundle",
++      "checklistItemId": "bathtub",
++      "badge": "Foldaway Bath Setup",
++      "standout": "A folding baby tub paired with an elevated stand for easier newborn bathing and compact storage afterward.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "lalo-bathtime-starter-kit": {
++      "auditProduct": "Lalo Bathtime Starter Kit",
++      "brand": "Lalo",
++      "product": "Bathtime Starter Kit",
++      "checklistItemId": "bathtub",
++      "badge": "First Bath Bundle",
++      "standout": "A coordinated bath setup that covers the early bathing basics without piecing everything together separately.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "babu-baby-bathtub-with-wooden-stand": {
++      "auditProduct": "Babu Baby Tub + Wooden Stand",
++      "brand": "Babu",
++      "product": "Baby Bathtub with Wooden Stand",
++      "checklistItemId": "bathtub",
++      "badge": "Spa-Night Splurge",
++      "standout": "A design-forward elevated bath setup for parents who want the baby tub to feel like part of the room.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-stokke-flexi-bath-x-large-tub": {
++      "auditProduct": "Stokke Flexi Bath XL",
++      "brand": "Stokke",
++      "product": "Flexi Bath X-Large Tub",
++      "checklistItemId": "bathtub",
++      "badge": "Big-Kid Foldaway Tub",
++      "standout": "The larger Flexi Bath keeps the signature folding design while giving growing babies and toddlers more room.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "ingenuity-tuckaway-toddler-tub": {
++      "auditProduct": "Ingenuity Tuckaway Toddler Tub",
++      "brand": "Ingenuity",
++      "product": "Tuckaway Toddler Tub",
++      "checklistItemId": "bathtub",
++      "badge": "Tuckaway Tub",
++      "standout": "A collapsible tub that gives older babies their own bath space without permanently occupying the big tub.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "grownsy-baby-bath-stand": {
++      "auditProduct": "Grownsy Baby Bath Stand",
++      "brand": "Grownsy",
++      "product": "Baby Bath Stand",
++      "checklistItemId": "bath-stand",
++      "badge": "Back-Saver Bath Stand",
++      "standout": "Elevates the bath setup to reduce the amount of bending during early baths.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-baby-hooded-towels": {
++      "auditProduct": "Momcozy Hooded Towels",
++      "brand": "Momcozy",
++      "product": "Baby Hooded Towels",
++      "checklistItemId": "hooded-towels",
++      "badge": "Cozy Post-Bath Wrap",
++      "standout": "Soft hooded towels that make the transition from bath to warm, dry baby quick and simple.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "the-honest-company-bathtime-gift-set": {
++      "auditProduct": "Honest Bathtime Gift Set",
++      "brand": "The Honest Company",
++      "product": "Bathtime Gift Set",
++      "checklistItemId": "baby-wash",
++      "badge": "Bathtime Gift Basket",
++      "standout": "A coordinated wash-and-care set that covers several bath basics in one registry-friendly gift.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "coterie-baby-bath-skincare-essentials-set": {
++      "auditProduct": "Coterie Bath Skincare Set",
++      "brand": "Coterie",
++      "product": "Baby Bath Skincare Essentials Set",
++      "checklistItemId": "baby-wash",
++      "badge": "Gentle Wash Set",
++      "standout": "An elevated bath-care bundle for parents who prefer a streamlined, coordinated skincare routine.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "coterie-skincare-essentials-gift-set": {
++      "auditProduct": "Coterie Skincare Essentials",
++      "brand": "Coterie",
++      "product": "Skincare Essentials Gift Set",
++      "checklistItemId": "baby-lotion",
++      "badge": "Moisture Set",
++      "standout": "A premium skincare set for keeping a simple moisturizer-focused routine together.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "haakaa-baby-bath-thermometer": {
++      "auditProduct": "Haakaa Bath Thermometer",
++      "brand": "Haakaa",
++      "product": "Baby Bath Thermometer",
++      "checklistItemId": "bath-thermometer",
++      "badge": "Temperature Confidence",
++      "standout": "A quick visual temperature check for parents who want extra reassurance before putting baby in the water.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "lalo-knee-and-elbow-saver": {
++      "auditProduct": "Lalo Knee + Elbow Saver",
++      "brand": "Lalo",
++      "product": "Knee and Elbow Saver",
++      "checklistItemId": "kneeler",
++      "badge": "Parent-Knee Rescue",
++      "standout": "Cushions both knees and elbows once bath time moves to the big tub.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "milou-modern-elbow-knee-rest": {
++      "auditProduct": "Milou Elbow & Knee Rest",
++      "brand": "Milou",
++      "product": "Modern Elbow & Knee Rest",
++      "checklistItemId": "kneeler",
++      "badge": "Cushioned Bath Kneeler",
++      "standout": "A coordinated tub-side cushion set that makes longer toddler baths easier on the parent.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "canopy-bath-tub-filter": {
++      "auditProduct": "Canopy Bath Tub Filter",
++      "brand": "Canopy",
++      "product": "Bath Tub Filter",
++      "checklistItemId": "bath-water-filter",
++      "badge": "Sensitive-Skin Add-On",
++      "standout": "An optional tub filter for families who want another layer of control over bath water.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-haakaa-silicone-nasal-aspirator-bulb": {
++      "auditProduct": "Haakaa Silicone Nasal Aspirator",
++      "brand": "haakaa",
++      "product": "Silicone Nasal Aspirator (bulb)",
++      "checklistItemId": "nasal-saline",
++      "badge": "Simple Snot Sucker",
++      "standout": "A washable manual bulb-style aspirator for straightforward congestion care.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-swan-neck-nasal-aspirator": {
++      "auditProduct": "Haakaa Swan Neck Aspirator",
++      "brand": "haakaa",
++      "product": "Swan Neck Nasal Aspirator",
++      "checklistItemId": "nasal-saline",
++      "badge": "Controlled Nasal Relief",
++      "standout": "A manual aspirator with a more targeted shape for parents who prefer direct suction control.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-medicine-dispenser-set": {
++      "auditProduct": "Haakaa Medicine Dispenser Set",
++      "brand": "haakaa",
++      "product": "Medicine Dispenser Set",
++      "checklistItemId": "oral-syringe",
++      "badge": "Medicine-Time Helper",
++      "standout": "A purpose-built dispensing set for making measured liquid medicine easier to give.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-haakaa-penguin-dual-feeding-syringe-set": {
++      "auditProduct": "Haakaa Penguin Feeding Syringe Set",
++      "brand": "haakaa",
++      "product": "Penguin Dual Feeding Syringe Set",
++      "checklistItemId": "oral-syringe",
++      "badge": "Tiny-Dose Helper",
++      "standout": "A soft syringe-style feeding and medicine tool for controlled small amounts.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "lifevac-home-travel-kit-bundle": {
++      "auditProduct": "LifeVac Home + Travel Bundle",
++      "brand": "LifeVac",
++      "product": "Home & Travel Kit Bundle",
++      "checklistItemId": "first-aid-basics",
++      "badge": "Taylor’s Pick",
++      "standout": "A home-and-travel choking rescue kit intended as an additional emergency tool—not a substitute for infant CPR and first-aid training.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-mommy-s-bliss-infants-acetaminophen-dye-free": {
++      "auditProduct": "Mommy's Bliss Infant Acetaminophen",
++      "brand": "Mommy's Bliss",
++      "product": "Infants' Acetaminophen",
++      "checklistItemId": "first-aid-basics",
++      "badge": "Medicine-Cabinet Basic",
++      "standout": "An infant acetaminophen option to purchase only when appropriate for your family’s pediatric guidance.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-silicone-finger-toothbrush": {
++      "auditProduct": "Haakaa Finger Toothbrush",
++      "brand": "haakaa",
++      "product": "Silicone Finger Toothbrush",
++      "checklistItemId": "toothbrush-teethers",
++      "badge": "First Toothbrush",
++      "standout": "A soft silicone finger brush for introducing gentle gum and early-tooth cleaning.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-training-toothbrush-set": {
++      "auditProduct": "Haakaa Training Toothbrush Set",
++      "brand": "haakaa",
++      "product": "Training Toothbrush Set",
++      "checklistItemId": "toothbrush-teethers",
++      "badge": "Brush-Learning Set",
++      "standout": "A staged silicone set that helps transition from gum care toward independent brushing.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "cybex-callisto-g-360": {
++      "auditProduct": "Cybex Callisto G 360",
++      "brand": "Cybex",
++      "product": "Callisto G 360",
++      "checklistItemId": "convertible-car-seat",
++      "badge": "Spin-and-Go Upgrade",
++      "standout": "A premium rotating convertible seat designed to make loading and buckling easier across everyday car-seat stages.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "nuna-revv-maxx-rotating-convertible-car-seat": {
++      "auditProduct": "Nuna REVV maxx",
++      "brand": "Nuna",
++      "product": "REVV maxx Rotating Convertible Car Seat",
++      "checklistItemId": "convertible-car-seat",
++      "badge": "Premium Swivel Seat",
++      "standout": "Nuna’s elevated rotating convertible for families who prioritize easier loading and a refined everyday seat.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "silver-cross-breez": {
++      "auditProduct": "Silver Cross Breez",
++      "brand": "Silver Cross",
++      "product": "Breez",
++      "checklistItemId": "primary-stroller",
++      "badge": "Taylor’s Pick",
++      "standout": "A full-size everyday stroller with a compact fold, folding bassinet option, and adjustable seat designed to grow with the child.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "bugaboo-dragonfly-plus": {
++      "auditProduct": "Bugaboo Dragonfly Plus",
++      "brand": "Bugaboo",
++      "product": "Dragonfly Plus",
++      "checklistItemId": "primary-stroller",
++      "badge": "City Parent Flex",
++      "standout": "A premium urban stroller balancing a compact one-piece fold with the comfort and storage expected from an everyday stroller.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "uppababy-kona": {
++      "auditProduct": "UPPAbaby Kona",
++      "brand": "UPPAbaby",
++      "product": "Kona",
++      "checklistItemId": "primary-stroller",
++      "badge": "New-Arrival Watchlist",
++      "standout": "A newer UPPAbaby option worth watching for families who want the brand’s everyday usability in a different full-size format.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "cybex-priam-comfort-collection": {
++      "auditProduct": "CYBEX Priam Comfort Collection",
++      "brand": "CYBEX",
++      "product": "Priam Comfort Collection",
++      "checklistItemId": "primary-stroller",
++      "badge": "Statement Stroller",
++      "standout": "Luxury materials and a polished chassis turn the Priam into equal parts everyday stroller and design statement.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "silver-cross-cove-2": {
++      "auditProduct": "Silver Cross Cove 2",
++      "brand": "Silver Cross",
++      "product": "Cove 2",
++      "checklistItemId": "primary-stroller",
++      "badge": "Full-Size Favorite",
++      "standout": "A full-size stroller with a folding bassinet and adjustable seat designed to stay useful as your child grows.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "silver-cross-nia": {
++      "auditProduct": "Silver Cross Nia",
++      "brand": "Silver Cross",
++      "product": "Nia",
++      "checklistItemId": "travel-system-stroller",
++      "badge": "Airport Day Darling",
++      "standout": "A polished compact stroller with a folding bassinet option for families who want travel convenience without giving up newborn versatility.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "inglesina-quid-3": {
++      "auditProduct": "Inglesina Quid 3",
++      "brand": "Inglesina",
++      "product": "Quid 3",
++      "checklistItemId": "travel-system-stroller",
++      "badge": "Tiny-Trunk Traveler",
++      "standout": "A lightweight compact stroller with a small fold that is especially useful for travel, tight trunks, and quick errands.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "nuna-viaa-cabn": {
++      "auditProduct": "Nuna VIAA cabn",
++      "brand": "Nuna",
++      "product": "VIAA cabn",
++      "checklistItemId": "travel-system-stroller",
++      "badge": "Cabin-Bag Stroller",
++      "standout": "Nuna’s ultra-compact travel option for parents prioritizing a small fold and premium finish.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-bugaboo-butterfly-2-plus-travel-stroller": {
++      "auditProduct": "Bugaboo Butterfly 2 Plus",
++      "brand": "Bugaboo",
++      "product": "Butterfly 2 Plus",
++      "checklistItemId": "travel-system-stroller",
++      "badge": "Premium Travel Upgrade",
++      "standout": "An upgraded ultra-compact stroller designed around quick folding, travel convenience, and a more substantial everyday feel.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "cybex-libelle": {
++      "auditProduct": "Cybex Libelle",
++      "brand": "Cybex",
++      "product": "Libelle",
++      "checklistItemId": "travel-system-stroller",
++      "badge": "Folds Like Magic",
++      "standout": "An exceptionally small-folding stroller for families who care more about packability than full-size stroller features.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "wildbird-aerial-buckle-wrap": {
++      "auditProduct": "WildBird Aerial Buckle Wrap",
++      "brand": "WildBird",
++      "product": "Aerial Buckle Wrap",
++      "checklistItemId": "carrier",
++      "badge": "Soft-Structured Sweet Spot",
++      "standout": "A softer carrier feel with buckle convenience for parents who want wrap-like comfort without learning a full wrap.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "sukura-bloom-scout": {
++      "auditProduct": "Sakura Bloom Scout",
++      "brand": "Sukura Bloom",
++      "product": "Scout",
++      "checklistItemId": "carrier",
++      "badge": "Petite-Fit Favorite",
++      "standout": "A streamlined soft-structured carrier with highly adjustable straps and premium fabrics for a close, secure fit.",
++      "allowReplacement": false,
++      "identityNote": "Confirmed existing Scout ID and Sakura Bloom merchant URL; stored Sukura spelling preserved."
++    },
++    "amzcc-wildbird-ring-sling-linen": {
++      "auditProduct": "WildBird Linen Ring Sling",
++      "brand": "WildBird",
++      "product": "Ring Sling (linen)",
++      "checklistItemId": "soft-wrap-carrier",
++      "badge": "Quick-Up Ring Sling",
++      "standout": "A lightweight linen sling for short carries and newborn closeness once you are comfortable adjusting the rings.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-baby-wrap-carrier-2-piece": {
++      "auditProduct": "Momcozy Baby Wrap Carrier",
++      "brand": "Momcozy",
++      "product": "Baby Wrap Carrier",
++      "checklistItemId": "soft-wrap-carrier",
++      "badge": "Water-Ready Wrap",
++      "standout": "Breathable mesh fabric makes this a standout for warm weather, pool days, and water play while keeping the soft, close feel of a wrap-style carrier.",
++      "allowReplacement": true,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "sakura-bloom-venice-ring-sling": {
++      "auditProduct": "Sakura Bloom Venice Ring Sling",
++      "brand": "Sakura Bloom",
++      "product": "Venice Ring Sling",
++      "checklistItemId": "soft-wrap-carrier",
++      "badge": "Luxe Ring Sling",
++      "standout": "Premium fabric and a minimalist ring-sling design for parents who want a beautiful, highly adjustable carry.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-momcozy-diaper-bag-backpack": {
++      "auditProduct": "Momcozy Diaper Bag Backpack",
++      "brand": "Momcozy",
++      "product": "Diaper Bag Backpack",
++      "checklistItemId": "diaper-bag-backpack",
++      "badge": "Everyday Carryall",
++      "standout": "A high-capacity backpack with dedicated baby-gear organization for parents who prefer function over a tiny fashion bag.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "kyte-baby-first-favorites-bodysuit-bundle-3-pack": {
++      "auditProduct": "Kyte Baby First Favorites Bodysuit Bundle",
++      "brand": "Kyte Baby",
++      "product": "First Favorites Bodysuit Bundle (3 Pack)",
++      "checklistItemId": "bodysuits",
++      "badge": "Taylor’s Pick",
++      "standout": "A soft bamboo bodysuit starter set for building a small, comfortable everyday rotation.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "burt-s-bees-baby-unisex-bodysuits": {
++      "auditProduct": "Burt's Bees Baby Bodysuits",
++      "brand": "Burt's Bees Baby",
++      "product": "Unisex Bodysuits",
++      "checklistItemId": "bodysuits",
++      "badge": "Organic Everyday Basics",
++      "standout": "Affordable organic-cotton basics that make it easy to stock practical everyday layers.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "magnetic-me-organic-cotton-magnetic-bodysuit-5-pack-bundle": {
++      "auditProduct": "Magnetic Me Magnetic Bodysuit Bundle",
++      "brand": "Magnetic Me",
++      "product": "Organic Cotton Magnetic Bodysuit 5 Pack Bundle",
++      "checklistItemId": "bodysuits",
++      "badge": "One-Hand Change Hack",
++      "standout": "Magnetic closures make frequent newborn outfit changes dramatically faster than rows of snaps.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "honest-baby-clothing-50-piece-organic-cotton-oh-baby-gift-set": {
++      "auditProduct": "Honest Baby 50-Piece Set",
++      "brand": "Honest Baby Clothing",
++      "product": "50-Piece Organic Cotton Oh Baby Gift Set",
++      "checklistItemId": "bodysuits",
++      "badge": "Registry Drawer Starter",
++      "standout": "A large coordinated organic-cotton set for parents who prefer to stock several clothing basics at once.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "bright-starts-tummy-time-prop-play-mat": {
++      "auditProduct": "Bright Starts Tummy Time Mat",
++      "brand": "Bright Starts",
++      "product": "Tummy Time Prop & Play Mat",
++      "checklistItemId": "play-mat",
++      "badge": "Tummy-Time Kickstart",
++      "standout": "A compact padded play space with built-in support for making early tummy time a little easier.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "infantino-foldable-foam-mat": {
++      "auditProduct": "Infantino Foldable Foam Mat",
++      "brand": "Infantino",
++      "product": "Foldable Foam Mat",
++      "checklistItemId": "play-mat",
++      "badge": "Fold-and-Go Play Zone",
++      "standout": "A foldable foam surface that creates a wipeable play zone without permanently taking over the room.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "etta-loves-x-liberty-reversible-sensory-playmat": {
++      "auditProduct": "Etta Loves x Liberty Playmat",
++      "brand": "Etta Loves x Liberty",
++      "product": "Reversible Sensory Playmat",
++      "checklistItemId": "play-mat",
++      "badge": "Sensory Showpiece",
++      "standout": "High-contrast sensory design meets Liberty styling in a play mat that feels intentionally decorative.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "toddlekind-wander-grande-indoor-outdoor-portable-playmat": {
++      "auditProduct": "Toddlekind Wander Grande",
++      "brand": "Toddlekind",
++      "product": "Wander Grande Indoor/Outdoor Portable Playmat",
++      "checklistItemId": "play-mat",
++      "badge": "Indoor-Outdoor Play Pad",
++      "standout": "A portable padded mat that moves easily between the living room, patio, park, and playdate.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "crane-baby-cotton-quilted-activity-mat": {
++      "auditProduct": "Crane Baby Quilted Activity Mat",
++      "brand": "Crane Baby",
++      "product": "Cotton Quilted Activity Mat",
++      "checklistItemId": "play-mat",
++      "badge": "Quilted Calm Mat",
++      "standout": "A softer textile play surface for parents who want floor time to blend into the nursery or living room.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "baby-einstein-opus-s-ocean-of-discovery-water-play-mat-sensory-toy": {
++      "auditProduct": "Baby Einstein Water Play Mat",
++      "brand": "Baby Einstein",
++      "product": "Opus's Ocean of Discovery Water Play Mat Sensory Toy",
++      "checklistItemId": "play-mat",
++      "badge": "Water-Wiggle Wonder",
++      "standout": "A low-cost sensory mat that adds movement and visual interest to supervised tummy time.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "toddlekind-haven-foam-play-mat-amira-collection": {
++      "auditProduct": "Toddlekind Haven Foam Mat",
++      "brand": "Toddlekind",
++      "product": "Haven Foam Play Mat | Amira Collection",
++      "checklistItemId": "play-mat",
++      "badge": "Living-Room Friendly",
++      "standout": "A larger foam play surface designed to look more like home décor than traditional baby gear.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "nuby-reversible-baby-floor-mat": {
++      "auditProduct": "Nuby Reversible Floor Mat",
++      "brand": "Nuby",
++      "product": "Reversible Baby Floor Mat",
++      "checklistItemId": "play-mat",
++      "badge": "Reversible Mess Zone",
++      "standout": "A cushioned wipe-clean floor mat with two usable sides for everyday play.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "dream-on-me-pogo-3-in-1-baby-activity-center": {
++      "auditProduct": "Dream On Me Pogo Activity Center",
++      "brand": "Dream On Me",
++      "product": "Pogo 3-in-1 Baby Activity Center",
++      "checklistItemId": "activity-gym",
++      "badge": "Bounce-and-Play Hub",
++      "standout": "A multi-stage activity center designed to extend beyond a single short developmental phase.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-dream-on-me-curio-sit-n-seek-activity-center": {
++      "auditProduct": "Dream On Me Curio Sit N Seek",
++      "brand": "Dream On Me",
++      "product": "Curio Sit N Seek Activity Center",
++      "checklistItemId": "activity-gym",
++      "badge": "Activity-Center Value",
++      "standout": "An approachable activity center for supervised play once baby is ready for supported upright time.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-silicone-clover-teether": {
++      "auditProduct": "Haakaa Clover Teether",
++      "brand": "haakaa",
++      "product": "Silicone Clover Teether",
++      "checklistItemId": "teethers",
++      "badge": "Easy-Grip Teether",
++      "standout": "Soft silicone with a baby-friendly shape for grasping and mouthing during the early teething stage.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-haakaa-silicone-palm-teether": {
++      "auditProduct": "Haakaa Palm Teether",
++      "brand": "haakaa",
++      "product": "Silicone Palm Teether",
++      "checklistItemId": "teethers",
++      "badge": "Little-Hand Teether",
++      "standout": "A compact silicone design shaped to stay manageable in small hands.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "haakaa-twisty-tilly-silicone-sheep-teether": {
++      "auditProduct": "Haakaa Twisty Tilly",
++      "brand": "Haakaa",
++      "product": "Twisty Tilly Silicone Sheep Teether",
++      "checklistItemId": "teethers",
++      "badge": "Silicone Chew Buddy",
++      "standout": "A playful flexible silicone teether with multiple surfaces for chewing and exploring.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "haakaa-vehicle-crew-silicone-baby-teething-toys": {
++      "auditProduct": "Haakaa Vehicle Crew Teethers",
++      "brand": "Haakaa",
++      "product": "Vehicle Crew Silicone Baby Teething Toys",
++      "checklistItemId": "teethers",
++      "badge": "Teether Fleet",
++      "standout": "A set of playful silicone vehicles that doubles as grasping and teething toys.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "haakaa-freezer-teether-with-lovey-blanket": {
++      "auditProduct": "Haakaa Freezer Teether + Lovey",
++      "brand": "Haakaa",
++      "product": "Freezer Teether with Lovey Blanket",
++      "checklistItemId": "teethers",
++      "badge": "Chill-and-Chew Lovey",
++      "standout": "Combines a chillable teether with a soft comfort blanket for the teething stage.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "grownsy-wooden-baby-walker": {
++      "auditProduct": "Grownsy Wooden Baby Walker",
++      "brand": "Grownsy",
++      "product": "Wooden Baby Walker",
++      "checklistItemId": "push-walker",
++      "badge": "Taylor’s Pick",
++      "standout": "A wooden push walker that adds play value while supporting the later pulling-up and cruising stage.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "grownsy-baby-bouncer": {
++      "auditProduct": "Grownsy Baby Bouncer",
++      "brand": "Grownsy",
++      "product": "Baby Bouncer",
++      "checklistItemId": "awake-seat",
++      "badge": "Taylor’s Pick",
++      "standout": "A simple supervised awake-time seat for giving baby another place to observe the room.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    },
++    "amzcc-grownsy-dual-motion-baby-swing": {
++      "auditProduct": "GROWNSY Dual Motion Swing",
++      "brand": "GROWNSY",
++      "product": "Dual Motion Baby Swing",
++      "checklistItemId": "swing",
++      "badge": "Two-Way Soother",
++      "standout": "Dual-motion swinging gives parents more than one movement pattern to try with a baby who enjoys motion.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "amzcc-momcozy-2-in-1-electric-baby-swing": {
++      "auditProduct": "Momcozy 2-in-1 Electric Swing",
++      "brand": "Momcozy",
++      "product": "2-in-1 Electric Baby Swing",
++      "checklistItemId": "swing",
++      "badge": "Swing + Seat Combo",
++      "standout": "A powered swing with multi-use functionality for supervised awake time during the early months.",
++      "allowReplacement": false,
++      "identityNote": "Audit short label mapped to this specific, unique model in the live checklist; exact stored ID, brand and full product name locked."
++    },
++    "playard-pick": {
++      "auditProduct": "Guava / BabyBjörn Travel Crib",
++      "brand": "Guava / BabyBjörn",
++      "product": "Travel Crib",
++      "checklistItemId": null,
++      "badge": "Space Saver",
++      "standout": "A lightweight travel crib concept built around fast setup and a smaller packed footprint for trips and grandparents’ homes.",
++      "allowReplacement": false,
++      "identityNote": "Exact existing combined-label ChecklistProduct. No products merged; existing standout preserved."
++    },
++    "amzcc-grownsy-postpartum-recovery-kit": {
++      "auditProduct": "GROWNSY Postpartum Recovery Kit",
++      "brand": "GROWNSY",
++      "product": "Postpartum Recovery Kit",
++      "checklistItemId": "postpartum-underwear-pads",
++      "badge": "Recovery Station Starter",
++      "standout": "A bundled set of postpartum basics for parents who would rather assemble one recovery station than shop item by item.",
++      "allowReplacement": false,
++      "identityNote": "Exact brand/product label (case-insensitive) maps to one stored ID."
++    }
++  }
++}
+diff --git a/scripts/__tests__/enrichChecklistEditorial.test.cjs b/scripts/__tests__/enrichChecklistEditorial.test.cjs
+new file mode 100644
+index 0000000..ad82730
+--- /dev/null
++++ b/scripts/__tests__/enrichChecklistEditorial.test.cjs
+@@ -0,0 +1,55 @@
++const { test } = require('node:test');
++const assert = require('node:assert/strict');
++const { buildPlan, applyReviewed, verify, digest } = require('../enrichChecklistEditorial.cjs');
++const row = { id:'specific-xl-2-pack',brand:'Example',product:'Model XL 2 Pack',checklistItemId:'item',badge:null,standout:'',review:'Long review',amazonUrl:'https://amazon.com/exact',price:123,updatedAt:'2026-09-30T00:00:00.000Z' };
++const copy = { auditProduct:'Example Model XL 2 Pack',brand:row.brand,product:row.product,checklistItemId:'item',badge:'Approved badge',standout:'Approved short description' };
++const products = { [row.id]:copy };
++const state = (rows) => ({ products:rows,categories:[],items:[] });
++test('only missing badge/standout are targeted; source rows remain untouched',()=>{
++ const original=structuredClone(row);const plan=buildPlan([row],products);
++ assert.deepEqual(plan.entries[0].changes,{badge:copy.badge,standout:copy.standout});
++ assert.deepEqual(row,original);
++ assert.equal(plan.counts.productsUpdated,1);
++});
++test('nonempty editorial fields are preserved; typographic apostrophe is not a content conflict',()=>{
++ const p=buildPlan([{...row,badge:"Taylor's Pick",standout:'Existing'}],{[row.id]:{...copy,badge:'Taylor’s Pick'}});
++ assert.deepEqual(p.entries[0].changes,{});assert.deepEqual(p.entries[0].conflicts,['standout']);
++});
++test('different IDs, sizes, generations and assignments cannot match',()=>{
++ for(const altered of [{...row,id:'standard-1-pack'},{...row,product:'Model XL 3 Pack'},{...row,brand:'Other'},{...row,checklistItemId:'other'}]){
++  const plan=buildPlan([altered],products);assert.equal(plan.counts.unmatched,1);assert.deepEqual(plan.entries[0].changes,{});
++ }
++});
++test('only the explicitly approved Momcozy identity may replace content',()=>{
++ const id='amzcc-momcozy-baby-wrap-carrier-2-piece';
++ const p=buildPlan([{...row,id,badge:'Old',standout:'Old'}],{[id]:{...copy,allowReplacement:true}});
++ assert.equal(p.counts.badgesReplaced,1);assert.equal(p.counts.standoutsReplaced,1);
++ const other=buildPlan([{...row,badge:'Old',standout:'Old'}],{[row.id]:{...copy,allowReplacement:true}});
++ assert.deepEqual(other.entries[0].changes,{});
++});
++test('repeating a successful enrichment produces zero changes',()=>{
++ const plan=buildPlan([row],products);const second=buildPlan([{...row,...plan.entries[0].changes}],products);
++ assert.equal(second.counts.productsUpdated,0);
++});
++test('verification rejects any review, commerce or structure change',()=>{
++ const plan=buildPlan([row],products);const before=state([row]);const after=state([{...row,...plan.entries[0].changes,updatedAt:'2026-09-30T01:00:00.000Z'}]);
++ assert.equal(verify(before,after,plan.entries).reviewUnchanged,true);
++ for(const change of [{review:'changed'},{amazonUrl:'different'},{price:124},{product:'Other'},{badge:'wrong'}]) assert.throws(()=>verify(before,state([{...after.products[0],...change}]),plan.entries));
++ assert.throws(()=>verify(before,{...after,items:[{id:'new'}]},plan.entries));
++});
++test('stale dry-run and changed approval map stop before the first write',async()=>{
++ let writes=0;const tx={checklistProduct:{findMany:async()=>[{...row,review:'concurrent edit'}],updateMany:async()=>{writes++;return {count:1};}},checklistCategory:{findMany:async()=>[]},checklistItem:{findMany:async()=>[]}};
++ const db={$transaction:async(fn)=>fn(tx)};
++ const reviewed={mode:'dry-run',mapDigest:digest(products),snapshot:state([row]),plan:buildPlan([row],products)};
++ await assert.rejects(applyReviewed(db,reviewed,products),/Database changed/);
++ await assert.rejects(applyReviewed(db,{...reviewed,mapDigest:'wrong'},products),/matching reviewed/);
++ assert.equal(writes,0);
++});
++test('apply uses the reviewed exact ID and only badge/standout, then re-queries',async()=>{
++ let current=structuredClone(row);const writes=[];
++ const tx={checklistProduct:{findMany:async()=>[current],updateMany:async(args)=>{writes.push(args);current={...current,...args.data};return {count:1};}},checklistCategory:{findMany:async()=>[]},checklistItem:{findMany:async()=>[]}};
++ const db={$transaction:async(fn)=>fn(tx)};
++ const reviewed={mode:'dry-run',mapDigest:digest(products),snapshot:state([row]),plan:buildPlan([row],products)};
++ const result=await applyReviewed(db,reviewed,products);
++ assert.equal(writes.length,1);assert.equal(writes[0].where.id,row.id);assert.deepEqual(Object.keys(writes[0].data),['badge','standout']);assert.equal(result.verification.commerceUnchanged,true);
++});

@@ -1,0 +1,71 @@
+{
+  "verifiedAt": "2026-10-01T16:18:12.818Z",
+  "outbound": [
+    {
+      "id": "cmupqlteo002ww67g0ayk32ql",
+      "createdAt": "2026-10-01T16:17:02.497Z",
+      "retailer": "Babylist",
+      "network": "ShopMy",
+      "brand": "Bugaboo",
+      "product": "Giraffe High Chair",
+      "url": "https://go.shopmy.us/apx/y5Etg8?url=https%3A%2F%2Fwww.babylist.com%2Fgp%2Fbugaboo-giraffe-complete-high-chair%2F38443%2F2521928",
+      "source": "tool:baby-checklist",
+      "path": "/resources/baby-checklist",
+      "pageType": "other"
+    },
+    {
+      "id": "cmupqmx4q002zw67gz231ndjw",
+      "createdAt": "2026-10-01T16:17:53.979Z",
+      "retailer": "Amazon",
+      "network": "Amazon Associates",
+      "brand": "Bugaboo",
+      "product": "Giraffe High Chair",
+      "url": "https://amzn.to/40S8rlM",
+      "source": "tool:baby-checklist",
+      "path": "/resources/baby-checklist",
+      "pageType": "other"
+    }
+  ],
+  "funnel": [
+    {
+      "id": "cmupqlte5002uw67gg851czu1",
+      "createdAt": "2026-10-01T16:17:02.477Z",
+      "tool": "baby-checklist",
+      "event": "result_viewed",
+      "kind": "Babylist",
+      "value": "bugaboo-giraffe",
+      "path": "/resources/baby-checklist"
+    },
+    {
+      "id": "cmupqmx4i002xw67gzntgq8pe",
+      "createdAt": "2026-10-01T16:17:53.970Z",
+      "tool": "baby-checklist",
+      "event": "result_viewed",
+      "kind": "Amazon",
+      "value": "bugaboo-giraffe",
+      "path": "/resources/baby-checklist"
+    }
+  ],
+  "baseline": {
+    "checkedAt": "2026-10-01T16:16:37.211Z",
+    "outbound": [],
+    "funnel": []
+  },
+  "landingPages": {
+    "Babylist": {
+      "product": "Bugaboo Giraffe Complete High Chair",
+      "variant": "Warm Wood",
+      "route": "ShopMy → Babylist",
+      "verified": true
+    },
+    "Amazon": {
+      "product": "Bugaboo Giraffe Wooden Baby High Chair",
+      "asin": "B0FC3W7QHW",
+      "affiliateTag": "taylormadebab-20",
+      "route": "amzn.to → Amazon",
+      "verified": true
+    }
+  },
+  "scope": "Real browser clicks and production database persistence verified; external GA4 receipt and merchant conversion reporting not tested.",
+  "testEventsRetained": true
+}
