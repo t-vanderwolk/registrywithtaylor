@@ -36,7 +36,7 @@ import {
 import { checklistAnalytics } from '@/lib/checklist/analytics';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 
-type GoodBuyGearOffer = { url: string | null; price: number | null };
+type GoodBuyGearOffer = { url: string | null; price: number | null; condition?: string };
 
 const STORAGE_PREFIX = 'tmbc-checklist-';
 
@@ -140,11 +140,10 @@ export default function BabyChecklist({
   /** Affiliate-partner logos (from /admin/partners), keyed by normalized name/slug. */
   retailerLogos?: Record<string, string>;
   /**
-   * GoodBuy Gear open-box offers matched to picks, keyed by
-   * blogProductKey(brand, product). Present only when a live open-box match
-   * exists — the card then shows the "Open Box … at GoodBuy Gear" badge.
+   * GoodBuy Gear offers keyed by blogProductKey(brand, product).
+   * Saved destinations take precedence and include current listing price and condition.
    */
-  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
+  goodBuyGearOffers?: Record<string, GoodBuyGearOffer>;
 }) {
   const [type, setType] = useState<ChecklistType>(initialType);
   const [timingFilter, setTimingFilter] = useState<ChecklistTimingFilter>('all');
@@ -666,7 +665,7 @@ function Recommendation({
     });
   return (
     <div className="tmbc-rec">
-      <ChecklistProductBadge badge={rec.badge} links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} />
+      <ChecklistProductBadge goodBuyGearOffer={goodBuyGearOffer} badge={rec.badge} links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} />
       <div className="tmbc-rec__media">
         {rec.imageUrl ? (
           <Image

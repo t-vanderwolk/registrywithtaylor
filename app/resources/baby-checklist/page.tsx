@@ -9,6 +9,7 @@ import { getChecklistStructure } from '@/lib/checklist/getChecklistStructure';
 import { getChecklistRelatedReading } from '@/lib/checklist/getRelatedReading';
 import { getPartnerLogos } from '@/lib/checklist/getPartnerLogos';
 import { resolveBlogGoodBuyGearOffers } from '@/lib/server/blogGoodBuyGear';
+import { resolveChecklistGoodBuyGearOffers } from '@/lib/server/checklistGoodBuyGear';
 
 // Rendered per request. The product picks are admin-editable (DB), and an ISR
 // snapshot cannot be trusted here: on a self-hosted deploy the Next server cache
@@ -47,11 +48,12 @@ export default async function BabyChecklistPage() {
     getChecklistRelatedReading(),
     getPartnerLogos(),
   ]);
-  // Match each pick against GoodBuy Gear's open-box feed; picks with a match get
-  // an "Open Box … at GoodBuy Gear" badge.
-  const goodBuyGearOffers = await resolveBlogGoodBuyGearOffers(
+  // Resolve feed matches, then prefer saved exact GoodBuy Gear destinations
+  // with their current listing price and condition.
+  const automaticOffers = await resolveBlogGoodBuyGearOffers(
     Object.values(products).map((p) => ({ brand: p.brand, productName: p.product })),
   );
+  const goodBuyGearOffers = await resolveChecklistGoodBuyGearOffers(Object.values(products), automaticOffers);
   return (
     <SiteShell currentPath="/resources">
       <PageViewTracker path="/resources/baby-checklist" pageType="other" />

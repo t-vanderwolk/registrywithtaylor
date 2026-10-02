@@ -1,11 +1,12 @@
-import ProductShopLink from '@/components/affiliate/ProductShopLink';
+import GoodBuyGearBadge, { type GoodBuyGearBadgeOffer } from '@/components/affiliate/GoodBuyGearBadge';
 import { isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import { shopMyProductUrl } from '@/lib/affiliateShopMy';
 import type { RetailerLink } from '@/lib/retailerLinks';
 
 /** Editorial badges stay text; an explicitly named GoodBuy Gear badge uses its saved retailer destination. */
-export default function ChecklistProductBadge({ badge, links, productName, onRetailerClick }: {
+export default function ChecklistProductBadge({ badge, links, productName, onRetailerClick, goodBuyGearOffer }: {
   badge?: string;
+  goodBuyGearOffer?: GoodBuyGearBadgeOffer;
   links: RetailerLink[];
   productName: string;
   onRetailerClick: (link: RetailerLink) => void;
@@ -14,16 +15,10 @@ export default function ChecklistProductBadge({ badge, links, productName, onRet
   if (!label) return null;
   const offer = /^good\s*buy\s*gear$/i.test(label) ? links.find(isGoodBuyGearOffer) : undefined;
   if (!offer) return <span className="tmbc-rec__pill">{label}</span>;
-  return (
-    <ProductShopLink
-      href={offer.url}
-      className="tmbc-rec__pill"
-      aria-label={`Shop at GoodBuy Gear for ${productName}`}
-      data-affiliate-track-source="manual"
-      data-analytics-managed="true"
-      onClick={() => onRetailerClick({ ...offer, url: shopMyProductUrl(offer.url) })}
-    >
-      {label} <span aria-hidden="true">→</span>
-    </ProductShopLink>
-  );
+  const details = goodBuyGearOffer?.url === offer.url ? goodBuyGearOffer : undefined;
+  return <GoodBuyGearBadge
+    offer={{ url: shopMyProductUrl(offer.url), price: details?.price ?? null, condition: details?.condition ?? 'GoodBuy Gear' }}
+    productName={productName}
+    onClick={() => onRetailerClick({ ...offer, url: shopMyProductUrl(offer.url) })}
+  />;
 }

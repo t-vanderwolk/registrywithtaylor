@@ -1,5 +1,8 @@
 'use client';
 
+import OpenBoxBadge from '@/components/affiliate/GoodBuyGearBadge';
+export { default as OpenBoxBadge } from '@/components/affiliate/GoodBuyGearBadge';
+
 import '@/styles/widgets.css';
 import Link from 'next/link';
 import {
@@ -102,10 +105,6 @@ const RETAILER_CTAS: Array<RetailerCtaMeta & { key: 'babylist' | 'macrobaby' | '
   { key: 'amazon', name: 'Amazon', shopLabel: 'Shop Amazon', variant: 'secondary' },
 ];
 
-function formatOpenBoxPrice(price: number) {
-  return Number.isInteger(price) ? `$${price.toFixed(0)}` : `$${price.toFixed(2)}`;
-}
-
 export function BabylistHeartIcon({ className = '' }: { className?: string }) {
   return (
     <svg width="15" height="13" viewBox="0 0 16 14" fill="none" aria-hidden="true" className={className}>
@@ -131,47 +130,6 @@ export function AmazonMark({ className = '' }: { className?: string }) {
       <path d="M4 17.2 Q26 22.5 50 17.2" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" fill="none" />
       <path d="M46 15.6 L50 17.4 L46.5 19.4" stroke="#FF9900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
-  );
-}
-
-export function OpenBoxBadge({
-  offer,
-}: {
-  offer?: RetailerOffer | null;
-}) {
-  if (!offer || (!offer.url && offer.price == null)) return null;
-
-  const label =
-    offer.price != null
-      ? `Open box from ${formatOpenBoxPrice(offer.price)} at GoodBuy Gear`
-      : 'Open box at GoodBuy Gear';
-  const content = (
-    <>
-      <span className="tool-open-box-badge__eyebrow">Open Box</span>
-      {offer.price != null ? (
-        <span className="tool-open-box-badge__price">from {formatOpenBoxPrice(offer.price)}</span>
-      ) : null}
-      <span className="tool-open-box-badge__retailer">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img loading="lazy" decoding="async" src="/assets/logos/goodbuygear2.png" alt="" className="tool-open-box-badge__logo" />
-      </span>
-      {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
-    </>
-  );
-
-  return offer.url ? (
-    <a
-      href={offer.url}
-      target="_blank"
-      rel="sponsored nofollow noopener noreferrer"
-      className="shopmyskip tool-open-box-badge"
-      aria-label={label}
-      title={label}
-    >
-      {content}
-    </a>
-  ) : (
-    <span className="tool-open-box-badge" title={label}>{content}</span>
   );
 }
 
