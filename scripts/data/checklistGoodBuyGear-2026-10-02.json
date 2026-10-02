@@ -1,0 +1,119 @@
+{
+  "source": "User-approved exact destinations, 2026-10-02. Both PIPA cards intentionally share one listing; Libelle intentionally uses the supplied Libelle 2 listing. Preserve WildBird search parameters.",
+  "products": {
+    "silver-cross-breez": {
+      "brand": "Silver Cross",
+      "product": "Breez",
+      "checklistItemId": "primary-stroller",
+      "url": "https://goodbuygear.com/products/silver-cross-breez-compact-stroller-onyx-2026"
+    },
+    "inglesina-quid-3": {
+      "brand": "Inglesina",
+      "product": "Quid 3",
+      "checklistItemId": "travel-system-stroller",
+      "url": "https://goodbuygear.com/products/inglesina-quid-3-stroller-2026-lunar-beige"
+    },
+    "infant-car-seat-pick": {
+      "brand": "Nuna",
+      "product": "PIPA RX",
+      "checklistItemId": "infant-car-seat",
+      "url": "https://goodbuygear.com/products/nuna-pipa-rx-infant-car-seat-with-relx-base-2026-caviar-chocolate-1"
+    },
+    "nuna-pipa-rx-infant-car-seat": {
+      "brand": "Nuna",
+      "product": "PIPA rx Infant Car Seat",
+      "checklistItemId": "infant-car-seat",
+      "url": "https://goodbuygear.com/products/nuna-pipa-rx-infant-car-seat-with-relx-base-2026-caviar-chocolate-1"
+    },
+    "cybex-libelle": {
+      "brand": "Cybex",
+      "product": "Libelle",
+      "checklistItemId": "travel-system-stroller",
+      "url": "https://goodbuygear.com/products/cybex-libelle-2-compact-stroller-2026-chocolate-brown-3"
+    },
+    "cybex-callisto-g-360": {
+      "brand": "Cybex",
+      "product": "Callisto G 360",
+      "checklistItemId": "convertible-car-seat",
+      "url": "https://goodbuygear.com/products/cybex-callisto-g-360-select-car-seat-2026-black"
+    },
+    "newton-baby-breathable-2-stage-crib-mattress": {
+      "brand": "Newton Baby",
+      "product": "Breathable 2-Stage Crib Mattress",
+      "checklistItemId": "crib-mattress",
+      "url": "https://goodbuygear.com/products/newton-waterproof-crib-and-toddler-mattress-white-1"
+    },
+    "newton-baby-mini-crib-mattress": {
+      "brand": "Newton Baby",
+      "product": "Mini Crib Mattress",
+      "checklistItemId": "crib-mattress",
+      "url": "https://goodbuygear.com/products/newton-mini-crib-mattress-24-x-39"
+    },
+    "newton-baby-essential-waterproof-crib-pad": {
+      "brand": "Newton Baby",
+      "product": "Essential Waterproof Crib Pad",
+      "checklistItemId": "mattress-protector",
+      "url": "https://goodbuygear.com/products/newton-waterproof-breathable-mattress-pad-white-1-pack-52-x-30"
+    },
+    "newton-baby-waterproof-mini-crib-pad": {
+      "brand": "Newton Baby",
+      "product": "Waterproof Mini Crib Pad",
+      "checklistItemId": "mattress-protector",
+      "url": "https://goodbuygear.com/products/newton-waterproof-breathable-mattress-pad-1-pack-24x38-white-1"
+    },
+    "silver-cross-sleep-go": {
+      "brand": "Silver Cross",
+      "product": "Sleep & Go",
+      "checklistItemId": "travel-crib",
+      "url": "https://goodbuygear.com/products/silver-cross-sleep-go-3-in-1-travel-crib-carbon-15"
+    },
+    "bugaboo-stardust-playard": {
+      "brand": "Bugaboo",
+      "product": "Stardust Playard",
+      "checklistItemId": "travel-crib",
+      "url": "https://goodbuygear.com/products/bugaboo-stardust-playard-midnight-black-37"
+    },
+    "evolur-zane-portable-playard": {
+      "brand": "Evolur",
+      "product": "Zane Portable Playard",
+      "checklistItemId": "travel-crib",
+      "url": "https://goodbuygear.com/products/evolur-zane-portable-playard-with-instant-fold-grey-2"
+    },
+    "momcozy-smart-wifi-baby-monitor": {
+      "brand": "Momcozy",
+      "product": "Smart WiFi Baby Monitor",
+      "checklistItemId": "monitor",
+      "url": "https://goodbuygear.com/products/momcozy-smart-wifi-baby-monitor-bm04-1-camera-1"
+    },
+    "slumberpod-slumberpod-and-fan": {
+      "brand": "SlumberPod",
+      "product": "SlumberPod and Fan",
+      "checklistItemId": "blackout",
+      "url": "https://goodbuygear.com/products/slumberpod-3-0-sleep-canopy-with-fan-black-with-gray-accents-4"
+    },
+    "canopy-bedside-air-purifier": {
+      "brand": "Canopy",
+      "product": "Bedside Air Purifier",
+      "checklistItemId": "air-purifier",
+      "url": "https://goodbuygear.com/products/canopy-4-in-1-air-purifier-cream"
+    },
+    "canopy-bath-tub-filter": {
+      "brand": "Canopy",
+      "product": "Bath Tub Filter",
+      "checklistItemId": "bath-water-filter",
+      "url": "https://goodbuygear.com/products/canopy-bath-tub-filter-oat"
+    },
+    "baby-carrier-pick": {
+      "brand": "Ergobaby",
+      "product": "Omni 360",
+      "checklistItemId": "carrier",
+      "url": "https://goodbuygear.com/products/ergobaby-omni-360-cool-air-mesh-baby-carrier-pearl-grey-37"
+    },
+    "amzcc-wildbird-ring-sling-linen": {
+      "brand": "WildBird",
+      "product": "Ring Sling (linen)",
+      "checklistItemId": "soft-wrap-carrier",
+      "url": "https://goodbuygear.com/products/desert-lark-linen-sling?_pos=2&_sid=25ac132e5&_ss=r"
+    }
+  }
+}

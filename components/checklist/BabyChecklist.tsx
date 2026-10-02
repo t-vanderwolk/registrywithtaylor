@@ -21,6 +21,7 @@ import {
 } from '@/lib/checklist/data';
 import Image from 'next/image';
 import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
+import ChecklistProductBadge from './ChecklistProductBadge';
 import type { RetailerLink } from '@/lib/retailerLinks';
 import { productPricePresentation } from '@/lib/productRetailers';
 import { isRemoteImageUrl, resolveBlogCoverImage } from '@/lib/blog/images';
@@ -651,7 +652,7 @@ function Recommendation({
   goodBuyGearOffer?: GoodBuyGearOffer;
 }) {
   const links: RetailerLink[] = resolveProductLinks(rec);
-  if (goodBuyGearOffer?.url) links.push({ retailer: 'GoodBuy Gear (open box)', url: goodBuyGearOffer.url });
+  if (goodBuyGearOffer?.url) links.push({ retailer: 'GoodBuy Gear', url: goodBuyGearOffer.url });
   const price = productPricePresentation(rec.price);
   const trackClick = (link: RetailerLink) =>
     checklistAnalytics.affiliateClicked({
@@ -665,9 +666,7 @@ function Recommendation({
     });
   return (
     <div className="tmbc-rec">
-      {rec.badge?.trim() ? (
-        <span className="tmbc-rec__pill">{rec.badge.trim()}</span>
-      ) : null}
+      <ChecklistProductBadge badge={rec.badge} links={links} productName={`${rec.brand} ${rec.product}`} onRetailerClick={trackClick} />
       <div className="tmbc-rec__media">
         {rec.imageUrl ? (
           <Image
