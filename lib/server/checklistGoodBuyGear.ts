@@ -8,12 +8,10 @@ import type { BlogGoodBuyGearOffer } from './blogGoodBuyGear';
 
 // An explicit Data Cache entry also works on the force-dynamic checklist page.
 const listingSummary = unstable_cache(async (endpoint: string) => {
-  try {
-    const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(3000), redirect: 'error' });
-    if (!response.ok) return goodBuyGearListingSummary(null);
-    return goodBuyGearListingSummary(await response.json());
-  } catch { return goodBuyGearListingSummary(null); }
-}, ['checklist-goodbuygear-listing-v1'], { revalidate: 900 });
+  const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(5000), redirect: 'error' });
+  if (!response.ok) throw new Error(`GoodBuy Gear listing unavailable (${response.status})`);
+  return goodBuyGearListingSummary(await response.json());
+}, ['checklist-goodbuygear-listing-v2'], { revalidate: 900 });
 
 /** Saved exact destinations override feed matches. Prices refresh without editing the card reference price. */
 export async function resolveChecklistGoodBuyGearOffers(products: ChecklistProduct[], automatic: Record<string, BlogGoodBuyGearOffer>) {
@@ -23,7 +21,8 @@ export async function resolveChecklistGoodBuyGearOffers(products: ChecklistProdu
     const link = resolveProductLinks(product).find(link => goodBuyGearProductEndpoint(link.url));
     if (!link) return;
     const endpoint = goodBuyGearProductEndpoint(link.url)!;
-    if (!requests.has(endpoint)) requests.set(endpoint, listingSummary(endpoint));
+    // Recover outside the cache: transient errors must not cache an empty badge.
+    if (!requests.has(endpoint)) requests.set(endpoint, listingSummary(endpoint).catch(() => goodBuyGearListingSummary(null)));
     result[blogProductKey(product.brand, product.product)] = { url: link.url, ...await requests.get(endpoint)! };
   }));
   return result;
