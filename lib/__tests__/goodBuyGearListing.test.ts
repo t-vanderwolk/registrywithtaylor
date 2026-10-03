@@ -8,10 +8,12 @@ describe('exact GoodBuy Gear listing lookup', () => {
     for (const url of ['https://goodbuygear.com.evil.test/products/x','http://goodbuygear.com/products/x','https://user:pass@goodbuygear.com/products/x','https://goodbuygear.com/search?q=x','https://goodbuygear.pxf.io/c/x?u=https://localhost/private']) expect(endpoint(url)).toBeNull();
   });
   it('uses the lowest available variant price, cents conversion and actual condition', () => {
-    expect(summarize({available:true,tags:['Condition_Barely Used'],variants:[{available:false,price:100},{available:true,price:23999},{available:true,price:25000}]})).toEqual({price:239.99,condition:'Barely Used'});
+    expect(summarize({available:true,tags:['Condition_Barely Used'],variants:[{available:false,price:100},{available:true,price:23999},{available:true,price:25000}]})).toEqual({price:239.99,condition:'Barely Used',available:true});
   });
-  it('omits prices when sold out, invalid, or missing; never invents an open-box condition', () => {
-    for (const data of [null,{}, {available:false,tags:['Condition_Open Box'],variants:[{available:true,price:10000}]}]) expect(summarize(data)).toEqual({price:null,condition:'GoodBuy Gear'});
-    expect(summarize({available:true,variants:[{available:true,price:-1},{available:true,price:'100'}]})).toEqual({price:null,condition:'GoodBuy Gear'});
+  it('distinguishes sold-out listings from failed lookups', () => {
+    for (const data of [null, {}]) expect(summarize(data)).toEqual({price:null,condition:'GoodBuy Gear',available:null});
+    expect(summarize({available:false,tags:['Condition_Open Box'],variants:[{available:true,price:10000}]})).toEqual({price:null,condition:'GoodBuy Gear',available:false});
+    expect(summarize({available:true,variants:[{available:false,price:10000}]}).available).toBe(false);
+    expect(summarize({available:true,variants:[{available:true,price:-1},{available:true,price:'100'}]})).toEqual({price:null,condition:'GoodBuy Gear',available:true});
   });
 });

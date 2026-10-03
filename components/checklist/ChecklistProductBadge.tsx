@@ -17,7 +17,7 @@ export default function ChecklistProductBadge({ badge, links, productName, onRet
   if (!offer) return <span className="tmbc-rec__pill">{label}</span>;
   const details = goodBuyGearOffer?.url === offer.url ? goodBuyGearOffer : undefined;
   return <GoodBuyGearBadge
-    offer={{ url: shopMyProductUrl(offer.url), price: details?.price ?? null, condition: details?.condition ?? 'GoodBuy Gear' }}
+    offer={{ url: shopMyProductUrl(offer.url), price: details?.price ?? null, condition: details?.condition ?? 'GoodBuy Gear', available: details?.available }}
     productName={productName}
     onClick={() => onRetailerClick({ ...offer, url: shopMyProductUrl(offer.url) })}
   />;

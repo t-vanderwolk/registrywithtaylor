@@ -3,7 +3,7 @@ import { unstable_cache } from 'next/cache';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 import { resolveProductLinks } from '@/lib/checklist/productLinks';
 import type { ChecklistProduct } from '@/lib/checklist/products';
-import { goodBuyGearListingSummary, goodBuyGearProductEndpoint } from '@/lib/catalog/goodBuyGearListing';
+import { goodBuyGearListingSummary, goodBuyGearProductEndpoint, type GoodBuyGearListingSummary } from '@/lib/catalog/goodBuyGearListing';
 import type { BlogGoodBuyGearOffer } from './blogGoodBuyGear';
 
 // An explicit Data Cache entry also works on the force-dynamic checklist page.
@@ -11,12 +11,12 @@ const listingSummary = unstable_cache(async (endpoint: string) => {
   const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(5000), redirect: 'error' });
   if (!response.ok) throw new Error(`GoodBuy Gear listing unavailable (${response.status})`);
   return goodBuyGearListingSummary(await response.json());
-}, ['checklist-goodbuygear-listing-v2'], { revalidate: 900 });
+}, ['checklist-goodbuygear-listing-v3'], { revalidate: 900 });
 
 /** Saved exact destinations override feed matches. Prices refresh without editing the card reference price. */
 export async function resolveChecklistGoodBuyGearOffers(products: ChecklistProduct[], automatic: Record<string, BlogGoodBuyGearOffer>) {
-  const result: Record<string, BlogGoodBuyGearOffer & { condition?: string }> = { ...automatic };
-  const requests = new Map<string, Promise<{ price: number | null; condition: string }>>();
+  const result: Record<string, BlogGoodBuyGearOffer & { condition?: string; available?: boolean | null }> = { ...automatic };
+  const requests = new Map<string, Promise<GoodBuyGearListingSummary>>();
   await Promise.all(products.map(async product => {
     const link = resolveProductLinks(product).find(link => goodBuyGearProductEndpoint(link.url));
     if (!link) return;

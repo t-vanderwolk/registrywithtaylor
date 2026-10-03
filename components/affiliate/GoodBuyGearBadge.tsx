@@ -1,4 +1,4 @@
-export type GoodBuyGearBadgeOffer = { url?: string | null; price?: number | null; condition?: string };
+export type GoodBuyGearBadgeOffer = { url?: string | null; price?: number | null; condition?: string; available?: boolean | null };
 
 /** Shared visual used by the stroller tools and checklist. */
 export default function GoodBuyGearBadge({ offer, productName, onClick }: {
@@ -6,7 +6,7 @@ export default function GoodBuyGearBadge({ offer, productName, onClick }: {
   productName?: string;
   onClick?: () => void;
 }) {
-  if (!offer || (!offer.url && offer.price == null)) return null;
+  if (!offer || offer.available === false || (!offer.url && offer.price == null)) return null;
   const condition = offer.condition ?? 'Open Box';
   const price = offer.price != null ? `$${Number.isInteger(offer.price) ? offer.price.toFixed(0) : offer.price.toFixed(2)}` : null;
   const label = `${condition === 'GoodBuy Gear' ? 'Shop' : condition}${price ? ` from ${price}` : ''} at GoodBuy Gear${productName ? ` for ${productName}` : ''}`;

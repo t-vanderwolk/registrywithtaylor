@@ -36,7 +36,7 @@ import {
 import { checklistAnalytics } from '@/lib/checklist/analytics';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 
-type GoodBuyGearOffer = { url: string | null; price: number | null; condition?: string };
+type GoodBuyGearOffer = { url: string | null; price: number | null; condition?: string; available?: boolean | null };
 
 const STORAGE_PREFIX = 'tmbc-checklist-';
 

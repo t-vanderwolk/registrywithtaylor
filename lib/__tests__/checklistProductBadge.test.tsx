@@ -1,9 +1,18 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import ChecklistProductBadge from '@/components/checklist/ChecklistProductBadge';
+import GoodBuyGearBadge from '@/components/affiliate/GoodBuyGearBadge';
 
 const offer = { retailer: 'GoodBuy Gear', url: 'https://goodbuygear.pxf.io/c/6560395/3220593/40600?u=https%3A%2F%2Fgoodbuygear.com%2Fproducts%2Ftest&partnerpropertyid=7490466' };
 describe('checklist GoodBuy Gear badge', () => {
+  it('hides a sold-out badge and shows it again after restocking without altering editorial badges', () => {
+    const render = (available: boolean, badge = 'GoodBuy Gear') => renderToStaticMarkup(<ChecklistProductBadge badge={badge} links={[offer]} productName="Test" onRetailerClick={()=>{}}
+      goodBuyGearOffer={{url:offer.url,price:100,condition:'Open Box',available}} />);
+    expect(render(false)).toBe('');
+    expect(render(true)).toContain('tool-open-box-badge');
+    expect(render(false, "Taylor's Pick")).toContain('tmbc-rec__pill');
+    expect(renderToStaticMarkup(<GoodBuyGearBadge offer={{url:offer.url,price:100,available:false}} />)).toBe('');
+  });
   it('renders the shared stroller design with the listing price and accurate condition', () => {
     const html=renderToStaticMarkup(<ChecklistProductBadge badge="GoodBuy Gear" links={[offer]} productName="Test" onRetailerClick={()=>{}}
       goodBuyGearOffer={{url:offer.url,price:239.99,condition:'Barely Used'}} />);
