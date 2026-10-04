@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-04",
+  "priceNote": "USD editorial reference prices; Willow uses the listed regular price.",
+  "products": [
+    {
+      "id": "willow-catch-all-milk-cups-2-pack",
+      "brand": "Willow",
+      "product": "Catch-All Milk Cups (2 Pack)",
+      "checklistItemId": "milk-collectors",
+      "price": 17.99,
+      "standout": "Reusable cups that sit inside your bra to catch leaks between feeds or pumping sessions, with a pouring spout for transferring milk.",
+      "destination": "https://www.babylist.com/gp/willow-catch-all-milk-cups-2-pack/46335/1879701",
+      "priceSource": "Babylist",
+      "imageUrl": "https://images.ctfassets.net/50gzycvace50/960241fd760f60cb22b18da2056c94a485719445eb34ec5e88dcbecab5670c9e/98960798b97e2971f983e0a9785c7f68/960241fd760f60cb22b18da2056c94a485719445eb34ec5e88dcbecab5670c9e.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240"
+    },
+    {
+      "id": "haakaa-petal-soft-silicone-milk-collectors",
+      "brand": "Haakaa",
+      "product": "Petal Soft Silicone Milk Collectors",
+      "checklistItemId": "milk-collectors",
+      "price": 22.99,
+      "standout": "Soft, contoured silicone collectors that catch milk leaks inside your bra, with a one-piece design and a curved opening for pouring.",
+      "destination": "https://www.babylist.com/gp/haakaa-petal-soft-silicone-milk-collectors/83847/3316649",
+      "priceSource": "Babylist",
+      "imageUrl": "https://images.ctfassets.net/50gzycvace50/19f9df9005087c3b2c22a2d5006d7eb2ff7a902bd54a0fc58f054171dab1ef9d/de28a6f6c565315a13fa6a7234b53738/19f9df9005087c3b2c22a2d5006d7eb2ff7a902bd54a0fc58f054171dab1ef9d.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240"
+    },
+    {
+      "id": "momcozy-breast-milk-storage-bottles-4-pack-light-green",
+      "brand": "Momcozy",
+      "product": "Breast Milk Storage Bottles (4 Pack, Light Green)",
+      "checklistItemId": "milk-storage",
+      "price": 29.99,
+      "standout": "Four reusable 11-ounce bottles with lids for storing expressed milk, compatible with the Momcozy Portable Breast Milk Cooler.",
+      "destination": "https://www.babylist.com/gp/momcozy-breast-milk-storage-bottles-4-pack/80460/2919168",
+      "priceSource": "Babylist",
+      "imageUrl": "https://images.ctfassets.net/50gzycvace50/ecf8909816663a07dfd1e5ff1038a26f6afe25a0665f016a90426301d15d9cb4/1a2fcd0b3c9b0494e5a72bb350a8848d/ecf8909816663a07dfd1e5ff1038a26f6afe25a0665f016a90426301d15d9cb4.png?fl=progressive&fm=jpg&bg=rgb:fafafa&w=1240&h=1240"
+    },
+    {
+      "id": "bumble-beez-the-twin-bath",
+      "brand": "Bumble Beez",
+      "product": "The Twin Bath",
+      "checklistItemId": "bathtub",
+      "price": 203,
+      "standout": "A bath support designed for two infants, with a front-facing layout and a carry handle. Check the fit in your bathtub before ordering.",
+      "destination": "https://bumble-beez.com/en-us/products/the-twin-bath",
+      "priceSource": "Bumble Beez",
+      "imageUrl": "https://bumble-beez.com/cdn/shop/files/1.jpg?v=1778279645"
+    }
+  ]
+}
