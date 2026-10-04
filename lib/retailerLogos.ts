@@ -25,6 +25,7 @@ const RETAILER_LOGOS: Record<string, string> = {
   target: '/assets/logos/target2.png',
   bloomingdales: '/assets/logos/bloomingdales.png',
   nordstrom: '/assets/logos/nordstrom.png',
+  potterybarnkids: '/assets/logos/pbkids.png',
   dadada: '/assets/logos/dadada.png',
   oilo: '/assets/logos/oilo.png',
   oilostudio: '/assets/logos/oilo.png',
