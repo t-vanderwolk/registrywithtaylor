@@ -56,9 +56,10 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   // ── STROLLERS ──────────────────────────────────────────────────────────────
 
   // Bugaboo
+  // The live Fox 5 Renew card uses the existing Fox 5 finder key.
   'Bugaboo:::Fox 5': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
-    amazonUrl: amazonDp('B0BX4PF2KG'),
+    amazonUrl: 'https://amzn.to/3UaS18m',
   },
   'Bugaboo:::Butterfly': {
     babylistUrl: BABYLIST_CONFIRMED['Bugaboo:::Butterfly'],
@@ -85,7 +86,7 @@ export const TRAVEL_SYSTEM_AFFILIATE_LINKS: Record<string, ProductAffiliateLinks
   },
   'Bugaboo:::Dragonfly Plus': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
-    amazonUrl: amazonDp('B0C5B9CH91'),
+    amazonUrl: 'https://amzn.to/4j6dARM',
   },
   'Bugaboo:::Lynx': {
     babylistUrl: babylistTracked('https://www.babylist.com/store/strollers?brand=bugaboo'),
