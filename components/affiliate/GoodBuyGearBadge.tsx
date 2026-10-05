@@ -1,10 +1,13 @@
+import type { ReactNode } from 'react';
+
 export type GoodBuyGearBadgeOffer = { url?: string | null; price?: number | null; condition?: string; available?: boolean | null };
 
 /** Shared visual used by the stroller tools and checklist. */
-export default function GoodBuyGearBadge({ offer, productName, onClick }: {
+export default function GoodBuyGearBadge({ offer, productName, onClick, renderLink }: {
   offer?: GoodBuyGearBadgeOffer | null;
   productName?: string;
   onClick?: () => void;
+  renderLink?: (link: { href: string; className: string; ariaLabel: string; children: ReactNode }) => ReactNode;
 }) {
   if (!offer || offer.available === false || (!offer.url && offer.price == null)) return null;
   const condition = offer.condition ?? 'Open Box';
@@ -19,6 +22,7 @@ export default function GoodBuyGearBadge({ offer, productName, onClick }: {
     </span>
     {offer.url ? <span className="tool-open-box-badge__arrow" aria-hidden="true">→</span> : null}
   </>;
+  if (offer.url && renderLink) return renderLink({ href: offer.url, className: 'shopmyskip tool-open-box-badge', ariaLabel: label, children: content });
   return offer.url ? (
     <a href={offer.url} target="_blank" rel="sponsored nofollow noopener noreferrer"
       className="shopmyskip tool-open-box-badge" aria-label={label} title={label}

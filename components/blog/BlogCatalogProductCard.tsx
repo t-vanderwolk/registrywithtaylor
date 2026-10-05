@@ -4,6 +4,8 @@ import '@/styles/widgets.css';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import TrackedAffiliateLink from '@/components/analytics/TrackedAffiliateLink';
+import GoodBuyGearBadge from '@/components/affiliate/GoodBuyGearBadge';
+import { isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import ProductRetailerActions from '@/components/affiliate/ProductRetailerActions';
 import { orderedProductRetailers, productPricePresentation } from '@/lib/productRetailers';
 import { type RetailerLink } from '@/lib/retailerLinks';
@@ -26,10 +28,12 @@ type BlogCatalogProductCardProps = {
   amazonUrl?: string | null;
   retailerLinks?: RetailerLink[];
   /** Which retailer button leads. Defaults to Babylist > MacroBaby > Shop > Amazon. */
-  primaryRetailer?: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
+  primaryRetailer?: string | null;
   /** GoodBuy Gear open-box offer, if this product has a matching one. */
   openBoxUrl?: string | null;
   openBoxPrice?: number | null;
+  openBoxAvailable?: boolean | null;
+  openBoxCondition?: string;
   comingSoon?: boolean;
   /** Travel-system checker results href for this stroller (compatible car seats). */
   compatHref?: string | null;
@@ -85,6 +89,9 @@ export default function BlogCatalogProductCard({
   retailerLinks = [],
   primaryRetailer,
   openBoxUrl,
+  openBoxPrice,
+  openBoxAvailable,
+  openBoxCondition,
   comingSoon = false,
   compatHref,
   compatStrollersHref,
@@ -104,7 +111,15 @@ export default function BlogCatalogProductCard({
   const amazonAllowed = isAmazonAllowedForBrand(brand);
   if (amazonUrl && amazonAllowed) available.push({ url: amazonUrl, retailer: 'Amazon', preferred: primaryRetailer === 'amazon' });
   available.push(...retailerLinks);
-  if (openBoxUrl) available.push({ url: openBoxUrl, retailer: 'GoodBuy Gear (open box)' });
+  const authoredGbg = available.find(isGoodBuyGearOffer);
+  const badgeUrl = authoredGbg?.url ?? openBoxUrl;
+  const matchingOffer = !authoredGbg || authoredGbg.url === openBoxUrl;
+  const badgeOffer = badgeUrl ? {
+    url: badgeUrl,
+    price: matchingOffer ? openBoxPrice : null,
+    available: matchingOffer ? openBoxAvailable : null,
+    condition: matchingOffer ? openBoxCondition : 'GoodBuy Gear',
+  } : null;
 
   // Only retailer links actually attached to this card render — no auto-generated
   // Babylist brand-store, Amazon search, or brand-direct fallbacks. A card with no
@@ -112,12 +127,14 @@ export default function BlogCatalogProductCard({
 
   // MacroBaby shop links are switched off, whichever slot a post put one in.
   // Its registry and welcome-box pages are not product pages and still render.
-  const buttons = orderedProductRetailers(available.filter((link) => !isBlockedMacroBabyShopUrl(link.url)));
+  const buttons = orderedProductRetailers(available
+    .filter((link) => !isGoodBuyGearOffer(link) && !isBlockedMacroBabyShopUrl(link.url) && (amazonAllowed || link.retailer.toLowerCase() !== 'amazon'))
+    .map(link => ({ ...link, preferred: link.preferred || link.retailer.toLowerCase() === primaryRetailer?.toLowerCase() })));
   const displayPrice = productPricePresentation(price);
 
   // A card with no retailer yet still renders when it's flagged coming soon —
   // it shows the product with a badge instead of buy buttons.
-  if (buttons.length === 0 && !comingSoon) return null;
+  if (buttons.length === 0 && (!badgeOffer || badgeOffer.available === false) && !comingSoon) return null;
 
   const displayBrand = brand.trim();
   const fullName = `${displayBrand} ${productName}`.trim();
@@ -143,6 +160,13 @@ export default function BlogCatalogProductCard({
         </Link>
       ) : null}
       <div className={`tool-card__media tool-product-card__media${isInline ? ' tool-product-card__media--compact' : ''}`}>
+        <GoodBuyGearBadge offer={badgeOffer} productName={fullName} renderLink={link => (
+          <TrackedAffiliateLink productShopLink href={link.href} ctaText={link.ariaLabel}
+            ariaLabel={link.ariaLabel} className={link.className}
+            meta={{ product: fullName, brand: displayBrand, retailer: 'GoodBuy Gear', position, context: 'blog-catalog-card' }}>
+            {link.children}
+          </TrackedAffiliateLink>
+        )} />
         {comingSoon ? <span className="tool-product-card__badge">Coming Soon</span> : null}
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -168,7 +192,7 @@ export default function BlogCatalogProductCard({
               Retailer coming soon
             </span>
           ) : null}
-          <ProductRetailerActions links={buttons} productName={fullName} renderLink={(retailer, presentation) => (
+          <ProductRetailerActions showAllRetailers links={buttons} productName={fullName} renderLink={(retailer, presentation) => (
             <TrackedAffiliateLink
               productShopLink
               href={retailer.url}

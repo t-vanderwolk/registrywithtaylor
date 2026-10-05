@@ -1,5 +1,7 @@
 'use client';
 
+import type { BlogGoodBuyGearOffer } from '@/lib/server/blogGoodBuyGear';
+
 import BlogCatalogProductCard from '@/components/blog/BlogCatalogProductCard';
 import { blogProductKey, type BlogCatalogMatch } from '@/lib/blog/blogProductCatalog';
 import { enrichProductBlockWithCatalog } from '@/lib/blog/enrichCatalogProduct';
@@ -10,7 +12,7 @@ type BlogCatalogProductRecapProps = {
   productCatalogMap?: Record<string, BlogCatalogMatch>;
   strollerCompatHrefs?: Record<string, string>;
   carSeatCompatHrefs?: Record<string, string>;
-  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
+  goodBuyGearOffers?: Record<string, BlogGoodBuyGearOffer>;
   heading?: string;
   subheading?: string;
   /** When false, render only the card grid (no section wrapper / heading) so it
@@ -72,12 +74,15 @@ export default function BlogCatalogProductRecap({
               shop2Url={block.shop2Url}
               shop2Retailer={block.shop2Retailer}
               amazonUrl={block.amazonUrl}
+              retailerLinks={block.retailerLinks}
               primaryRetailer={block.primaryRetailer}
               comingSoon={block.comingSoon}
               compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
               compatStrollersHref={carSeatCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
               openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
               openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
+              openBoxAvailable={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.available}
+              openBoxCondition={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.condition}
               position={index + 1}
             />
           ) : null,

@@ -13,13 +13,14 @@ import { isGoodBuyGearUrl } from '@/lib/catalog/publicRetailerVisibility';
 import { blogProductKey } from '@/lib/blog/blogProductCatalog';
 import { gbgBadgeKey } from '@/lib/catalog/gbgBadge';
 import { getGbgBadgeOverrides } from '@/lib/server/gbgBadgeOverrides';
+import { getGoodBuyGearAvailability } from './goodBuyGearAvailability';
 import prisma from '@/lib/server/prisma';
 
 const GOODBUYGEAR_PROVIDER = 'impact_goodbuygear';
 
-export type BlogGoodBuyGearOffer = { url: string | null; price: number | null };
+export type BlogGoodBuyGearOffer = { url: string | null; price: number | null; condition?: string; available?: boolean | null };
 
-type ProductRef = { brand: string; productName: string };
+type ProductRef = { brand: string; productName: string; goodBuyGearUrl?: string | null };
 
 type Row = {
   brand: string | null;
@@ -69,6 +70,7 @@ export async function resolveBlogGoodBuyGearOffers(
       where: {
         provider: GOODBUYGEAR_PROVIDER,
         isActiveInFeed: true,
+        inStock: true,
         OR: brandFilters.map((b) => ({ brand: { equals: b, mode: 'insensitive' } })),
         NOT: { enrichment: { is: { reviewStatus: 'HIDDEN' } } },
       },
@@ -83,7 +85,7 @@ export async function resolveBlogGoodBuyGearOffers(
       },
     });
   } catch {
-    return {};
+    rows = [];
   }
 
   // Per-product admin overrides — a card set to 'off' never shows the badge.
@@ -92,6 +94,10 @@ export async function resolveBlogGoodBuyGearOffers(
 
   const out: Record<string, BlogGoodBuyGearOffer> = {};
   for (const p of pairs) {
+    if (p.goodBuyGearUrl) {
+      out[blogProductKey(p.brand, p.productName)] = { url: p.goodBuyGearUrl, price: null };
+      continue;
+    }
     if (overrides.get(gbgBadgeKey(p.brand, p.productName)) === 'off') continue;
     const wantBrand = canonicalBrand(p.brand).toLowerCase();
     const wantName = norm(p.productName);
@@ -125,5 +131,11 @@ export async function resolveBlogGoodBuyGearOffers(
     };
   }
 
+  await Promise.all(Object.values(out).map(async offer => {
+    if (!offer.url) return;
+    const live = await getGoodBuyGearAvailability(offer.url);
+    // Retain availability=false in the map so authored links cannot reappear as pills.
+    Object.assign(offer, live);
+  }));
   return out;
 }

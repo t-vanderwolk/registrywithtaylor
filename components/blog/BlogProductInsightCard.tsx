@@ -72,8 +72,7 @@ function resolveLinks({
       };
     })
     .filter((link): link is { href: string; label: string } => Boolean(link))
-    .filter((link, index, collection) => collection.findIndex((candidate) => candidate.href === link.href) === index)
-    .slice(0, 3);
+    .filter((link, index, collection) => collection.findIndex((candidate) => candidate.href === link.href) === index);
 }
 
 export default function BlogProductInsightCard({

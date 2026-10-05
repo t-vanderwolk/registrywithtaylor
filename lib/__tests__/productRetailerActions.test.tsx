@@ -67,7 +67,8 @@ describe('editorial retailer actions', () => {
   it('applies the same commerce layout to blog catalog cards', () => {
     const html = renderToStaticMarkup(<BlogCatalogProductCard brand="Test" productName="Model" price={419} priceSource="Babylist"
       retailerLinks={links} position={1} />);
-    expect(html).toContain('View All Retailers');
+    expect(html).not.toContain('View All Retailers');
+    expect(html).not.toMatch(/\shidden(?:=|\s|>)/);
     expect(html).toContain('Shop at Amazon');
     expect(html).not.toContain('via Babylist');
     expect(html).toContain('Reference price');

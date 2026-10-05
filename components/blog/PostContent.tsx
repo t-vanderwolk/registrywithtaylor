@@ -1,5 +1,7 @@
 'use client';
 
+import type { BlogGoodBuyGearOffer } from '@/lib/server/blogGoodBuyGear';
+
 import type { AffiliateNetwork } from '@prisma/client';
 import type { ReactNode } from 'react';
 import BlogAffiliateCTA from '@/components/blog/BlogAffiliateCTA';
@@ -77,7 +79,7 @@ type PostContentProps = {
   /** Car-seat → compatible-strollers checker hrefs keyed by blogProductKey. */
   carSeatCompatHrefs?: Record<string, string>;
   /** GoodBuy Gear open-box offers keyed by blogProductKey(brand, productName). */
-  goodBuyGearOffers?: Record<string, { url: string | null; price: number | null }>;
+  goodBuyGearOffers?: Record<string, BlogGoodBuyGearOffer>;
 };
 
 type CtaButtonVariant = 'primary' | 'secondary' | 'text';
@@ -449,7 +451,7 @@ function renderStyledBlock(
   index: number,
   highlightBrandWordmark = false,
   strollerCompatHrefs: Record<string, string> = {},
-  goodBuyGearOffers: Record<string, { url: string | null; price: number | null }> = {},
+  goodBuyGearOffers: Record<string, BlogGoodBuyGearOffer> = {},
   carSeatCompatHrefs: Record<string, string> = {},
 ) {
   if (block.type === 'poll') {
@@ -609,12 +611,15 @@ function renderStyledBlock(
         shop2Url={block.shop2Url}
         shop2Retailer={block.shop2Retailer}
         amazonUrl={block.amazonUrl}
+        retailerLinks={block.retailerLinks}
         primaryRetailer={block.primaryRetailer}
         comingSoon={block.comingSoon}
         compatHref={strollerCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
         compatStrollersHref={carSeatCompatHrefs[blogProductKey(block.brand, block.productName)] ?? null}
         openBoxUrl={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.url ?? null}
         openBoxPrice={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.price ?? null}
+        openBoxAvailable={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.available}
+        openBoxCondition={goodBuyGearOffers[blogProductKey(block.brand, block.productName)]?.condition}
         layout="inline"
         position={index + 1}
       />

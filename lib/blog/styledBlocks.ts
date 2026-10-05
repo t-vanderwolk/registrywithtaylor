@@ -1,3 +1,4 @@
+import type { RetailerLink } from '@/lib/retailerLinks';
 import type { GuideProductSpecGroup } from '@/lib/guides/productExamples';
 
 export type StyledBlockId =
@@ -90,7 +91,8 @@ export type ParsedStyledBlock =
       shopRetailer: string | null;
       shop2Url: string | null;
       shop2Retailer: string | null;
-      primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null;
+      primaryRetailer: string | null;
+      retailerLinks?: RetailerLink[];
       imageUrl: string | null;
       price: number | null;
       priceSource: string | null;
@@ -217,6 +219,19 @@ function parseKeyValueLine(line: string) {
   };
 }
 
+/** Accept pasted Markdown links as well as plain product URLs. */
+function catalogProductUrl(value: string): string | null {
+  const markdown = value.match(/^\[[\s\S]*\]\((https?:\/\/[\s\S]+)\)$/i);
+  const autolink = value.match(/^<(https?:\/\/[^>]+)>$/i);
+  const candidate = markdown
+    ? markdown[1].replace(/\\([\\`*_{}\[\]()#+.!&-])/g, '$1')
+    : autolink?.[1] ?? value;
+  try {
+    const url = new URL(candidate);
+    return ['https:', 'http:'].includes(url.protocol) && !url.username && !url.password ? candidate : null;
+  } catch { return null; }
+}
+
 function parseListItems(lines: string[]) {
   return lines.map((line) => line.replace(/^[-*]\s+/, '')).filter(Boolean);
 }
@@ -311,7 +326,7 @@ Link: Shop at Amazon | https://example.com/amazon-bugaboo
   {
     id: 'catalog-product',
     label: 'Catalog Product Card',
-    description: 'A shop-style product card matched to your affiliate catalog (live image, price, Babylist + Amazon buttons). Add manual links as fallback for products not in the catalog.',
+    description: 'A shop-style product card with all attached retailer buttons. Add named links such as Target:, Nordstrom:, or Pottery Barn Kids:, and use Primary: to choose which retailer leads.',
     snippet: `:::catalog-product
 Brand: Bugaboo
 Product: Dragonfly Plus
@@ -813,7 +828,8 @@ export function parseStyledBlock(
     let shopRetailer: string | null = null;
     let shop2Url: string | null = null;
     let shop2Retailer: string | null = null;
-    let primaryRetailer: 'babylist' | 'macrobaby' | 'shop' | 'amazon' | null = null;
+    let primaryRetailer: string | null = null;
+    const retailerLinks: RetailerLink[] = [];
     let imageUrl: string | null = null;
     let price: number | null = null;
     let priceSource: string | null = null;
@@ -824,23 +840,23 @@ export function parseStyledBlock(
       if (!parsedLine) return;
       const label = parsedLine.normalizedLabel;
       const value = parsedLine.value;
+      const url = catalogProductUrl(value);
+      const addRetailer = (retailer: string) => {
+        if (url) retailerLinks.push({ retailer, url, displayOrder: retailerLinks.length });
+      };
       if (label === 'brand') brand = value;
       else if (label === 'product' || label === 'product name' || label === 'title') productName = value;
       else if (label === 'note' || label === 'best for' || label === 'label') note = value;
-      else if (label === 'babylist' || label === 'babylist url') babylistUrl = value;
-      else if (label === 'amazon' || label === 'amazon url') amazonUrl = value;
-      else if (label === 'macrobaby' || label === 'macrobaby url') macrobabyUrl = value;
-      else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = value;
+      else if (label === 'babylist' || label === 'babylist url') { babylistUrl = url; addRetailer('Babylist'); }
+      else if (label === 'amazon' || label === 'amazon url') { amazonUrl = url; addRetailer('Amazon'); }
+      else if (label === 'macrobaby' || label === 'macrobaby url') { macrobabyUrl = url; addRetailer('MacroBaby'); }
+      else if (label === 'shop' || label === 'shop url' || label === 'link') shopUrl = url;
       else if (label === 'retailer' || label === 'shop label') shopRetailer = value;
-      else if (label === 'shop 2' || label === 'shop2' || label === 'shop 2 url') shop2Url = value;
+      else if (label === 'shop 2' || label === 'shop2' || label === 'shop 2 url') shop2Url = url;
       else if (label === 'retailer 2' || label === 'shop 2 label' || label === 'shop2 label') shop2Retailer = value;
       else if (label === 'primary' || label === 'primary retailer') {
-        const v = value.toLowerCase();
-        if (/babylist/.test(v)) primaryRetailer = 'babylist';
-        else if (/macrobaby/.test(v)) primaryRetailer = 'macrobaby';
-        else if (/amazon/.test(v)) primaryRetailer = 'amazon';
-        else primaryRetailer = 'shop';
-      } else if (label === 'image' || label === 'image url') imageUrl = value;
+        primaryRetailer = value.trim().toLowerCase();
+      } else if (label === 'image' || label === 'image url') imageUrl = url ?? value;
       else if (label === 'status' || label === 'badge') {
         if (/coming\s*soon/i.test(value)) comingSoon = true;
       } else if (label === 'coming soon') {
@@ -853,6 +869,9 @@ export function parseStyledBlock(
         if (viaMatch) priceSource = viaMatch[1].trim();
       } else if (label === 'price source' || label === 'price via') {
         priceSource = value;
+      } else if (url) {
+        // Named retailers and brand-direct links, e.g. Target: or UPPAbaby:.
+        addRetailer(parsedLine.label.replace(/\s+url$/i, '').trim());
       }
     });
 
@@ -870,6 +889,7 @@ export function parseStyledBlock(
         shop2Url,
         shop2Retailer,
         primaryRetailer,
+        retailerLinks: retailerLinks.map(link => ({ ...link, preferred: link.retailer.toLowerCase() === primaryRetailer })),
         imageUrl,
         price,
         priceSource,

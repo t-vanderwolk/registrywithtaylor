@@ -1,3 +1,4 @@
+import { isGoodBuyGearOffer } from '@/lib/catalog/publicRetailerVisibility';
 import type React from 'react';
 import type { AffiliateBrandCard } from '@/lib/affiliateBrands';
 import { BlogTrackingProvider } from '@/components/analytics/TrackingContext';
@@ -305,7 +306,15 @@ export default async function PostArticleView({
   // to a catalog row and pass the live buy link + image + price down to the cards.
   const articleStyledBlocks = extractStyledBlocks(articleContent);
   const catalogProductBlockRefs = articleStyledBlocks.flatMap((block) =>
-    block.type === 'catalog-product' ? [{ brand: block.brand, productName: block.productName }] : [],
+    block.type === 'catalog-product' ? [{
+      brand: block.brand,
+      productName: block.productName,
+      goodBuyGearUrl: [
+        ...(block.retailerLinks ?? []),
+        { retailer: block.shopRetailer ?? '', url: block.shopUrl ?? '' },
+        { retailer: block.shop2Retailer ?? '', url: block.shop2Url ?? '' },
+      ].find(link => link.url && isGoodBuyGearOffer(link))?.url,
+    }] : [],
   );
   const catalogProductCount = catalogProductBlockRefs.length;
   const serviceBlockCount = articleStyledBlocks.filter((block) => block.type === 'service').length;
